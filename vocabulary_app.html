@@ -1,0 +1,2581 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VocabMaster 单词达人</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    html, body, #root {
+      min-height: 100%;
+    }
+    body {
+      margin: 0;
+      background: #f9fafb;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel" data-type="module">
+    import React, { useState, useEffect, useRef } from 'https://esm.sh/react@18.2.0';
+    import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client?deps=react@18.2.0';
+    import { Upload, Play, Check, X, Download, BookOpen, Volume2, ArrowRight, RotateCcw, FileJson, Sparkles, Loader2, History, Printer, User, UserPlus, Trash2, Save, ChevronLeft, GraduationCap } from 'https://esm.sh/lucide-react@0.468.0?deps=react@18.2.0';
+
+    const STORAGE_KEY = 'vocabmaster_app_data';
+    const STORAGE_VERSION = 1;
+    const DATA_API = '/api/vocab-data';
+    const DATA_FILE_NAME = 'vocab_data.json';
+    const IS_FILE_PROTOCOL = window.location.protocol === 'file:';
+    const GRADE_ORDER = ['三上', '三下', '四上', '四下', '五上', '五下', '音乐', 'RFD1', 'RFD2', 'RFD3'];
+    const LESSON_TEXT_FILES = ['./四上英语课文.md', './四上英语课文_英文.md'];
+    const MAX_LESSON_EXAMPLES = 3;
+
+    const normalizeLessonText = (text) =>
+      (text || '')
+        .replace(/[\u2018\u2019]/g, "'")
+        .replace(/[\u201C\u201D]/g, '"')
+        .replace(/\u2026/g, '...')
+        .toLowerCase();
+
+    const hasChinese = (text) => /[\u4e00-\u9fff]/.test(text || '');
+
+    const parseLessonText = (raw) => {
+      const lines = (raw || '').split(/\r?\n/).map(line => line.trim());
+      const sentences = [];
+      let unit = '';
+      let lesson = '';
+      let lessonTitle = '';
+
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        if (!line) continue;
+
+        const unitMatch = line.match(/^#\s*(U\d+)\b(.*)$/i);
+        if (unitMatch) {
+          unit = unitMatch[1].toUpperCase();
+          lesson = '';
+          lessonTitle = '';
+          continue;
+        }
+
+        const lessonMatch = line.match(/^##\s*(L\d+)\b\s*(.*)$/i);
+        if (lessonMatch) {
+          lesson = lessonMatch[1].toUpperCase();
+          lessonTitle = (lessonMatch[2] || '').trim();
+          continue;
+        }
+
+        if (line.startsWith('#')) continue;
+        if (hasChinese(line)) continue;
+
+        let zh = '';
+        if (i + 1 < lines.length && hasChinese(lines[i + 1])) {
+          zh = lines[i + 1];
+          i += 1;
+        }
+
+        sentences.push({
+          en: line,
+          zh,
+          unit,
+          lesson,
+          lessonTitle,
+          source: [unit, lesson].filter(Boolean).join(' '),
+        });
+      }
+
+      return sentences;
+    };
+
+    const getPreferredLessonUnit = (section) => {
+      const match = (section || '').match(/Unit\s*(\d+)/i);
+      return match ? `U${match[1]}` : '';
+    };
+
+    const sentenceContainsWord = (sentence, wordText) => {
+      const word = normalizeLessonText(wordText).trim();
+      const hay = normalizeLessonText(sentence);
+      if (!word || !hay) return false;
+
+      if (word.includes(' ')) {
+        const phrase = word.replace(/\s+/g, '\\s+');
+        return new RegExp(phrase, 'i').test(hay);
+      }
+
+      const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const pattern = new RegExp(
+        `(^|[^a-z0-9])${escaped}(?:'s|s|es|ed|ing|er|est)?(?![a-z0-9])`,
+        'i'
+      );
+      return pattern.test(hay);
+    };
+
+    const findLessonExamples = (word, lessonSentences, limit = MAX_LESSON_EXAMPLES) => {
+      if (!word || !lessonSentences?.length) return [];
+      const preferredUnit = getPreferredLessonUnit(word.section);
+      const matched = lessonSentences.filter(s => sentenceContainsWord(s.en, word.english_word));
+      const sameUnit = preferredUnit
+        ? matched.filter(s => (s.unit || '').toUpperCase() === preferredUnit)
+        : [];
+      const ranked = (sameUnit.length ? sameUnit : matched);
+      const seen = new Set();
+      const unique = [];
+      for (const item of ranked) {
+        const key = normalizeLessonText(item.en);
+        if (seen.has(key)) continue;
+        seen.add(key);
+        unique.push(item);
+        if (unique.length >= limit) break;
+      }
+      return unique;
+    };
+
+    const highlightLessonWord = (sentence, wordText) => {
+      const word = (wordText || '').trim();
+      if (!sentence || !word) return sentence;
+
+      if (word.includes(' ')) {
+        const parts = word.split(/\s+/).map(p => p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+        const re = new RegExp(`(${parts.join('\\s+')})`, 'ig');
+        return String(sentence).replace(re, '<mark class="bg-amber-200 text-amber-900 px-0.5 rounded">$1</mark>');
+      }
+
+      const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const re = new RegExp(`\\b(${escaped}(?:'s|s|es|ed|ing|er|est)?)\\b`, 'ig');
+      return String(sentence).replace(re, '<mark class="bg-amber-200 text-amber-900 px-0.5 rounded">$1</mark>');
+    };
+
+    const parseSectionMeta = (section) => {
+      const match = section.match(/^(.+?)(Unit .+)$/);
+      if (match) {
+        return { grade: match[1].trim(), unitLabel: match[2], full: section };
+      }
+      return { grade: section, unitLabel: '全部', full: section };
+    };
+
+    const isRecognitionWord = (word) => (
+      (word?.learning_requirement || '').includes('见到英文')
+    );
+
+    const normalizeMeaning = (text) => (text || '').trim();
+
+    const POS_CANON = {
+      'n.': 'n', noun: 'n',
+      'v.': 'v', verb: 'v',
+      'adj.': 'adj', adjective: 'adj',
+      'adv.': 'adv', adverb: 'adv',
+      'det.': 'det', determiner: 'det',
+      'pron.': 'pron', pronoun: 'pron',
+      'prep.': 'prep', preposition: 'prep',
+      'conj.': 'conj', conjunction: 'conj',
+      'num.': 'num', number: 'num',
+      'phr.': 'phr', phrase: 'phr',
+    };
+
+    const getWordPos = (word) => {
+      const raw = (word?.pos || '').trim().toLowerCase();
+      if (!raw) return '';
+      return POS_CANON[raw] || raw.replace(/\.$/, '');
+    };
+
+    const POS_LABEL_ZH = {
+      n: '名词', v: '动词', adj: '形容词', adv: '副词',
+      det: '限定词', pron: '代词', prep: '介词', conj: '连词',
+      num: '数词', phr: '短语',
+    };
+
+    // 重点词的结构记忆（词根词缀 / 词性转化 / 发音），非故事型助记
+    const SPECIAL_STUDY_TIPS = {
+      worried: 'worry(担心) → worried：y→i 再加 -ed，动词变形容词「担心的」',
+      worry: '词族：worry(v.) → worried(adj.)；Don’t worry = 别担心',
+      excited: 'excite + -ed → excited：人对……感到兴奋（ed 表自身感受）',
+      interesting: 'interest + -ing → interesting：事物「令人感兴趣」（ing 表主动特征）',
+      different: 'differ(不同) + -ent → different(形容词)',
+      remember: 're-(再) + member → 再想起来；反义 forget',
+      together: 'to + get + her 可拆读，整体记「一起」',
+      welcome: 'wel(好) + come(来) → 欢迎到来',
+      'in time': '词组：in + time → 及时 / 刚好赶上',
+      'calm down': '动词词组：calm(冷静) + down → 冷静下来',
+      'excuse me': '礼貌用语：excuse(原谅) + me → 劳驾 / 借过',
+      better: 'good / well 的不规则比较级：good → better → best',
+      best: 'good / well 的不规则最高级：good → better → best',
+      angry: '发怒 anger(n.) → angry(adj.)；拼写注意 -gry',
+      sad: '短元音 /æ/；反义 happy',
+      happy: '词尾 -y 常构成形容词；反义 sad',
+      late: '开音节 a_e → /eɪ/；反义 early',
+      matter: 'What’s the matter? = What’s wrong? 固定问句',
+      should: '情态动词：should + 动词原形 → 应该……',
+      could: '情态动词：could 比 can 更礼貌（Could you…?）',
+      would: 'Would you please…? 礼貌请求；I’d like = I would like',
+      must: '情态动词：must + 动词原形 → 必须',
+      may: '情态动词：May I…? 请求允许',
+      polite: '反义 impolite / not polite；词族 politely',
+      hungry: 'hunger(n.) → hungry(adj.)：饿的',
+      thirsty: 'thirst(n.) → thirsty(adj.)：渴的',
+      healthy: 'health(n.) + -y → healthy(adj.)：健康的',
+      lovely: 'love + -ly → lovely：可爱的（此处 -ly 构成形容词）',
+      favourite: '美式 favorite；favour + -ite → 最喜欢的',
+      sandwich: '可拆读 sand-wich；复合名词',
+      tomato: '复数 tomatoes（加 -es）',
+      potato: '复数 potatoes（加 -es）',
+      animal: '重音在第一音节 A-ni-mal',
+      nature: '词族：nature(n.) → natural(adj.)',
+      without: 'with + out → 没有 / 不带',
+      fireworks: 'fire + works → 烟花（合成词）',
+      firecrackers: 'fire + crackers → 鞭炮（合成词）',
+      lantern: '词族：lantern → Lantern Festival 元宵节',
+      festival: '重音 fes-ti-val；Spring / Lantern Festival',
+      character: '多音节拆读 char-ac-ter；也可指汉字',
+      monster: '词尾 -er 表人或物；故事中的 Nian',
+      afraid: 'a + fraid；be afraid of… 害怕……',
+      banana: '开音节反复：ba-na-na，重音常在第二音节',
+      garden: 'gar-den 两音节；ar 常发 /ɑː/',
+      problem: 'prob-lem 两音节；o 发短音',
+      tomorrow: 'to-mor-row；双写 r',
+      today: 'to + day → 今天',
+      classroom: 'class + room → 教室（合成词）',
+      schoolbag: 'school + bag → 书包（合成词）',
+      raincoat: 'rain + coat → 雨衣（合成词）',
+      'hot dog': 'hot + dog → 热狗（合成词组）',
+      'ice-skating': 'ice + skating → 滑冰；skate + -ing',
+      leaves: 'leaf 的不规则复数：f → ves',
+      mice: 'mouse 的不规则复数',
+      sunny: 'sun + -y → sunny：出太阳的',
+      rainy: 'rain + -y → rainy：下雨的',
+      windy: 'wind + -y → windy：有风的',
+      cloudy: 'cloud + -y → cloudy：多云的',
+      snowy: 'snow + -y → snowy：下雪的',
+    };
+
+    const buildCardStudyTip = (word) => {
+      const en = (word?.english_word || '').trim();
+      if (!en) return '';
+      const lower = en.toLowerCase();
+      const pos = getWordPos(word);
+      const posLabel = POS_LABEL_ZH[pos] || '';
+      const tips = [];
+
+      if (SPECIAL_STUDY_TIPS[lower]) {
+        tips.push(SPECIAL_STUDY_TIPS[lower]);
+      }
+
+      if (/\s/.test(lower) && tips.length === 0) {
+        tips.push(`词组拆记：${lower.split(/\s+/).join(' + ')}`);
+      }
+
+      if (lower.includes('-') && tips.length === 0) {
+        tips.push(`合成词：${lower.split('-').join(' + ')}`);
+      }
+
+      // 词缀 / 词性转化
+      if (!SPECIAL_STUDY_TIPS[lower] && !/\s/.test(lower)) {
+        if (lower.endsWith('ied') && (pos === 'adj' || pos === 'v')) {
+          tips.push(`变形：${lower.slice(0, -3)}y → ${lower}（y→i+-ed）`);
+        } else if (lower.endsWith('ed') && lower.length > 4 && (pos === 'adj' || pos === 'v')) {
+          tips.push('词尾 -ed：常表「已经……」或状态形容词');
+        } else if (lower.endsWith('ing') && lower.length > 5) {
+          tips.push('词尾 -ing：进行式，或「令人……的」形容词');
+        } else if (lower.endsWith('ly') && pos === 'adv') {
+          tips.push(`副词构成：去/留词干 + -ly → ${lower}`);
+        } else if (lower.endsWith('tion') || lower.endsWith('sion')) {
+          tips.push('后缀 -tion/-sion：常构成名词，读 /ʃən/');
+        } else if (lower.endsWith('ful')) {
+          tips.push('后缀 -ful：……的 → 形容词');
+        } else if (lower.endsWith('less')) {
+          tips.push('后缀 -less：没有……的');
+        } else if (lower.endsWith('ness')) {
+          tips.push('后缀 -ness：形容词 → 名词');
+        } else if (lower.endsWith('ment')) {
+          tips.push('后缀 -ment：动词 → 名词');
+        } else if ((lower.endsWith('er') || lower.endsWith('or')) && pos === 'n' && lower.length > 4) {
+          tips.push('词尾 -er/-or：常表示人或器具');
+        } else if (lower.startsWith('un') && lower.length > 4) {
+          tips.push('前缀 un-：表示「不 / 未」');
+        } else if (lower.startsWith('re') && lower.length > 5 && !['rest', 'read', 'real', 'red'].includes(lower)) {
+          tips.push('前缀 re-：常表示「再 / 重新」');
+        } else if (lower.endsWith('y') && pos === 'adj' && lower.length > 3) {
+          const base = lower.slice(0, -1);
+          tips.push(`后缀 -y：${base} + -y → ${lower}（……的）`);
+        }
+      }
+
+      // 发音规则
+      if (tips.length < 2 && !/\s/.test(lower)) {
+        if (/ough/.test(lower)) tips.push('发音：ough 组合读音特殊，需单独记');
+        else if (lower.endsWith('tion')) tips.push('发音：-tion → /ʃən/');
+        else if (/th/.test(lower)) tips.push('发音：th 为咬舌音 /θ/ 或 /ð/');
+        else if (/(ee|ea)/.test(lower)) tips.push('发音：ee/ea 常发长音 /i:/');
+        else if (/oo/.test(lower)) tips.push('发音：oo 常发 /u:/ 或 /ʊ/');
+        else if (/[aeiou][bcdfghjklmnpqrstvwxyz]e$/.test(lower) && lower.length >= 4) {
+          tips.push('发音：词尾静音 e，常让前元音发长音');
+        } else if (/ck$/.test(lower)) {
+          tips.push('拼写：短元音后常用 ck 表 /k/');
+        }
+      }
+
+      // 词性兜底
+      if (tips.length === 0 && posLabel) {
+        tips.push(`${posLabel}：抓住词性，对照中文「${word.chinese_meaning || ''}」记忆`);
+      }
+
+      // 较长单词拆读兜底
+      if (tips.length === 0 && lower.length >= 6) {
+        const mid = Math.ceil(lower.length / 2);
+        tips.push(`拆读记忆：${lower.slice(0, mid)}-${lower.slice(mid)}`);
+      }
+
+      if (tips.length === 0) {
+        tips.push(posLabel ? `${posLabel}，直接音形义对照记` : '音形义对照，朗读两遍再写');
+      }
+
+      return tips.slice(0, 2).join('；');
+    };
+
+    const levenshtein = (a, b) => {
+      const m = a.length;
+      const n = b.length;
+      if (m === 0) return n;
+      if (n === 0) return m;
+      const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
+      for (let i = 0; i <= m; i++) dp[i][0] = i;
+      for (let j = 0; j <= n; j++) dp[0][j] = j;
+      for (let i = 1; i <= m; i++) {
+        for (let j = 1; j <= n; j++) {
+          const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+          dp[i][j] = Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + cost);
+        }
+      }
+      return dp[m][n];
+    };
+
+    const getSpellingSimilarity = (targetWord, candidateWord) => {
+      const a = (targetWord.english_word || '').toLowerCase().trim();
+      const b = (candidateWord.english_word || '').toLowerCase().trim();
+      if (!a || !b || a === b) return 0;
+      const maxLen = Math.max(a.length, b.length);
+      const ratio = 1 - levenshtein(a, b) / maxLen;
+      let prefix = 0;
+      for (let i = 0; i < Math.min(a.length, b.length); i++) {
+        if (a[i] === b[i]) prefix += 1;
+        else break;
+      }
+      const prefixBoost = prefix >= 3 ? 0.12 : (prefix >= 2 && maxLen >= 5 ? 0.08 : 0);
+      return Math.min(1, ratio + prefixBoost);
+    };
+
+    const isSpellingSimilar = (target, candidate, threshold = 0.5) => (
+      getSpellingSimilarity(target, candidate) >= threshold
+    );
+
+    const isSamePos = (target, candidate) => {
+      const p1 = getWordPos(target);
+      const p2 = getWordPos(candidate);
+      return Boolean(p1 && p2 && p1 === p2);
+    };
+
+    const matchesDistractorRule = (target, candidate, opts = {}) => {
+      if (opts.posOnly) return isSamePos(target, candidate);
+      if (opts.spellingOnly) {
+        return isSpellingSimilar(target, candidate, opts.spellingThreshold ?? 0.3);
+      }
+      return isSamePos(target, candidate)
+        || isSpellingSimilar(target, candidate, opts.spellingThreshold ?? 0.5);
+    };
+
+    const scoreDistractor = (target, candidate, opts = {}) => {
+      let score = Math.random();
+      if (isSamePos(target, candidate)) score += 40;
+      if (isSpellingSimilar(target, candidate, opts.spellingThreshold ?? 0.5)) score += 35;
+      score += getSpellingSimilarity(target, candidate) * 15;
+      return score;
+    };
+
+    // 见英选义：干扰项须满足「同词性 / 拼写相似」至少一项，可来自全词库
+    const buildRecognitionChoices = (currentWord, allWords, choiceCount = 4) => {
+      const correct = normalizeMeaning(currentWord.chinese_meaning);
+      const pool = allWords.filter(w =>
+        w.id !== currentWord.id &&
+        normalizeMeaning(w.chinese_meaning) !== correct &&
+        normalizeMeaning(w.chinese_meaning).length > 0
+      );
+
+      const need = choiceCount - 1;
+      const picked = [];
+      const usedIds = new Set();
+      const usedMeanings = new Set([correct]);
+
+      const addFromTier = (opts) => {
+        const ranked = pool
+          .filter(w => !usedIds.has(w.id))
+          .filter(w => matchesDistractorRule(currentWord, w, opts))
+          .sort((a, b) => scoreDistractor(currentWord, b, opts) - scoreDistractor(currentWord, a, opts));
+
+        for (const w of ranked) {
+          const meaning = normalizeMeaning(w.chinese_meaning);
+          if (usedMeanings.has(meaning)) continue;
+          picked.push(w);
+          usedIds.add(w.id);
+          usedMeanings.add(meaning);
+          if (picked.length >= need) break;
+        }
+      };
+
+      const tiers = [
+        { spellingThreshold: 0.5 },
+        { posOnly: true },
+        { spellingOnly: true, spellingThreshold: 0.3 },
+      ];
+
+      for (const opts of tiers) {
+        if (picked.length >= need) break;
+        addFromTier(opts);
+      }
+
+      return [
+        { key: String(currentWord.id), text: correct, isCorrect: true },
+        ...picked.map(w => ({
+          key: String(w.id),
+          text: normalizeMeaning(w.chinese_meaning),
+          isCorrect: false,
+        })),
+      ].sort(() => Math.random() - 0.5);
+    };
+
+    const sortGrades = (grades) => (
+      [...grades].sort((a, b) => {
+        const ia = GRADE_ORDER.indexOf(a);
+        const ib = GRADE_ORDER.indexOf(b);
+        if (ia === -1 && ib === -1) return a.localeCompare(b, 'zh-CN');
+        if (ia === -1) return 1;
+        if (ib === -1) return -1;
+        return ia - ib;
+      })
+    );
+
+    const getGradesFromSections = (sectionList) => (
+      sortGrades([...new Set(sectionList.map(s => parseSectionMeta(s).grade))])
+    );
+
+    const getSectionsForGrade = (sectionList, grade) => (
+      sectionList
+        .filter(s => parseSectionMeta(s).grade === grade)
+        .sort((a, b) => {
+          const na = parseInt(a.match(/Unit (\d+)/)?.[1] || '0', 10);
+          const nb = parseInt(b.match(/Unit (\d+)/)?.[1] || '0', 10);
+          return na - nb;
+        })
+    );
+
+    const MISTAKE_BOOK_ALL = '⚠️ 错题本';
+    const MISTAKE_EXIT_STREAK = 2;
+
+    const getMistakeBookKey = (grade = null) => (
+      grade ? `${MISTAKE_BOOK_ALL}·${grade}` : MISTAKE_BOOK_ALL
+    );
+
+    const isMistakeBookKey = (key) => (
+      key === MISTAKE_BOOK_ALL || key.startsWith(`${MISTAKE_BOOK_ALL}·`)
+    );
+
+    const getMistakeBookGradeFromKey = (key) => {
+      if (key === MISTAKE_BOOK_ALL) return null;
+      if (key.startsWith(`${MISTAKE_BOOK_ALL}·`)) {
+        return key.slice(MISTAKE_BOOK_ALL.length + 1);
+      }
+      return null;
+    };
+
+    const isInMistakeBook = (word) => (
+      (word.incorrectCount || 0) > 0 && !word.mistakeCleared
+    );
+
+    const getMistakeLevel = (word) => {
+      const n = word.incorrectCount || 0;
+      if (n >= 4) {
+        return { level: 3, label: '重点', className: 'text-red-700 bg-red-100 border-red-200' };
+      }
+      if (n >= 2) {
+        return { level: 2, label: '需巩固', className: 'text-amber-700 bg-amber-100 border-amber-200' };
+      }
+      return { level: 1, label: '偶错', className: 'text-orange-700 bg-orange-100 border-orange-200' };
+    };
+
+    const getMistakeWords = (wordList, grade = null) => {
+      let list = (wordList || []).filter(isInMistakeBook);
+      if (grade) {
+        list = list.filter(w => parseSectionMeta(w.section).grade === grade);
+      }
+      return list;
+    };
+
+    const countMistakeByLevel = (wordList, grade = null) => {
+      const mistakes = getMistakeWords(wordList, grade);
+      return {
+        total: mistakes.length,
+        level1: mistakes.filter(w => getMistakeLevel(w).level === 1).length,
+        level2: mistakes.filter(w => getMistakeLevel(w).level === 2).length,
+        level3: mistakes.filter(w => getMistakeLevel(w).level === 3).length,
+      };
+    };
+
+    const normalizeWordStats = (word) => ({
+      ...word,
+      correctCount: word.correctCount || 0,
+      incorrectCount: word.incorrectCount || 0,
+      consecutiveCorrect: word.consecutiveCorrect || 0,
+      mistakeCleared: word.mistakeCleared || false,
+    });
+
+    // 词库曾将四上 Unit 2/3/5/6/7 误标为四下（id 176-278），加载时自动纠正
+    const MISPLACED_ID_RANGE = [176, 278];
+    const MISPLACED_SECTION_MAP = {
+      '四下Unit 2': '四上Unit 2',
+      '四下Unit 3': '四上Unit 3',
+      '四下Unit 5': '四上Unit 5',
+      '四下Unit 6': '四上Unit 6',
+      '四下Unit 7': '四上Unit 7',
+    };
+
+    const isMisplacedWordId = (id) => {
+      const n = parseInt(id, 10);
+      return !Number.isNaN(n) && n >= MISPLACED_ID_RANGE[0] && n <= MISPLACED_ID_RANGE[1];
+    };
+
+    const migrateMislabeledWords = (wordList) => (
+      (wordList || []).map(w => {
+        if (isMisplacedWordId(w.id) && MISPLACED_SECTION_MAP[w.section]) {
+          return { ...w, section: MISPLACED_SECTION_MAP[w.section] };
+        }
+        return w;
+      })
+    );
+
+    const migrateSelectedSections = (sections, wordList) => {
+      const list = sections || [];
+      const words = wordList || [];
+      return list.map(section => {
+        if (!MISPLACED_SECTION_MAP[section]) return section;
+        const hasMisplaced = words.some(w => w.section === section && isMisplacedWordId(w.id));
+        const hasReal = words.some(w => w.section === section && !isMisplacedWordId(w.id));
+        if (hasMisplaced && !hasReal) return MISPLACED_SECTION_MAP[section];
+        return section;
+      });
+    };
+
+    // 三下词库原把 Lesson 编号误标为 Unit，按北京版（2024）教材映射为真正 Unit
+    const SANXIA_LESSON_TO_UNIT = {
+      1: 1, 2: 1, 3: 1, 4: 1,
+      5: 2, 6: 2, 7: 2, 8: 2,
+      9: 3, 10: 3, 11: 3, 12: 3,
+      13: 4, 14: 4,
+      15: 5, 16: 5, 17: 5, 18: 5,
+      19: 6, 20: 6, 21: 6, 22: 6,
+      23: 7, 24: 7, 25: 7, 26: 7,
+      27: 8, 28: 8,
+    };
+
+    const normalizeSanxiaSection = (section) => {
+      const match = section.match(/^三下Unit (\d+)$/);
+      if (!match) return section;
+      const lesson = parseInt(match[1], 10);
+      const unit = SANXIA_LESSON_TO_UNIT[lesson];
+      return unit ? `三下Unit ${unit}` : section;
+    };
+
+    const migrateSanxiaWords = (wordList) => (
+      (wordList || []).map(w => ({
+        ...w,
+        section: normalizeSanxiaSection(w.section),
+      }))
+    );
+
+    const migrateSanxiaSelectedSections = (sections) => {
+      const mapped = (sections || []).map(normalizeSanxiaSection);
+      return [...new Set(mapped)];
+    };
+
+    const migrateUserRecord = (user) => {
+      if (!user) return user;
+      let words = migrateMislabeledWords(user.words);
+      words = migrateSanxiaWords(words).map(normalizeWordStats);
+      let selectedSections = migrateSelectedSections(user.selectedSections, words);
+      selectedSections = migrateSanxiaSelectedSections(selectedSections);
+      return {
+        ...user,
+        words,
+        selectedSections,
+      };
+    };
+
+    const buildPayload = (currentUserId, users) => ({
+      version: STORAGE_VERSION,
+      currentUserId,
+      users,
+      savedAt: new Date().toISOString(),
+    });
+
+    const isValidAppData = (data) =>
+      data && data.version === STORAGE_VERSION && data.users && typeof data.users === 'object';
+
+    const loadFromBrowser = () => {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return null;
+        const data = JSON.parse(raw);
+        return isValidAppData(data) ? data : null;
+      } catch {
+        return null;
+      }
+    };
+
+    const saveToBrowser = (payload) => {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+    };
+
+    const pickNewerData = (a, b) => {
+      if (!isValidAppData(a)) return isValidAppData(b) ? b : null;
+      if (!isValidAppData(b)) return a;
+      const ta = new Date(a.savedAt || 0).getTime();
+      const tb = new Date(b.savedAt || 0).getTime();
+      return ta >= tb ? a : b;
+    };
+
+    const checkServerAvailable = async () => {
+      try {
+        const res = await fetch('/api/health');
+        return res.ok;
+      } catch {
+        return false;
+      }
+    };
+
+    const loadFromLocalFile = async () => {
+      try {
+        const res = await fetch(DATA_API);
+        if (!res.ok) return null;
+        const data = await res.json();
+        return isValidAppData(data) ? data : null;
+      } catch {
+        return null;
+      }
+    };
+
+    const saveToLocalFile = async (payload) => {
+      const res = await fetch(DATA_API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      return res.ok;
+    };
+
+    const loadAppData = async () => {
+      const serverAvailable = await checkServerAvailable();
+      const browserData = loadFromBrowser();
+      const fileData = serverAvailable ? await loadFromLocalFile() : null;
+      const data = pickNewerData(fileData, browserData);
+
+      if (data) {
+        const migratedUsers = Object.fromEntries(
+          Object.entries(data.users).map(([id, user]) => [id, migrateUserRecord(user)])
+        );
+        data.users = migratedUsers;
+        saveToBrowser(data);
+      }
+
+      return {
+        data,
+        serverAvailable,
+        source: data === fileData ? 'file' : data === browserData ? 'browser' : null,
+      };
+    };
+
+    const persistAppData = async (currentUserId, users, serverAvailable) => {
+      const payload = buildPayload(currentUserId, users);
+      saveToBrowser(payload);
+
+      if (!serverAvailable) {
+        return 'browser';
+      }
+
+      try {
+        const ok = await saveToLocalFile(payload);
+        return ok ? 'file' : 'browser';
+      } catch {
+        return 'browser';
+      }
+    };
+
+    const createEmptyUser = (name) => ({
+      id: `user_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+      name,
+      selectedGrade: null,
+      selectedSections: [],
+      words: [],
+      vocabSource: '',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    });
+
+    const mergeWordStats = (incomingWords, existingWords) => {
+      const statsById = new Map(
+        (existingWords || []).map(w => [w.id, {
+          correctCount: w.correctCount || 0,
+          incorrectCount: w.incorrectCount || 0,
+          consecutiveCorrect: w.consecutiveCorrect || 0,
+          mistakeCleared: w.mistakeCleared || false,
+        }])
+      );
+      return incomingWords.map(w => {
+        const prev = statsById.get(w.id);
+        return normalizeWordStats({
+          ...w,
+          correctCount: prev?.correctCount ?? w.correctCount ?? 0,
+          incorrectCount: prev?.incorrectCount ?? w.incorrectCount ?? 0,
+          consecutiveCorrect: prev?.consecutiveCorrect ?? w.consecutiveCorrect ?? 0,
+          mistakeCleared: prev?.mistakeCleared ?? w.mistakeCleared ?? false,
+        });
+      });
+    };
+
+    const parseData = (text) => {
+      const lines = text.split('\n');
+      const parsedWords = [];
+
+      lines.forEach(line => {
+        let parts = [];
+
+        if (line.includes('|')) {
+          parts = line.split('|').map(s => s.trim());
+          if (parts[0] === '') parts.shift();
+          if (parts[parts.length - 1] === '') parts.pop();
+        } else if (line.includes(',')) {
+          parts = line.split(',').map(s => s.trim());
+        } else {
+          return;
+        }
+
+        if (parts.length >= 5 && !parts[0].match(/^[-:]+$/) && parts[0].toLowerCase() !== 'id') {
+          parsedWords.push(normalizeWordStats({
+            id: parts[0],
+            section: parts[1],
+            english_word: parts[2],
+            chinese_meaning: parts[3],
+            learning_requirement: parts[4],
+            pos: parts[5] || '',
+            correctCount: 0,
+            incorrectCount: 0,
+            consecutiveCorrect: 0,
+            mistakeCleared: false,
+          }));
+        }
+      });
+      return parsedWords;
+    };
+
+    function App() {
+      const [appState, setAppState] = useState('import'); // 'import', 'select', 'study', 'summary', 'print', 'users'
+      const [words, setWords] = useState([]);
+      const [errorMsg, setErrorMsg] = useState('');
+      const [isHydrated, setIsHydrated] = useState(false);
+      const [saveStatus, setSaveStatus] = useState(''); // '', 'saving', 'saved-file', 'saved-browser'
+      const [serverAvailable, setServerAvailable] = useState(false);
+      
+      // User State
+      const [users, setUsers] = useState({});
+      const [currentUserId, setCurrentUserId] = useState(null);
+      const [newUserName, setNewUserName] = useState('');
+      const [showUserPanel, setShowUserPanel] = useState(false);
+      
+      // Selection State
+      const [sections, setSections] = useState([]);
+      const [selectedGrade, setSelectedGrade] = useState(null);
+      const [selectedSections, setSelectedSections] = useState([]);
+      
+      // Study State
+      const [studyList, setStudyList] = useState([]);
+      const [printList, setPrintList] = useState([]); // New state for printing
+      const [currentIndex, setCurrentIndex] = useState(0);
+      const [userInput, setUserInput] = useState('');
+      const [feedback, setFeedback] = useState(null); // 'correct', 'incorrect'
+      const [showHint, setShowHint] = useState(false);
+      const [recognitionChoices, setRecognitionChoices] = useState([]);
+      const [selectedChoiceKey, setSelectedChoiceKey] = useState(null);
+      
+      // Stats
+      const [sessionStats, setSessionStats] = useState({ correct: 0, incorrect: 0 });
+
+      // AI Features State
+      const [isAILoading, setIsAILoading] = useState(false);
+      const [aiHintText, setAiHintText] = useState('');
+      const [aiHintSource, setAiHintSource] = useState(''); // 'ai' | 'local'
+
+      // Lesson example sentences from 课文原文
+      const [lessonSentences, setLessonSentences] = useState([]);
+      
+      // Dictionary / Audio State
+      const [currentPhonetic, setCurrentPhonetic] = useState('');
+      const [currentAudioUrl, setCurrentAudioUrl] = useState('');
+
+      const inputRef = useRef(null);
+      const saveTimerRef = useRef(null);
+      const usersRef = useRef({});
+      const wordsRef = useRef([]);
+      const serverAvailableRef = useRef(false);
+
+      useEffect(() => {
+        usersRef.current = users;
+      }, [users]);
+
+      useEffect(() => {
+        wordsRef.current = words;
+      }, [words]);
+
+      const currentUser = currentUserId ? users[currentUserId] : null;
+
+      const applyWordsToState = (parsedWords, sourceLabel = '', nextSelectedSections = null, nextSelectedGrade = null, keepAppState = false) => {
+        const uniqueSections = [...new Set(parsedWords.map(w => w.section))];
+        const grades = getGradesFromSections(uniqueSections);
+        setWords(parsedWords);
+        setSections(uniqueSections);
+        const sectionsToUse = nextSelectedSections ?? selectedSections.filter(s => isMistakeBookKey(s) || uniqueSections.includes(s));
+        setSelectedSections(sectionsToUse);
+        const gradeCandidate = nextSelectedGrade ?? selectedGrade;
+        const gradeToUse = gradeCandidate && grades.includes(gradeCandidate) ? gradeCandidate : null;
+        setSelectedGrade(gradeToUse);
+        if (!keepAppState) {
+          setAppState(parsedWords.length > 0 ? 'select' : 'import');
+        }
+        if (currentUserId) {
+          setUsers(prev => ({
+            ...prev,
+            [currentUserId]: {
+              ...prev[currentUserId],
+              words: parsedWords,
+              selectedGrade: gradeToUse,
+              selectedSections: sectionsToUse,
+              vocabSource: sourceLabel || prev[currentUserId]?.vocabSource || '',
+              updatedAt: new Date().toISOString(),
+            },
+          }));
+        }
+      };
+
+      const switchUser = (userId) => {
+        const user = users[userId] || usersRef.current[userId];
+        if (!user) return;
+
+        if (saveTimerRef.current) {
+          clearTimeout(saveTimerRef.current);
+          saveTimerRef.current = null;
+        }
+
+        let nextUsers = { ...usersRef.current };
+        if (currentUserId && nextUsers[currentUserId]) {
+          nextUsers = {
+            ...nextUsers,
+            [currentUserId]: {
+              ...nextUsers[currentUserId],
+              words,
+              selectedGrade,
+              selectedSections,
+              updatedAt: new Date().toISOString(),
+            },
+          };
+        }
+
+        usersRef.current = nextUsers;
+        setUsers(nextUsers);
+        setCurrentUserId(userId);
+        setErrorMsg('');
+        setShowUserPanel(false);
+
+        const target = nextUsers[userId];
+        if (target.words && target.words.length > 0) {
+          const uniqueSections = [...new Set(target.words.map(w => w.section))];
+          const grades = getGradesFromSections(uniqueSections);
+          const restoredGrade = target.selectedGrade && grades.includes(target.selectedGrade)
+            ? target.selectedGrade
+            : null;
+          setWords(target.words);
+          setSections(uniqueSections);
+          setSelectedGrade(restoredGrade);
+          setSelectedSections(target.selectedSections || []);
+          setAppState('select');
+        } else {
+          setWords([]);
+          setSections([]);
+          setSelectedGrade(null);
+          setSelectedSections([]);
+          setAppState('import');
+        }
+
+        persistAppData(userId, nextUsers, serverAvailableRef.current);
+      };
+
+      const createUser = (name) => {
+        const trimmed = name.trim();
+        if (!trimmed) {
+          setErrorMsg('请输入用户名');
+          return null;
+        }
+        const user = createEmptyUser(trimmed);
+        const nextUsers = { ...usersRef.current, [user.id]: user };
+        usersRef.current = nextUsers;
+        setUsers(nextUsers);
+        setCurrentUserId(user.id);
+        setNewUserName('');
+        setWords([]);
+        setSections([]);
+        setSelectedGrade(null);
+        setSelectedSections([]);
+        setAppState('import');
+        setShowUserPanel(false);
+        setErrorMsg('');
+        persistAppData(user.id, nextUsers, serverAvailableRef.current);
+        return user;
+      };
+
+      const deleteUser = (userId) => {
+        if (!users[userId] && !usersRef.current[userId]) return;
+        const remainingIds = Object.keys(usersRef.current).filter(id => id !== userId);
+        if (remainingIds.length === 0) {
+          setErrorMsg('至少保留一个用户');
+          return;
+        }
+        const nextUsers = { ...usersRef.current };
+        delete nextUsers[userId];
+        usersRef.current = nextUsers;
+        setUsers(nextUsers);
+        if (currentUserId === userId) {
+          switchUser(remainingIds[0]);
+        } else {
+          persistAppData(currentUserId, nextUsers, serverAvailableRef.current);
+        }
+      };
+
+      // Restore from local JSON file (preferred) or browser cache
+      useEffect(() => {
+        let cancelled = false;
+
+        (async () => {
+          const { data: stored, serverAvailable: serverOk } = await loadAppData();
+          if (cancelled) return;
+
+          serverAvailableRef.current = serverOk;
+          setServerAvailable(serverOk);
+
+          if (stored && Object.keys(stored.users).length > 0) {
+            usersRef.current = stored.users;
+            setUsers(stored.users);
+            const uid = stored.currentUserId && stored.users[stored.currentUserId]
+              ? stored.currentUserId
+              : Object.keys(stored.users)[0];
+            setCurrentUserId(uid);
+            const user = stored.users[uid];
+            if (user.words?.length > 0) {
+              const uniqueSections = [...new Set(user.words.map(w => w.section))];
+              const grades = getGradesFromSections(uniqueSections);
+              const restoredGrade = user.selectedGrade && grades.includes(user.selectedGrade)
+                ? user.selectedGrade
+                : null;
+              setWords(user.words);
+              setSections(uniqueSections);
+              setSelectedGrade(restoredGrade);
+              setSelectedSections(user.selectedSections || []);
+              setAppState('select');
+            }
+          }
+          setIsHydrated(true);
+        })();
+
+        return () => {
+          cancelled = true;
+        };
+      }, []);
+
+      // Auto-save to local JSON file + browser cache (debounced)
+      useEffect(() => {
+        if (!isHydrated || !currentUserId) return;
+
+        setSaveStatus('saving');
+        if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
+
+        saveTimerRef.current = setTimeout(async () => {
+          const baseUsers = usersRef.current;
+          if (!baseUsers[currentUserId]) return;
+
+          const updatedUsers = {
+            ...baseUsers,
+            [currentUserId]: {
+              ...baseUsers[currentUserId],
+              words,
+              selectedGrade,
+              selectedSections,
+              updatedAt: new Date().toISOString(),
+            },
+          };
+          usersRef.current = updatedUsers;
+          setUsers(updatedUsers);
+
+          const mode = await persistAppData(currentUserId, updatedUsers, serverAvailableRef.current);
+          setSaveStatus(mode === 'file' ? 'saved-file' : 'saved-browser');
+          setTimeout(() => setSaveStatus(''), 2500);
+        }, 400);
+
+        return () => {
+          if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
+        };
+      }, [words, selectedGrade, selectedSections, currentUserId, isHydrated]);
+
+      // Load bundled 词库.md: initial import, or merge newly added words for existing users
+      useEffect(() => {
+        if (!isHydrated || !currentUserId) return;
+        fetch('./词库.md')
+          .then(res => (res.ok ? res.text() : null))
+          .then(text => {
+            if (!text) return;
+            const parsed = parseData(text);
+            if (parsed.length === 0) return;
+            const existing = currentUserId ? usersRef.current[currentUserId]?.words || [] : words;
+            const existingById = new Map((existing || []).map(w => [w.id, w]));
+            const hasNewWords = parsed.some(w => !existingById.has(w.id));
+            const hasUpdatedMeta = parsed.some(w => {
+              const prev = existingById.get(w.id);
+              return prev && (
+                prev.learning_requirement !== w.learning_requirement ||
+                prev.chinese_meaning !== w.chinese_meaning ||
+                prev.section !== w.section ||
+                (prev.pos || '') !== (w.pos || '')
+              );
+            });
+            if (existing.length === 0 || hasNewWords || hasUpdatedMeta) {
+              const merged = mergeWordStats(parsed, existing);
+              const savedSections = currentUserId ? usersRef.current[currentUserId]?.selectedSections || [] : [];
+              const savedGrade = currentUserId ? usersRef.current[currentUserId]?.selectedGrade || null : null;
+              applyWordsToState(merged, '词库.md', savedSections, savedGrade, existing.length > 0);
+            }
+          })
+          .catch(() => {});
+      }, [isHydrated, currentUserId]);
+
+      // Load 课文原文 for example sentences after answering
+      useEffect(() => {
+        let cancelled = false;
+        const loadLessonText = async () => {
+          for (const path of LESSON_TEXT_FILES) {
+            try {
+              const res = await fetch(path);
+              if (!res.ok) continue;
+              const text = await res.text();
+              const parsed = parseLessonText(text);
+              if (!cancelled && parsed.length > 0) {
+                setLessonSentences(parsed);
+                return;
+              }
+            } catch {
+              // try next file
+            }
+          }
+        };
+        loadLessonText();
+        return () => { cancelled = true; };
+      }, []);
+
+      // Load voices for TTS fallback
+      useEffect(() => {
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.getVoices();
+        }
+      }, []);
+
+      // Focus input when moving to a new word (spelling mode only)
+      useEffect(() => {
+        const currentWord = studyList[currentIndex];
+        if (appState === 'study' && inputRef.current && !showHint && feedback !== 'correct' && currentWord && !isRecognitionWord(currentWord)) {
+          inputRef.current.focus();
+        }
+      }, [currentIndex, appState, feedback, showHint, studyList]);
+
+      // Enter →「下一个」：答对 / 看提示 / 认词答错后可回车跳转
+      useEffect(() => {
+        if (appState !== 'study') return;
+
+        const onKeyDown = (e) => {
+          if (e.key !== 'Enter' || e.isComposing || e.altKey || e.ctrlKey || e.metaKey) return;
+          const currentWord = studyList[currentIndex];
+          if (!currentWord) return;
+
+          const recognitionMode = isRecognitionWord(currentWord);
+          const canGoNext = showHint
+            || feedback === 'correct'
+            || (recognitionMode && feedback === 'incorrect');
+          if (!canGoNext) return;
+
+          e.preventDefault();
+          handleNext();
+        };
+
+        window.addEventListener('keydown', onKeyDown);
+        return () => window.removeEventListener('keydown', onKeyDown);
+      }, [appState, showHint, feedback, currentIndex, studyList]);
+
+      // Build 4-choice options for recognition-mode words
+      useEffect(() => {
+        if (appState !== 'study') return;
+        const currentWord = studyList[currentIndex];
+        if (!currentWord || !isRecognitionWord(currentWord)) {
+          setRecognitionChoices([]);
+          setSelectedChoiceKey(null);
+          return;
+        }
+        setRecognitionChoices(buildRecognitionChoices(currentWord, wordsRef.current));
+        setSelectedChoiceKey(null);
+      }, [currentIndex, appState, studyList]);
+
+      // Handle TTS Fallback
+      const fallbackTTS = (text) => {
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+          const utterance = new SpeechSynthesisUtterance(text);
+          utterance.lang = 'en-US';
+          utterance.rate = 0.85; // 稍微放慢语速适合小学生
+          
+          const voices = window.speechSynthesis.getVoices();
+          // 尽可能寻找标准的美国发音引擎 (优先 Google, 其次 Mac: Samantha, Win: Zira)
+          const usVoice = voices.find(v => v.lang.startsWith('en-US') && v.name.includes('Google')) || 
+                          voices.find(v => v.lang.startsWith('en-US') && (v.name.includes('Samantha') || v.name.includes('Zira') || v.name.includes('Salli'))) ||
+                          voices.find(v => v.lang.startsWith('en-US'));
+          
+          if (usVoice) utterance.voice = usVoice;
+          window.speechSynthesis.speak(utterance);
+        }
+      };
+
+      // Fetch real audio and phonetic from Dictionary API
+      const fetchWordDataAndPlay = async (wordText, shouldPlay = true) => {
+        const cleanWord = wordText.trim().toLowerCase();
+        const isPhrase = cleanWord.includes(' ') || cleanWord.includes('-');
+
+        // 词典 API 不支持词组，如果是词组直接跳过请求，使用系统高质量 TTS
+        if (!isPhrase) {
+          try {
+            const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(cleanWord)}`);
+            if (res.ok) {
+              const data = await res.json();
+              if (Array.isArray(data) && data.length > 0) {
+                const entry = data[0];
+                let phon = entry.phonetic || '';
+                let aud = '';
+
+                // 寻找带有音频和美式音标的数据
+                if (entry.phonetics && entry.phonetics.length > 0) {
+                  // 优先找美式发音的音频
+                  const usAudioObj = entry.phonetics.find(p => p.audio && p.audio.includes('-us'));
+                  aud = usAudioObj?.audio || entry.phonetics.find(p => p.audio)?.audio || '';
+
+                  // 优先找美式音标文本
+                  const textObjs = entry.phonetics.filter(p => p.text);
+                  if (textObjs.length > 0) {
+                    const usTextObj = textObjs.find(p => p.audio && p.audio.includes('-us'));
+                    phon = usTextObj?.text || textObjs[0].text;
+                  }
+                }
+
+                // 清理音标格式 (去掉自带的斜杠或括号，统一自己渲染)
+                if (phon) {
+                  phon = phon.replace(/[\/\[\]]/g, '');
+                  // 修正维基词典中常见的不规范音标
+                  phon = phon.replace('tʉː', 'tuː'); 
+                }
+
+                setCurrentPhonetic(phon);
+                setCurrentAudioUrl(aud);
+
+                if (shouldPlay) {
+                  if (aud) {
+                    const audio = new Audio(aud);
+                    audio.play().catch(() => fallbackTTS(wordText)); // 播放失败则用 TTS 兜底
+                  } else {
+                    fallbackTTS(wordText);
+                  }
+                }
+                return;
+              }
+            }
+          } catch (error) {
+            console.error("Dictionary API Error:", error);
+          }
+        }
+        
+        // 如果 API 失败、是词组、或找不到单词，清空音标并使用 TTS
+        setCurrentPhonetic('');
+        setCurrentAudioUrl('');
+        if (shouldPlay) fallbackTTS(wordText);
+      };
+
+      // --- AI Hint Logic (local fallback + optional server proxy) ---
+      const buildLocalHint = (word) => {
+        const en = word.english_word.trim();
+        const cn = word.chinese_meaning.trim();
+        const lower = en.toLowerCase();
+        const lines = ['【联想记忆】'];
+
+        if (lower.includes(' ')) {
+          const parts = lower.split(/\s+/);
+          lines.push(`「${en}」是词组，拆成 ${parts.map(p => `"${p}"`).join(' + ')} 来记，合在一起就是「${cn}」。`);
+        } else if (lower.length <= 3) {
+          lines.push(`短词 "${en}" 只有 ${lower.length} 个字母：${lower.split('').join(' · ').toUpperCase()} → ${cn}`);
+        } else {
+          const mid = Math.ceil(lower.length / 2);
+          lines.push(`把 "${en}" 拆成 ${lower.slice(0, mid)} + ${lower.slice(mid)} 连读，联想「${cn}」。`);
+        }
+
+        if (lower.endsWith('ing')) lines.push('词尾 -ing 常表示「正在做某事」。');
+        if (lower.endsWith('y') && lower.length > 3) lines.push('词尾 -y 常是形容词，描述「……的样子」。');
+        if (lower.endsWith('ed')) lines.push('词尾 -ed 常表示「已经……了」。');
+
+        lines.push('', '【例句】');
+        lines.push(`I learn the word "${en}". It means ${cn}.`);
+        lines.push(`我学习单词 "${en}"，它的意思是 ${cn}。`);
+        lines.push('', '💡 本地助记（无需联网）。在 单词/ai_config.json 配置 API Key 后，重启服务可启用 AI 增强版。');
+        return lines.join('\n');
+      };
+
+      const buildHintPrompt = (word) =>
+        `你是一位超级有趣、富有想象力的小学英语老师。请给小学生设计一个非常生动、搞笑或奇妙的助记法（比如拆字联想、编小故事、谐音梗等，一定要符合儿童心理）来记住英文单词 "${word.english_word}" (中文意思: ${word.chinese_meaning})。然后再给出一个非常简单、小学生能看懂的英文例句及中文翻译。字数控制在150字以内。`;
+
+      const fetchAIHintFromServer = async (prompt) => {
+        const res = await fetch('/api/ai-hint', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt }),
+        });
+        if (!res.ok) return null;
+        const data = await res.json();
+        return data.text?.trim() || null;
+      };
+
+      const generateHint = async (word) => {
+        const prompt = buildHintPrompt(word);
+        if (serverAvailableRef.current) {
+          try {
+            const aiText = await fetchAIHintFromServer(prompt);
+            if (aiText) return { text: aiText, source: 'ai' };
+          } catch {
+            // fall through to local
+          }
+        }
+        return { text: buildLocalHint(word), source: 'local' };
+      };
+
+      const handleAIHint = async () => {
+        const currentWord = studyList[currentIndex];
+
+        if (!showHint && feedback !== 'correct') {
+          setShowHint(true);
+          updateGlobalWordStats(currentWord.id, false);
+          setSessionStats(prev => ({ ...prev, incorrect: prev.incorrect + 1 }));
+        }
+
+        setIsAILoading(true);
+        setAiHintText('');
+        setAiHintSource('');
+        try {
+          const { text, source } = await generateHint(currentWord);
+          setAiHintText(text);
+          setAiHintSource(source);
+        } catch {
+          setAiHintText(buildLocalHint(currentWord));
+          setAiHintSource('local');
+        } finally {
+          setIsAILoading(false);
+        }
+      };
+      // --- End AI Hint Logic ---
+
+      // 1. Parser Logic for Markdown and CSV File
+      const handleFileUpload = (e) => {
+        setErrorMsg('');
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const text = event.target.result;
+          const parsed = parseData(text);
+
+          if (parsed.length > 0) {
+            const merged = mergeWordStats(parsed, words);
+            applyWordsToState(merged, file.name, selectedSections);
+          } else {
+            setErrorMsg('未能解析出有效的单词数据。请确保文件包含标准的 Markdown 表格或 CSV 格式，且列为: id, section, english_word, chinese_meaning, learning_requirement, pos（pos 可选）。');
+          }
+        };
+        reader.readAsText(file);
+        e.target.value = '';
+      };
+
+      // Handle JSON Learning Record Upload
+      const handleJsonUpload = (e) => {
+        setErrorMsg('');
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          try {
+            const parsed = JSON.parse(event.target.result);
+            if (Array.isArray(parsed) && parsed.length > 0 && parsed[0].hasOwnProperty('english_word') && parsed[0].hasOwnProperty('correctCount')) {
+              applyWordsToState(parsed, file.name, selectedSections);
+            } else {
+              setErrorMsg('导入的 JSON 格式不符合要求，请确保是本软件导出的学习记录文件。');
+            }
+          } catch (err) {
+            setErrorMsg('解析 JSON 文件失败，请检查文件是否损坏。');
+          }
+        };
+        reader.readAsText(file);
+        e.target.value = '';
+      };
+
+      // 2. Selection Logic
+      const updateUserSelectionMeta = (patch) => {
+        if (!currentUserId) return;
+        setUsers(prev => ({
+          ...prev,
+          [currentUserId]: {
+            ...prev[currentUserId],
+            ...patch,
+            updatedAt: new Date().toISOString(),
+          },
+        }));
+      };
+
+      const selectGrade = (grade) => {
+        setSelectedGrade(grade);
+        setErrorMsg('');
+        updateUserSelectionMeta({ selectedGrade: grade });
+      };
+
+      const backToGradeList = () => {
+        setSelectedGrade(null);
+        setErrorMsg('');
+        updateUserSelectionMeta({ selectedGrade: null });
+      };
+
+      const toggleSection = (section) => {
+        const next = selectedSections.includes(section)
+          ? selectedSections.filter(s => s !== section)
+          : [...selectedSections, section];
+        setSelectedSections(next);
+        updateUserSelectionMeta({ selectedSections: next });
+      };
+
+      // Helper function to get the combined list of words selected
+      const getWordsToStudy = () => {
+        let filteredWords = [];
+        const normalSections = selectedSections.filter(s => !isMistakeBookKey(s));
+
+        if (normalSections.length > 0) {
+          filteredWords = words.filter(w => normalSections.includes(w.section));
+        }
+
+        const existingIds = new Set(filteredWords.map(w => w.id));
+        selectedSections.filter(isMistakeBookKey).forEach(key => {
+          const grade = getMistakeBookGradeFromKey(key);
+          getMistakeWords(words, grade).forEach(m => {
+            if (!existingIds.has(m.id)) {
+              filteredWords.push(m);
+              existingIds.add(m.id);
+            }
+          });
+        });
+        return filteredWords;
+      };
+
+      const startStudy = () => {
+        if (selectedSections.length === 0) {
+          setErrorMsg('请至少选择一个 Section 或 错题本');
+          return;
+        }
+        setErrorMsg('');
+        
+        const filteredWords = getWordsToStudy();
+
+        // Optional: Shuffle the array for randomness
+        const shuffled = [...filteredWords].sort(() => Math.random() - 0.5);
+        setStudyList(shuffled);
+        setCurrentIndex(0);
+        setSessionStats({ correct: 0, incorrect: 0 });
+        setUserInput('');
+        setFeedback(null);
+        setShowHint(false);
+        setSelectedChoiceKey(null);
+        setRecognitionChoices([]);
+        setCurrentPhonetic('');
+        setCurrentAudioUrl('');
+        setAppState('study');
+        
+        // Fetch and Auto-play first word pronunciation
+        if (shuffled.length > 0) {
+          fetchWordDataAndPlay(shuffled[0].english_word, true);
+        }
+      };
+
+      const startPrintPreview = () => {
+        if (selectedSections.length === 0) {
+          setErrorMsg('请至少选择一个 Section 或 错题本以打印');
+          return;
+        }
+        setErrorMsg('');
+        const filteredWords = getWordsToStudy();
+        setPrintList(filteredWords);
+        setAppState('print');
+      };
+
+      const exitStudy = () => {
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+        }
+        setFeedback(null);
+        setUserInput('');
+        setShowHint(false);
+        setAiHintText('');
+        setAiHintSource('');
+        setCurrentPhonetic('');
+        setCurrentAudioUrl('');
+        setAppState('select');
+      };
+
+      // 3. Study Logic
+      const updateGlobalWordStats = (wordId, isCorrect) => {
+        setWords(prevWords =>
+          prevWords.map(w => {
+            if (w.id !== wordId) return w;
+
+            if (isCorrect) {
+              const consecutiveCorrect = (w.consecutiveCorrect || 0) + 1;
+              const hadMistakes = (w.incorrectCount || 0) > 0;
+              const mistakeCleared = hadMistakes && !w.mistakeCleared && consecutiveCorrect >= MISTAKE_EXIT_STREAK
+                ? true
+                : (w.mistakeCleared || false);
+
+              return {
+                ...w,
+                correctCount: (w.correctCount || 0) + 1,
+                consecutiveCorrect,
+                mistakeCleared,
+              };
+            }
+
+            return {
+              ...w,
+              incorrectCount: (w.incorrectCount || 0) + 1,
+              consecutiveCorrect: 0,
+              mistakeCleared: false,
+            };
+          })
+        );
+      };
+
+      const handleCheck = (e) => {
+        e.preventDefault();
+        if (!userInput.trim() || showHint || feedback === 'correct') return;
+
+        const currentWord = studyList[currentIndex];
+        const isCorrect = userInput.trim().toLowerCase() === currentWord.english_word.trim().toLowerCase();
+
+        if (isCorrect) {
+          setFeedback('correct');
+          updateGlobalWordStats(currentWord.id, true);
+          setSessionStats(prev => ({ ...prev, correct: prev.correct + 1 }));
+
+          const willGraduate = isInMistakeBook(currentWord)
+            && (currentWord.consecutiveCorrect || 0) + 1 >= MISTAKE_EXIT_STREAK;
+          const hasExamples = findLessonExamples(currentWord, lessonSentences).length > 0;
+
+          // 有课文例句时留给孩子阅读，不再自动跳题
+          if (!hasExamples) {
+            setTimeout(() => {
+              handleNext(willGraduate);
+            }, willGraduate ? 1200 : 800);
+          }
+        } else {
+          setFeedback('incorrect');
+          updateGlobalWordStats(currentWord.id, false);
+          setSessionStats(prev => ({ ...prev, incorrect: prev.incorrect + 1 }));
+          // Let user try again or ask for hint
+        }
+      };
+
+      const handleChoiceSelect = (choice) => {
+        if (showHint || feedback === 'correct') return;
+        if (selectedChoiceKey && feedback === 'incorrect') return;
+
+        const currentWord = studyList[currentIndex];
+        setSelectedChoiceKey(choice.key);
+
+        if (choice.isCorrect) {
+          setFeedback('correct');
+          updateGlobalWordStats(currentWord.id, true);
+          setSessionStats(prev => ({ ...prev, correct: prev.correct + 1 }));
+
+          const willGraduate = isInMistakeBook(currentWord)
+            && (currentWord.consecutiveCorrect || 0) + 1 >= MISTAKE_EXIT_STREAK;
+          const hasExamples = findLessonExamples(currentWord, lessonSentences).length > 0;
+
+          if (!hasExamples) {
+            setTimeout(() => {
+              handleNext(willGraduate);
+            }, willGraduate ? 1200 : 900);
+          }
+        } else {
+          setFeedback('incorrect');
+          updateGlobalWordStats(currentWord.id, false);
+          setSessionStats(prev => ({ ...prev, incorrect: prev.incorrect + 1 }));
+        }
+      };
+
+      const handleNext = (graduatedFromMistakeBook = false) => {
+        setFeedback(null);
+        setUserInput('');
+        setShowHint(false);
+        setSelectedChoiceKey(null);
+        setAiHintText('');
+        setAiHintSource('');
+        if (graduatedFromMistakeBook) {
+          // brief pause already handled in handleCheck timeout
+        }
+        if (currentIndex < studyList.length - 1) {
+          setCurrentIndex(currentIndex + 1);
+          fetchWordDataAndPlay(studyList[currentIndex + 1].english_word, true);
+        } else {
+          setAppState('summary');
+        }
+      };
+
+      const handleShowHint = () => {
+        setShowHint(true);
+        const currentWord = studyList[currentIndex];
+        // Marking it as incorrect globally when they give up
+        updateGlobalWordStats(currentWord.id, false);
+        setSessionStats(prev => ({ ...prev, incorrect: prev.incorrect + 1 }));
+      };
+
+      // 4. Export Logic
+      const exportJSON = () => {
+        const dataStr = JSON.stringify(words, null, 2);
+        const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+        const userLabel = currentUser?.name ? currentUser.name.replace(/\s+/g, '_') : 'user';
+        const exportFileDefaultName = `vocabulary_${userLabel}_${new Date().toISOString().slice(0, 10)}.json`;
+
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', exportFileDefaultName);
+        linkElement.click();
+      };
+
+      const exportAllUsersJSON = () => {
+        const payload = {
+          version: STORAGE_VERSION,
+          exportedAt: new Date().toISOString(),
+          currentUserId,
+          users,
+        };
+        const dataStr = JSON.stringify(payload, null, 2);
+        const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', `vocabmaster_all_users_${new Date().toISOString().slice(0, 10)}.json`);
+        linkElement.click();
+      };
+
+      const handleImportAllUsersJSON = (e) => {
+        setErrorMsg('');
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          try {
+            const parsed = JSON.parse(event.target.result);
+            if (parsed.users && typeof parsed.users === 'object') {
+              setUsers(parsed.users);
+              const uid = parsed.currentUserId && parsed.users[parsed.currentUserId]
+                ? parsed.currentUserId
+                : Object.keys(parsed.users)[0];
+              switchUser(uid);
+            } else {
+              setErrorMsg('导入的用户备份格式不正确。');
+            }
+          } catch {
+            setErrorMsg('解析用户备份 JSON 失败。');
+          }
+        };
+        reader.readAsText(file);
+        e.target.value = '';
+      };
+
+      const renderUserPanel = () => (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 no-print">
+          <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 w-full max-w-md p-6 animate-fade-in">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
+                <User size={20} className="text-blue-600" />
+                用户管理
+              </h3>
+              <button
+                onClick={() => setShowUserPanel(false)}
+                className="text-gray-400 hover:text-gray-600 p-1"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="space-y-2 mb-6 max-h-60 overflow-y-auto">
+              {Object.values(users).map(user => (
+                <div
+                  key={user.id}
+                  className={`flex items-center justify-between p-3 rounded-xl border-2 transition-all ${
+                    user.id === currentUserId
+                      ? 'border-blue-600 bg-blue-50'
+                      : 'border-gray-200 bg-white hover:border-blue-200'
+                  }`}
+                >
+                  <button
+                    onClick={() => switchUser(user.id)}
+                    className="flex-1 text-left"
+                  >
+                    <div className="font-semibold text-gray-800">{user.name}</div>
+                    <div className="text-xs text-gray-500 mt-0.5">
+                      {user.words?.length || 0} 词
+                      {user.selectedGrade ? ` · ${user.selectedGrade}` : ''}
+                      {user.selectedSections?.length ? ` · ${user.selectedSections.filter(s => !isMistakeBookKey(s)).length} Unit` : ''}
+                      {user.selectedSections?.filter(isMistakeBookKey).length ? ` · ${user.selectedSections.filter(isMistakeBookKey).length} 错题本` : ''}
+                    </div>
+                  </button>
+                  {Object.keys(users).length > 1 && (
+                    <button
+                      onClick={() => {
+                        if (window.confirm(`确定删除用户「${user.name}」及其学习记录吗？`)) {
+                          deleteUser(user.id);
+                        }
+                      }}
+                      className="ml-2 p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg"
+                      title="删除用户"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                createUser(newUserName);
+              }}
+              className="flex gap-2 mb-4"
+            >
+              <input
+                type="text"
+                value={newUserName}
+                onChange={(e) => setNewUserName(e.target.value)}
+                placeholder="新用户名，如：小明"
+                className="flex-1 px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+              />
+              <button
+                type="submit"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg flex items-center gap-1"
+              >
+                <UserPlus size={18} />
+                添加
+              </button>
+            </form>
+
+            <p className="text-xs text-gray-500">
+              每位用户独立保存词库、Section 选择与对错记录。使用 vocab_server.py 启动时，数据写入本地 {DATA_FILE_NAME}。
+            </p>
+          </div>
+        </div>
+      );
+
+      // --- UI Components ---
+
+      const renderImport = () => (
+        <div className="flex flex-col items-center justify-center py-12 text-center animate-fade-in">
+          <div className="bg-blue-50 p-6 rounded-full mb-6">
+            <BookOpen size={48} className="text-blue-600" />
+          </div>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">开始背单词</h2>
+
+          <div className={`w-full max-w-lg mb-6 p-4 rounded-xl border text-sm ${
+            serverAvailable
+              ? 'bg-green-50 border-green-200 text-green-800'
+              : IS_FILE_PROTOCOL
+                ? 'bg-red-50 border-red-200 text-red-800'
+                : 'bg-amber-50 border-amber-200 text-amber-800'
+          }`}>
+            {serverAvailable ? (
+              <p>
+                本地文件模式已启用：学习记录自动写入
+                <code className="mx-1 px-1.5 py-0.5 bg-white/70 rounded">{DATA_FILE_NAME}</code>
+              </p>
+            ) : IS_FILE_PROTOCOL ? (
+              <div className="text-left space-y-2">
+                <p className="font-semibold">当前是直接双击 HTML 打开的，浏览器不允许写入本地 JSON 文件。</p>
+                <p>请改用同目录下的启动器（效果等同于「一键打开 app」）：</p>
+                <p>
+                  <code className="px-1.5 py-0.5 bg-white/70 rounded">启动单词.command</code>
+                  <span className="text-red-700"> ← 双击这个文件</span>
+                </p>
+                <p className="text-xs opacity-80">启动后会自动打开浏览器，学习记录写入 {DATA_FILE_NAME}。现在只能暂存于浏览器缓存。</p>
+              </div>
+            ) : (
+              <p>
+                当前仅浏览器缓存。请在终端运行
+                <code className="mx-1 px-1.5 py-0.5 bg-white/70 rounded">python3 vocab_server.py</code>
+                后访问页面，才能自动保存到本地 JSON 文件。
+              </p>
+            )}
+          </div>
+
+          {!currentUserId ? (
+            <div className="w-full max-w-md mb-8 p-6 bg-white rounded-xl border-2 border-blue-100 shadow-sm">
+              <p className="text-gray-600 mb-4">请先创建用户，系统将自动保存你的 Section 选择与学习记录到本地 JSON。</p>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  createUser(newUserName || '默认用户');
+                }}
+                className="flex gap-2"
+              >
+                <input
+                  type="text"
+                  value={newUserName}
+                  onChange={(e) => setNewUserName(e.target.value)}
+                  placeholder="输入用户名"
+                  className="flex-1 px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                />
+                <button
+                  type="submit"
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-3 rounded-lg flex items-center gap-1"
+                >
+                  <UserPlus size={18} />
+                  创建
+                </button>
+              </form>
+            </div>
+          ) : (
+            <>
+              <p className="text-gray-600 mb-2 max-w-md">
+                当前用户：<span className="font-semibold text-blue-700">{currentUser?.name}</span>
+                {currentUser?.vocabSource && (
+                  <span className="text-gray-400"> · 词库来源：{currentUser.vocabSource}</span>
+                )}
+              </p>
+              <p className="text-gray-600 mb-8 max-w-md">
+                请导入词表，或通过 <code className="bg-gray-100 px-1 rounded text-sm">vocab_server.py</code> 启动后自动加载 <code className="bg-gray-100 px-1 rounded text-sm">词库.md</code>。<br/>
+                数据需包含至少5列：<br/>
+                <code className="bg-gray-100 px-2 py-1 rounded text-sm text-pink-600 mt-2 inline-block">id, section, english_word, chinese_meaning, learning_requirement, pos</code>
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 mb-6">
+                <label className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg shadow-md transition-colors flex items-center gap-2">
+                  <Upload size={20} />
+                  导入新词表 (.md / .csv / .txt)
+                  <input type="file" accept=".md,.csv,.txt" className="hidden" onChange={handleFileUpload} />
+                </label>
+
+                <label className="cursor-pointer bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-lg shadow-md transition-colors flex items-center gap-2">
+                  <History size={20} />
+                  恢复学习记录 (.json)
+                  <input type="file" accept=".json" className="hidden" onChange={handleJsonUpload} />
+                </label>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3 text-sm">
+                <label className="cursor-pointer text-gray-600 hover:text-blue-600 flex items-center justify-center gap-1">
+                  <Download size={16} />
+                  导入全部用户备份
+                  <input type="file" accept=".json" className="hidden" onChange={handleImportAllUsersJSON} />
+                </label>
+                {Object.keys(users).length > 0 && (
+                  <button
+                    onClick={exportAllUsersJSON}
+                    className="text-gray-600 hover:text-blue-600 flex items-center justify-center gap-1"
+                  >
+                    <FileJson size={16} />
+                    导出全部用户备份
+                  </button>
+                )}
+              </div>
+            </>
+          )}
+
+          {errorMsg && (
+            <div className="mt-6 p-4 bg-red-50 text-red-600 rounded-lg max-w-md border border-red-200 w-full">
+              {errorMsg}
+            </div>
+          )}
+        </div>
+      );
+
+      const renderSelect = () => {
+        const allMistakeStats = countMistakeByLevel(words);
+        const gradeMistakeStats = selectedGrade ? countMistakeByLevel(words, selectedGrade) : null;
+        const selectedWordCount = getWordsToStudy().length;
+        const grades = getGradesFromSections(sections);
+        const gradeSections = selectedGrade ? getSectionsForGrade(sections, selectedGrade) : [];
+        const selectedUnitCount = selectedGrade
+          ? gradeSections.filter(s => selectedSections.includes(s)).length
+          : 0;
+        const selectedMistakeCount = selectedSections.filter(isMistakeBookKey).length;
+
+        const renderMistakeLevelBadges = (stats) => (
+          <div className="flex flex-wrap gap-1 mt-2">
+            {stats.level1 > 0 && (
+              <span className="text-xs px-1.5 py-0.5 rounded bg-orange-100 text-orange-700">偶错 {stats.level1}</span>
+            )}
+            {stats.level2 > 0 && (
+              <span className="text-xs px-1.5 py-0.5 rounded bg-amber-100 text-amber-700">需巩固 {stats.level2}</span>
+            )}
+            {stats.level3 > 0 && (
+              <span className="text-xs px-1.5 py-0.5 rounded bg-red-100 text-red-700">重点 {stats.level3}</span>
+            )}
+          </div>
+        );
+
+        const renderMistakeBookCard = (grade = null) => {
+          const stats = grade ? countMistakeByLevel(words, grade) : allMistakeStats;
+          if (stats.total === 0) return null;
+
+          const key = getMistakeBookKey(grade);
+          const isSelected = selectedSections.includes(key);
+          const title = grade ? `${grade} 错题本` : '全部错题本';
+
+          return (
+            <button
+              key={key}
+              onClick={() => toggleSection(key)}
+              className={`p-4 rounded-xl border-2 text-left transition-all ${
+                isSelected
+                  ? 'border-red-600 bg-red-50 text-red-800 font-semibold shadow-sm'
+                  : 'border-red-200 bg-white text-red-600 hover:border-red-300'
+              }`}
+            >
+              <div className="flex justify-between items-center">
+                <span className="font-bold">⚠️ {title}</span>
+                {isSelected && <Check size={18} className="text-red-600" />}
+              </div>
+              <div className="text-xs mt-1 text-red-500 font-normal">
+                {stats.total} 词待复习 · 连对 {MISTAKE_EXIT_STREAK} 次可移出
+              </div>
+              {renderMistakeLevelBadges(stats)}
+            </button>
+          );
+        };
+
+        const actionButtons = (
+          <div className="flex flex-col sm:flex-row gap-4">
+            <button 
+              onClick={startStudy}
+              className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-colors flex justify-center items-center gap-2"
+            >
+              <Play size={20} />
+              开始学习 ({selectedWordCount} 词)
+            </button>
+            <button 
+              onClick={startPrintPreview}
+              className="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-colors flex justify-center items-center gap-2"
+            >
+              <Printer size={20} />
+              打印卡片 ({selectedWordCount} 词)
+            </button>
+            <button 
+              onClick={() => setAppState('import')}
+              className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3 px-6 rounded-lg transition-colors"
+            >
+              重新导入
+            </button>
+          </div>
+        );
+
+        if (!selectedGrade) {
+          return (
+            <div className="animate-fade-in">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+                <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                  <GraduationCap className="text-blue-600" />
+                  选择年级
+                </h2>
+                <div className="text-sm text-gray-500 flex items-center gap-2">
+                  <User size={16} />
+                  {currentUser?.name}
+                  {selectedSections.length > 0 && (
+                    <span className="text-blue-600">
+                      · 已选 {selectedSections.filter(s => !isMistakeBookKey(s)).length} 个 Unit
+                      {selectedMistakeCount > 0 ? ` · ${selectedMistakeCount} 个错题本` : ''}
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+                {renderMistakeBookCard()}
+              </div>
+              {allMistakeStats.total > 0 && (
+                <p className="text-xs text-gray-500 mb-6 px-1">
+                  错题分级：偶错（错 1 次）· 需巩固（2–3 次）· 重点（≥4 次）。连续答对 {MISTAKE_EXIT_STREAK} 次后自动移出错题本（历史错题次数仍保留）。
+                </p>
+              )}
+
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+                {grades.map(grade => {
+                  const gradeSectionList = getSectionsForGrade(sections, grade);
+                  const gradeWordCount = words.filter(w => parseSectionMeta(w.section).grade === grade).length;
+                  const pickedInGrade = gradeSectionList.filter(s => selectedSections.includes(s)).length;
+                  const gradeMistakes = countMistakeByLevel(words, grade);
+
+                  return (
+                    <button
+                      key={grade}
+                      onClick={() => selectGrade(grade)}
+                      className="p-4 rounded-xl border-2 text-left transition-all border-gray-200 bg-white text-gray-700 hover:border-blue-400 hover:bg-blue-50"
+                    >
+                      <div className="flex justify-between items-center">
+                        <span className="font-bold text-lg">{grade}</span>
+                        <ArrowRight size={18} className="text-blue-500" />
+                      </div>
+                      <div className="text-xs mt-2 text-gray-500 font-normal">
+                        {gradeSectionList.length} 个 Unit · {gradeWordCount} 词
+                      </div>
+                      {gradeMistakes.total > 0 && (
+                        <div className="text-xs mt-1 text-red-500 font-medium">
+                          错题 {gradeMistakes.total} 词
+                        </div>
+                      )}
+                      {pickedInGrade > 0 && (
+                        <div className="text-xs mt-1 text-blue-600 font-medium">
+                          已选 {pickedInGrade} 个 Unit
+                        </div>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {errorMsg && <p className="text-red-500 mb-4">{errorMsg}</p>}
+              {actionButtons}
+            </div>
+          );
+        }
+
+        return (
+          <div className="animate-fade-in">
+            <button
+              onClick={backToGradeList}
+              className="mb-4 text-sm text-blue-600 hover:text-blue-800 flex items-center gap-1 font-medium"
+            >
+              <ChevronLeft size={18} />
+              返回年级选择
+            </button>
+
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+              <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                <BookOpen className="text-blue-600" />
+                {selectedGrade} · 选择 Unit
+              </h2>
+              <div className="text-sm text-gray-500 flex items-center gap-2">
+                <User size={16} />
+                {currentUser?.name}
+                {selectedUnitCount > 0 && (
+                  <span className="text-blue-600">· 本年级已选 {selectedUnitCount} 个 Unit</span>
+                )}
+                {gradeMistakeStats?.total > 0 && selectedSections.includes(getMistakeBookKey(selectedGrade)) && (
+                  <span className="text-red-600">· 含本年级错题本</span>
+                )}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+              {renderMistakeBookCard(selectedGrade)}
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+              {gradeSections.map(section => {
+                const { unitLabel } = parseSectionMeta(section);
+                return (
+                  <button
+                    key={section}
+                    onClick={() => toggleSection(section)}
+                    className={`p-4 rounded-xl border-2 text-left transition-all ${
+                      selectedSections.includes(section)
+                        ? 'border-blue-600 bg-blue-50 text-blue-800 font-semibold shadow-sm'
+                        : 'border-gray-200 bg-white text-gray-600 hover:border-blue-300'
+                    }`}
+                  >
+                    <div className="flex justify-between items-center">
+                      <span>{unitLabel}</span>
+                      {selectedSections.includes(section) && <Check size={18} className="text-blue-600" />}
+                    </div>
+                    <div className="text-xs mt-1 text-gray-500 font-normal">
+                      {words.filter(w => w.section === section).length} 词
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {errorMsg && <p className="text-red-500 mb-4">{errorMsg}</p>}
+            {actionButtons}
+          </div>
+        );
+      };
+
+      const renderPrint = () => (
+        <div className="animate-fade-in">
+          <div className="no-print mb-8 bg-blue-50 border border-blue-200 p-6 rounded-xl flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>
+              <h2 className="text-xl font-bold text-blue-800 mb-2 flex items-center gap-2">
+                <Printer size={24}/> 打印预览
+              </h2>
+              <p className="text-blue-600 text-sm">
+                提示：打印时请在浏览器设置中开启 <b>"背景图形/颜色"</b>。打印后沿虚线对折即可。背面含词根词缀 / 发音 / 词性转化记法（非故事型助记）。
+              </p>
+            </div>
+            <div className="flex gap-3 w-full sm:w-auto">
+              <button 
+                onClick={() => window.print()}
+                className="flex-1 sm:flex-none bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg shadow transition-colors flex items-center justify-center gap-2"
+              >
+                <Printer size={18}/> 立即打印
+              </button>
+              <button 
+                onClick={() => setAppState('select')}
+                className="flex-1 sm:flex-none bg-white border border-gray-300 hover:bg-gray-100 text-gray-700 font-bold py-2 px-6 rounded-lg transition-colors"
+              >
+                返回
+              </button>
+            </div>
+          </div>
+
+          <div className="print-grid grid grid-cols-2 md:grid-cols-3 gap-6 pb-12">
+            {printList.map((w, index) => {
+              const studyTip = buildCardStudyTip(w);
+              const pos = getWordPos(w);
+              const posLabel = POS_LABEL_ZH[pos] || (w.pos || '').replace(/\.$/, '');
+              return (
+              <div key={`${w.id}-${index}`} className="print-card border-2 border-gray-800 rounded-xl flex flex-col bg-white overflow-hidden" style={{ minHeight: '16rem' }}>
+                {/* Front of card (English) */}
+                <div className="flex-1 flex flex-col items-center justify-center p-4">
+                  <span className="text-3xl font-bold text-gray-900">{w.english_word}</span>
+                  {posLabel && (
+                    <span className="mt-2 text-xs font-medium text-gray-500">{posLabel}</span>
+                  )}
+                </div>
+                
+                {/* Fold line */}
+                <div className="w-full border-t-[3px] border-dashed border-gray-300 relative">
+                  <span className="absolute -top-3 left-2 text-gray-400 text-xs bg-white px-1">✂️ 折叠线</span>
+                </div>
+
+                {/* Back of card (Chinese & study tip) */}
+                <div className="flex-1 flex flex-col items-center justify-center p-3 bg-gray-50 gap-2">
+                  <span className="text-xl font-bold text-gray-800">{w.chinese_meaning}</span>
+                  {studyTip && (
+                    <p className="text-[11px] leading-snug text-amber-900 bg-amber-50 border border-amber-200 rounded-md px-2 py-1.5 w-full text-left">
+                      <span className="font-bold">记法：</span>{studyTip}
+                    </p>
+                  )}
+                  <div className="flex items-center gap-2 flex-wrap justify-center">
+                    <span className="text-xs font-mono bg-gray-200 text-gray-600 px-2 py-1 rounded">{w.section}</span>
+                    <span className="text-xs font-bold bg-blue-100 text-blue-700 px-2 py-1 rounded">{w.learning_requirement}</span>
+                  </div>
+                </div>
+              </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+
+      const renderStudy = () => {
+        const currentWord = studyList[currentIndex];
+        if (!currentWord) return null;
+
+        const recognitionMode = isRecognitionWord(currentWord);
+        const progress = ((currentIndex) / studyList.length) * 100;
+        const liveWord = words.find(w => w.id === currentWord.id) || currentWord;
+        const mistakeMeta = isInMistakeBook(liveWord) ? getMistakeLevel(liveWord) : null;
+        const exitProgress = isInMistakeBook(liveWord)
+          ? (liveWord.consecutiveCorrect || 0)
+          : 0;
+        const justGraduated = feedback === 'correct' && liveWord.mistakeCleared && (liveWord.incorrectCount || 0) > 0;
+        const choicesLocked = showHint || feedback === 'correct' || (feedback === 'incorrect' && selectedChoiceKey);
+        const activeChoices = recognitionChoices.length > 0
+          ? recognitionChoices
+          : (recognitionMode ? buildRecognitionChoices(currentWord, words) : []);
+        const showAnswered = feedback === 'correct' || feedback === 'incorrect' || showHint;
+        const lessonExamples = showAnswered
+          ? findLessonExamples(currentWord, lessonSentences)
+          : [];
+
+        const getChoiceClassName = (choice) => {
+          if (showHint && choice.isCorrect) {
+            return 'border-green-500 bg-green-50 text-green-800 ring-2 ring-green-200';
+          }
+          if (feedback === 'correct' && choice.key === selectedChoiceKey) {
+            return 'border-green-500 bg-green-50 text-green-800';
+          }
+          if (feedback === 'incorrect' && choice.key === selectedChoiceKey) {
+            return 'border-red-500 bg-red-50 text-red-800 animate-shake';
+          }
+          if (feedback === 'incorrect' && choice.isCorrect) {
+            return 'border-green-500 bg-green-50 text-green-800';
+          }
+          if (selectedChoiceKey === choice.key) {
+            return 'border-blue-500 bg-blue-50 text-blue-800';
+          }
+          return 'border-gray-200 bg-white hover:border-blue-300 hover:bg-blue-50 text-gray-800';
+        };
+
+        return (
+          <div className="max-w-2xl mx-auto animate-fade-in">
+            <button
+              onClick={exitStudy}
+              className="mb-4 text-sm text-blue-600 hover:text-blue-800 flex items-center gap-1 font-medium"
+            >
+              <ChevronLeft size={18} />
+              返回 Unit 选择
+            </button>
+
+            {/* Progress Bar */}
+            <div className="mb-6">
+              <div className="flex justify-between text-sm text-gray-500 mb-2 font-medium">
+                <span>进度 {currentIndex + 1} / {studyList.length}</span>
+                <span>{currentWord.section}</span>
+              </div>
+              {mistakeMeta && (
+                <div className="flex flex-wrap items-center gap-2 mb-2 text-xs">
+                  <span className={`px-2 py-0.5 rounded border font-medium ${mistakeMeta.className}`}>
+                    错题·{mistakeMeta.label}
+                  </span>
+                  <span className="text-gray-500">
+                    移出进度：连续答对 {exitProgress}/{MISTAKE_EXIT_STREAK}
+                  </span>
+                </div>
+              )}
+              <div className="w-full bg-gray-200 rounded-full h-2.5">
+                <div className="bg-blue-600 h-2.5 rounded-full transition-all duration-300" style={{ width: `${progress}%` }}></div>
+              </div>
+            </div>
+
+            {/* Word Card */}
+            <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8 text-center relative overflow-hidden">
+              {/* Requirement Tag */}
+              <div className={`absolute top-4 left-4 text-xs font-bold px-2 py-1 rounded ${
+                recognitionMode ? 'bg-amber-100 text-amber-800' : 'bg-blue-100 text-blue-800'
+              }`}>
+                {recognitionMode ? '见英选义 · 四选一' : currentWord.learning_requirement}
+              </div>
+              
+              <button 
+                onClick={() => {
+                  if (currentAudioUrl) {
+                    new Audio(currentAudioUrl).play().catch(() => fallbackTTS(currentWord.english_word));
+                  } else {
+                    fallbackTTS(currentWord.english_word);
+                  }
+                }}
+                className="absolute top-4 right-4 p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors"
+                title="播放发音"
+              >
+                <Volume2 size={24} />
+              </button>
+
+              {recognitionMode ? (
+                <>
+                  <div className="my-8 flex flex-col items-center">
+                    <p className="text-sm text-gray-500 mb-3">请选择正确的中文含义</p>
+                    <h3 className="text-4xl font-bold text-gray-800 mb-2 font-mono tracking-wide">{currentWord.english_word}</h3>
+                    {currentPhonetic && (
+                      <div className="text-xl text-gray-500 mb-2 font-mono font-medium tracking-wide">
+                        [{currentPhonetic}]
+                      </div>
+                    )}
+                    {showHint && (
+                      <p className="text-sm text-green-600 font-medium mt-2 animate-fade-in">正确答案已高亮</p>
+                    )}
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+                    {activeChoices.map(choice => (
+                      <button
+                        key={choice.key}
+                        type="button"
+                        onClick={() => handleChoiceSelect(choice)}
+                        disabled={choicesLocked}
+                        className={`text-left px-4 py-4 rounded-xl border-2 transition-all font-medium leading-snug ${getChoiceClassName(choice)} ${
+                          choicesLocked ? 'cursor-default' : 'cursor-pointer'
+                        }`}
+                      >
+                        {choice.text}
+                      </button>
+                    ))}
+                  </div>
+
+                  {feedback === 'incorrect' && !showHint && (
+                    <p className="text-sm text-red-600 mt-4">答错了，绿色为正确含义。可点「不会 / 提示」或「下一个」继续。</p>
+                  )}
+                </>
+              ) : (
+                <>
+                  <div className="my-8 flex flex-col items-center">
+                    <h3 className="text-4xl font-bold text-gray-800 mb-2">{currentWord.chinese_meaning}</h3>
+                    
+                    {/* Display Phonetic */}
+                    {currentPhonetic && (
+                      <div className="text-xl text-gray-500 mb-4 font-mono font-medium tracking-wide">
+                        [{currentPhonetic}]
+                      </div>
+                    )}
+                    
+                    {showHint && (
+                      <div className="text-2xl font-mono text-green-600 tracking-wider mb-4 animate-fade-in">
+                        {currentWord.english_word}
+                      </div>
+                    )}
+                  </div>
+
+                  <form onSubmit={handleCheck} className="mt-8 relative">
+                    <input
+                      ref={inputRef}
+                      type="text"
+                      value={userInput}
+                      onChange={(e) => setUserInput(e.target.value)}
+                      placeholder="请输入英文拼写..."
+                      autoCapitalize="none"
+                      autoComplete="off"
+                      disabled={showHint || feedback === 'correct'}
+                      className={`w-full text-center text-2xl py-4 px-6 border-2 rounded-xl focus:outline-none transition-colors ${
+                        feedback === 'correct' ? 'border-green-500 bg-green-50 text-green-700' : 
+                        feedback === 'incorrect' ? 'border-red-500 bg-red-50 text-red-700 animate-shake' : 
+                        'border-gray-300 focus:border-blue-500 bg-gray-50 font-mono'
+                      }`}
+                    />
+                    
+                    {/* Feedback Icons inside input */}
+                    {feedback === 'correct' && <Check className="absolute right-4 top-1/2 -translate-y-1/2 text-green-500" size={28} />}
+                    {feedback === 'incorrect' && <X className="absolute right-4 top-1/2 -translate-y-1/2 text-red-500" size={28} />}
+                  </form>
+                </>
+              )}
+
+              {justGraduated && (
+                <p className="text-sm text-green-600 font-medium mt-3">已连续答对 {MISTAKE_EXIT_STREAK} 次，已从错题本移出</p>
+              )}
+
+              {/* 课文例句：答对 / 答错 / 看提示后显示 */}
+              {showAnswered && lessonExamples.length > 0 && (
+                <div className="mt-5 text-left animate-fade-in">
+                  <div className="rounded-xl border border-sky-200 bg-sky-50 p-4 shadow-sm">
+                    <h4 className="text-sky-800 font-bold mb-3 flex items-center gap-2">
+                      <BookOpen size={18} />
+                      课文例句
+                      {lessonExamples[0]?.source && (
+                        <span className="text-xs font-medium px-1.5 py-0.5 rounded bg-sky-200 text-sky-900">
+                          {lessonExamples[0].source}
+                        </span>
+                      )}
+                    </h4>
+                    <ul className="space-y-3">
+                      {lessonExamples.map((ex, idx) => (
+                        <li key={`${ex.en}-${idx}`} className="leading-relaxed">
+                          <p
+                            className="text-gray-800 font-medium"
+                            dangerouslySetInnerHTML={{
+                              __html: highlightLessonWord(ex.en, currentWord.english_word),
+                            }}
+                          />
+                          {ex.zh && (
+                            <p className="text-sm text-gray-500 mt-1">{ex.zh}</p>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
+
+              {/* Action Buttons */}
+              <div className="mt-6 flex gap-3 justify-center w-full">
+                {!recognitionMode && !showHint && feedback !== 'correct' ? (
+                  <>
+                    <button 
+                      onClick={handleCheck}
+                      className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg shadow transition-colors"
+                    >
+                      提交答案 (Enter)
+                    </button>
+                    <button 
+                      onClick={handleShowHint}
+                      type="button"
+                      className="px-6 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-3 rounded-lg transition-colors"
+                    >
+                      不会 / 提示
+                    </button>
+                  </>
+                ) : recognitionMode && !showHint && feedback !== 'correct' ? (
+                  <>
+                    <button
+                      onClick={handleNext}
+                      type="button"
+                      disabled={!feedback && !showHint}
+                      className={`flex-1 font-bold py-3 rounded-lg shadow transition-colors ${
+                        feedback === 'incorrect'
+                          ? 'bg-green-600 hover:bg-green-700 text-white'
+                          : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                      }`}
+                    >
+                      下一个 (Enter) <ArrowRight size={20} className="inline ml-1" />
+                    </button>
+                    <button 
+                      onClick={handleShowHint}
+                      type="button"
+                      className="px-6 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-3 rounded-lg transition-colors"
+                    >
+                      不会 / 提示
+                    </button>
+                  </>
+                ) : (
+                  <button 
+                    onClick={handleNext}
+                    type="button"
+                    autoFocus
+                    className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg shadow transition-colors flex justify-center items-center gap-2"
+                  >
+                    下一个 (Enter) <ArrowRight size={20} />
+                  </button>
+                )}
+              </div>
+              
+              {/* AI Hint Section */}
+              <div className="mt-6">
+                {!aiHintText && !isAILoading ? (
+                  <button
+                    onClick={handleAIHint}
+                    className="w-full py-4 bg-purple-50 text-purple-700 hover:bg-purple-100 rounded-xl border border-purple-200 flex justify-center items-center gap-2 transition-colors font-semibold shadow-sm"
+                  >
+                    <Sparkles size={20} />
+                    对这个词不熟悉？点击获取 AI 专属助记
+                  </button>
+                ) : (
+                  <div className="bg-purple-50 border border-purple-200 rounded-xl p-6 text-left animate-fade-in relative shadow-sm">
+                    <Sparkles className="absolute top-4 right-4 text-purple-300" size={24} />
+                    <h4 className="text-purple-800 font-bold mb-2 flex items-center gap-2">
+                      {isAILoading ? <Loader2 className="animate-spin" size={18}/> : <Sparkles size={18}/>}
+                      智能助记
+                      {!isAILoading && aiHintSource === 'ai' && (
+                        <span className="text-xs font-normal px-1.5 py-0.5 rounded bg-purple-200 text-purple-800">AI</span>
+                      )}
+                      {!isAILoading && aiHintSource === 'local' && (
+                        <span className="text-xs font-normal px-1.5 py-0.5 rounded bg-gray-200 text-gray-600">本地</span>
+                      )}
+                    </h4>
+                    <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+                      {isAILoading ? '正在生成助记内容...' : aiHintText}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+            
+            {/* Live Stats */}
+            <div className="mt-6 flex justify-center gap-6 text-sm text-gray-500">
+              <span className="flex items-center gap-1"><Check size={16} className="text-green-500"/> 本次答对: {sessionStats.correct}</span>
+              <span className="flex items-center gap-1"><X size={16} className="text-red-500"/> 本次答错: {sessionStats.incorrect}</span>
+            </div>
+          </div>
+        );
+      };
+
+      const renderSummary = () => (
+        <div className="max-w-2xl mx-auto text-center animate-fade-in">
+          <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-10">
+            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Check size={40} className="text-green-600" />
+            </div>
+            <h2 className="text-3xl font-bold text-gray-800 mb-2">学习完成！</h2>
+            <p className="text-gray-600 mb-8">你已经完成了本次选择的所有单词。学习记录已自动保存{serverAvailable ? `到 ${DATA_FILE_NAME}` : '到浏览器缓存'}。</p>
+            
+            <div className="grid grid-cols-2 gap-6 mb-10">
+              <div className="bg-green-50 rounded-xl p-6 border border-green-100">
+                <div className="text-green-800 text-sm font-bold mb-1">答对</div>
+                <div className="text-4xl font-black text-green-600">{sessionStats.correct}</div>
+              </div>
+              <div className="bg-red-50 rounded-xl p-6 border border-red-100">
+                <div className="text-red-800 text-sm font-bold mb-1">错误次数</div>
+                <div className="text-4xl font-black text-red-600">{sessionStats.incorrect}</div>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button 
+                onClick={() => setAppState('select')}
+                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow transition-colors flex justify-center items-center gap-2"
+              >
+                <RotateCcw size={20} />
+                继续选择 Unit / 年级
+              </button>
+              <button 
+                onClick={exportJSON}
+                className="flex-1 bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-6 rounded-lg shadow transition-colors flex justify-center items-center gap-2"
+              >
+                <FileJson size={20} />
+                导出学习记录 (JSON)
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+
+      return (
+        <div className="min-h-screen bg-gray-50 text-gray-800 font-sans">
+          {showUserPanel && renderUserPanel()}
+
+          <header className="bg-white border-b border-gray-200 shadow-sm px-6 py-4 mb-8 no-print">
+            <div className="max-w-4xl mx-auto flex items-center justify-between gap-4">
+              <h1 className="text-xl font-bold text-blue-700 flex items-center gap-2">
+                <BookOpen size={24} />
+                VocabMaster 单词达人
+              </h1>
+
+              <div className="flex items-center gap-3 flex-wrap justify-end">
+                {serverAvailable && (
+                  <span className="text-xs text-green-700 bg-green-50 border border-green-200 px-2 py-1 rounded-full">
+                    {DATA_FILE_NAME}
+                  </span>
+                )}
+                {saveStatus === 'saving' && (
+                  <span className="text-xs text-gray-400 flex items-center gap-1">
+                    <Loader2 size={14} className="animate-spin" /> 保存中
+                  </span>
+                )}
+                {saveStatus === 'saved-file' && (
+                  <span className="text-xs text-green-600 flex items-center gap-1">
+                    <Save size={14} /> 已写入 {DATA_FILE_NAME}
+                  </span>
+                )}
+                {saveStatus === 'saved-browser' && (
+                  <span className="text-xs text-amber-600 flex items-center gap-1">
+                    <Save size={14} /> 已缓存到浏览器
+                  </span>
+                )}
+
+                <button
+                  onClick={() => setShowUserPanel(true)}
+                  className="text-sm flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 hover:border-blue-300 hover:bg-blue-50 text-gray-700 transition-colors"
+                  title="切换用户"
+                >
+                  <User size={16} />
+                  {currentUser?.name || '选择用户'}
+                </button>
+
+                {appState !== 'import' && appState !== 'print' && words.length > 0 && (
+                  <button 
+                    onClick={exportJSON}
+                    className="text-sm flex items-center gap-1 text-gray-600 hover:text-blue-600 transition-colors"
+                    title="导出当前用户学习记录 JSON"
+                  >
+                    <Download size={16} />
+                    导出记录
+                  </button>
+                )}
+              </div>
+            </div>
+          </header>
+
+          <main className={`max-w-4xl mx-auto px-4 pb-12 ${appState === 'print' ? 'max-w-none print-main-container' : ''}`}>
+            {!isHydrated ? (
+              <div className="flex justify-center py-20 text-gray-400">
+                <Loader2 className="animate-spin mr-2" size={20} />
+                正在加载本地记录...
+              </div>
+            ) : (
+              <>
+                {appState === 'import' && renderImport()}
+                {appState === 'select' && renderSelect()}
+                {appState === 'study' && renderStudy()}
+                {appState === 'summary' && renderSummary()}
+                {appState === 'print' && renderPrint()}
+              </>
+            )}
+          </main>
+
+          <style dangerouslySetInnerHTML={{__html: `
+            @keyframes shake {
+              0%, 100% { transform: translateX(0); }
+              25% { transform: translateX(-5px); }
+              50% { transform: translateX(5px); }
+              75% { transform: translateX(-5px); }
+            }
+            .animate-shake {
+              animation: shake 0.4s ease-in-out;
+            }
+            @keyframes fadeIn {
+              from { opacity: 0; transform: translateY(10px); }
+              to { opacity: 1; transform: translateY(0); }
+            }
+            .animate-fade-in {
+              animation: fadeIn 0.3s ease-out forwards;
+            }
+
+            /* 打印样式优化 */
+            @media print {
+              @page {
+                margin: 1cm;
+                size: A4 portrait;
+              }
+              body {
+                background-color: white !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+              }
+              .no-print {
+                display: none !important;
+              }
+              .print-main-container {
+                max-width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+              }
+              .print-grid {
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 1rem !important;
+                padding-bottom: 0 !important;
+              }
+              .print-card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                border-color: #000 !important;
+              }
+              /* 防止阴影和圆角在旧打印机上变黑 */
+              .shadow-xl, .shadow-md, .shadow-sm, .shadow {
+                box-shadow: none !important;
+              }
+            }
+          `}} />
+        </div>
+      );
+    }
+
+    createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

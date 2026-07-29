@@ -1,9 +1,9 @@
 # secrets & local runtime
 ai_config.json
-vocab_data.json
 vocab_server.log
 .vocab_server.pid
 .DS_Store
+__pycache__/
 
 # editor / OS
 *.swp

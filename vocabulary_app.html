@@ -810,7 +810,8 @@
       const [flashcardKnownIds, setFlashcardKnownIds] = useState([]);
       
       // Stats
-      const [sessionStats, setSessionStats] = useState({ correct: 0, incorrect: 0 });
+      // 同一张卡在本次学习中反复尝试，只算作 1 个错词。
+      const [sessionStats, setSessionStats] = useState({ correct: 0, incorrect: 0, mistakeWordIds: [] });
 
       // AI Features State
       const [isAILoading, setIsAILoading] = useState(false);
@@ -1445,7 +1446,7 @@
         const shuffled = [...filteredWords].sort(() => Math.random() - 0.5);
         setStudyList(shuffled);
         setCurrentIndex(0);
-        setSessionStats({ correct: 0, incorrect: 0 });
+        setSessionStats({ correct: 0, incorrect: 0, mistakeWordIds: [] });
         setUserInput('');
         setFeedback(null);
         setShowHint(false);
@@ -1548,6 +1549,17 @@
         );
       };
 
+      const recordSessionMistake = (wordId) => {
+        setSessionStats(prev => {
+          if (prev.mistakeWordIds.includes(wordId)) return prev;
+          return {
+            ...prev,
+            incorrect: prev.incorrect + 1,
+            mistakeWordIds: [...prev.mistakeWordIds, wordId],
+          };
+        });
+      };
+
       const handleCheck = (e) => {
         e.preventDefault();
         if (!userInput.trim() || showHint || feedback === 'correct') return;
@@ -1570,10 +1582,10 @@
               handleNext(willGraduate);
             }, willGraduate ? 1200 : 800);
           }
-        } else {
+        } else if (feedback !== 'incorrect') {
           setFeedback('incorrect');
           updateGlobalWordStats(currentWord.id, false);
-          setSessionStats(prev => ({ ...prev, incorrect: prev.incorrect + 1 }));
+          recordSessionMistake(currentWord.id);
           // Let user try again or ask for hint
         }
       };
@@ -1602,7 +1614,7 @@
         } else {
           setFeedback('incorrect');
           updateGlobalWordStats(currentWord.id, false);
-          setSessionStats(prev => ({ ...prev, incorrect: prev.incorrect + 1 }));
+          recordSessionMistake(currentWord.id);
         }
       };
 
@@ -1627,9 +1639,11 @@
       const handleShowHint = () => {
         setShowHint(true);
         const currentWord = studyList[currentIndex];
-        // Marking it as incorrect globally when they give up
-        updateGlobalWordStats(currentWord.id, false);
-        setSessionStats(prev => ({ ...prev, incorrect: prev.incorrect + 1 }));
+        // 连续输错后再看提示，仍只记作这张卡的 1 次错词。
+        if (feedback !== 'incorrect') {
+          updateGlobalWordStats(currentWord.id, false);
+          recordSessionMistake(currentWord.id);
+        }
       };
 
       // 4. Export Logic
@@ -2568,7 +2582,7 @@
             {/* Live Stats */}
             <div className="mt-6 flex justify-center gap-6 text-sm text-gray-500">
               <span className="flex items-center gap-1"><Check size={16} className="text-green-500"/> 本次答对: {sessionStats.correct}</span>
-              <span className="flex items-center gap-1"><X size={16} className="text-red-500"/> 本次答错: {sessionStats.incorrect}</span>
+              <span className="flex items-center gap-1"><X size={16} className="text-red-500"/> 本次错词: {sessionStats.incorrect}</span>
             </div>
           </div>
         );
@@ -2589,7 +2603,7 @@
                 <div className="text-4xl font-black text-green-600">{sessionStats.correct}</div>
               </div>
               <div className="bg-red-50 rounded-xl p-6 border border-red-100">
-                <div className="text-red-800 text-sm font-bold mb-1">错误次数</div>
+                <div className="text-red-800 text-sm font-bold mb-1">错词数</div>
                 <div className="text-4xl font-black text-red-600">{sessionStats.incorrect}</div>
               </div>
             </div>

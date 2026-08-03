@@ -1191,10 +1191,21 @@
         }
       };
 
+      // 词典接口偶尔不可用时，使用可跨域播放的在线朗读；浏览器 TTS 作为最后兜底。
+      const getOnlineTTSUrl = (text) => (
+        `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en-US&q=${encodeURIComponent(text)}`
+      );
+
+      const playWordAudio = (wordText, audioUrl = '') => {
+        const audio = new Audio(audioUrl || getOnlineTTSUrl(wordText));
+        audio.play().catch(() => fallbackTTS(wordText));
+      };
+
       // Fetch real audio and phonetic from Dictionary API
       const fetchWordDataAndPlay = async (wordText, shouldPlay = true) => {
         const cleanWord = wordText.trim().toLowerCase();
         const isPhrase = cleanWord.includes(' ') || cleanWord.includes('-');
+        const fallbackAudioUrl = getOnlineTTSUrl(wordText);
 
         // 词典 API 不支持词组，如果是词组直接跳过请求，使用系统高质量 TTS
         if (!isPhrase) {
@@ -1229,15 +1240,10 @@
                 }
 
                 setCurrentPhonetic(phon);
-                setCurrentAudioUrl(aud);
+                setCurrentAudioUrl(aud || fallbackAudioUrl);
 
                 if (shouldPlay) {
-                  if (aud) {
-                    const audio = new Audio(aud);
-                    audio.play().catch(() => fallbackTTS(wordText)); // 播放失败则用 TTS 兜底
-                  } else {
-                    fallbackTTS(wordText);
-                  }
+                  playWordAudio(wordText, aud || fallbackAudioUrl);
                 }
                 return;
               }
@@ -1247,10 +1253,10 @@
           }
         }
         
-        // 如果 API 失败、是词组、或找不到单词，清空音标并使用 TTS
+        // 如果 API 失败、是词组、或找不到单词，保留在线朗读并使用浏览器 TTS 兜底。
         setCurrentPhonetic('');
-        setCurrentAudioUrl('');
-        if (shouldPlay) fallbackTTS(wordText);
+        setCurrentAudioUrl(fallbackAudioUrl);
+        if (shouldPlay) playWordAudio(wordText, fallbackAudioUrl);
       };
 
       // --- AI Hint Logic (local fallback + optional server proxy) ---
@@ -2276,8 +2282,7 @@
             <button
               type="button"
               onClick={() => {
-                if (currentAudioUrl) new Audio(currentAudioUrl).play().catch(() => fallbackTTS(card.english_word));
-                else fallbackTTS(card.english_word);
+                playWordAudio(card.english_word, currentAudioUrl);
               }}
               className="mt-4 w-full rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 font-medium py-2.5 flex items-center justify-center gap-2 transition-colors"
             >
@@ -2370,11 +2375,7 @@
               
               <button 
                 onClick={() => {
-                  if (currentAudioUrl) {
-                    new Audio(currentAudioUrl).play().catch(() => fallbackTTS(currentWord.english_word));
-                  } else {
-                    fallbackTTS(currentWord.english_word);
-                  }
+                  playWordAudio(currentWord.english_word, currentAudioUrl);
                 }}
                 className="absolute top-4 right-4 p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors"
                 title="播放发音"

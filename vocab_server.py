@@ -5,8 +5,11 @@ from __future__ import annotations
 
 import json
 import os
+import hashlib
+import subprocess
 import sys
 import urllib.error
+import urllib.parse
 import urllib.request
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -14,6 +17,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 DATA_FILE = ROOT / "vocab_data.json"
 AI_CONFIG_FILE = ROOT / "ai_config.json"
+AUDIO_CACHE_DIR = ROOT / ".audio_cache"
 DEFAULT_PORT = 8080
 DEFAULT_AI_BASE = "https://api.aicodewith.com/v1"
 DEFAULT_AI_MODEL = "gpt-4o-mini"
@@ -141,6 +145,52 @@ class VocabHandler(SimpleHTTPRequestHandler):
         super().__init__(*args, directory=str(ROOT), **kwargs)
 
     def do_GET(self) -> None:
+        if self.path.startswith("/api/pronunciation"):
+            query = urllib.parse.urlparse(self.path).query
+            word = urllib.parse.parse_qs(query).get("word", [""])[0].strip()
+            if not word or len(word) > 100:
+                self._json_response(400, {"error": "valid word required"})
+                return
+
+            cache_key = hashlib.sha256(word.lower().encode("utf-8")).hexdigest()
+            wav_file = AUDIO_CACHE_DIR / f"{cache_key}.wav"
+            if not wav_file.exists():
+                try:
+                    AUDIO_CACHE_DIR.mkdir(exist_ok=True)
+                    aiff_file = AUDIO_CACHE_DIR / f"{cache_key}.aiff"
+                    subprocess.run(
+                        ["/usr/bin/say", "-v", "Samantha", "-o", str(aiff_file), word],
+                        check=True,
+                        capture_output=True,
+                        timeout=15,
+                    )
+                    subprocess.run(
+                        [
+                            "/usr/bin/afconvert", "-f", "WAVE", "-d", "LEI16@44100",
+                            str(aiff_file), str(wav_file),
+                        ],
+                        check=True,
+                        capture_output=True,
+                        timeout=15,
+                    )
+                    aiff_file.unlink(missing_ok=True)
+                except (OSError, subprocess.SubprocessError) as exc:
+                    self._json_response(500, {"error": f"pronunciation generation failed: {exc}"})
+                    return
+
+            try:
+                body = wav_file.read_bytes()
+            except OSError as exc:
+                self._json_response(500, {"error": str(exc)})
+                return
+            self.send_response(200)
+            self.send_header("Content-Type", "audio/wav")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "public, max-age=31536000, immutable")
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
         if self.path == "/api/health":
             ai_info = describe_ai_config()
             self._json_response(

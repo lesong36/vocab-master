@@ -4,6 +4,7 @@ vocab_server.log
 .vocab_server.pid
 .DS_Store
 __pycache__/
+.audio_cache/
 
 # editor / OS
 *.swp

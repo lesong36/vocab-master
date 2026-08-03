@@ -1197,15 +1197,21 @@
         `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en-US&q=${encodeURIComponent(text)}`
       );
 
+      const getFallbackAudioUrl = (text) => (
+        serverAvailableRef.current
+          ? `/api/pronunciation?word=${encodeURIComponent(text)}`
+          : getOnlineTTSUrl(text)
+      );
+
       const playWordAudio = (wordText, audioUrl = '') => {
-        const onlineTTSUrl = getOnlineTTSUrl(wordText);
+        const fallbackAudioUrl = getFallbackAudioUrl(wordText);
         const play = (url, canFallbackToOnline) => {
           const audio = new Audio(url);
           let handled = false;
           const recover = () => {
             if (handled) return;
             handled = true;
-            if (canFallbackToOnline) play(onlineTTSUrl, false);
+            if (canFallbackToOnline) play(fallbackAudioUrl, false);
             else fallbackTTS(wordText);
           };
           // play() 有时会成功返回，但实际下载音频时才失败；两种情况都要兜底。
@@ -1213,14 +1219,21 @@
           audio.addEventListener('stalled', recover, { once: true });
           audio.play().catch(recover);
         };
-        play(audioUrl || onlineTTSUrl, Boolean(audioUrl && audioUrl !== onlineTTSUrl));
+        play(audioUrl || fallbackAudioUrl, Boolean(audioUrl && audioUrl !== fallbackAudioUrl));
       };
 
       // Fetch real audio and phonetic from Dictionary API
       const fetchWordDataAndPlay = async (wordText, shouldPlay = true) => {
         const cleanWord = wordText.trim().toLowerCase();
         const isPhrase = cleanWord.includes(' ') || cleanWord.includes('-');
-        const fallbackAudioUrl = getOnlineTTSUrl(wordText);
+        const fallbackAudioUrl = getFallbackAudioUrl(wordText);
+        const useLocalAudio = serverAvailableRef.current;
+
+        // 本地服务可用时立即使用 Mac 英语语音，不等待外部词典接口。
+        if (useLocalAudio) {
+          setCurrentAudioUrl(fallbackAudioUrl);
+          if (shouldPlay) playWordAudio(wordText, fallbackAudioUrl);
+        }
 
         // 词典 API 不支持词组，如果是词组直接跳过请求，使用系统高质量 TTS
         if (!isPhrase) {
@@ -1255,9 +1268,9 @@
                 }
 
                 setCurrentPhonetic(phon);
-                setCurrentAudioUrl(aud || fallbackAudioUrl);
+                setCurrentAudioUrl(useLocalAudio ? fallbackAudioUrl : (aud || fallbackAudioUrl));
 
-                if (shouldPlay) {
+                if (shouldPlay && !useLocalAudio) {
                   playWordAudio(wordText, aud || fallbackAudioUrl);
                 }
                 return;
@@ -1271,7 +1284,7 @@
         // 如果 API 失败、是词组、或找不到单词，保留在线朗读并使用浏览器 TTS 兜底。
         setCurrentPhonetic('');
         setCurrentAudioUrl(fallbackAudioUrl);
-        if (shouldPlay) playWordAudio(wordText, fallbackAudioUrl);
+        if (shouldPlay && !useLocalAudio) playWordAudio(wordText, fallbackAudioUrl);
       };
 
       // --- AI Hint Logic (local fallback + optional server proxy) ---

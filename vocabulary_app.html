@@ -1176,6 +1176,7 @@
       const fallbackTTS = (text) => {
         if ('speechSynthesis' in window) {
           window.speechSynthesis.cancel();
+          window.speechSynthesis.resume();
           const utterance = new SpeechSynthesisUtterance(text);
           utterance.lang = 'en-US';
           utterance.rate = 0.85; // 稍微放慢语速适合小学生
@@ -1197,8 +1198,22 @@
       );
 
       const playWordAudio = (wordText, audioUrl = '') => {
-        const audio = new Audio(audioUrl || getOnlineTTSUrl(wordText));
-        audio.play().catch(() => fallbackTTS(wordText));
+        const onlineTTSUrl = getOnlineTTSUrl(wordText);
+        const play = (url, canFallbackToOnline) => {
+          const audio = new Audio(url);
+          let handled = false;
+          const recover = () => {
+            if (handled) return;
+            handled = true;
+            if (canFallbackToOnline) play(onlineTTSUrl, false);
+            else fallbackTTS(wordText);
+          };
+          // play() 有时会成功返回，但实际下载音频时才失败；两种情况都要兜底。
+          audio.addEventListener('error', recover, { once: true });
+          audio.addEventListener('stalled', recover, { once: true });
+          audio.play().catch(recover);
+        };
+        play(audioUrl || onlineTTSUrl, Boolean(audioUrl && audioUrl !== onlineTTSUrl));
       };
 
       // Fetch real audio and phonetic from Dictionary API

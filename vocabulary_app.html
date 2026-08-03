@@ -830,6 +830,7 @@
       const usersRef = useRef({});
       const wordsRef = useRef([]);
       const serverAvailableRef = useRef(false);
+      const audioPlayerRef = useRef(null);
 
       useEffect(() => {
         usersRef.current = users;
@@ -1206,7 +1207,12 @@
       const playWordAudio = (wordText, audioUrl = '') => {
         const fallbackAudioUrl = getFallbackAudioUrl(wordText);
         const play = (url, canFallbackToOnline) => {
+          if (audioPlayerRef.current) {
+            audioPlayerRef.current.pause();
+            audioPlayerRef.current.src = '';
+          }
           const audio = new Audio(url);
+          audioPlayerRef.current = audio;
           let handled = false;
           const recover = () => {
             if (handled) return;
@@ -1231,8 +1237,10 @@
 
         // 本地服务可用时立即使用 Mac 英语语音，不等待外部词典接口。
         if (useLocalAudio) {
+          setCurrentPhonetic('');
           setCurrentAudioUrl(fallbackAudioUrl);
           if (shouldPlay) playWordAudio(wordText, fallbackAudioUrl);
+          return;
         }
 
         // 词典 API 不支持词组，如果是词组直接跳过请求，使用系统高质量 TTS

@@ -23,7 +23,7 @@
     import React, { useState, useEffect, useMemo, useRef } from 'https://esm.sh/react@18.2.0';
     import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client?deps=react@18.2.0';
     import { createClient } from 'https://esm.sh/@supabase/supabase-js@2?bundle';
-    import { Upload, Play, Check, X, Download, BookOpen, Volume2, ArrowRight, RotateCcw, FileJson, Sparkles, Loader2, History, Printer, User, UserPlus, Trash2, Save, ChevronLeft, GraduationCap, Layers, Eye, EyeOff } from 'https://esm.sh/lucide-react@0.468.0?deps=react@18.2.0';
+    import { Upload, Play, Check, X, Download, BookOpen, Volume2, ArrowRight, RotateCcw, FileJson, Sparkles, Loader2, History, Printer, User, UserPlus, Trash2, Save, ChevronLeft, GraduationCap, Layers, Eye, EyeOff, KeyRound, LogOut } from 'https://esm.sh/lucide-react@0.468.0?deps=react@18.2.0';
 
     const STORAGE_KEY = 'vocabmaster_app_data';
     const STORAGE_VERSION = 1;
@@ -36,6 +36,26 @@
     const readerSupabase = createClient(READER_SUPABASE_URL, READER_SUPABASE_PUBLISHABLE_KEY, {
       auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
     });
+    const SYNC_VAULT_VERSION = 1;
+    const textEncoder = new TextEncoder();
+    const textDecoder = new TextDecoder();
+    const base64ToBytes = (value) => Uint8Array.from(atob(value), char => char.charCodeAt(0));
+    const deriveSyncVaultKey = async (passphrase, salt) => {
+      const material = await crypto.subtle.importKey('raw', textEncoder.encode(passphrase), 'PBKDF2', false, ['deriveKey']);
+      return crypto.subtle.deriveKey(
+        { name: 'PBKDF2', salt, iterations: 310000, hash: 'SHA-256' },
+        material,
+        { name: 'AES-GCM', length: 256 },
+        false,
+        ['decrypt']
+      );
+    };
+    const decryptFromSyncVault = async (payload, passphrase) => {
+      if (!payload || payload.v !== SYNC_VAULT_VERSION) throw new Error('不支持的加密数据版本');
+      const key = await deriveSyncVaultKey(passphrase, base64ToBytes(payload.salt));
+      const plaintext = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: base64ToBytes(payload.iv) }, key, base64ToBytes(payload.ciphertext));
+      return textDecoder.decode(plaintext);
+    };
     const IS_FILE_PROTOCOL = window.location.protocol === 'file:';
     const GRADE_ORDER = ['三上', '三下', '四上', '四下', '五上', '五下', '音乐', 'RFD1', 'RFD2', 'RFD3'];
     const LESSON_TEXT_FILES = ['./四上英语课文.md', './四上英语课文_英文.md'];
@@ -861,6 +881,10 @@
       const [readerLoginPassword, setReaderLoginPassword] = useState('');
       const [readerLoginError, setReaderLoginError] = useState('');
       const [isReaderLoggingIn, setIsReaderLoggingIn] = useState(false);
+      const [readerAiPreferences, setReaderAiPreferences] = useState(null);
+      const [readerAiKey, setReaderAiKey] = useState('');
+      const [readerSyncPassphrase, setReaderSyncPassphrase] = useState('');
+      const [readerAiStatus, setReaderAiStatus] = useState('连接阅读器账号后，可使用其 AI 设置生成助记。');
       
       // Study State
       const [studyList, setStudyList] = useState([]);
@@ -901,6 +925,7 @@
       const cloudProgressWriteTimerRef = useRef(null);
       const lastCloudProgressSnapshotRef = useRef('');
       const cloudMasterStateAppliedRef = useRef(false);
+      const encryptedReaderAiKeyRef = useRef(null);
 
       useEffect(() => {
         usersRef.current = users;
@@ -934,12 +959,16 @@
             if (!cancelled) setReaderCloudUser(null);
             if (!cancelled) setCloudMasterStateLoaded(false);
             if (!cancelled) setCloudReadingStatus('登录阅读器账号后，可跨设备导入阅读生词本。');
+            if (!cancelled) setReaderAiPreferences(null);
+            if (!cancelled) setReaderAiKey('');
+            if (!cancelled) setReaderAiStatus('连接阅读器账号后，可使用其 AI 设置生成助记。');
+            encryptedReaderAiKeyRef.current = null;
             return;
           }
           setReaderCloudUser(session.user);
           const { data, error } = await readerSupabase
             .from('reader_sync_state')
-            .select('vocabulary, vocab_master_progress')
+            .select('vocabulary, vocab_master_progress, preferences, encrypted_ai_key')
             .eq('user_id', session.user.id)
             .maybeSingle();
           if (cancelled) return;
@@ -948,6 +977,14 @@
             return;
           }
           setCloudReadingEntries(Array.isArray(data?.vocabulary) ? data.vocabulary : []);
+          const aiPreferences = data?.preferences && typeof data.preferences === 'object' ? data.preferences : {};
+          setReaderAiPreferences(aiPreferences);
+          encryptedReaderAiKeyRef.current = data?.encrypted_ai_key || null;
+          setReaderAiStatus(
+            data?.encrypted_ai_key
+              ? '已读取阅读器的模型设置；输入同步加密口令后即可在本机调用 AI 助记。'
+              : '阅读器尚未同步 AI Key；请先在阅读器的“云同步账号”中设置同步加密口令。'
+          );
           const masterState = data?.vocab_master_progress && typeof data.vocab_master_progress === 'object'
             ? data.vocab_master_progress
             : {};
@@ -1190,16 +1227,64 @@
         }
       };
 
+      const handleUnlockReaderAiKey = async () => {
+        setReaderLoginError('');
+        if (!readerSyncPassphrase) {
+          setReaderLoginError('请输入阅读器中使用的同步加密口令。');
+          return;
+        }
+        if (!encryptedReaderAiKeyRef.current) {
+          setReaderLoginError('云端没有可解密的 AI Key，请先在阅读器中完成“加密并同步 Key”。');
+          return;
+        }
+        try {
+          const key = await decryptFromSyncVault(encryptedReaderAiKeyRef.current, readerSyncPassphrase);
+          setReaderAiKey(key);
+          setReaderSyncPassphrase('');
+          setReaderAiStatus('阅读器 AI Key 已仅在当前页面内存中解锁，可用于 AI 助记。');
+        } catch {
+          setReaderAiKey('');
+          setReaderLoginError('同步加密口令不正确，无法解密 AI Key。');
+        }
+      };
+
+      const handleReaderCloudLogout = async () => {
+        await readerSupabase.auth.signOut();
+        setReaderAiKey('');
+        setReaderSyncPassphrase('');
+        setShowReaderLogin(false);
+      };
+
       const renderReaderLoginPanel = () => (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 no-print">
           <form onSubmit={handleReaderCloudLogin} className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl">
             <div className="flex items-start justify-between gap-4 mb-4">
               <div>
-                <h2 className="text-lg font-bold text-gray-800">连接阅读器账号</h2>
-                <p className="mt-1 text-sm leading-6 text-gray-500">请输入你在“英语长难句阅读器”注册时使用的邮箱和密码。连接后，本应用才能读取该账号云端的生词本。</p>
+                <h2 className="text-lg font-bold text-gray-800">{readerCloudUser ? '阅读器账号与 AI 助记' : '连接阅读器账号'}</h2>
+                <p className="mt-1 text-sm leading-6 text-gray-500">{readerCloudUser ? '阅读器的模型、Base URL 会自动读取；AI Key 需用你自己的同步加密口令在本机解锁。' : '请输入你在“Readmaster 闹闹爱阅读”注册时使用的邮箱和密码。连接后，本应用才能读取该账号云端的生词本和 AI 设置。'}</p>
               </div>
               <button type="button" onClick={() => setShowReaderLogin(false)} className="text-gray-400 hover:text-gray-700" aria-label="关闭"><X size={20} /></button>
             </div>
+            {readerCloudUser ? (
+              <div className="space-y-4">
+                <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-800">已连接：{readerCloudUser.email}</div>
+                <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
+                  <div className="flex items-center gap-2 font-semibold text-indigo-900"><KeyRound size={17} /> AI 助记</div>
+                  <p className="mt-2 text-xs leading-5 text-indigo-800">{readerAiStatus}</p>
+                  {(readerAiPreferences?.cloudBaseUrl || readerAiPreferences?.cloudModel) && (
+                    <p className="mt-2 text-xs text-indigo-700 break-all">模型：{readerAiPreferences?.cloudModel || '未设置'}<br />Base URL：{readerAiPreferences?.cloudBaseUrl || '未设置'}</p>
+                  )}
+                  {!readerAiKey && encryptedReaderAiKeyRef.current && (
+                    <div className="mt-3 flex gap-2">
+                      <input type="password" value={readerSyncPassphrase} onChange={(event) => setReaderSyncPassphrase(event.target.value)} className="min-w-0 flex-1 rounded-lg border border-indigo-200 px-3 py-2 text-sm" placeholder="同步加密口令（不保存）" autoComplete="off" />
+                      <button type="button" onClick={handleUnlockReaderAiKey} className="rounded-lg bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-700">解锁 Key</button>
+                    </div>
+                  )}
+                </div>
+                {readerLoginError && <p className="text-sm text-red-600">{readerLoginError}</p>}
+                <button type="button" onClick={handleReaderCloudLogout} className="w-full rounded-lg border border-gray-300 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50"><LogOut size={16} className="inline mr-1" />断开阅读器账号</button>
+              </div>
+            ) : <>
             <label className="block text-sm font-medium text-gray-700 mb-1">阅读器账号邮箱</label>
             <input type="email" value={readerLoginEmail} onChange={(event) => setReaderLoginEmail(event.target.value)} className="w-full rounded-lg border border-gray-300 px-3 py-2 mb-4" autoComplete="email" />
             <label className="block text-sm font-medium text-gray-700 mb-1">密码</label>
@@ -1208,6 +1293,7 @@
             <button disabled={isReaderLoggingIn} className="mt-5 w-full rounded-lg bg-blue-600 py-2.5 font-semibold text-white hover:bg-blue-700 disabled:bg-blue-300">
               {isReaderLoggingIn ? '正在连接…' : '连接并读取阅读生词本'}
             </button>
+            </>}
           </form>
         </div>
       );
@@ -1698,8 +1784,42 @@
         return data.text?.trim() || null;
       };
 
+      const fetchAIHintFromReaderConfig = async (prompt) => {
+        const apiKey = readerAiKey.trim();
+        const baseUrl = String(readerAiPreferences?.cloudBaseUrl || '').trim().replace(/\/+$/, '');
+        const model = String(readerAiPreferences?.cloudModel || '').trim();
+        if (!apiKey || !baseUrl || !model) return null;
+        const response = await fetch(`${baseUrl}/chat/completions`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+          },
+          body: JSON.stringify({
+            model,
+            temperature: 0.7,
+            max_tokens: 500,
+            messages: [
+              { role: 'system', content: '你是一位耐心、有趣的小学英语老师。用简体中文回答。' },
+              { role: 'user', content: prompt }
+            ]
+          })
+        });
+        if (!response.ok) throw new Error(`AI 服务请求失败（HTTP ${response.status}）`);
+        const data = await response.json();
+        return data?.choices?.[0]?.message?.content?.trim() || null;
+      };
+
       const generateHint = async (word) => {
         const prompt = buildHintPrompt(word);
+        if (readerAiKey && readerAiPreferences?.cloudBaseUrl && readerAiPreferences?.cloudModel) {
+          try {
+            const aiText = await fetchAIHintFromReaderConfig(prompt);
+            if (aiText) return { text: aiText, source: 'ai' };
+          } catch (error) {
+            setReaderAiStatus(`阅读器 AI 助记暂不可用：${error.message}`);
+          }
+        }
         if (serverAvailableRef.current) {
           try {
             const aiText = await fetchAIHintFromServer(prompt);
@@ -3122,7 +3242,7 @@
                 <button
                   onClick={() => setShowReaderLogin(true)}
                   className={`text-sm flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-colors ${readerCloudUser ? 'border-emerald-300 bg-emerald-50 text-emerald-700' : 'border-blue-300 bg-blue-50 text-blue-700 hover:bg-blue-100'}`}
-                  title={readerCloudUser ? cloudReadingStatus : '登录阅读器账号以同步阅读生词'}
+                  title={readerCloudUser ? `${cloudReadingStatus} ${readerAiStatus}` : '登录阅读器账号以同步阅读生词和 AI 设置'}
                 >
                   <BookOpen size={16} />
                   {readerCloudUser ? `阅读器：${readerCloudUser.email}` : '连接阅读器账号'}

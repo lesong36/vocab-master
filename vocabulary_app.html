@@ -805,6 +805,12 @@
       const [readingInboxEntries, setReadingInboxEntries] = useState([]);
       const [cloudReadingEntries, setCloudReadingEntries] = useState([]);
       const [cloudReadingStatus, setCloudReadingStatus] = useState('正在检查阅读器云同步…');
+      const [readerCloudUser, setReaderCloudUser] = useState(null);
+      const [showReaderLogin, setShowReaderLogin] = useState(false);
+      const [readerLoginEmail, setReaderLoginEmail] = useState('');
+      const [readerLoginPassword, setReaderLoginPassword] = useState('');
+      const [readerLoginError, setReaderLoginError] = useState('');
+      const [isReaderLoggingIn, setIsReaderLoggingIn] = useState(false);
       
       // Study State
       const [studyList, setStudyList] = useState([]);
@@ -872,9 +878,11 @@
         let cancelled = false;
         const loadCloudVocabulary = async (session) => {
           if (!session?.user) {
+            if (!cancelled) setReaderCloudUser(null);
             if (!cancelled) setCloudReadingStatus('登录阅读器账号后，可跨设备导入阅读生词本。');
             return;
           }
+          setReaderCloudUser(session.user);
           const { data, error } = await readerSupabase
             .from('reader_sync_state')
             .select('vocabulary')
@@ -974,6 +982,51 @@
         setReadingInboxEntries([]);
         setErrorMsg('');
       };
+
+      const handleReaderCloudLogin = async (event) => {
+        event.preventDefault();
+        setReaderLoginError('');
+        if (!readerLoginEmail.trim() || !readerLoginPassword) {
+          setReaderLoginError('请输入阅读器账号的邮箱和密码。');
+          return;
+        }
+        setIsReaderLoggingIn(true);
+        try {
+          const { error } = await readerSupabase.auth.signInWithPassword({
+            email: readerLoginEmail.trim(),
+            password: readerLoginPassword
+          });
+          if (error) throw error;
+          setShowReaderLogin(false);
+          setReaderLoginPassword('');
+        } catch (error) {
+          setReaderLoginError(error.message || '登录失败，请检查邮箱和密码。');
+        } finally {
+          setIsReaderLoggingIn(false);
+        }
+      };
+
+      const renderReaderLoginPanel = () => (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 no-print">
+          <form onSubmit={handleReaderCloudLogin} className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl">
+            <div className="flex items-start justify-between gap-4 mb-4">
+              <div>
+                <h2 className="text-lg font-bold text-gray-800">连接阅读器账号</h2>
+                <p className="mt-1 text-sm leading-6 text-gray-500">请输入你在“英语长难句阅读器”注册时使用的邮箱和密码。连接后，本应用才能读取该账号云端的生词本。</p>
+              </div>
+              <button type="button" onClick={() => setShowReaderLogin(false)} className="text-gray-400 hover:text-gray-700" aria-label="关闭"><X size={20} /></button>
+            </div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">阅读器账号邮箱</label>
+            <input type="email" value={readerLoginEmail} onChange={(event) => setReaderLoginEmail(event.target.value)} className="w-full rounded-lg border border-gray-300 px-3 py-2 mb-4" autoComplete="email" />
+            <label className="block text-sm font-medium text-gray-700 mb-1">密码</label>
+            <input type="password" value={readerLoginPassword} onChange={(event) => setReaderLoginPassword(event.target.value)} className="w-full rounded-lg border border-gray-300 px-3 py-2" autoComplete="current-password" />
+            {readerLoginError && <p className="mt-3 text-sm text-red-600">{readerLoginError}</p>}
+            <button disabled={isReaderLoggingIn} className="mt-5 w-full rounded-lg bg-blue-600 py-2.5 font-semibold text-white hover:bg-blue-700 disabled:bg-blue-300">
+              {isReaderLoggingIn ? '正在连接…' : '连接并读取阅读生词本'}
+            </button>
+          </form>
+        </div>
+      );
 
       const switchUser = (userId) => {
         const user = users[userId] || usersRef.current[userId];
@@ -2825,6 +2878,7 @@
       return (
         <div className="min-h-screen bg-gray-50 text-gray-800 font-sans">
           {showUserPanel && renderUserPanel()}
+          {showReaderLogin && renderReaderLoginPanel()}
 
           <header className="bg-white border-b border-gray-200 shadow-sm px-6 py-4 mb-8 no-print">
             <div className="max-w-4xl mx-auto flex items-center justify-between gap-4">
@@ -2853,6 +2907,21 @@
                   <span className="text-xs text-amber-600 flex items-center gap-1">
                     <Save size={14} /> 已缓存到浏览器
                   </span>
+                )}
+
+                <button
+                  onClick={() => setShowReaderLogin(true)}
+                  className={`text-sm flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-colors ${readerCloudUser ? 'border-emerald-300 bg-emerald-50 text-emerald-700' : 'border-blue-300 bg-blue-50 text-blue-700 hover:bg-blue-100'}`}
+                  title={readerCloudUser ? cloudReadingStatus : '登录阅读器账号以同步阅读生词'}
+                >
+                  <BookOpen size={16} />
+                  {readerCloudUser ? '阅读器已连接' : '连接阅读器账号'}
+                </button>
+
+                {pendingReadingEntries.length > 0 && (
+                  <button onClick={importReadingInbox} className="text-sm px-3 py-1.5 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 transition-colors">
+                    导入阅读生词本 ({pendingReadingEntries.length})
+                  </button>
                 )}
 
                 <button

@@ -908,8 +908,13 @@
           const word = String(entry?.word || '').trim();
           if (word) byWord.set(word.toLowerCase(), { ...entry, word });
         });
-        const importedIds = new Set(words.filter(word => word.source === 'reading').map(word => word.id));
-        return [...byWord.values()].filter(entry => !importedIds.has(`reading:${entry.word.toLowerCase()}`));
+        const importedById = new Map(words.filter(word => word.source === 'reading').map(word => [word.id, word]));
+        return [...byWord.values()].filter(entry => {
+          const imported = importedById.get(`reading:${entry.word.toLowerCase()}`);
+          if (!imported) return true;
+          return ['pronunciation', 'etymology', 'exampleSentence', 'sourceContext', 'sourceArticleTitle']
+            .some(field => !imported[field] && entry[field]);
+        });
       }, [readingInboxEntries, cloudReadingEntries, words]);
 
       const applyWordsToState = (parsedWords, sourceLabel = '', nextSelectedSections = null, nextSelectedGrade = null, keepAppState = false) => {
@@ -957,6 +962,9 @@
               learning_requirement: '见到英文，能选出中文意思',
               pos: '',
               source: 'reading',
+              pronunciation: entry.pronunciation || '',
+              etymology: entry.etymology || '',
+              exampleSentence: entry.exampleSentence || '',
               sourceContext: entry.sourceContext || '',
               sourceArticleId: entry.sourceArticleId || null,
               sourceArticleTitle: entry.sourceArticleTitle || '',
@@ -2491,7 +2499,9 @@
                 <div className="h-full min-h-[280px] flex flex-col items-center justify-center text-center">
                   <span className="mb-7 rounded-full bg-white/10 px-3 py-1 text-xs font-bold tracking-wider text-amber-300">正 面 · 读一读</span>
                   <h3 className="text-4xl sm:text-6xl font-bold tracking-wide break-words">{card.english_word}</h3>
-                  {currentPhonetic && <p className="mt-5 text-lg font-mono text-slate-300">[{currentPhonetic}]</p>}
+                  {(card.pronunciation || currentPhonetic) && <p className="mt-5 text-lg font-mono text-slate-300">{card.pronunciation || `[${currentPhonetic}]`}</p>}
+                  {card.source === 'reading' && card.sourceArticleTitle && <p className="mt-5 text-xs text-amber-200">来自阅读：{card.sourceArticleTitle}</p>}
+                  {card.source === 'reading' && card.sourceContext && <p className="mt-3 max-w-xl text-sm leading-6 italic text-slate-300">“{card.sourceContext}”</p>}
                   <p className="mt-10 flex items-center gap-2 text-sm text-slate-300"><Eye size={17} /> 点击翻面看答案与助记</p>
                 </div>
               ) : (
@@ -2508,6 +2518,18 @@
                     <p className="text-xs font-bold text-amber-700 mb-2">💡 助记线索</p>
                     <p className="leading-relaxed text-gray-700">{studyTip}</p>
                   </div>
+                  {card.source === 'reading' && card.exampleSentence && (
+                    <div className="mt-4 rounded-2xl bg-indigo-50 border border-indigo-200 p-5">
+                      <p className="text-xs font-bold text-indigo-700 mb-2">✨ AI 拓展例句</p>
+                      <p className="leading-relaxed text-gray-800">{card.exampleSentence}</p>
+                    </div>
+                  )}
+                  {card.source === 'reading' && card.etymology && (
+                    <div className="mt-4 rounded-2xl bg-emerald-50 border border-emerald-200 p-5">
+                      <p className="text-xs font-bold text-emerald-700 mb-2">🌱 AI 词源记忆</p>
+                      <p className="leading-relaxed text-gray-700">{card.etymology}</p>
+                    </div>
+                  )}
                   {examples.length > 0 && (
                     <div className="mt-4 rounded-2xl bg-sky-50 border border-sky-200 p-5">
                       <p className="text-xs font-bold text-sky-700 mb-2">课文里这样说</p>

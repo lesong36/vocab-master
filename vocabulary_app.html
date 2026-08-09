@@ -628,6 +628,49 @@
     const isValidAppData = (data) =>
       data && data.version === STORAGE_VERSION && data.users && typeof data.users === 'object';
 
+    const mergeCloudWord = (remote = {}, local = {}) => {
+      const remoteUpdatedAt = remote.vocabMasterProgressUpdatedAt || remote.updatedAt || '';
+      const localUpdatedAt = local.vocabMasterProgressUpdatedAt || local.updatedAt || '';
+      const newest = localUpdatedAt >= remoteUpdatedAt ? local : remote;
+      return normalizeWordStats({
+        ...remote,
+        ...local,
+        ...newest,
+        correctCount: Math.max(remote.correctCount || 0, local.correctCount || 0),
+        incorrectCount: Math.max(remote.incorrectCount || 0, local.incorrectCount || 0),
+        consecutiveCorrect: Math.max(remote.consecutiveCorrect || 0, local.consecutiveCorrect || 0),
+        mistakeCleared: Boolean(remote.mistakeCleared || local.mistakeCleared),
+        flashcardKnown: Boolean(remote.flashcardKnown || local.flashcardKnown),
+        vocabMasterProgressUpdatedAt: remoteUpdatedAt >= localUpdatedAt ? remoteUpdatedAt : localUpdatedAt,
+      });
+    };
+
+    const mergeCloudAppState = (remote = null, local = null) => {
+      if (!isValidAppData(remote)) return local;
+      if (!isValidAppData(local)) return remote;
+      const users = { ...remote.users };
+      Object.entries(local.users).forEach(([id, localUser]) => {
+        const remoteUser = users[id];
+        if (!remoteUser) { users[id] = localUser; return; }
+        const words = new Map((remoteUser.words || []).map(word => [word.id, word]));
+        (localUser.words || []).forEach(word => words.set(word.id, mergeCloudWord(words.get(word.id), word)));
+        const remoteIsNewer = (remoteUser.updatedAt || '') > (localUser.updatedAt || '');
+        users[id] = {
+          ...(remoteIsNewer ? localUser : remoteUser),
+          ...(remoteIsNewer ? remoteUser : localUser),
+          words: [...words.values()],
+          updatedAt: remoteIsNewer ? remoteUser.updatedAt : localUser.updatedAt,
+        };
+      });
+      const remoteIsNewer = (remote.savedAt || '') > (local.savedAt || '');
+      return {
+        version: STORAGE_VERSION,
+        users,
+        currentUserId: remoteIsNewer ? remote.currentUserId : local.currentUserId,
+        savedAt: remoteIsNewer ? remote.savedAt : local.savedAt,
+      };
+    };
+
     const loadFromBrowser = () => {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
@@ -1049,6 +1092,13 @@
         setErrorMsg('');
       };
 
+      // A connected learner should never need to manually carry reader words
+      // between the two apps. The visible import button remains as a fallback.
+      useEffect(() => {
+        if (!readerCloudUser || !currentUserId || pendingReadingEntries.length === 0) return;
+        importReadingInbox();
+      }, [readerCloudUser, currentUserId, pendingReadingEntries.length]);
+
       useEffect(() => {
         if (!readerCloudUser || !cloudMasterStateLoaded || !cloudMasterStateAppliedRef.current) return;
         const readingWords = words.filter(word => word.source === 'reading');
@@ -1072,12 +1122,40 @@
         if (snapshot === lastCloudProgressSnapshotRef.current) return;
         if (cloudProgressWriteTimerRef.current) clearTimeout(cloudProgressWriteTimerRef.current);
         cloudProgressWriteTimerRef.current = setTimeout(async () => {
+          const { data: latestCloud } = await readerSupabase
+            .from('reader_sync_state')
+            .select('vocab_master_progress')
+            .eq('user_id', readerCloudUser.id)
+            .maybeSingle();
+          const remoteMasterState = latestCloud?.vocab_master_progress && typeof latestCloud.vocab_master_progress === 'object'
+            ? latestCloud.vocab_master_progress
+            : {};
+          const mergedProgress = { ...(remoteMasterState.words || {}) };
+          Object.entries(progress).forEach(([word, localProgress]) => {
+            const remoteProgress = mergedProgress[word] || {};
+            mergedProgress[word] = {
+              ...remoteProgress,
+              ...localProgress,
+              correctCount: Math.max(remoteProgress.correctCount || 0, localProgress.correctCount || 0),
+              incorrectCount: Math.max(remoteProgress.incorrectCount || 0, localProgress.incorrectCount || 0),
+              consecutiveCorrect: Math.max(remoteProgress.consecutiveCorrect || 0, localProgress.consecutiveCorrect || 0),
+              mistakeCleared: Boolean(remoteProgress.mistakeCleared || localProgress.mistakeCleared),
+              flashcardKnown: Boolean(remoteProgress.flashcardKnown || localProgress.flashcardKnown),
+              updatedAt: (remoteProgress.updatedAt || '') > (localProgress.updatedAt || '') ? remoteProgress.updatedAt : localProgress.updatedAt,
+            };
+          });
+          const mergedMasterState = {
+            version: 2,
+            words: mergedProgress,
+            appState: mergeCloudAppState(remoteMasterState.appState, masterState.appState)
+          };
+          const mergedSnapshot = JSON.stringify(mergedMasterState);
           const { error } = await readerSupabase.from('reader_sync_state').upsert({
             user_id: readerCloudUser.id,
-            vocab_master_progress: masterState,
+            vocab_master_progress: mergedMasterState,
             updated_at: new Date().toISOString()
           }, { onConflict: 'user_id' });
-          if (!error) lastCloudProgressSnapshotRef.current = snapshot;
+          if (!error) lastCloudProgressSnapshotRef.current = mergedSnapshot;
         }, 600);
         return () => { if (cloudProgressWriteTimerRef.current) clearTimeout(cloudProgressWriteTimerRef.current); };
       }, [words, users, currentUserId, readerCloudUser, cloudMasterStateLoaded]);

@@ -1822,7 +1822,15 @@
       const generateHint = async (word) => {
         const prompt = buildHintPrompt(word);
         let readerAiError = '';
-        if (readerAiKey && readerAiPreferences?.cloudBaseUrl && readerAiPreferences?.cloudModel) {
+        const hasReaderAiSettings = Boolean(readerAiPreferences?.cloudBaseUrl && readerAiPreferences?.cloudModel);
+        if (hasReaderAiSettings && !readerAiKey.trim()) {
+          return {
+            text: buildLocalHint(word),
+            source: 'local',
+            aiError: '阅读器 AI Key 当前未解锁。刷新页面或关闭网页后，需要重新点击右上角“阅读器账号”并输入同步加密口令。'
+          };
+        }
+        if (readerAiKey && hasReaderAiSettings) {
           try {
             const aiText = await fetchAIHintFromReaderConfig(prompt);
             if (aiText) return { text: aiText, source: 'ai' };

@@ -3032,7 +3032,7 @@
                   title={readerCloudUser ? cloudReadingStatus : '登录阅读器账号以同步阅读生词'}
                 >
                   <BookOpen size={16} />
-                  {readerCloudUser ? '阅读器已连接' : '连接阅读器账号'}
+                  {readerCloudUser ? `阅读器：${readerCloudUser.email}` : '连接阅读器账号'}
                 </button>
 
                 {pendingReadingEntries.length > 0 && (
@@ -3047,7 +3047,7 @@
                   title="切换用户"
                 >
                   <User size={16} />
-                  {currentUser?.name || '选择用户'}
+                  {currentUser?.name || '选择学习者'}
                 </button>
 
                 {appState !== 'import' && appState !== 'print' && words.length > 0 && (

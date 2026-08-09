@@ -908,6 +908,7 @@
       const [isAILoading, setIsAILoading] = useState(false);
       const [aiHintText, setAiHintText] = useState('');
       const [aiHintSource, setAiHintSource] = useState(''); // 'ai' | 'local'
+      const [aiHintError, setAiHintError] = useState('');
 
       // Lesson example sentences from 课文原文
       const [lessonSentences, setLessonSentences] = useState([]);
@@ -1766,7 +1767,7 @@
         lines.push('', '【例句】');
         lines.push(`I learn the word "${en}". It means ${cn}.`);
         lines.push(`我学习单词 "${en}"，它的意思是 ${cn}。`);
-        lines.push('', '💡 本地助记（无需联网）。在 单词/ai_config.json 配置 API Key 后，重启服务可启用 AI 增强版。');
+        lines.push('', '💡 本地备用助记（未调用 AI）。');
         return lines.join('\n');
       };
 
@@ -1805,19 +1806,24 @@
             ]
           })
         });
-        if (!response.ok) throw new Error(`AI 服务请求失败（HTTP ${response.status}）`);
+        if (!response.ok) {
+          const detail = (await response.text()).slice(0, 300);
+          throw new Error(`AI 服务请求失败（HTTP ${response.status}）${detail ? `：${detail}` : ''}`);
+        }
         const data = await response.json();
         return data?.choices?.[0]?.message?.content?.trim() || null;
       };
 
       const generateHint = async (word) => {
         const prompt = buildHintPrompt(word);
+        let readerAiError = '';
         if (readerAiKey && readerAiPreferences?.cloudBaseUrl && readerAiPreferences?.cloudModel) {
           try {
             const aiText = await fetchAIHintFromReaderConfig(prompt);
             if (aiText) return { text: aiText, source: 'ai' };
           } catch (error) {
-            setReaderAiStatus(`阅读器 AI 助记暂不可用：${error.message}`);
+            readerAiError = error.message || '请求没有返回内容';
+            setReaderAiStatus(`阅读器 AI 助记暂不可用：${readerAiError}`);
           }
         }
         if (serverAvailableRef.current) {
@@ -1828,7 +1834,7 @@
             // fall through to local
           }
         }
-        return { text: buildLocalHint(word), source: 'local' };
+        return { text: buildLocalHint(word), source: 'local', aiError: readerAiError };
       };
 
       const handleAIHint = async () => {
@@ -1843,10 +1849,12 @@
         setIsAILoading(true);
         setAiHintText('');
         setAiHintSource('');
+        setAiHintError('');
         try {
-          const { text, source } = await generateHint(currentWord);
+          const { text, source, aiError } = await generateHint(currentWord);
           setAiHintText(text);
           setAiHintSource(source);
+          setAiHintError(aiError || '');
         } catch {
           setAiHintText(buildLocalHint(currentWord));
           setAiHintSource('local');
@@ -3134,15 +3142,20 @@
                       {isAILoading ? <Loader2 className="animate-spin" size={18}/> : <Sparkles size={18}/>}
                       智能助记
                       {!isAILoading && aiHintSource === 'ai' && (
-                        <span className="text-xs font-normal px-1.5 py-0.5 rounded bg-purple-200 text-purple-800">AI</span>
+                        <span className="text-xs font-normal px-1.5 py-0.5 rounded bg-purple-200 text-purple-800">阅读器 AI</span>
                       )}
                       {!isAILoading && aiHintSource === 'local' && (
-                        <span className="text-xs font-normal px-1.5 py-0.5 rounded bg-gray-200 text-gray-600">本地</span>
+                        <span className="text-xs font-normal px-1.5 py-0.5 rounded bg-gray-200 text-gray-600">本地备用</span>
                       )}
                     </h4>
                     <p className="text-gray-700 leading-relaxed whitespace-pre-line">
                       {isAILoading ? '正在生成助记内容...' : aiHintText}
                     </p>
+                    {!isAILoading && aiHintError && (
+                      <p className="mt-4 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs leading-5 text-amber-800">
+                        阅读器 AI 请求失败，已改用本地备用助记：{aiHintError}。可点击右上角“阅读器账号”检查模型设置与 Key。
+                      </p>
+                    )}
                   </div>
                 )}
               </div>

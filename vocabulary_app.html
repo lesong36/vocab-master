@@ -649,13 +649,17 @@
       if (!isValidAppData(remote)) return local;
       if (!isValidAppData(local)) return remote;
       const users = { ...remote.users };
+      const remoteUserIdByName = new Map(Object.entries(remote.users).map(([id, user]) => [String(user.name || '').trim().toLowerCase(), id]));
+      const localUserIdMap = new Map();
       Object.entries(local.users).forEach(([id, localUser]) => {
-        const remoteUser = users[id];
+        const matchingRemoteId = users[id] ? id : remoteUserIdByName.get(String(localUser.name || '').trim().toLowerCase());
+        localUserIdMap.set(id, matchingRemoteId || id);
+        const remoteUser = matchingRemoteId ? users[matchingRemoteId] : null;
         if (!remoteUser) { users[id] = localUser; return; }
         const words = new Map((remoteUser.words || []).map(word => [word.id, word]));
         (localUser.words || []).forEach(word => words.set(word.id, mergeCloudWord(words.get(word.id), word)));
         const remoteIsNewer = (remoteUser.updatedAt || '') > (localUser.updatedAt || '');
-        users[id] = {
+        users[matchingRemoteId] = {
           ...(remoteIsNewer ? localUser : remoteUser),
           ...(remoteIsNewer ? remoteUser : localUser),
           words: [...words.values()],
@@ -666,7 +670,7 @@
       return {
         version: STORAGE_VERSION,
         users,
-        currentUserId: remoteIsNewer ? remote.currentUserId : local.currentUserId,
+        currentUserId: remoteIsNewer ? remote.currentUserId : (localUserIdMap.get(local.currentUserId) || local.currentUserId),
         savedAt: remoteIsNewer ? remote.savedAt : local.savedAt,
       };
     };
@@ -967,25 +971,28 @@
         if (!isHydrated || !cloudMasterStateLoaded || cloudMasterStateAppliedRef.current) return;
         const remote = cloudMasterAppState;
         if (remote?.users && typeof remote.users === 'object') {
-          const localUpdatedAt = Math.max(0, ...Object.values(users).map(user => new Date(user.updatedAt || 0).getTime() || 0));
-          const remoteUpdatedAt = new Date(remote.savedAt || 0).getTime() || 0;
-          if (remoteUpdatedAt > localUpdatedAt) {
-            const remoteUsers = Object.fromEntries(Object.entries(remote.users).map(([id, user]) => [id, migrateUserRecord(user)]));
-            const nextUserId = remote.currentUserId && remoteUsers[remote.currentUserId]
-              ? remote.currentUserId
-              : Object.keys(remoteUsers)[0] || null;
-            const active = nextUserId ? remoteUsers[nextUserId] : null;
-            usersRef.current = remoteUsers;
-            setUsers(remoteUsers);
-            setCurrentUserId(nextUserId);
-            if (active?.words?.length) {
-              const nextSections = [...new Set(active.words.map(word => word.section))];
-              setWords(active.words);
-              setSections(nextSections);
-              setSelectedGrade(active.selectedGrade || null);
-              setSelectedSections(active.selectedSections || []);
-              setAppState('select');
-            }
+          const localState = {
+            version: STORAGE_VERSION,
+            currentUserId,
+            users,
+            savedAt: new Date(Math.max(0, ...Object.values(users).map(user => new Date(user.updatedAt || 0).getTime() || 0))).toISOString()
+          };
+          const mergedState = mergeCloudAppState(remote, localState);
+          const mergedUsers = Object.fromEntries(Object.entries(mergedState.users).map(([id, user]) => [id, migrateUserRecord(user)]));
+          const nextUserId = mergedState.currentUserId && mergedUsers[mergedState.currentUserId]
+            ? mergedState.currentUserId
+            : Object.keys(mergedUsers)[0] || null;
+          const active = nextUserId ? mergedUsers[nextUserId] : null;
+          usersRef.current = mergedUsers;
+          setUsers(mergedUsers);
+          setCurrentUserId(nextUserId);
+          if (active?.words?.length) {
+            const nextSections = [...new Set(active.words.map(word => word.section))];
+            setWords(active.words);
+            setSections(nextSections);
+            setSelectedGrade(active.selectedGrade || null);
+            setSelectedSections(active.selectedSections || []);
+            setAppState('select');
           }
         }
         cloudMasterStateAppliedRef.current = true;

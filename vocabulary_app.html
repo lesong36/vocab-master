@@ -1800,6 +1800,9 @@
             model,
             temperature: 0.7,
             max_tokens: 500,
+            // DeepSeek V4 enables thinking by default. Mnemonics need the
+            // final answer directly, not an empty/non-display reasoning turn.
+            thinking: { type: 'disabled' },
             messages: [
               { role: 'system', content: '你是一位耐心、有趣的小学英语老师。用简体中文回答。' },
               { role: 'user', content: prompt }
@@ -1811,7 +1814,9 @@
           throw new Error(`AI 服务请求失败（HTTP ${response.status}）${detail ? `：${detail}` : ''}`);
         }
         const data = await response.json();
-        return data?.choices?.[0]?.message?.content?.trim() || null;
+        const content = data?.choices?.[0]?.message?.content?.trim();
+        if (!content) throw new Error('AI 服务返回了空内容');
+        return content;
       };
 
       const generateHint = async (word) => {

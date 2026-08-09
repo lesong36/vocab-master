@@ -805,6 +805,8 @@
       const [readingInboxEntries, setReadingInboxEntries] = useState([]);
       const [cloudReadingEntries, setCloudReadingEntries] = useState([]);
       const [cloudReadingProgress, setCloudReadingProgress] = useState({});
+      const [cloudMasterAppState, setCloudMasterAppState] = useState(null);
+      const [cloudMasterStateLoaded, setCloudMasterStateLoaded] = useState(false);
       const [cloudReadingStatus, setCloudReadingStatus] = useState('正在检查阅读器云同步…');
       const [readerCloudUser, setReaderCloudUser] = useState(null);
       const [showReaderLogin, setShowReaderLogin] = useState(false);
@@ -851,6 +853,7 @@
       const audioPlayerRef = useRef(null);
       const cloudProgressWriteTimerRef = useRef(null);
       const lastCloudProgressSnapshotRef = useRef('');
+      const cloudMasterStateAppliedRef = useRef(false);
 
       useEffect(() => {
         usersRef.current = users;
@@ -882,6 +885,7 @@
         const loadCloudVocabulary = async (session) => {
           if (!session?.user) {
             if (!cancelled) setReaderCloudUser(null);
+            if (!cancelled) setCloudMasterStateLoaded(false);
             if (!cancelled) setCloudReadingStatus('登录阅读器账号后，可跨设备导入阅读生词本。');
             return;
           }
@@ -897,11 +901,16 @@
             return;
           }
           setCloudReadingEntries(Array.isArray(data?.vocabulary) ? data.vocabulary : []);
-          const progress = data?.vocab_master_progress?.words && typeof data.vocab_master_progress.words === 'object'
-            ? data.vocab_master_progress.words
+          const masterState = data?.vocab_master_progress && typeof data.vocab_master_progress === 'object'
+            ? data.vocab_master_progress
+            : {};
+          const progress = masterState.words && typeof masterState.words === 'object'
+            ? masterState.words
             : {};
           setCloudReadingProgress(progress);
-          lastCloudProgressSnapshotRef.current = JSON.stringify(progress);
+          setCloudMasterAppState(masterState.appState && isValidAppData(masterState.appState) ? masterState.appState : null);
+          setCloudMasterStateLoaded(true);
+          lastCloudProgressSnapshotRef.current = JSON.stringify(masterState);
           setCloudReadingStatus(`已连接阅读器云端：${Array.isArray(data?.vocabulary) ? data.vocabulary.length : 0} 个生词。`);
         };
         readerSupabase.auth.getSession().then(({ data }) => loadCloudVocabulary(data.session));
@@ -910,6 +919,34 @@
       }, []);
 
       const currentUser = currentUserId ? users[currentUserId] : null;
+
+      useEffect(() => {
+        if (!isHydrated || !cloudMasterStateLoaded || cloudMasterStateAppliedRef.current) return;
+        const remote = cloudMasterAppState;
+        if (remote?.users && typeof remote.users === 'object') {
+          const localUpdatedAt = Math.max(0, ...Object.values(users).map(user => new Date(user.updatedAt || 0).getTime() || 0));
+          const remoteUpdatedAt = new Date(remote.savedAt || 0).getTime() || 0;
+          if (remoteUpdatedAt > localUpdatedAt) {
+            const remoteUsers = Object.fromEntries(Object.entries(remote.users).map(([id, user]) => [id, migrateUserRecord(user)]));
+            const nextUserId = remote.currentUserId && remoteUsers[remote.currentUserId]
+              ? remote.currentUserId
+              : Object.keys(remoteUsers)[0] || null;
+            const active = nextUserId ? remoteUsers[nextUserId] : null;
+            usersRef.current = remoteUsers;
+            setUsers(remoteUsers);
+            setCurrentUserId(nextUserId);
+            if (active?.words?.length) {
+              const nextSections = [...new Set(active.words.map(word => word.section))];
+              setWords(active.words);
+              setSections(nextSections);
+              setSelectedGrade(active.selectedGrade || null);
+              setSelectedSections(active.selectedSections || []);
+              setAppState('select');
+            }
+          }
+        }
+        cloudMasterStateAppliedRef.current = true;
+      }, [isHydrated, cloudMasterStateLoaded, cloudMasterAppState]);
       const pendingReadingEntries = useMemo(() => {
         const byWord = new Map();
         [...readingInboxEntries, ...cloudReadingEntries].forEach(entry => {
@@ -1013,7 +1050,7 @@
       };
 
       useEffect(() => {
-        if (!readerCloudUser) return;
+        if (!readerCloudUser || !cloudMasterStateLoaded || !cloudMasterStateAppliedRef.current) return;
         const readingWords = words.filter(word => word.source === 'reading');
         if (readingWords.length === 0) return;
         const now = new Date().toISOString();
@@ -1025,19 +1062,25 @@
           flashcardKnown: Boolean(word.flashcardKnown),
           updatedAt: word.vocabMasterProgressUpdatedAt || now
         }]));
-        const snapshot = JSON.stringify(progress);
+        const savedAt = new Date(Math.max(0, ...Object.values(users).map(user => new Date(user.updatedAt || 0).getTime() || 0))).toISOString();
+        const masterState = {
+          version: 2,
+          words: progress,
+          appState: { version: STORAGE_VERSION, currentUserId, users, savedAt }
+        };
+        const snapshot = JSON.stringify(masterState);
         if (snapshot === lastCloudProgressSnapshotRef.current) return;
         if (cloudProgressWriteTimerRef.current) clearTimeout(cloudProgressWriteTimerRef.current);
         cloudProgressWriteTimerRef.current = setTimeout(async () => {
           const { error } = await readerSupabase.from('reader_sync_state').upsert({
             user_id: readerCloudUser.id,
-            vocab_master_progress: { version: 1, words: progress },
+            vocab_master_progress: masterState,
             updated_at: new Date().toISOString()
           }, { onConflict: 'user_id' });
           if (!error) lastCloudProgressSnapshotRef.current = snapshot;
         }, 600);
         return () => { if (cloudProgressWriteTimerRef.current) clearTimeout(cloudProgressWriteTimerRef.current); };
-      }, [words, readerCloudUser]);
+      }, [words, users, currentUserId, readerCloudUser, cloudMasterStateLoaded]);
 
       const handleReaderCloudLogin = async (event) => {
         event.preventDefault();

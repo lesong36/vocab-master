@@ -3112,6 +3112,14 @@
                 )}
 
                 <button
+                  onClick={() => window.open('https://lesong36.github.io/reading/', '_blank', 'noopener')}
+                  className="text-sm flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-indigo-300 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition-colors"
+                  title="打开 Readmaster 闹闹爱阅读"
+                >
+                  <BookOpen size={16} /> 打开 Readmaster
+                </button>
+
+                <button
                   onClick={() => setShowReaderLogin(true)}
                   className={`text-sm flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-colors ${readerCloudUser ? 'border-emerald-300 bg-emerald-50 text-emerald-700' : 'border-blue-300 bg-blue-50 text-blue-700 hover:bg-blue-100'}`}
                   title={readerCloudUser ? cloudReadingStatus : '登录阅读器账号以同步阅读生词'}

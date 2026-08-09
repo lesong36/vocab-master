@@ -20,14 +20,22 @@
   <div id="root"></div>
 
   <script type="text/babel" data-type="module">
-    import React, { useState, useEffect, useRef } from 'https://esm.sh/react@18.2.0';
+    import React, { useState, useEffect, useMemo, useRef } from 'https://esm.sh/react@18.2.0';
     import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client?deps=react@18.2.0';
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2?bundle';
     import { Upload, Play, Check, X, Download, BookOpen, Volume2, ArrowRight, RotateCcw, FileJson, Sparkles, Loader2, History, Printer, User, UserPlus, Trash2, Save, ChevronLeft, GraduationCap, Layers, Eye, EyeOff } from 'https://esm.sh/lucide-react@0.468.0?deps=react@18.2.0';
 
     const STORAGE_KEY = 'vocabmaster_app_data';
     const STORAGE_VERSION = 1;
     const DATA_API = '/api/vocab-data';
     const DATA_FILE_NAME = 'vocab_data.json';
+    const READING_VOCAB_INBOX_KEY = 'vocabmaster_reader_inbox_v1';
+    const READING_VOCAB_SECTION = '阅读生词本';
+    const READER_SUPABASE_URL = 'https://faeixgpjhnwpfzfkgjsu.supabase.co';
+    const READER_SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_vg-bfePJ4OSgoOOiMEJeCg_7YxdAdkx';
+    const readerSupabase = createClient(READER_SUPABASE_URL, READER_SUPABASE_PUBLISHABLE_KEY, {
+      auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+    });
     const IS_FILE_PROTOCOL = window.location.protocol === 'file:';
     const GRADE_ORDER = ['三上', '三下', '四上', '四下', '五上', '五下', '音乐', 'RFD1', 'RFD2', 'RFD3'];
     const LESSON_TEXT_FILES = ['./四上英语课文.md', './四上英语课文_英文.md'];
@@ -489,7 +497,7 @@
     };
 
     const isInMistakeBook = (word) => (
-      (word.incorrectCount || 0) > 0 && !word.mistakeCleared
+      word.source !== 'reading' && (word.incorrectCount || 0) > 0 && !word.mistakeCleared
     );
 
     const getMistakeLevel = (word) => {
@@ -794,6 +802,9 @@
       const [sections, setSections] = useState([]);
       const [selectedGrade, setSelectedGrade] = useState(null);
       const [selectedSections, setSelectedSections] = useState([]);
+      const [readingInboxEntries, setReadingInboxEntries] = useState([]);
+      const [cloudReadingEntries, setCloudReadingEntries] = useState([]);
+      const [cloudReadingStatus, setCloudReadingStatus] = useState('正在检查阅读器云同步…');
       
       // Study State
       const [studyList, setStudyList] = useState([]);
@@ -840,7 +851,58 @@
         wordsRef.current = words;
       }, [words]);
 
+      useEffect(() => {
+        const readInbox = () => {
+          try {
+            const inbox = JSON.parse(localStorage.getItem(READING_VOCAB_INBOX_KEY) || '{}');
+            setReadingInboxEntries(Array.isArray(inbox.entries) ? inbox.entries : []);
+          } catch {
+            setReadingInboxEntries([]);
+          }
+        };
+        readInbox();
+        const onStorage = (event) => {
+          if (event.key === READING_VOCAB_INBOX_KEY) readInbox();
+        };
+        window.addEventListener('storage', onStorage);
+        return () => window.removeEventListener('storage', onStorage);
+      }, []);
+
+      useEffect(() => {
+        let cancelled = false;
+        const loadCloudVocabulary = async (session) => {
+          if (!session?.user) {
+            if (!cancelled) setCloudReadingStatus('登录阅读器账号后，可跨设备导入阅读生词本。');
+            return;
+          }
+          const { data, error } = await readerSupabase
+            .from('reader_sync_state')
+            .select('vocabulary')
+            .eq('user_id', session.user.id)
+            .maybeSingle();
+          if (cancelled) return;
+          if (error) {
+            setCloudReadingStatus(`读取阅读器云端生词失败：${error.message}`);
+            return;
+          }
+          setCloudReadingEntries(Array.isArray(data?.vocabulary) ? data.vocabulary : []);
+          setCloudReadingStatus(`已连接阅读器云端：${Array.isArray(data?.vocabulary) ? data.vocabulary.length : 0} 个生词。`);
+        };
+        readerSupabase.auth.getSession().then(({ data }) => loadCloudVocabulary(data.session));
+        const { data: { subscription } } = readerSupabase.auth.onAuthStateChange((_event, session) => loadCloudVocabulary(session));
+        return () => { cancelled = true; subscription.unsubscribe(); };
+      }, []);
+
       const currentUser = currentUserId ? users[currentUserId] : null;
+      const pendingReadingEntries = useMemo(() => {
+        const byWord = new Map();
+        [...readingInboxEntries, ...cloudReadingEntries].forEach(entry => {
+          const word = String(entry?.word || '').trim();
+          if (word) byWord.set(word.toLowerCase(), { ...entry, word });
+        });
+        const importedIds = new Set(words.filter(word => word.source === 'reading').map(word => word.id));
+        return [...byWord.values()].filter(entry => !importedIds.has(`reading:${entry.word.toLowerCase()}`));
+      }, [readingInboxEntries, cloudReadingEntries, words]);
 
       const applyWordsToState = (parsedWords, sourceLabel = '', nextSelectedSections = null, nextSelectedGrade = null, keepAppState = false) => {
         const uniqueSections = [...new Set(parsedWords.map(w => w.section))];
@@ -868,6 +930,49 @@
             },
           }));
         }
+      };
+
+      const importReadingInbox = () => {
+        if (!currentUserId) {
+          setErrorMsg('请先创建或选择一个用户，再导入阅读生词本。');
+          return;
+        }
+        const imported = pendingReadingEntries
+          .filter(entry => typeof entry?.word === 'string' && entry.word.trim())
+          .map(entry => {
+            const englishWord = entry.word.trim();
+            return normalizeWordStats({
+              id: `reading:${englishWord.toLowerCase()}`,
+              section: READING_VOCAB_SECTION,
+              english_word: englishWord,
+              chinese_meaning: entry.meaning || '暂无释义',
+              learning_requirement: '见到英文，能选出中文意思',
+              pos: '',
+              source: 'reading',
+              sourceContext: entry.sourceContext || '',
+              sourceArticleId: entry.sourceArticleId || null,
+              sourceArticleTitle: entry.sourceArticleTitle || '',
+              importedAt: new Date().toISOString(),
+              correctCount: 0,
+              incorrectCount: 0,
+              consecutiveCorrect: 0,
+              mistakeCleared: false,
+            });
+          });
+        if (imported.length === 0) {
+          setErrorMsg('阅读生词本收件箱没有可导入的单词。');
+          return;
+        }
+        const merged = mergeWordStats([...words, ...imported], words);
+        const deduped = Array.from(new Map(merged.map(word => [word.id, word])).values());
+        applyWordsToState(
+          deduped,
+          '阅读器生词本',
+          Array.from(new Set([...selectedSections, READING_VOCAB_SECTION]))
+        );
+        localStorage.removeItem(READING_VOCAB_INBOX_KEY);
+        setReadingInboxEntries([]);
+        setErrorMsg('');
       };
 
       const switchUser = (userId) => {
@@ -1426,6 +1531,12 @@
         reader.onload = (event) => {
           try {
             const parsed = JSON.parse(event.target.result);
+            if (Array.isArray(parsed.entries)) {
+              localStorage.setItem(READING_VOCAB_INBOX_KEY, JSON.stringify(parsed));
+              setReadingInboxEntries(parsed.entries);
+              setErrorMsg('已载入阅读生词本收件箱，请点击“导入阅读生词本”。');
+              return;
+            }
             if (Array.isArray(parsed) && parsed.length > 0 && parsed[0].hasOwnProperty('english_word') && parsed[0].hasOwnProperty('correctCount')) {
               applyWordsToState(parsed, file.name, selectedSections);
             } else {
@@ -1886,6 +1997,25 @@
             )}
           </div>
 
+          <p className="w-full max-w-lg mb-4 text-xs text-gray-500">
+            阅读器云同步：{cloudReadingStatus}
+            <a className="ml-2 text-blue-600 hover:underline" href="https://lesong36.github.io/reading/" target="_blank" rel="noreferrer">登录阅读器账号</a>
+          </p>
+
+          {pendingReadingEntries.length > 0 && (
+            <div className="w-full max-w-lg mb-6 p-4 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-900">
+              <p className="font-semibold">阅读器有 {pendingReadingEntries.length} 个生词等待导入</p>
+              <p className="text-sm mt-1">导入后会进入独立的“阅读生词本”，练习只需见英选义。</p>
+              <button
+                onClick={importReadingInbox}
+                disabled={!currentUserId}
+                className="mt-3 bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-300 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
+              >
+                {currentUserId ? '导入阅读生词本' : '请先创建用户'}
+              </button>
+            </div>
+          )}
+
           {!currentUserId ? (
             <div className="w-full max-w-md mb-8 p-6 bg-white rounded-xl border-2 border-blue-100 shadow-sm">
               <p className="text-gray-600 mb-4">请先创建用户，系统将自动保存你的 Section 选择与学习记录到本地 JSON。</p>
@@ -2024,6 +2154,14 @@
 
         const actionButtons = (
           <div className="flex flex-col sm:flex-row gap-4">
+            {pendingReadingEntries.length > 0 && (
+              <button
+                onClick={importReadingInbox}
+                className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-colors"
+              >
+                导入阅读生词本 ({pendingReadingEntries.length} 词)
+              </button>
+            )}
             <button 
               onClick={startStudy}
               className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-colors flex justify-center items-center gap-2"

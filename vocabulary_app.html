@@ -804,6 +804,7 @@
       const [selectedSections, setSelectedSections] = useState([]);
       const [readingInboxEntries, setReadingInboxEntries] = useState([]);
       const [cloudReadingEntries, setCloudReadingEntries] = useState([]);
+      const [cloudReadingProgress, setCloudReadingProgress] = useState({});
       const [cloudReadingStatus, setCloudReadingStatus] = useState('正在检查阅读器云同步…');
       const [readerCloudUser, setReaderCloudUser] = useState(null);
       const [showReaderLogin, setShowReaderLogin] = useState(false);
@@ -848,6 +849,8 @@
       const wordsRef = useRef([]);
       const serverAvailableRef = useRef(false);
       const audioPlayerRef = useRef(null);
+      const cloudProgressWriteTimerRef = useRef(null);
+      const lastCloudProgressSnapshotRef = useRef('');
 
       useEffect(() => {
         usersRef.current = users;
@@ -885,7 +888,7 @@
           setReaderCloudUser(session.user);
           const { data, error } = await readerSupabase
             .from('reader_sync_state')
-            .select('vocabulary')
+            .select('vocabulary, vocab_master_progress')
             .eq('user_id', session.user.id)
             .maybeSingle();
           if (cancelled) return;
@@ -894,6 +897,11 @@
             return;
           }
           setCloudReadingEntries(Array.isArray(data?.vocabulary) ? data.vocabulary : []);
+          const progress = data?.vocab_master_progress?.words && typeof data.vocab_master_progress.words === 'object'
+            ? data.vocab_master_progress.words
+            : {};
+          setCloudReadingProgress(progress);
+          lastCloudProgressSnapshotRef.current = JSON.stringify(progress);
           setCloudReadingStatus(`已连接阅读器云端：${Array.isArray(data?.vocabulary) ? data.vocabulary.length : 0} 个生词。`);
         };
         readerSupabase.auth.getSession().then(({ data }) => loadCloudVocabulary(data.session));
@@ -912,10 +920,13 @@
         return [...byWord.values()].filter(entry => {
           const imported = importedById.get(`reading:${entry.word.toLowerCase()}`);
           if (!imported) return true;
+          const cloudProgress = cloudReadingProgress[entry.word.toLowerCase()];
           return ['pronunciation', 'etymology', 'exampleSentence', 'sourceContext', 'sourceArticleTitle']
-            .some(field => !imported[field] && entry[field]);
+            .some(field => !imported[field] && entry[field])
+            || !imported.vocabMasterProgressUpdatedAt
+            || (cloudProgress?.updatedAt && cloudProgress.updatedAt > (imported.vocabMasterProgressUpdatedAt || ''));
         });
-      }, [readingInboxEntries, cloudReadingEntries, words]);
+      }, [readingInboxEntries, cloudReadingEntries, cloudReadingProgress, words]);
 
       const applyWordsToState = (parsedWords, sourceLabel = '', nextSelectedSections = null, nextSelectedGrade = null, keepAppState = false) => {
         const uniqueSections = [...new Set(parsedWords.map(w => w.section))];
@@ -954,6 +965,7 @@
           .filter(entry => typeof entry?.word === 'string' && entry.word.trim())
           .map(entry => {
             const englishWord = entry.word.trim();
+            const progress = cloudReadingProgress[englishWord.toLowerCase()] || {};
             return normalizeWordStats({
               id: `reading:${englishWord.toLowerCase()}`,
               section: READING_VOCAB_SECTION,
@@ -969,10 +981,12 @@
               sourceArticleId: entry.sourceArticleId || null,
               sourceArticleTitle: entry.sourceArticleTitle || '',
               importedAt: new Date().toISOString(),
-              correctCount: 0,
-              incorrectCount: 0,
-              consecutiveCorrect: 0,
-              mistakeCleared: false,
+              correctCount: progress.correctCount || 0,
+              incorrectCount: progress.incorrectCount || 0,
+              consecutiveCorrect: progress.consecutiveCorrect || 0,
+              mistakeCleared: Boolean(progress.mistakeCleared),
+              flashcardKnown: Boolean(progress.flashcardKnown),
+              vocabMasterProgressUpdatedAt: progress.updatedAt || new Date().toISOString(),
             });
           });
         if (imported.length === 0) {
@@ -981,8 +995,15 @@
         }
         const merged = mergeWordStats([...words, ...imported], words);
         const deduped = Array.from(new Map(merged.map(word => [word.id, word])).values());
+        const incomingById = new Map(imported.map(word => [word.id, word]));
+        const refreshed = deduped.map(word => {
+          const incoming = incomingById.get(word.id);
+          return incoming && incoming.vocabMasterProgressUpdatedAt > (word.vocabMasterProgressUpdatedAt || '')
+            ? { ...word, ...incoming }
+            : word;
+        });
         applyWordsToState(
-          deduped,
+          refreshed,
           '阅读器生词本',
           Array.from(new Set([...selectedSections, READING_VOCAB_SECTION]))
         );
@@ -990,6 +1011,33 @@
         setReadingInboxEntries([]);
         setErrorMsg('');
       };
+
+      useEffect(() => {
+        if (!readerCloudUser) return;
+        const readingWords = words.filter(word => word.source === 'reading');
+        if (readingWords.length === 0) return;
+        const now = new Date().toISOString();
+        const progress = Object.fromEntries(readingWords.map(word => [word.english_word.toLowerCase(), {
+          correctCount: word.correctCount || 0,
+          incorrectCount: word.incorrectCount || 0,
+          consecutiveCorrect: word.consecutiveCorrect || 0,
+          mistakeCleared: Boolean(word.mistakeCleared),
+          flashcardKnown: Boolean(word.flashcardKnown),
+          updatedAt: word.vocabMasterProgressUpdatedAt || now
+        }]));
+        const snapshot = JSON.stringify(progress);
+        if (snapshot === lastCloudProgressSnapshotRef.current) return;
+        if (cloudProgressWriteTimerRef.current) clearTimeout(cloudProgressWriteTimerRef.current);
+        cloudProgressWriteTimerRef.current = setTimeout(async () => {
+          const { error } = await readerSupabase.from('reader_sync_state').upsert({
+            user_id: readerCloudUser.id,
+            vocab_master_progress: { version: 1, words: progress },
+            updated_at: new Date().toISOString()
+          }, { onConflict: 'user_id' });
+          if (!error) lastCloudProgressSnapshotRef.current = snapshot;
+        }, 600);
+        return () => { if (cloudProgressWriteTimerRef.current) clearTimeout(cloudProgressWriteTimerRef.current); };
+      }, [words, readerCloudUser]);
 
       const handleReaderCloudLogin = async (event) => {
         event.preventDefault();
@@ -1720,7 +1768,7 @@
         setFlashcardList(cards);
         setFlashcardIndex(0);
         setFlashcardFlipped(false);
-        setFlashcardKnownIds([]);
+        setFlashcardKnownIds(cards.filter(card => card.flashcardKnown).map(card => card.id));
         setAppState('flashcards');
       };
 
@@ -1732,9 +1780,11 @@
       const toggleFlashcardKnown = () => {
         const card = flashcardList[flashcardIndex];
         if (!card) return;
-        setFlashcardKnownIds(prev => prev.includes(card.id)
-          ? prev.filter(id => id !== card.id)
-          : [...prev, card.id]);
+        const nextKnown = !flashcardKnownIds.includes(card.id);
+        setFlashcardKnownIds(prev => nextKnown ? [...prev, card.id] : prev.filter(id => id !== card.id));
+        setWords(prevWords => prevWords.map(word => word.id === card.id
+          ? { ...word, flashcardKnown: nextKnown, vocabMasterProgressUpdatedAt: new Date().toISOString() }
+          : word));
       };
 
       const exitStudy = () => {
@@ -1769,6 +1819,7 @@
                 correctCount: (w.correctCount || 0) + 1,
                 consecutiveCorrect,
                 mistakeCleared,
+                vocabMasterProgressUpdatedAt: new Date().toISOString(),
               };
             }
 
@@ -1777,6 +1828,7 @@
               incorrectCount: (w.incorrectCount || 0) + 1,
               consecutiveCorrect: 0,
               mistakeCleared: false,
+              vocabMasterProgressUpdatedAt: new Date().toISOString(),
             };
           })
         );

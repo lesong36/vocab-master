@@ -1204,7 +1204,17 @@
           : getOnlineTTSUrl(text)
       );
 
+      const isIOSDevice = () => (
+        /iPad|iPhone|iPod/.test(navigator.userAgent)
+        || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+      );
+
       const playWordAudio = (wordText, audioUrl = '') => {
+        // iPad Safari 会拦截异步网络音频；点击当下直接调用系统朗读最可靠。
+        if (isIOSDevice() && 'speechSynthesis' in window) {
+          fallbackTTS(wordText);
+          return;
+        }
         const fallbackAudioUrl = getFallbackAudioUrl(wordText);
         const play = (url, canFallbackToOnline) => {
           if (audioPlayerRef.current) {
@@ -1212,6 +1222,8 @@
             audioPlayerRef.current.src = '';
           }
           const audio = new Audio(url);
+          audio.preload = 'auto';
+          audio.playsInline = true;
           audioPlayerRef.current = audio;
           let handled = false;
           const recover = () => {
@@ -1234,6 +1246,13 @@
         const isPhrase = cleanWord.includes(' ') || cleanWord.includes('-');
         const fallbackAudioUrl = getFallbackAudioUrl(wordText);
         const useLocalAudio = serverAvailableRef.current;
+
+        // “开始学习”是一次用户点击：iPad 必须在这一同步时机发声，不能等 fetch 结束。
+        if (shouldPlay && isIOSDevice() && 'speechSynthesis' in window) {
+          setCurrentAudioUrl(fallbackAudioUrl);
+          fallbackTTS(wordText);
+          return;
+        }
 
         // 本地服务可用时立即使用 Mac 英语语音，不等待外部词典接口。
         if (useLocalAudio) {

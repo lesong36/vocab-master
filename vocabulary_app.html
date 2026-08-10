@@ -923,6 +923,7 @@
       const wordsRef = useRef([]);
       const serverAvailableRef = useRef(false);
       const audioPlayerRef = useRef(null);
+      const audioElementRef = useRef(null);
       const cloudProgressWriteTimerRef = useRef(null);
       const lastCloudProgressSnapshotRef = useRef('');
       const cloudMasterStateAppliedRef = useRef(false);
@@ -1647,7 +1648,9 @@
             audioPlayerRef.current.pause();
             audioPlayerRef.current.src = '';
           }
-          const audio = new Audio(url);
+          // Edge 对动态创建且未挂载到 DOM 的 Audio 播放限制更严格。
+          const audio = audioElementRef.current || new Audio();
+          audio.src = url;
           audio.preload = 'auto';
           audio.playsInline = true;
           audio.defaultMuted = false;
@@ -3327,6 +3330,7 @@
               </>
             )}
           </main>
+          <audio ref={audioElementRef} preload="auto" playsInline aria-hidden="true" className="hidden" />
 
           <style dangerouslySetInnerHTML={{__html: `
             @keyframes shake {

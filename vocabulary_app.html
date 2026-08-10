@@ -1602,24 +1602,24 @@
         setSelectedChoiceKey(null);
       }, [currentIndex, appState, studyList]);
 
-      // Handle TTS Fallback
+      // 所有设备统一优先使用系统英语朗读：这是唯一不依赖外部音频网络的路径。
       const fallbackTTS = (text) => {
-        if ('speechSynthesis' in window) {
-          window.speechSynthesis.cancel();
-          window.speechSynthesis.resume();
-          const utterance = new SpeechSynthesisUtterance(text);
-          utterance.lang = 'en-US';
-          utterance.rate = 0.85; // 稍微放慢语速适合小学生
-          
-          const voices = window.speechSynthesis.getVoices();
-          // 尽可能寻找标准的美国发音引擎 (优先 Google, 其次 Mac: Samantha, Win: Zira)
-          const usVoice = voices.find(v => v.lang.startsWith('en-US') && v.name.includes('Google')) || 
-                          voices.find(v => v.lang.startsWith('en-US') && (v.name.includes('Samantha') || v.name.includes('Zira') || v.name.includes('Salli'))) ||
-                          voices.find(v => v.lang.startsWith('en-US'));
-          
-          if (usVoice) utterance.voice = usVoice;
-          window.speechSynthesis.speak(utterance);
-        }
+        if (!('speechSynthesis' in window)) return false;
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.resume();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-US';
+        utterance.rate = 0.85; // 稍微放慢语速适合小学生
+
+        const voices = window.speechSynthesis.getVoices();
+        // 尽可能寻找标准的美国发音引擎 (优先 Google, 其次 Mac: Samantha, Win: Zira)
+        const usVoice = voices.find(v => v.lang.startsWith('en-US') && v.name.includes('Google')) ||
+                        voices.find(v => v.lang.startsWith('en-US') && (v.name.includes('Samantha') || v.name.includes('Zira') || v.name.includes('Salli'))) ||
+                        voices.find(v => v.lang.startsWith('en-US'));
+
+        if (usVoice) utterance.voice = usVoice;
+        window.speechSynthesis.speak(utterance);
+        return true;
       };
 
       // 词典接口偶尔不可用时，使用可跨域播放的在线朗读；浏览器 TTS 作为最后兜底。
@@ -1633,17 +1633,9 @@
           : getOnlineTTSUrl(text)
       );
 
-      const isIOSDevice = () => (
-        /iPad|iPhone|iPod/.test(navigator.userAgent)
-        || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
-      );
-
       const playWordAudio = (wordText, audioUrl = '') => {
-        // iPad Safari 会拦截异步网络音频；点击当下直接调用系统朗读最可靠。
-        if (isIOSDevice() && 'speechSynthesis' in window) {
-          fallbackTTS(wordText);
-          return;
-        }
+        // 必须在点击同步时机朗读，Mac / iPad 均可避开网络音频和自动播放限制。
+        if (fallbackTTS(wordText)) return;
         const fallbackAudioUrl = getFallbackAudioUrl(wordText);
         const play = (url, canFallbackToOnline) => {
           if (audioPlayerRef.current) {
@@ -1676,10 +1668,9 @@
         const fallbackAudioUrl = getFallbackAudioUrl(wordText);
         const useLocalAudio = serverAvailableRef.current;
 
-        // “开始学习”是一次用户点击：iPad 必须在这一同步时机发声，不能等 fetch 结束。
-        if (shouldPlay && isIOSDevice() && 'speechSynthesis' in window) {
+        // “开始学习”是一次用户点击；所有设备都在该同步时机优先使用系统朗读。
+        if (shouldPlay && fallbackTTS(wordText)) {
           setCurrentAudioUrl(fallbackAudioUrl);
-          fallbackTTS(wordText);
           return;
         }
 

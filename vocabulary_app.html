@@ -1602,7 +1602,7 @@
         setSelectedChoiceKey(null);
       }, [currentIndex, appState, studyList]);
 
-      // 所有设备统一优先使用系统英语朗读：这是唯一不依赖外部音频网络的路径。
+      // 系统英语朗读是 iPad 及音频加载失败时的后备。
       const fallbackTTS = (text) => {
         if (!('speechSynthesis' in window)) return false;
         window.speechSynthesis.cancel();
@@ -1633,9 +1633,14 @@
           : getOnlineTTSUrl(text)
       );
 
+      const isIOSDevice = () => (
+        /iPad|iPhone|iPod/.test(navigator.userAgent)
+        || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+      );
+
       const playWordAudio = (wordText, audioUrl = '') => {
-        // 必须在点击同步时机朗读，Mac / iPad 均可避开网络音频和自动播放限制。
-        if (fallbackTTS(wordText)) return;
+        // iPad Safari 需要在点击的同步时机调用系统朗读。
+        if (isIOSDevice() && fallbackTTS(wordText)) return;
         const fallbackAudioUrl = getFallbackAudioUrl(wordText);
         const play = (url, canFallbackToOnline) => {
           if (audioPlayerRef.current) {
@@ -1668,8 +1673,8 @@
         const fallbackAudioUrl = getFallbackAudioUrl(wordText);
         const useLocalAudio = serverAvailableRef.current;
 
-        // “开始学习”是一次用户点击；所有设备都在该同步时机优先使用系统朗读。
-        if (shouldPlay && fallbackTTS(wordText)) {
+        // iPad 必须在“开始学习”的同步点击时机使用系统朗读。
+        if (shouldPlay && isIOSDevice() && fallbackTTS(wordText)) {
           setCurrentAudioUrl(fallbackAudioUrl);
           return;
         }
@@ -1679,6 +1684,14 @@
           setCurrentPhonetic('');
           setCurrentAudioUrl(fallbackAudioUrl);
           if (shouldPlay) playWordAudio(wordText, fallbackAudioUrl);
+          return;
+        }
+
+        // 没有本地服务时，Mac 在点击当下直接加载在线音频；失败才回退系统朗读。
+        if (shouldPlay) {
+          setCurrentPhonetic('');
+          setCurrentAudioUrl(fallbackAudioUrl);
+          playWordAudio(wordText, fallbackAudioUrl);
           return;
         }
 

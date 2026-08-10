@@ -1650,6 +1650,9 @@
           const audio = new Audio(url);
           audio.preload = 'auto';
           audio.playsInline = true;
+          audio.defaultMuted = false;
+          audio.muted = false;
+          audio.volume = 1;
           audioPlayerRef.current = audio;
           let handled = false;
           const recover = () => {

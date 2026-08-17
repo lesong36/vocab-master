@@ -483,8 +483,13 @@
       })
     );
 
+    // 阅读生词本是独立的文章词库，不应被误当成一个年级 / Unit。
     const getGradesFromSections = (sectionList) => (
-      sortGrades([...new Set(sectionList.map(s => parseSectionMeta(s).grade))])
+      sortGrades([...new Set(
+        sectionList
+          .filter(section => section !== READING_VOCAB_SECTION)
+          .map(section => parseSectionMeta(section).grade)
+      )])
     );
 
     const getSectionsForGrade = (sectionList, grade) => (

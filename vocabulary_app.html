@@ -500,6 +500,29 @@
     const MISTAKE_BOOK_ALL = '⚠️ 错题本';
     const MISTAKE_EXIT_STREAK = 2;
 
+    const getReadingDate = (word) => {
+      const value = word.sourceArticleDate || word.addedAt || word.importedAt || word.createdAt || '';
+      const match = String(value).match(/^\d{4}-\d{2}-\d{2}/);
+      return match ? match[0] : '未记录日期';
+    };
+
+    const getReadingArticle = (word) => (
+      (word.sourceArticleTitle || '').trim() || '未归档文章'
+    );
+
+    // 阅读词按表现分层：难词优先，避免曾多次答错的词被“已会”状态掩盖。
+    const getReadingLevel = (word) => {
+      const correct = word.correctCount || 0;
+      const incorrect = word.incorrectCount || 0;
+      if (incorrect >= 2 || (incorrect > 0 && incorrect >= correct)) {
+        return { key: 'hard', label: '难词', className: 'text-red-700 bg-red-100 border-red-200' };
+      }
+      if (word.flashcardKnown || (correct >= 3 && (word.consecutiveCorrect || 0) >= 2)) {
+        return { key: 'mastered', label: '已掌握', className: 'text-emerald-700 bg-emerald-100 border-emerald-200' };
+      }
+      return { key: 'new', label: '生词', className: 'text-amber-700 bg-amber-100 border-amber-200' };
+    };
+
     const getMistakeBookKey = (grade = null) => (
       grade ? `${MISTAKE_BOOK_ALL}·${grade}` : MISTAKE_BOOK_ALL
     );
@@ -869,6 +892,7 @@
       const [sections, setSections] = useState([]);
       const [selectedGrade, setSelectedGrade] = useState(null);
       const [selectedSections, setSelectedSections] = useState([]);
+      const [readingFilters, setReadingFilters] = useState({ article: '', date: '', level: '' });
       const [readingInboxEntries, setReadingInboxEntries] = useState([]);
       const [cloudReadingEntries, setCloudReadingEntries] = useState([]);
       const [cloudReadingProgress, setCloudReadingProgress] = useState({});
@@ -1106,6 +1130,7 @@
               sourceContext: entry.sourceContext || '',
               sourceArticleId: entry.sourceArticleId || null,
               sourceArticleTitle: entry.sourceArticleTitle || '',
+              sourceArticleDate: entry.sourceArticleDate || entry.date || entry.addedAt || entry.createdAt || '',
               importedAt: new Date().toISOString(),
               correctCount: progress.correctCount || 0,
               incorrectCount: progress.incorrectCount || 0,
@@ -1422,6 +1447,7 @@
               setSections(uniqueSections);
               setSelectedGrade(restoredGrade);
               setSelectedSections(user.selectedSections || []);
+              setReadingFilters(user.readingFilters || { article: '', date: '', level: '' });
               setAppState('select');
             }
           }
@@ -1451,6 +1477,7 @@
               words,
               selectedGrade,
               selectedSections,
+              readingFilters,
               updatedAt: new Date().toISOString(),
             },
           };
@@ -1465,7 +1492,7 @@
         return () => {
           if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
         };
-      }, [words, selectedGrade, selectedSections, currentUserId, isHydrated]);
+      }, [words, selectedGrade, selectedSections, readingFilters, currentUserId, isHydrated]);
 
       // Load bundled 词库.md: initial import, or merge newly added words for existing users
       useEffect(() => {
@@ -1971,13 +1998,29 @@
         updateUserSelectionMeta({ selectedSections: next });
       };
 
+      const updateReadingFilter = (field, value) => {
+        const next = { ...readingFilters, [field]: readingFilters[field] === value ? '' : value };
+        setReadingFilters(next);
+        updateUserSelectionMeta({ readingFilters: next });
+      };
+
+      const getFilteredReadingWords = () => words
+        .filter(word => word.source === 'reading')
+        .filter(word => !readingFilters.article || getReadingArticle(word) === readingFilters.article)
+        .filter(word => !readingFilters.date || getReadingDate(word) === readingFilters.date)
+        .filter(word => !readingFilters.level || getReadingLevel(word).key === readingFilters.level);
+
       // Helper function to get the combined list of words selected
       const getWordsToStudy = () => {
         let filteredWords = [];
-        const normalSections = selectedSections.filter(s => !isMistakeBookKey(s));
+        const normalSections = selectedSections.filter(s => !isMistakeBookKey(s) && s !== READING_VOCAB_SECTION);
 
         if (normalSections.length > 0) {
           filteredWords = words.filter(w => normalSections.includes(w.section));
+        }
+
+        if (selectedSections.includes(READING_VOCAB_SECTION) || appState === 'reading') {
+          filteredWords.push(...getFilteredReadingWords());
         }
 
         const existingIds = new Set(filteredWords.map(w => w.id));
@@ -1990,17 +2033,16 @@
             }
           });
         });
-        return filteredWords;
+        return filteredWords.filter((word, index, list) => list.findIndex(item => item.id === word.id) === index);
       };
 
       const startStudy = () => {
-        if (selectedSections.length === 0) {
-          setErrorMsg('请至少选择一个 Section 或 错题本');
+        const filteredWords = getWordsToStudy();
+        if (filteredWords.length === 0) {
+          setErrorMsg('请至少选择一个 Unit、错题本，或调整阅读生词本筛选条件');
           return;
         }
         setErrorMsg('');
-        
-        const filteredWords = getWordsToStudy();
 
         // Optional: Shuffle the array for randomness
         const shuffled = [...filteredWords].sort(() => Math.random() - 0.5);
@@ -2023,21 +2065,17 @@
       };
 
       const startPrintPreview = () => {
-        if (selectedSections.length === 0) {
-          setErrorMsg('请至少选择一个 Section 或 错题本以打印');
+        const filteredWords = getWordsToStudy();
+        if (filteredWords.length === 0) {
+          setErrorMsg('没有可打印的单词，请调整选择条件');
           return;
         }
         setErrorMsg('');
-        const filteredWords = getWordsToStudy();
         setPrintList(filteredWords);
         setAppState('print');
       };
 
       const startFlashcards = () => {
-        if (selectedSections.length === 0) {
-          setErrorMsg('请至少选择一个 Section 或 错题本');
-          return;
-        }
         const cards = [...getWordsToStudy()].sort(() => Math.random() - 0.5);
         if (!cards.length) {
           setErrorMsg('所选词库暂时没有单词');
@@ -2584,6 +2622,67 @@
           </div>
         );
 
+        if (appState === 'reading') {
+          const readingWords = words.filter(word => word.source === 'reading');
+          const articleGroups = [...new Set(readingWords.map(getReadingArticle))].sort((a, b) => a.localeCompare(b, 'zh-CN'));
+          const dateGroups = [...new Set(readingWords.map(getReadingDate))].sort((a, b) => b.localeCompare(a, 'zh-CN'));
+          const levels = [
+            { key: 'new', label: '生词', description: '还未形成稳定记忆', className: 'border-amber-200 bg-amber-50 text-amber-800' },
+            { key: 'hard', label: '难词', description: '答错较多，优先巩固', className: 'border-red-200 bg-red-50 text-red-800' },
+            { key: 'mastered', label: '已掌握', description: '答对稳定或标记为已会', className: 'border-emerald-200 bg-emerald-50 text-emerald-800' },
+          ];
+          const filteredCount = getFilteredReadingWords().length;
+
+          return (
+            <div className="animate-fade-in">
+              <button onClick={() => setAppState('select')} className="mb-4 text-sm text-blue-600 hover:text-blue-800 flex items-center gap-1 font-medium">
+                <ChevronLeft size={18} /> 返回词库选择
+              </button>
+              <div className="mb-6">
+                <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2"><BookOpen className="text-emerald-600" /> 阅读生词本</h2>
+                <p className="mt-2 text-sm text-gray-500">先按文章或日期定位阅读内容，再按学习表现分层。当前筛出 {filteredCount} / {readingWords.length} 词。</p>
+              </div>
+
+              <section className="mb-6">
+                <h3 className="mb-3 font-bold text-gray-700">1. 按文章分组</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {articleGroups.map(article => {
+                    const count = readingWords.filter(word => getReadingArticle(word) === article).length;
+                    const active = readingFilters.article === article;
+                    return <button key={article} onClick={() => updateReadingFilter('article', article)} className={`rounded-xl border-2 p-3 text-left transition ${active ? 'border-emerald-600 bg-emerald-50 text-emerald-900 font-semibold' : 'border-gray-200 bg-white hover:border-emerald-300 text-gray-700'}`}>
+                      <div className="truncate">{article}</div><div className="mt-1 text-xs opacity-70">{count} 个生词</div>
+                    </button>;
+                  })}
+                </div>
+              </section>
+
+              <section className="mb-6">
+                <h3 className="mb-3 font-bold text-gray-700">2. 按导入日期分组</h3>
+                <div className="flex flex-wrap gap-2">
+                  {dateGroups.map(date => <button key={date} onClick={() => updateReadingFilter('date', date)} className={`rounded-lg border px-3 py-2 text-sm transition ${readingFilters.date === date ? 'border-blue-600 bg-blue-50 text-blue-800 font-semibold' : 'border-gray-200 bg-white hover:border-blue-300 text-gray-700'}`}>{date} · {readingWords.filter(word => getReadingDate(word) === date).length} 词</button>)}
+                </div>
+              </section>
+
+              <section className="mb-8">
+                <h3 className="mb-3 font-bold text-gray-700">3. 按学习表现分层</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {levels.map(level => {
+                    const count = readingWords.filter(word => getReadingLevel(word).key === level.key).length;
+                    const active = readingFilters.level === level.key;
+                    return <button key={level.key} onClick={() => updateReadingFilter('level', level.key)} className={`rounded-xl border-2 p-4 text-left transition ${active ? 'ring-2 ring-offset-1 ring-blue-300 ' : ''}${level.className}`}>
+                      <div className="font-bold">{level.label} · {count} 词</div><div className="mt-1 text-xs opacity-75">{level.description}</div>
+                    </button>;
+                  })}
+                </div>
+              </section>
+
+              {(readingFilters.article || readingFilters.date || readingFilters.level) && <button onClick={() => { const next = { article: '', date: '', level: '' }; setReadingFilters(next); updateUserSelectionMeta({ readingFilters: next }); }} className="mb-5 text-sm text-gray-500 hover:text-gray-700 underline">清除全部筛选</button>}
+              {errorMsg && <p className="text-red-500 mb-4">{errorMsg}</p>}
+              {actionButtons}
+            </div>
+          );
+        }
+
         if (!selectedGrade) {
           return (
             <div className="animate-fade-in">
@@ -2606,6 +2705,12 @@
 
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
                 {renderMistakeBookCard()}
+                {words.some(word => word.source === 'reading') && (
+                  <button onClick={() => { setAppState('reading'); setErrorMsg(''); }} className="p-4 rounded-xl border-2 text-left transition-all border-emerald-200 bg-emerald-50 text-emerald-800 hover:border-emerald-400">
+                    <div className="flex justify-between items-center"><span className="font-bold">📖 阅读生词本</span><ArrowRight size={18} /></div>
+                    <div className="text-xs mt-2 text-emerald-700">{words.filter(word => word.source === 'reading').length} 词 · 按文章、日期、掌握程度整理</div>
+                  </button>
+                )}
               </div>
               {allMistakeStats.total > 0 && (
                 <p className="text-xs text-gray-500 mb-6 px-1">
@@ -3322,7 +3427,7 @@
             ) : (
               <>
                 {appState === 'import' && renderImport()}
-                {appState === 'select' && renderSelect()}
+                {(appState === 'select' || appState === 'reading') && renderSelect()}
                 {appState === 'study' && renderStudy()}
                 {appState === 'flashcards' && renderFlashcards()}
                 {appState === 'summary' && renderSummary()}

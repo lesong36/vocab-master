@@ -504,6 +504,7 @@
 
     const MISTAKE_BOOK_ALL = '⚠️ 错题本';
     const MISTAKE_EXIT_STREAK = 2;
+    const READING_GROUP_SIZE = 25;
 
     const getReadingDate = (word) => {
       const value = word.sourceArticleDate || word.addedAt || word.importedAt || word.createdAt || '';
@@ -514,6 +515,36 @@
     const getReadingArticle = (word) => (
       (word.sourceArticleTitle || '').trim() || '未归档文章'
     );
+
+    // 同一篇文章、同一天导入的词保持在一起；超过 25 词才拆成下一组。
+    const getReadingStudyGroups = (wordList) => {
+      const buckets = new Map();
+      (wordList || []).forEach(word => {
+        const article = getReadingArticle(word);
+        const date = getReadingDate(word);
+        const key = `${date}\u0000${article}`;
+        if (!buckets.has(key)) buckets.set(key, { article, date, words: [] });
+        buckets.get(key).words.push(word);
+      });
+      return [...buckets.values()]
+        .sort((a, b) => b.date.localeCompare(a.date) || a.article.localeCompare(b.article, 'zh-CN'))
+        .flatMap(bucket => bucket.words
+          .sort((a, b) => String(a.importedAt || '').localeCompare(String(b.importedAt || '')))
+          .reduce((groups, word, index) => {
+            const part = Math.floor(index / READING_GROUP_SIZE);
+            if (!groups[part]) {
+              groups[part] = {
+                id: `${bucket.date}\u0000${bucket.article}\u0000${part + 1}`,
+                article: bucket.article,
+                date: bucket.date,
+                part: part + 1,
+                words: [],
+              };
+            }
+            groups[part].words.push(word);
+            return groups;
+          }, []));
+    };
 
     // 阅读词按表现分层：难词优先，避免曾多次答错的词被“已会”状态掩盖。
     const getReadingLevel = (word) => {
@@ -897,7 +928,7 @@
       const [sections, setSections] = useState([]);
       const [selectedGrade, setSelectedGrade] = useState(null);
       const [selectedSections, setSelectedSections] = useState([]);
-      const [readingFilters, setReadingFilters] = useState({ article: '', date: '', level: '' });
+      const [readingFilters, setReadingFilters] = useState({ group: '', article: '', date: '', level: '' });
       const [readingInboxEntries, setReadingInboxEntries] = useState([]);
       const [cloudReadingEntries, setCloudReadingEntries] = useState([]);
       const [cloudReadingProgress, setCloudReadingProgress] = useState({});
@@ -1452,7 +1483,7 @@
               setSections(uniqueSections);
               setSelectedGrade(restoredGrade);
               setSelectedSections(user.selectedSections || []);
-              setReadingFilters(user.readingFilters || { article: '', date: '', level: '' });
+              setReadingFilters({ group: '', article: '', date: '', level: '', ...(user.readingFilters || {}) });
               setAppState('select');
             }
           }
@@ -2011,6 +2042,8 @@
 
       const getFilteredReadingWords = () => words
         .filter(word => word.source === 'reading')
+        .filter(word => !readingFilters.group || getReadingStudyGroups(words.filter(item => item.source === 'reading'))
+          .find(group => group.id === readingFilters.group)?.words.some(item => item.id === word.id))
         .filter(word => !readingFilters.article || getReadingArticle(word) === readingFilters.article)
         .filter(word => !readingFilters.date || getReadingDate(word) === readingFilters.date)
         .filter(word => !readingFilters.level || getReadingLevel(word).key === readingFilters.level);
@@ -2629,8 +2662,7 @@
 
         if (appState === 'reading') {
           const readingWords = words.filter(word => word.source === 'reading');
-          const articleGroups = [...new Set(readingWords.map(getReadingArticle))].sort((a, b) => a.localeCompare(b, 'zh-CN'));
-          const dateGroups = [...new Set(readingWords.map(getReadingDate))].sort((a, b) => b.localeCompare(a, 'zh-CN'));
+          const studyGroups = getReadingStudyGroups(readingWords);
           const levels = [
             { key: 'new', label: '生词', description: '还未形成稳定记忆', className: 'border-amber-200 bg-amber-50 text-amber-800' },
             { key: 'hard', label: '难词', description: '答错较多，优先巩固', className: 'border-red-200 bg-red-50 text-red-800' },
@@ -2645,31 +2677,24 @@
               </button>
               <div className="mb-6">
                 <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2"><BookOpen className="text-emerald-600" /> 阅读生词本</h2>
-                <p className="mt-2 text-sm text-gray-500">先按文章或日期定位阅读内容，再按学习表现分层。当前筛出 {filteredCount} / {readingWords.length} 词。</p>
+                <p className="mt-2 text-sm text-gray-500">每组最多 {READING_GROUP_SIZE} 词，优先保持同一来源文章和导入日期在一起；再按学习表现分层。当前筛出 {filteredCount} / {readingWords.length} 词。</p>
               </div>
 
               <section className="mb-6">
-                <h3 className="mb-3 font-bold text-gray-700">1. 按文章分组</h3>
+                <h3 className="mb-3 font-bold text-gray-700">1. 选择一组（每组最多 {READING_GROUP_SIZE} 词）</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {articleGroups.map(article => {
-                    const count = readingWords.filter(word => getReadingArticle(word) === article).length;
-                    const active = readingFilters.article === article;
-                    return <button key={article} onClick={() => updateReadingFilter('article', article)} className={`rounded-xl border-2 p-3 text-left transition ${active ? 'border-emerald-600 bg-emerald-50 text-emerald-900 font-semibold' : 'border-gray-200 bg-white hover:border-emerald-300 text-gray-700'}`}>
-                      <div className="truncate">{article}</div><div className="mt-1 text-xs opacity-70">{count} 个生词</div>
+                  {studyGroups.map(group => {
+                    const active = readingFilters.group === group.id;
+                    return <button key={group.id} onClick={() => updateReadingFilter('group', group.id)} className={`rounded-xl border-2 p-3 text-left transition ${active ? 'border-emerald-600 bg-emerald-50 text-emerald-900 font-semibold' : 'border-gray-200 bg-white hover:border-emerald-300 text-gray-700'}`}>
+                      <div className="truncate font-semibold">{group.article}{group.part > 1 ? ` · 第 ${group.part} 组` : ''}</div>
+                      <div className="mt-1 text-xs opacity-70">{group.date} · {group.words.length} 词</div>
                     </button>;
                   })}
                 </div>
               </section>
 
-              <section className="mb-6">
-                <h3 className="mb-3 font-bold text-gray-700">2. 按导入日期分组</h3>
-                <div className="flex flex-wrap gap-2">
-                  {dateGroups.map(date => <button key={date} onClick={() => updateReadingFilter('date', date)} className={`rounded-lg border px-3 py-2 text-sm transition ${readingFilters.date === date ? 'border-blue-600 bg-blue-50 text-blue-800 font-semibold' : 'border-gray-200 bg-white hover:border-blue-300 text-gray-700'}`}>{date} · {readingWords.filter(word => getReadingDate(word) === date).length} 词</button>)}
-                </div>
-              </section>
-
               <section className="mb-8">
-                <h3 className="mb-3 font-bold text-gray-700">3. 按学习表现分层</h3>
+                <h3 className="mb-3 font-bold text-gray-700">2. 在当前组内按学习表现分层（可选）</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {levels.map(level => {
                     const count = readingWords.filter(word => getReadingLevel(word).key === level.key).length;
@@ -2681,7 +2706,7 @@
                 </div>
               </section>
 
-              {(readingFilters.article || readingFilters.date || readingFilters.level) && <button onClick={() => { const next = { article: '', date: '', level: '' }; setReadingFilters(next); updateUserSelectionMeta({ readingFilters: next }); }} className="mb-5 text-sm text-gray-500 hover:text-gray-700 underline">清除全部筛选</button>}
+              {(readingFilters.group || readingFilters.article || readingFilters.date || readingFilters.level) && <button onClick={() => { const next = { group: '', article: '', date: '', level: '' }; setReadingFilters(next); updateUserSelectionMeta({ readingFilters: next }); }} className="mb-5 text-sm text-gray-500 hover:text-gray-700 underline">清除全部筛选</button>}
               {errorMsg && <p className="text-red-500 mb-4">{errorMsg}</p>}
               {actionButtons}
             </div>

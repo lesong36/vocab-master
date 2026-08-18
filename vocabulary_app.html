@@ -969,6 +969,11 @@
       const [readerAiKey, setReaderAiKey] = useState('');
       const [readerSyncPassphrase, setReaderSyncPassphrase] = useState('');
       const [readerAiStatus, setReaderAiStatus] = useState('连接阅读器账号后，可使用其 AI 设置生成助记。');
+      const [showReadingManager, setShowReadingManager] = useState(false);
+      const [readingManagerPassword, setReadingManagerPassword] = useState('');
+      const [readingManagerError, setReadingManagerError] = useState('');
+      const [readingManagerUnlocked, setReadingManagerUnlocked] = useState(false);
+      const [readingDeleteIds, setReadingDeleteIds] = useState([]);
       
       // Study State
       const [studyList, setStudyList] = useState([]);
@@ -1089,6 +1094,7 @@
       }, []);
 
       const currentUser = currentUserId ? users[currentUserId] : null;
+      const ignoredReadingWordIds = useMemo(() => new Set(currentUser?.ignoredReadingWordIds || []), [currentUser]);
 
       useEffect(() => {
         if (!isHydrated || !cloudMasterStateLoaded || cloudMasterStateAppliedRef.current) return;
@@ -1124,7 +1130,9 @@
         const byWord = new Map();
         [...readingInboxEntries, ...cloudReadingEntries].forEach(entry => {
           const word = String(entry?.word || '').trim();
-          if (word) byWord.set(word.toLowerCase(), { ...entry, word });
+          if (word && !ignoredReadingWordIds.has(`reading:${word.toLowerCase()}`)) {
+            byWord.set(word.toLowerCase(), { ...entry, word });
+          }
         });
         const importedById = new Map(words.filter(word => word.source === 'reading').map(word => [word.id, word]));
         return [...byWord.values()].filter(entry => {
@@ -1136,7 +1144,7 @@
             || !imported.vocabMasterProgressUpdatedAt
             || (cloudProgress?.updatedAt && cloudProgress.updatedAt > (imported.vocabMasterProgressUpdatedAt || ''));
         });
-      }, [readingInboxEntries, cloudReadingEntries, cloudReadingProgress, words]);
+      }, [readingInboxEntries, cloudReadingEntries, cloudReadingProgress, words, ignoredReadingWordIds]);
 
       const applyWordsToState = (parsedWords, sourceLabel = '', nextSelectedSections = null, nextSelectedGrade = null, keepAppState = false) => {
         const uniqueSections = [...new Set(parsedWords.map(w => w.section))];
@@ -2077,6 +2085,43 @@
         updateUserSelectionMeta({ readingFilters: next });
       };
 
+      const unlockReadingManager = async (event) => {
+        event.preventDefault();
+        setReadingManagerError('');
+        if (!readerCloudUser?.email) {
+          setReadingManagerError('请先登录阅读器账号。');
+          return;
+        }
+        const { error } = await readerSupabase.auth.signInWithPassword({
+          email: readerCloudUser.email,
+          password: readingManagerPassword,
+        });
+        if (error) {
+          setReadingManagerError('管理密码不正确，请重试。');
+          return;
+        }
+        setReadingManagerPassword('');
+        setReadingManagerUnlocked(true);
+      };
+
+      const deleteSelectedReadingWords = () => {
+        if (!readingManagerUnlocked || readingDeleteIds.length === 0 || !currentUserId) return;
+        if (!window.confirm(`确定从阅读生词学习列表删除 ${readingDeleteIds.length} 个词吗？`)) return;
+        const deleted = new Set(readingDeleteIds);
+        const ignored = Array.from(new Set([...(currentUser?.ignoredReadingWordIds || []), ...deleted]));
+        setWords(previous => previous.filter(word => !deleted.has(word.id)));
+        const nextUsers = {
+          ...usersRef.current,
+          [currentUserId]: { ...usersRef.current[currentUserId], ignoredReadingWordIds: ignored, updatedAt: new Date().toISOString() },
+        };
+        usersRef.current = nextUsers;
+        setUsers(nextUsers);
+        setReadingDeleteIds([]);
+        setShowReadingManager(false);
+        setReadingManagerUnlocked(false);
+        setErrorMsg('已删除所选阅读生词；它们不会在下次导入时重新加入学习列表。');
+      };
+
       const getFilteredReadingWords = () => {
         const readingWords = words.filter(word => word.source === 'reading');
         const selectedGroup = readingFilters.group
@@ -2722,6 +2767,7 @@
         if (appState === 'reading') {
           const readingWords = words.filter(word => word.source === 'reading');
           const studyGroups = getReadingStudyGroups(readingWords);
+          const selectedReadingGroup = studyGroups.find(group => group.id === readingFilters.group);
           const levels = [
             { key: 'new', label: '生词', description: '还未形成稳定记忆', className: 'border-amber-200 bg-amber-50 text-amber-800' },
             { key: 'hard', label: '难词', description: '答错较多，优先巩固', className: 'border-red-200 bg-red-50 text-red-800' },
@@ -2735,9 +2781,32 @@
                 <ChevronLeft size={18} /> 返回词库选择
               </button>
               <div className="mb-6">
-                <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2"><BookOpen className="text-emerald-600" /> 阅读生词本</h2>
+                <div className="flex flex-wrap items-center justify-between gap-3"><h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2"><BookOpen className="text-emerald-600" /> 阅读生词本</h2><button onClick={() => { setShowReadingManager(true); setReadingManagerError(''); }} className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm font-semibold text-red-700 hover:bg-red-100">管理删除</button></div>
                 <p className="mt-2 text-sm text-gray-500">每组最多 {READING_GROUP_SIZE} 词，优先保持同一来源文章和导入日期在一起；再按学习表现分层。当前筛出 {filteredCount} / {readingWords.length} 词。</p>
               </div>
+
+              {showReadingManager && (
+                <div className="mb-6 rounded-2xl border-2 border-red-200 bg-red-50 p-5">
+                  <div className="flex items-center justify-between gap-3"><h3 className="font-bold text-red-900">阅读生词管理</h3><button onClick={() => { setShowReadingManager(false); setReadingManagerUnlocked(false); setReadingDeleteIds([]); }} className="text-red-500 hover:text-red-700"><X size={20} /></button></div>
+                  {!readingManagerUnlocked ? (
+                    <form onSubmit={unlockReadingManager} className="mt-4">
+                      <p className="mb-3 text-sm text-red-800">请输入当前阅读器账号密码，确认后才可删除误加入的词。</p>
+                      <div className="flex gap-2"><input type="password" value={readingManagerPassword} onChange={event => setReadingManagerPassword(event.target.value)} required autoComplete="current-password" className="min-w-0 flex-1 rounded-lg border border-red-200 px-3 py-2" placeholder="阅读器账号密码" /><button className="rounded-lg bg-red-600 px-4 py-2 font-semibold text-white hover:bg-red-700">确认</button></div>
+                      {readingManagerError && <p className="mt-2 text-sm text-red-600">{readingManagerError}</p>}
+                    </form>
+                  ) : !selectedReadingGroup ? (
+                    <p className="mt-4 text-sm text-red-800">请先选择一个学习组，再勾选其中不需要学习的词。</p>
+                  ) : (
+                    <div className="mt-4">
+                      <p className="mb-3 text-sm text-red-800">勾选“第 {selectedReadingGroup.number} 组”中误加入的词。删除后仅从 VocabMaster 学习列表移除，并会永久忽略后续导入。</p>
+                      <div className="max-h-64 space-y-2 overflow-y-auto rounded-xl border border-red-100 bg-white p-3">
+                        {selectedReadingGroup.words.map(word => <label key={word.id} className="flex cursor-pointer items-center gap-3 rounded-lg px-2 py-1.5 hover:bg-red-50"><input type="checkbox" checked={readingDeleteIds.includes(word.id)} onChange={() => setReadingDeleteIds(previous => previous.includes(word.id) ? previous.filter(id => id !== word.id) : [...previous, word.id])} /><span className="font-semibold text-gray-800">{word.english_word}</span><span className="text-sm text-gray-500">{word.chinese_meaning}</span></label>)}
+                      </div>
+                      <button disabled={readingDeleteIds.length === 0} onClick={deleteSelectedReadingWords} className="mt-4 rounded-lg bg-red-600 px-4 py-2 font-semibold text-white hover:bg-red-700 disabled:cursor-not-allowed disabled:bg-red-300">删除选中的 {readingDeleteIds.length} 词</button>
+                    </div>
+                  )}
+                </div>
+              )}
 
               <section className="mb-6">
                 <h3 className="mb-3 font-bold text-gray-700">1. 选择一组（每组最多 {READING_GROUP_SIZE} 词）</h3>

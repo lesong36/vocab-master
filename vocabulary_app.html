@@ -2069,6 +2069,8 @@
         const next = {
           ...readingFilters,
           group: readingFilters.group === groupId ? '' : groupId,
+          article: '',
+          date: '',
           level: '',
         };
         setReadingFilters(next);

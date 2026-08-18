@@ -2064,6 +2064,17 @@
         updateUserSelectionMeta({ readingFilters: next });
       };
 
+      const selectReadingGroup = (groupId) => {
+        // 组切换不继承上一组的“生词/难词/已掌握”筛选，避免出现选中一组却是 0 词的假象。
+        const next = {
+          ...readingFilters,
+          group: readingFilters.group === groupId ? '' : groupId,
+          level: '',
+        };
+        setReadingFilters(next);
+        updateUserSelectionMeta({ readingFilters: next });
+      };
+
       const getFilteredReadingWords = () => {
         const readingWords = words.filter(word => word.source === 'reading');
         const selectedGroup = readingFilters.group
@@ -2733,7 +2744,7 @@
                     const active = readingFilters.group === group.id;
                     const sourcePreview = group.sources.slice(0, 2).join(' · ');
                     const datePreview = group.dates.length === 1 ? group.dates[0] : `${group.dates[group.dates.length - 1]} 至 ${group.dates[0]}`;
-                    return <button key={group.id} onClick={() => updateReadingFilter('group', group.id)} className={`rounded-xl border-2 p-4 text-left transition ${active ? 'border-emerald-600 bg-emerald-50 text-emerald-900 font-semibold' : 'border-gray-200 bg-white hover:border-emerald-300 text-gray-700'}`}>
+                    return <button key={group.id} onClick={() => selectReadingGroup(group.id)} className={`rounded-xl border-2 p-4 text-left transition ${active ? 'border-emerald-600 bg-emerald-50 text-emerald-900 font-semibold' : 'border-gray-200 bg-white hover:border-emerald-300 text-gray-700'}`}>
                       <div className="flex items-center justify-between gap-3"><span className="font-bold">第 {group.number} 组</span><span className="text-sm font-semibold">{group.words.length} / {READING_GROUP_SIZE} 词</span></div>
                       <div className="mt-2 truncate text-sm">{sourcePreview}{group.sources.length > 2 ? ` 等 ${group.sources.length} 篇文章` : ''}</div>
                       <div className="mt-1 text-xs opacity-70">{datePreview}</div>

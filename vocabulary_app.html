@@ -516,7 +516,7 @@
       (word.sourceArticleTitle || '').trim() || '未归档文章'
     );
 
-    // 同一篇文章、同一天导入的词保持在一起；超过 25 词才拆成下一组。
+    // 先保留同一文章、同一天导入的词；小批次再按时间顺序合并为 25 词学习包。
     const getReadingStudyGroups = (wordList) => {
       const buckets = new Map();
       (wordList || []).forEach(word => {
@@ -526,7 +526,7 @@
         if (!buckets.has(key)) buckets.set(key, { article, date, words: [] });
         buckets.get(key).words.push(word);
       });
-      return [...buckets.values()]
+      const sourceChunks = [...buckets.values()]
         .sort((a, b) => b.date.localeCompare(a.date) || a.article.localeCompare(b.article, 'zh-CN'))
         .flatMap(bucket => bucket.words
           .sort((a, b) => String(a.importedAt || '').localeCompare(String(b.importedAt || '')))
@@ -544,6 +544,30 @@
             groups[part].words.push(word);
             return groups;
           }, []));
+
+      const packed = [];
+      sourceChunks.forEach(chunk => {
+        const current = packed[packed.length - 1];
+        if (current && current.words.length + chunk.words.length <= READING_GROUP_SIZE) {
+          current.words.push(...chunk.words);
+          current.sources.add(chunk.article);
+          current.dates.add(chunk.date);
+          return;
+        }
+        packed.push({
+          words: [...chunk.words],
+          sources: new Set([chunk.article]),
+          dates: new Set([chunk.date]),
+        });
+      });
+
+      return packed.map((group, index) => ({
+        id: `reading-pack:${group.words.map(word => word.id).sort().join('|')}`,
+        number: index + 1,
+        words: group.words,
+        sources: [...group.sources],
+        dates: [...group.dates].sort((a, b) => b.localeCompare(a)),
+      }));
     };
 
     // 阅读词按表现分层：难词优先，避免曾多次答错的词被“已会”状态掩盖。
@@ -1192,7 +1216,7 @@
         applyWordsToState(
           refreshed,
           '阅读器生词本',
-          Array.from(new Set([...selectedSections, READING_VOCAB_SECTION]))
+          selectedSections.filter(section => section !== READING_VOCAB_SECTION)
         );
         localStorage.removeItem(READING_VOCAB_INBOX_KEY);
         setReadingInboxEntries([]);
@@ -2040,13 +2064,23 @@
         updateUserSelectionMeta({ readingFilters: next });
       };
 
-      const getFilteredReadingWords = () => words
-        .filter(word => word.source === 'reading')
-        .filter(word => !readingFilters.group || getReadingStudyGroups(words.filter(item => item.source === 'reading'))
-          .find(group => group.id === readingFilters.group)?.words.some(item => item.id === word.id))
-        .filter(word => !readingFilters.article || getReadingArticle(word) === readingFilters.article)
-        .filter(word => !readingFilters.date || getReadingDate(word) === readingFilters.date)
-        .filter(word => !readingFilters.level || getReadingLevel(word).key === readingFilters.level);
+      const getFilteredReadingWords = () => {
+        const readingWords = words.filter(word => word.source === 'reading');
+        const selectedGroup = readingFilters.group
+          ? getReadingStudyGroups(readingWords).find(group => group.id === readingFilters.group)
+          : null;
+        return readingWords
+          // 分组规则升级后，旧的筛选 key 自动退回到全词库，不会把词“筛没”。
+          .filter(word => !selectedGroup || selectedGroup.words.some(item => item.id === word.id))
+          .filter(word => !readingFilters.article || getReadingArticle(word) === readingFilters.article)
+          .filter(word => !readingFilters.date || getReadingDate(word) === readingFilters.date)
+          .filter(word => !readingFilters.level || getReadingLevel(word).key === readingFilters.level);
+      };
+
+      const hasSelectedReadingGroup = () => (
+        Boolean(readingFilters.group) && getReadingStudyGroups(words.filter(word => word.source === 'reading'))
+          .some(group => group.id === readingFilters.group)
+      );
 
       // Helper function to get the combined list of words selected
       const getWordsToStudy = () => {
@@ -2075,6 +2109,10 @@
       };
 
       const startStudy = () => {
+        if (appState === 'reading' && !hasSelectedReadingGroup()) {
+          setErrorMsg(`请先选择一个不超过 ${READING_GROUP_SIZE} 词的学习组`);
+          return;
+        }
         const filteredWords = getWordsToStudy();
         if (filteredWords.length === 0) {
           setErrorMsg('请至少选择一个 Unit、错题本，或调整阅读生词本筛选条件');
@@ -2103,6 +2141,10 @@
       };
 
       const startPrintPreview = () => {
+        if (appState === 'reading' && !hasSelectedReadingGroup()) {
+          setErrorMsg(`请先选择一个不超过 ${READING_GROUP_SIZE} 词的学习组`);
+          return;
+        }
         const filteredWords = getWordsToStudy();
         if (filteredWords.length === 0) {
           setErrorMsg('没有可打印的单词，请调整选择条件');
@@ -2114,6 +2156,10 @@
       };
 
       const startFlashcards = () => {
+        if (appState === 'reading' && !hasSelectedReadingGroup()) {
+          setErrorMsg(`请先选择一个不超过 ${READING_GROUP_SIZE} 词的学习组`);
+          return;
+        }
         const cards = [...getWordsToStudy()].sort(() => Math.random() - 0.5);
         if (!cards.length) {
           setErrorMsg('所选词库暂时没有单词');
@@ -2685,9 +2731,12 @@
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {studyGroups.map(group => {
                     const active = readingFilters.group === group.id;
-                    return <button key={group.id} onClick={() => updateReadingFilter('group', group.id)} className={`rounded-xl border-2 p-3 text-left transition ${active ? 'border-emerald-600 bg-emerald-50 text-emerald-900 font-semibold' : 'border-gray-200 bg-white hover:border-emerald-300 text-gray-700'}`}>
-                      <div className="truncate font-semibold">{group.article}{group.part > 1 ? ` · 第 ${group.part} 组` : ''}</div>
-                      <div className="mt-1 text-xs opacity-70">{group.date} · {group.words.length} 词</div>
+                    const sourcePreview = group.sources.slice(0, 2).join(' · ');
+                    const datePreview = group.dates.length === 1 ? group.dates[0] : `${group.dates[group.dates.length - 1]} 至 ${group.dates[0]}`;
+                    return <button key={group.id} onClick={() => updateReadingFilter('group', group.id)} className={`rounded-xl border-2 p-4 text-left transition ${active ? 'border-emerald-600 bg-emerald-50 text-emerald-900 font-semibold' : 'border-gray-200 bg-white hover:border-emerald-300 text-gray-700'}`}>
+                      <div className="flex items-center justify-between gap-3"><span className="font-bold">第 {group.number} 组</span><span className="text-sm font-semibold">{group.words.length} / {READING_GROUP_SIZE} 词</span></div>
+                      <div className="mt-2 truncate text-sm">{sourcePreview}{group.sources.length > 2 ? ` 等 ${group.sources.length} 篇文章` : ''}</div>
+                      <div className="mt-1 text-xs opacity-70">{datePreview}</div>
                     </button>;
                   })}
                 </div>
@@ -2697,7 +2746,9 @@
                 <h3 className="mb-3 font-bold text-gray-700">2. 在当前组内按学习表现分层（可选）</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {levels.map(level => {
-                    const count = readingWords.filter(word => getReadingLevel(word).key === level.key).length;
+                    const activeGroup = studyGroups.find(group => group.id === readingFilters.group);
+                    const countBase = activeGroup?.words || readingWords;
+                    const count = countBase.filter(word => getReadingLevel(word).key === level.key).length;
                     const active = readingFilters.level === level.key;
                     return <button key={level.key} onClick={() => updateReadingFilter('level', level.key)} className={`rounded-xl border-2 p-4 text-left transition ${active ? 'ring-2 ring-offset-1 ring-blue-300 ' : ''}${level.className}`}>
                       <div className="font-bold">{level.label} · {count} 词</div><div className="mt-1 text-xs opacity-75">{level.description}</div>

@@ -600,7 +600,7 @@
     };
 
     const isInMistakeBook = (word) => (
-      word.source !== 'reading' && (word.incorrectCount || 0) > 0 && !word.mistakeCleared
+      (word.incorrectCount || 0) > 0 && !word.mistakeCleared
     );
 
     const getMistakeLevel = (word) => {
@@ -2198,6 +2198,28 @@
         }
       };
 
+      const startReadingMistakeStudy = () => {
+        const mistakeWords = words.filter(word => word.source === 'reading' && isInMistakeBook(word));
+        if (!mistakeWords.length) {
+          setErrorMsg('阅读错题本暂时没有待复习的单词');
+          return;
+        }
+        const shuffled = [...mistakeWords].sort(() => Math.random() - 0.5);
+        setErrorMsg('');
+        setStudyList(shuffled);
+        setCurrentIndex(0);
+        setSessionStats({ correct: 0, incorrect: 0, mistakeWordIds: [] });
+        setUserInput('');
+        setFeedback(null);
+        setShowHint(false);
+        setSelectedChoiceKey(null);
+        setRecognitionChoices([]);
+        setCurrentPhonetic('');
+        setCurrentAudioUrl('');
+        setAppState('study');
+        fetchWordDataAndPlay(shuffled[0].english_word, true);
+      };
+
       const startPrintPreview = () => {
         if (appState === 'reading' && !hasSelectedReadingGroup()) {
           setErrorMsg(`请先选择一个不超过 ${READING_GROUP_SIZE} 词的学习组`);
@@ -2768,6 +2790,7 @@
           const readingWords = words.filter(word => word.source === 'reading');
           const studyGroups = getReadingStudyGroups(readingWords);
           const selectedReadingGroup = studyGroups.find(group => group.id === readingFilters.group);
+          const readingMistakeCount = readingWords.filter(isInMistakeBook).length;
           const levels = [
             { key: 'new', label: '生词', description: '还未形成稳定记忆', className: 'border-amber-200 bg-amber-50 text-amber-800' },
             { key: 'hard', label: '难词', description: '答错较多，优先巩固', className: 'border-red-200 bg-red-50 text-red-800' },
@@ -2806,6 +2829,15 @@
                     </div>
                   )}
                 </div>
+              )}
+
+              {readingMistakeCount > 0 && (
+                <section className="mb-6 rounded-2xl border-2 border-red-200 bg-red-50 p-5">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div><h3 className="font-bold text-red-900">⚠️ 阅读错题本 · {readingMistakeCount} 词</h3><p className="mt-1 text-sm text-red-700">答错的阅读词会自动进入这里；连续答对 {MISTAKE_EXIT_STREAK} 次后移出。</p></div>
+                    <button onClick={startReadingMistakeStudy} className="rounded-lg bg-red-600 px-4 py-2.5 font-bold text-white hover:bg-red-700">复习阅读错词</button>
+                  </div>
+                </section>
               )}
 
               <section className="mb-6">

@@ -640,6 +640,36 @@
       mistakeCleared: word.mistakeCleared || false,
     });
 
+    const MAX_STUDY_EVENTS = 5000;
+
+    const normalizeStudyEvents = (events) => (
+      Array.isArray(events)
+        ? events.filter(event => event && event.id && event.at && event.wordId && (event.result === 'correct' || event.result === 'incorrect')).slice(-MAX_STUDY_EVENTS)
+        : []
+    );
+
+    const mergeStudyEvents = (remoteEvents = [], localEvents = []) => {
+      const byId = new Map();
+      [...normalizeStudyEvents(remoteEvents), ...normalizeStudyEvents(localEvents)].forEach(event => byId.set(event.id, event));
+      return [...byId.values()].sort((a, b) => a.at.localeCompare(b.at)).slice(-MAX_STUDY_EVENTS);
+    };
+
+    const getLocalDateKey = (value) => {
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return '';
+      const offsetDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+      return offsetDate.toISOString().slice(0, 10);
+    };
+
+    const getTodayStudySummary = (events) => {
+      const today = getLocalDateKey(new Date());
+      const todayEvents = normalizeStudyEvents(events).filter(event => getLocalDateKey(event.at) === today);
+      const words = [...new Map(todayEvents.map(event => [event.wordId, event])).values()];
+      const correct = todayEvents.filter(event => event.result === 'correct').length;
+      const incorrect = todayEvents.filter(event => event.result === 'incorrect').length;
+      return { words, correct, incorrect, total: correct + incorrect };
+    };
+
     // 词库曾将四上 Unit 2/3/5/6/7 误标为四下（id 176-278），加载时自动纠正
     const MISPLACED_ID_RANGE = [176, 278];
     const MISPLACED_SECTION_MAP = {
@@ -718,6 +748,7 @@
         ...user,
         words,
         selectedSections,
+        studyEvents: normalizeStudyEvents(user.studyEvents),
       };
     };
 
@@ -766,6 +797,7 @@
           ...(remoteIsNewer ? localUser : remoteUser),
           ...(remoteIsNewer ? remoteUser : localUser),
           words: [...words.values()],
+          studyEvents: mergeStudyEvents(remoteUser.studyEvents, localUser.studyEvents),
           updatedAt: remoteIsNewer ? remoteUser.updatedAt : localUser.updatedAt,
         };
       });
@@ -874,6 +906,7 @@
       selectedSections: [],
       words: [],
       vocabSource: '',
+      studyEvents: [],
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     });
@@ -992,6 +1025,7 @@
       // Stats
       // 同一张卡在本次学习中反复尝试，只算作 1 个错词。
       const [sessionStats, setSessionStats] = useState({ correct: 0, incorrect: 0, mistakeWordIds: [] });
+      const [studyEvents, setStudyEvents] = useState([]);
 
       // AI Features State
       const [isAILoading, setIsAILoading] = useState(false);
@@ -1118,6 +1152,7 @@
           if (active?.words?.length) {
             const nextSections = [...new Set(active.words.map(word => word.section))];
             setWords(active.words);
+            setStudyEvents(normalizeStudyEvents(active.studyEvents));
             setSections(nextSections);
             setSelectedGrade(active.selectedGrade || null);
             setSelectedSections(active.selectedSections || []);
@@ -1409,6 +1444,7 @@
             [currentUserId]: {
               ...nextUsers[currentUserId],
               words,
+              studyEvents: normalizeStudyEvents(studyEvents),
               selectedGrade,
               selectedSections,
               updatedAt: new Date().toISOString(),
@@ -1430,12 +1466,14 @@
             ? target.selectedGrade
             : null;
           setWords(target.words);
+          setStudyEvents(normalizeStudyEvents(target.studyEvents));
           setSections(uniqueSections);
           setSelectedGrade(restoredGrade);
           setSelectedSections(target.selectedSections || []);
           setAppState('select');
         } else {
           setWords([]);
+          setStudyEvents([]);
           setSections([]);
           setSelectedGrade(null);
           setSelectedSections([]);
@@ -1458,6 +1496,7 @@
         setCurrentUserId(user.id);
         setNewUserName('');
         setWords([]);
+        setStudyEvents([]);
         setSections([]);
         setSelectedGrade(null);
         setSelectedSections([]);
@@ -1512,6 +1551,7 @@
                 ? user.selectedGrade
                 : null;
               setWords(user.words);
+              setStudyEvents(normalizeStudyEvents(user.studyEvents));
               setSections(uniqueSections);
               setSelectedGrade(restoredGrade);
               setSelectedSections(user.selectedSections || []);
@@ -1543,6 +1583,7 @@
             [currentUserId]: {
               ...baseUsers[currentUserId],
               words,
+              studyEvents: normalizeStudyEvents(studyEvents),
               selectedGrade,
               selectedSections,
               readingFilters,
@@ -1560,7 +1601,7 @@
         return () => {
           if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
         };
-      }, [words, selectedGrade, selectedSections, readingFilters, currentUserId, isHydrated]);
+      }, [words, studyEvents, selectedGrade, selectedSections, readingFilters, currentUserId, isHydrated]);
 
       // Load bundled 词库.md: initial import, or merge newly added words for existing users
       useEffect(() => {
@@ -2283,7 +2324,26 @@
       };
 
       // 3. Study Logic
+      const recordStudyEvent = (wordId, isCorrect) => {
+        const word = wordsRef.current.find(item => item.id === wordId);
+        if (!word) return;
+        const at = new Date().toISOString();
+        const id = typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
+          ? crypto.randomUUID()
+          : `${at}-${wordId}-${Math.random().toString(36).slice(2, 8)}`;
+        setStudyEvents(previous => normalizeStudyEvents([...previous, {
+          id,
+          at,
+          wordId,
+          englishWord: word.english_word,
+          chineseMeaning: word.chinese_meaning,
+          section: word.section,
+          result: isCorrect ? 'correct' : 'incorrect',
+        }]));
+      };
+
       const updateGlobalWordStats = (wordId, isCorrect) => {
+        recordStudyEvent(wordId, isCorrect);
         setWords(prevWords =>
           prevWords.map(w => {
             if (w.id !== wordId) return w;
@@ -2693,6 +2753,7 @@
 
       const renderSelect = () => {
         const allMistakeStats = countMistakeByLevel(words);
+        const todayStudy = getTodayStudySummary(studyEvents);
         const gradeMistakeStats = selectedGrade ? countMistakeByLevel(words, selectedGrade) : null;
         const selectedWordCount = getWordsToStudy().length;
         const grades = getGradesFromSections(sections);
@@ -2746,7 +2807,31 @@
           );
         };
 
+        const renderTodayStudyReport = () => (
+          <section className="mb-6 rounded-2xl border border-sky-200 bg-sky-50 p-5 text-left">
+            <div className="flex flex-wrap items-baseline justify-between gap-2">
+              <h3 className="font-bold text-sky-900">今日学习报告</h3>
+              <span className="text-xs text-sky-700">按本机日期统计，自动同步到 Supabase</span>
+            </div>
+            {todayStudy.total === 0 ? (
+              <p className="mt-2 text-sm text-sky-800">今天还没有答题记录。</p>
+            ) : (
+              <>
+                <div className="mt-3 grid grid-cols-3 gap-3 text-center">
+                  <div className="rounded-lg bg-white p-3"><div className="text-xl font-black text-sky-700">{todayStudy.words.length}</div><div className="text-xs text-gray-500">学习单词</div></div>
+                  <div className="rounded-lg bg-white p-3"><div className="text-xl font-black text-emerald-600">{todayStudy.correct}</div><div className="text-xs text-gray-500">答对次数</div></div>
+                  <div className="rounded-lg bg-white p-3"><div className="text-xl font-black text-red-600">{todayStudy.incorrect}</div><div className="text-xs text-gray-500">答错次数</div></div>
+                </div>
+                <p className="mt-3 text-sm text-sky-900">正确率：{Math.round((todayStudy.correct / todayStudy.total) * 100)}%</p>
+                <p className="mt-2 text-sm leading-6 text-gray-700"><span className="font-semibold">今日单词：</span>{todayStudy.words.map(event => event.englishWord).join('、')}</p>
+              </>
+            )}
+          </section>
+        );
+
         const actionButtons = (
+          <>
+          {renderTodayStudyReport()}
           <div className="flex flex-col sm:flex-row gap-4">
             {pendingReadingEntries.length > 0 && (
               <button
@@ -2784,6 +2869,7 @@
               重新导入
             </button>
           </div>
+          </>
         );
 
         if (appState === 'reading') {

@@ -1276,7 +1276,7 @@
       useEffect(() => {
         if (!readerCloudUser || !cloudMasterStateLoaded || !cloudMasterStateAppliedRef.current) return;
         const readingWords = words.filter(word => word.source === 'reading');
-        if (readingWords.length === 0) return;
+        // 学习档案（含每日学习事件）不依赖阅读生词本；登录同一账号的所有设备都应同步它。
         const now = new Date().toISOString();
         const progress = Object.fromEntries(readingWords.map(word => [word.english_word.toLowerCase(), {
           correctCount: word.correctCount || 0,

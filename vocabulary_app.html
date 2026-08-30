@@ -822,7 +822,13 @@
     };
 
     const saveToBrowser = (payload) => {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+        return true;
+      } catch (error) {
+        console.warn('无法写入浏览器学习记录', error);
+        return false;
+      }
     };
 
     const pickNewerData = (a, b) => {
@@ -885,17 +891,17 @@
 
     const persistAppData = async (currentUserId, users, serverAvailable) => {
       const payload = buildPayload(currentUserId, users);
-      saveToBrowser(payload);
+      const browserSaved = saveToBrowser(payload);
 
       if (!serverAvailable) {
-        return 'browser';
+        return browserSaved ? 'browser' : 'browser-unavailable';
       }
 
       try {
         const ok = await saveToLocalFile(payload);
-        return ok ? 'file' : 'browser';
+        return ok ? 'file' : (browserSaved ? 'browser' : 'browser-unavailable');
       } catch {
-        return 'browser';
+        return browserSaved ? 'browser' : 'browser-unavailable';
       }
     };
 
@@ -1594,8 +1600,10 @@
           setUsers(updatedUsers);
 
           const mode = await persistAppData(currentUserId, updatedUsers, serverAvailableRef.current);
-          setSaveStatus(mode === 'file' ? 'saved-file' : 'saved-browser');
-          setTimeout(() => setSaveStatus(''), 2500);
+          setSaveStatus(mode === 'file' ? 'saved-file' : mode === 'browser' ? 'saved-browser' : 'save-failed');
+          if (mode !== 'browser-unavailable') {
+            setTimeout(() => setSaveStatus(''), 2500);
+          }
         // 答完最后一题会立刻进入完成页；此时不能再等普通的防抖时间，
         // 否则 iPad 切换/关闭页面时可能来不及保存。
         }, appState === 'summary' ? 0 : 400);
@@ -3670,6 +3678,11 @@
                 {saveStatus === 'saved-browser' && (
                   <span className="text-xs text-amber-600 flex items-center gap-1">
                     <Save size={14} /> 已缓存到浏览器
+                  </span>
+                )}
+                {saveStatus === 'save-failed' && (
+                  <span className="text-xs text-red-600 flex items-center gap-1">
+                    <X size={14} /> 浏览器不允许保存；请关闭无痕浏览或允许此网站的数据存储
                   </span>
                 )}
 

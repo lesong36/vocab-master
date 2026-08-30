@@ -1596,12 +1596,14 @@
           const mode = await persistAppData(currentUserId, updatedUsers, serverAvailableRef.current);
           setSaveStatus(mode === 'file' ? 'saved-file' : 'saved-browser');
           setTimeout(() => setSaveStatus(''), 2500);
-        }, 400);
+        // 答完最后一题会立刻进入完成页；此时不能再等普通的防抖时间，
+        // 否则 iPad 切换/关闭页面时可能来不及保存。
+        }, appState === 'summary' ? 0 : 400);
 
         return () => {
           if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
         };
-      }, [words, studyEvents, selectedGrade, selectedSections, readingFilters, currentUserId, isHydrated]);
+      }, [words, studyEvents, selectedGrade, selectedSections, readingFilters, currentUserId, isHydrated, appState]);
 
       // Load bundled 词库.md: initial import, or merge newly added words for existing users
       useEffect(() => {
@@ -2331,7 +2333,7 @@
         const id = typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
           ? crypto.randomUUID()
           : `${at}-${wordId}-${Math.random().toString(36).slice(2, 8)}`;
-        setStudyEvents(previous => normalizeStudyEvents([...previous, {
+        const nextEvents = normalizeStudyEvents([...studyEvents, {
           id,
           at,
           wordId,
@@ -2339,7 +2341,25 @@
           chineseMeaning: word.chinese_meaning,
           section: word.section,
           result: isCorrect ? 'correct' : 'incorrect',
-        }]));
+        }]);
+        setStudyEvents(nextEvents);
+
+        // localStorage 是 iPad 上最可靠的立即落盘点。完整档案仍会由
+        // 下方的自动保存同步到服务器，但不能让答题事件只依赖 400ms 防抖。
+        const activeUser = usersRef.current[currentUserId];
+        if (activeUser) {
+          const nextUsers = {
+            ...usersRef.current,
+            [currentUserId]: {
+              ...activeUser,
+              studyEvents: nextEvents,
+              updatedAt: at,
+            },
+          };
+          usersRef.current = nextUsers;
+          setUsers(nextUsers);
+          saveToBrowser(buildPayload(currentUserId, nextUsers));
+        }
       };
 
       const updateGlobalWordStats = (wordId, isCorrect) => {

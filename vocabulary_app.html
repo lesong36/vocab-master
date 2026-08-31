@@ -2259,6 +2259,25 @@
         }
       };
 
+      const startMistakeLevelStudy = (grade, level) => {
+        const candidates = getMistakeWords(words, grade).filter(word => getMistakeLevel(word).level === level);
+        if (!candidates.length) return;
+        const shuffled = [...candidates].sort(() => Math.random() - 0.5);
+        setErrorMsg('');
+        setStudyList(shuffled);
+        setCurrentIndex(0);
+        setSessionStats({ correct: 0, incorrect: 0, mistakeWordIds: [] });
+        setUserInput('');
+        setFeedback(null);
+        setShowHint(false);
+        setSelectedChoiceKey(null);
+        setRecognitionChoices([]);
+        setCurrentPhonetic('');
+        setCurrentAudioUrl('');
+        setAppState('study');
+        fetchWordDataAndPlay(shuffled[0].english_word, true);
+      };
+
       const startReadingMistakeStudy = () => {
         const mistakeWords = words.filter(word => word.source === 'reading' && isInMistakeBook(word));
         if (!mistakeWords.length) {
@@ -2743,9 +2762,29 @@
           </section>
         );
 
+        const renderMistakeStrategy = () => {
+          const strategyStats = selectedGrade ? countMistakeByLevel(words, selectedGrade) : allMistakeStats;
+          if (!strategyStats.total) return null;
+          const strategyGrade = selectedGrade || null;
+          const lanes = [
+            { level: 3, count: strategyStats.level3, title: '常错词', detail: '≥4 次答错 · 每天先练，直到连续答对 2 次', className: 'border-red-200 bg-red-50 text-red-900', button: '重点攻克' },
+            { level: 2, count: strategyStats.level2, title: '易错词', detail: '2–3 次答错 · 隔天复习，防止反复遗忘', className: 'border-amber-200 bg-amber-50 text-amber-900', button: '巩固复习' },
+            { level: 1, count: strategyStats.level1, title: '偶错词', detail: '答错 1 次 · 3 天内回看一次', className: 'border-orange-200 bg-orange-50 text-orange-900', button: '快速回看' },
+          ];
+          return (
+            <section className="mb-6 rounded-2xl border border-slate-200 bg-white p-5 text-left shadow-sm">
+              <div className="flex flex-wrap items-baseline justify-between gap-2"><h3 className="font-bold text-slate-900">错题复习策略</h3><span className="text-xs text-slate-500">优先处理高频错误，答对 {MISTAKE_EXIT_STREAK} 次自动移出</span></div>
+              <div className="mt-4 grid gap-3 md:grid-cols-3">
+                {lanes.map(lane => <div key={lane.level} className={`rounded-xl border p-4 ${lane.className}`}><div className="flex items-center justify-between"><span className="font-bold">{lane.title}</span><span className="text-2xl font-black">{lane.count}</span></div><p className="mt-2 min-h-10 text-xs leading-5 opacity-80">{lane.detail}</p><button disabled={!lane.count} onClick={() => startMistakeLevelStudy(strategyGrade, lane.level)} className="mt-3 w-full rounded-lg bg-white/80 px-3 py-2 text-sm font-semibold shadow-sm hover:bg-white disabled:cursor-not-allowed disabled:opacity-40">{lane.button}</button></div>)}
+              </div>
+            </section>
+          );
+        };
+
         const actionButtons = (
           <>
           {renderTodayStudyReport()}
+          {renderMistakeStrategy()}
           <div className="flex flex-col sm:flex-row gap-4">
             {pendingReadingEntries.length > 0 && (
               <button

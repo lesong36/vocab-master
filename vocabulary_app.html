@@ -1053,6 +1053,8 @@
       // Study State
       const [studyList, setStudyList] = useState([]);
       const [printList, setPrintList] = useState([]); // New state for printing
+      const [printMode, setPrintMode] = useState('cards');
+      const [isPreparingMistakePrint, setIsPreparingMistakePrint] = useState(false);
       const [currentIndex, setCurrentIndex] = useState(0);
       const [userInput, setUserInput] = useState('');
       const [feedback, setFeedback] = useState(null); // 'correct', 'incorrect'
@@ -2291,7 +2293,38 @@
         }
         setErrorMsg('');
         setPrintList(filteredWords);
+        setPrintMode('cards');
         setAppState('print');
+      };
+
+      const startTodayMistakePrint = async () => {
+        const today = getLocalDateKey(new Date());
+        const mistakenIds = [...new Set(
+          normalizeStudyEvents(studyEvents)
+            .filter(event => getLocalDateKey(event.at) === today && event.result === 'incorrect')
+            .map(event => event.wordId)
+        )];
+        const mistakenWords = mistakenIds.map(id => wordsRef.current.find(word => word.id === id)).filter(Boolean);
+        if (!mistakenWords.length) {
+          setErrorMsg('今天还没有可打印的错题。');
+          return;
+        }
+        setIsPreparingMistakePrint(true);
+        setErrorMsg('');
+        try {
+          const prepared = [];
+          for (const word of mistakenWords) {
+            const hint = await generateHint(word);
+            prepared.push({ ...word, printableHint: hint.text, printableHintSource: hint.source });
+          }
+          setPrintList(prepared);
+          setPrintMode('mistakes');
+          setAppState('print');
+        } catch {
+          setErrorMsg('错题讲义生成失败，请重试。');
+        } finally {
+          setIsPreparingMistakePrint(false);
+        }
       };
 
       const startFlashcards = () => {
@@ -2692,7 +2725,16 @@
                 <div className="mt-3 grid grid-cols-3 gap-3 text-center">
                   <div className="rounded-lg bg-white p-3"><div className="text-xl font-black text-sky-700">{todayStudy.words.length}</div><div className="text-xs text-gray-500">学习单词</div></div>
                   <div className="rounded-lg bg-white p-3"><div className="text-xl font-black text-emerald-600">{todayStudy.correct}</div><div className="text-xs text-gray-500">答对次数</div></div>
-                  <div className="rounded-lg bg-white p-3"><div className="text-xl font-black text-red-600">{todayStudy.incorrect}</div><div className="text-xs text-gray-500">答错次数</div></div>
+                  <button
+                    type="button"
+                    onClick={startTodayMistakePrint}
+                    disabled={todayStudy.incorrect === 0 || isPreparingMistakePrint}
+                    className="rounded-lg bg-white p-3 text-center transition hover:bg-red-50 hover:ring-2 hover:ring-red-200 disabled:cursor-not-allowed disabled:opacity-60"
+                    title="打印今日错题与 AI 助记"
+                  >
+                    <div className="text-xl font-black text-red-600">{todayStudy.incorrect}</div>
+                    <div className="text-xs text-gray-500">{isPreparingMistakePrint ? '正在生成 AI 解析…' : '答错次数 · 点击打印'}</div>
+                  </button>
                 </div>
                 <p className="mt-3 text-sm text-sky-900">正确率：{Math.round((todayStudy.correct / todayStudy.total) * 100)}%</p>
                 <p className="mt-2 text-sm leading-6 text-gray-700"><span className="font-semibold">今日单词：</span>{todayStudy.words.map(event => event.englishWord).join('、')}</p>
@@ -2982,7 +3024,9 @@
                 <Printer size={24}/> 打印预览
               </h2>
               <p className="text-blue-600 text-sm">
-                提示：打印时请在浏览器设置中开启 <b>"背景图形/颜色"</b>。打印后沿虚线对折即可。背面含词根词缀 / 发音 / 词性转化记法（非故事型助记）。
+                {printMode === 'mistakes'
+                  ? '今日错题讲义：每个词附带 AI 解析/助记。打印时请在浏览器设置中开启 “背景图形/颜色”。'
+                  : '提示：打印时请在浏览器设置中开启 “背景图形/颜色”。打印后沿虚线对折即可。背面含词根词缀 / 发音 / 词性转化记法（非故事型助记）。'}
               </p>
             </div>
             <div className="flex gap-3 w-full sm:w-auto">
@@ -3001,13 +3045,13 @@
             </div>
           </div>
 
-          <div className="print-grid grid grid-cols-2 md:grid-cols-3 gap-6 pb-12">
+          <div className={`print-grid grid gap-6 pb-12 ${printMode === 'mistakes' ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-2 md:grid-cols-3'}`}>
             {printList.map((w, index) => {
               const studyTip = buildCardStudyTip(w);
               const pos = getWordPos(w);
               const posLabel = POS_LABEL_ZH[pos] || (w.pos || '').replace(/\.$/, '');
               return (
-              <div key={`${w.id}-${index}`} className="print-card border-2 border-gray-800 rounded-xl flex flex-col bg-white overflow-hidden" style={{ minHeight: '16rem' }}>
+              <div key={`${w.id}-${index}`} className="print-card border-2 border-gray-800 rounded-xl flex flex-col bg-white overflow-hidden" style={{ minHeight: printMode === 'mistakes' ? '13rem' : '16rem' }}>
                 {/* Front of card (English) */}
                 <div className="flex-1 flex flex-col items-center justify-center p-4">
                   <span className="text-3xl font-bold text-gray-900">{w.english_word}</span>
@@ -3028,6 +3072,15 @@
                     <p className="text-[11px] leading-snug text-amber-900 bg-amber-50 border border-amber-200 rounded-md px-2 py-1.5 w-full text-left">
                       <span className="font-bold">记法：</span>{studyTip}
                     </p>
+                  )}
+                  {printMode === 'mistakes' && (
+                    <div className="w-full rounded-md border border-violet-200 bg-violet-50 px-3 py-2 text-left text-xs leading-5 text-violet-950">
+                      <div className="mb-1 flex items-center justify-between gap-2 font-bold text-violet-800">
+                        <span>AI 解析 / 助记</span>
+                        <span className="rounded bg-white px-1.5 py-0.5 text-[10px]">答错 {w.incorrectCount || 1} 次</span>
+                      </div>
+                      <p className="whitespace-pre-line">{w.printableHint || buildLocalHint(w)}</p>
+                    </div>
                   )}
                   <div className="flex items-center gap-2 flex-wrap justify-center">
                     <span className="text-xs font-mono bg-gray-200 text-gray-600 px-2 py-1 rounded">{w.section}</span>

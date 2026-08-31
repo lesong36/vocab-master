@@ -765,7 +765,12 @@
     const mergeCloudWord = (remote = {}, local = {}) => {
       const remoteUpdatedAt = remote.vocabMasterProgressUpdatedAt || remote.updatedAt || '';
       const localUpdatedAt = local.vocabMasterProgressUpdatedAt || local.updatedAt || '';
-      const newest = localUpdatedAt >= remoteUpdatedAt ? local : remote;
+      const remoteTime = Date.parse(remoteUpdatedAt);
+      const localTime = Date.parse(localUpdatedAt);
+      const localIsNewer = Number.isFinite(localTime) && Number.isFinite(remoteTime)
+        ? localTime >= remoteTime
+        : localUpdatedAt >= remoteUpdatedAt;
+      const newest = localIsNewer ? local : remote;
       return normalizeWordStats({
         ...remote,
         ...local,
@@ -777,7 +782,7 @@
         // 因此跟随最新记录，不能用 OR 把旧的“已掌握”永久保留下来。
         mistakeCleared: Boolean(newest.mistakeCleared),
         flashcardKnown: Boolean(remote.flashcardKnown || local.flashcardKnown),
-        vocabMasterProgressUpdatedAt: remoteUpdatedAt >= localUpdatedAt ? remoteUpdatedAt : localUpdatedAt,
+        vocabMasterProgressUpdatedAt: localIsNewer ? localUpdatedAt : remoteUpdatedAt,
       });
     };
 

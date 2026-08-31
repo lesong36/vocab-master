@@ -1092,6 +1092,7 @@
       const cloudProgressWriteTimerRef = useRef(null);
       const lastCloudProgressSnapshotRef = useRef('');
       const cloudMasterStateAppliedRef = useRef(false);
+      const forceCloudReadRef = useRef(false);
       const encryptedReaderAiKeyRef = useRef(null);
 
       useEffect(() => {
@@ -1181,10 +1182,12 @@
           users,
           savedAt: new Date(Math.max(0, ...Object.values(users).map(user => new Date(user.updatedAt || 0).getTime() || 0))).toISOString()
         };
+        // “强制同步”由用户明确选择云端为准，不能再让旧浏览器缓存参与合并。
         const mergedState = collapseToReaderAccount(
-          mergeCloudAppState(remote, localState),
+          forceCloudReadRef.current && isValidAppData(remote) ? remote : mergeCloudAppState(remote, localState),
           readerCloudUser
         );
+        forceCloudReadRef.current = false;
         const mergedUsers = Object.fromEntries(Object.entries(mergedState.users).map(([id, user]) => [id, migrateUserRecord(user)]));
         const nextUserId = mergedState.currentUserId && mergedUsers[mergedState.currentUserId]
           ? mergedState.currentUserId
@@ -1477,6 +1480,7 @@
             .maybeSingle();
           if (error) throw error;
           cloudMasterStateAppliedRef.current = false;
+          forceCloudReadRef.current = true;
           const remoteMasterState = data?.vocab_master_progress && typeof data.vocab_master_progress === 'object'
             ? data.vocab_master_progress
             : {};

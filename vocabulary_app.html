@@ -1245,6 +1245,33 @@
         }
       };
 
+      // 允许从一次性链接批量加入错题本：仅更新当前阅读器账号的现有词条，
+      // 随后的自动同步会写回 Supabase。处理完成后移除参数，避免重复导入。
+      useEffect(() => {
+        if (!isHydrated || !currentUserId) return;
+        const params = new URLSearchParams(window.location.search);
+        const rawWords = params.get('pdfMistakes');
+        if (!rawWords) return;
+        const targets = new Set(rawWords.split(',').map(word => word.trim().toLowerCase()).filter(Boolean));
+        if (targets.size === 0) return;
+        let imported = 0;
+        const updatedWords = words.map(word => {
+          if (!targets.has(String(word.english_word || '').trim().toLowerCase())) return word;
+          imported += 1;
+          return { ...word, incorrectCount: Math.max(1, word.incorrectCount || 0), consecutiveCorrect: 0, mistakeCleared: false, vocabMasterProgressUpdatedAt: new Date().toISOString() };
+        });
+        if (imported > 0) {
+          const mistakeKey = getMistakeBookKey('四上');
+          applyWordsToState(updatedWords, '', [...new Set([...selectedSections, mistakeKey])], selectedGrade, true);
+          setCloudReadingStatus(`已将 PDF 中的 ${imported} 个词加入错题本，正在同步到云端…`);
+        } else {
+          setErrorMsg('PDF 中的单词未在当前词库中找到。');
+        }
+        params.delete('pdfMistakes');
+        const query = params.toString();
+        window.history.replaceState({}, '', `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`);
+      }, [isHydrated, currentUserId]);
+
       const importReadingInbox = () => {
         if (!currentUserId) {
           setErrorMsg('请先创建或选择一个用户，再导入阅读生词本。');

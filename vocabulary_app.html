@@ -773,7 +773,9 @@
         correctCount: Math.max(remote.correctCount || 0, local.correctCount || 0),
         incorrectCount: Math.max(remote.incorrectCount || 0, local.incorrectCount || 0),
         consecutiveCorrect: Math.max(remote.consecutiveCorrect || 0, local.consecutiveCorrect || 0),
-        mistakeCleared: Boolean(remote.mistakeCleared || local.mistakeCleared),
+        // 错题状态不是单调值：后一次答错必须能把已移出的词重新放回错题本。
+        // 因此跟随最新记录，不能用 OR 把旧的“已掌握”永久保留下来。
+        mistakeCleared: Boolean(newest.mistakeCleared),
         flashcardKnown: Boolean(remote.flashcardKnown || local.flashcardKnown),
         vocabMasterProgressUpdatedAt: remoteUpdatedAt >= localUpdatedAt ? remoteUpdatedAt : localUpdatedAt,
       });

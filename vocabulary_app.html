@@ -670,6 +670,42 @@
       return { words, correct, incorrect, total: correct + incorrect };
     };
 
+    const getWeeklyStudySummaries = (events, weeks = 4, now = new Date()) => {
+      const today = new Date(now);
+      today.setHours(0, 0, 0, 0);
+      const monday = new Date(today);
+      monday.setDate(today.getDate() - ((today.getDay() + 6) % 7));
+      const normalized = normalizeStudyEvents(events);
+
+      return Array.from({ length: weeks }, (_, index) => {
+        const weeksAgo = weeks - index - 1;
+        const start = new Date(monday);
+        start.setDate(monday.getDate() - weeksAgo * 7);
+        const end = new Date(start);
+        end.setDate(start.getDate() + 7);
+        const weekEvents = normalized.filter(event => {
+          const eventDate = new Date(event.at);
+          return !Number.isNaN(eventDate.getTime()) && eventDate >= start && eventDate < end;
+        });
+        const correct = weekEvents.filter(event => event.result === 'correct').length;
+        const incorrect = weekEvents.length - correct;
+        const words = new Set(weekEvents.map(event => event.wordId));
+        const days = new Set(weekEvents.map(event => getLocalDateKey(event.at)).filter(Boolean));
+        const weekEnd = new Date(end);
+        weekEnd.setDate(end.getDate() - 1);
+        return {
+          label: weeksAgo === 0 ? '本周' : `${weeksAgo} 周前`,
+          dateRange: `${start.getMonth() + 1}/${start.getDate()}–${weekEnd.getMonth() + 1}/${weekEnd.getDate()}`,
+          correct,
+          incorrect,
+          total: weekEvents.length,
+          wordCount: words.size,
+          dayCount: days.size,
+          accuracy: weekEvents.length ? Math.round((correct / weekEvents.length) * 100) : null,
+        };
+      });
+    };
+
     // 词库曾将四上 Unit 2/3/5/6/7 误标为四下（id 176-278），加载时自动纠正
     const MISPLACED_ID_RANGE = [176, 278];
     const MISPLACED_SECTION_MAP = {
@@ -2678,6 +2714,7 @@
       const renderSelect = () => {
         const allMistakeStats = countMistakeByLevel(words);
         const todayStudy = getTodayStudySummary(studyEvents);
+        const weeklyStudy = getWeeklyStudySummaries(studyEvents);
         const gradeMistakeStats = selectedGrade ? countMistakeByLevel(words, selectedGrade) : null;
         const selectedWordCount = getWordsToStudy().length;
         const grades = getGradesFromSections(sections);
@@ -2762,6 +2799,42 @@
           </section>
         );
 
+        const renderWeeklyStudyTracker = () => (
+          <section className="mb-6 rounded-2xl border border-violet-200 bg-violet-50 p-5 text-left">
+            <div className="flex flex-wrap items-baseline justify-between gap-2">
+              <h3 className="font-bold text-violet-950">近 4 周学习追踪</h3>
+              <span className="text-xs text-violet-700">每周一开始统计 · 自动保存答题记录</span>
+            </div>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              {weeklyStudy.map(week => (
+                <div key={week.label} className="rounded-xl border border-violet-100 bg-white p-4 shadow-sm">
+                  <div className="flex items-baseline justify-between gap-2">
+                    <span className="font-semibold text-violet-900">{week.label}</span>
+                    <span className="text-xs text-gray-500">{week.dateRange}</span>
+                  </div>
+                  {week.total === 0 ? (
+                    <p className="mt-4 text-sm text-gray-500">暂无答题记录</p>
+                  ) : (
+                    <>
+                      <div className="mt-3 flex items-end justify-between gap-2">
+                        <div><span className="text-2xl font-black text-violet-700">{week.accuracy}%</span><span className="ml-1 text-xs text-gray-500">正确率</span></div>
+                        <span className="text-xs text-gray-600">{week.dayCount} 天学习</span>
+                      </div>
+                      <div className="mt-2 h-2 overflow-hidden rounded-full bg-red-100" aria-label={`正确率 ${week.accuracy}%`}>
+                        <div className="h-full rounded-full bg-emerald-500" style={{ width: `${week.accuracy}%` }}></div>
+                      </div>
+                      <div className="mt-3 grid grid-cols-2 gap-2 text-xs text-gray-600">
+                        <span>{week.wordCount} 个单词</span><span>{week.total} 次答题</span>
+                        <span className="text-emerald-700">答对 {week.correct}</span><span className="text-red-600">答错 {week.incorrect}</span>
+                      </div>
+                    </>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+        );
+
         const renderMistakeStrategy = () => {
           const strategyStats = selectedGrade ? countMistakeByLevel(words, selectedGrade) : allMistakeStats;
           if (!strategyStats.total) return null;
@@ -2784,6 +2857,7 @@
         const actionButtons = (
           <>
           {renderTodayStudyReport()}
+          {renderWeeklyStudyTracker()}
           {renderMistakeStrategy()}
           <div className="flex flex-col sm:flex-row gap-4">
             {pendingReadingEntries.length > 0 && (

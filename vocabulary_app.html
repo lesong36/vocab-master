@@ -57,7 +57,9 @@
       return textDecoder.decode(plaintext);
     };
     const IS_FILE_PROTOCOL = window.location.protocol === 'file:';
-    const GRADE_ORDER = ['三上', '三下', '四上', '四下', '五上', '五下', '音乐', 'RFD1', 'RFD2', 'RFD3', 'RFD4', 'RFD5', 'RFD6'];
+    const GRADE_ORDER = ['三上', '三下', '四上', '四下', '五上', '五下', 'KET', '音乐', 'RFD1', 'RFD2', 'RFD3', 'RFD4', 'RFD5', 'RFD6'];
+    const HIDDEN_GRADES = new Set(['RFD2', 'RFD3', 'RFD4', 'RFD5', 'RFD6']);
+    const isHiddenGrade = (grade) => HIDDEN_GRADES.has(grade);
     const LESSON_TEXT_FILES = ['./四上英语课文.md', './四上英语课文_英文.md'];
     const MAX_LESSON_EXAMPLES = 3;
 
@@ -185,7 +187,8 @@
     };
 
     const isRecognitionWord = (word) => (
-      (word?.learning_requirement || '').includes('见到英文')
+      (word?.learning_requirement || '').includes('见到英文') ||
+      (word?.learning_requirement || '').includes('见英文')
     );
 
     const normalizeMeaning = (text) => (text || '').trim();
@@ -489,12 +492,13 @@
         sectionList
           .filter(section => section !== READING_VOCAB_SECTION)
           .map(section => parseSectionMeta(section).grade)
+          .filter(grade => !isHiddenGrade(grade))
       )])
     );
 
     const getSectionsForGrade = (sectionList, grade) => (
       sectionList
-        .filter(s => parseSectionMeta(s).grade === grade)
+        .filter(s => parseSectionMeta(s).grade === grade && !isHiddenGrade(grade))
         .sort((a, b) => {
           const na = parseInt(a.match(/Unit (\d+)/)?.[1] || '0', 10);
           const nb = parseInt(b.match(/Unit (\d+)/)?.[1] || '0', 10);
@@ -806,6 +810,7 @@
       words = migrateSanxiaWords(words).map(normalizeWordStats);
       let selectedSections = migrateSelectedSections(user.selectedSections, words);
       selectedSections = migrateSanxiaSelectedSections(selectedSections);
+      selectedSections = selectedSections.filter(section => !isHiddenGrade(parseSectionMeta(section).grade));
       return {
         ...user,
         words,
@@ -1297,7 +1302,8 @@
         const grades = getGradesFromSections(uniqueSections);
         setWords(parsedWords);
         setSections(uniqueSections);
-        const sectionsToUse = nextSelectedSections ?? selectedSections.filter(s => isMistakeBookKey(s) || uniqueSections.includes(s));
+        const sectionsToUse = (nextSelectedSections ?? selectedSections.filter(s => isMistakeBookKey(s) || uniqueSections.includes(s)))
+          .filter(section => isMistakeBookKey(section) || !isHiddenGrade(parseSectionMeta(section).grade));
         setSelectedSections(sectionsToUse);
         const gradeCandidate = nextSelectedGrade ?? selectedGrade;
         const gradeToUse = gradeCandidate && grades.includes(gradeCandidate) ? gradeCandidate : null;
@@ -1686,14 +1692,18 @@
         };
       }, [words, studyEvents, selectedGrade, selectedSections, readingFilters, currentUserId, isHydrated, appState]);
 
-      // Load bundled 词库.md: initial import, or merge newly added words for existing users
+      // Load bundled school vocabulary and the KET packs: initial import, or merge newly added words.
       useEffect(() => {
         if (!isHydrated || !currentUserId) return;
-        fetch('./词库.md')
-          .then(res => (res.ok ? res.text() : null))
-          .then(text => {
-            if (!text) return;
-            const parsed = parseData(text);
+        Promise.all([
+          fetch('./词库.md').then(res => (res.ok ? res.text() : null)),
+          fetch('./ket_vocab.json').then(res => (res.ok ? res.json() : null)),
+        ])
+          .then(([text, ketData]) => {
+            const parsed = [
+              ...(text ? parseData(text) : []),
+              ...((ketData?.words || []).map(normalizeWordStats)),
+            ];
             if (parsed.length === 0) return;
             const existing = currentUserId ? usersRef.current[currentUserId]?.words || [] : words;
             const existingById = new Map((existing || []).map(w => [w.id, w]));
@@ -1711,7 +1721,7 @@
               const merged = mergeWordStats(parsed, existing);
               const savedSections = currentUserId ? usersRef.current[currentUserId]?.selectedSections || [] : [];
               const savedGrade = currentUserId ? usersRef.current[currentUserId]?.selectedGrade || null : null;
-              applyWordsToState(merged, '词库.md', savedSections, savedGrade, existing.length > 0);
+              applyWordsToState(merged, '词库.md + KET词库', savedSections, savedGrade, existing.length > 0);
             }
           })
           .catch(() => {});

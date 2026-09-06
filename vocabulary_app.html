@@ -407,30 +407,47 @@
       return Boolean(p1 && p2 && p1 === p2);
     };
 
-    const matchesDistractorRule = (target, candidate, opts = {}) => {
-      if (opts.posOnly) return isSamePos(target, candidate);
-      if (opts.spellingOnly) {
-        return isSpellingSimilar(target, candidate, opts.spellingThreshold ?? 0.3);
-      }
-      return isSamePos(target, candidate)
-        || isSpellingSimilar(target, candidate, opts.spellingThreshold ?? 0.5);
+    // 用中文释义本身判断选项是否会互相“抢意思”。忽略括号说明和泛化的
+    // 解释词，只把有实际含义的连续中文片段拿来比较。
+    const meaningChunks = (meaning) => normalizeMeaning(meaning)
+      .replace(/[（(][^）)]*[）)]/g, '')
+      .split(/[；;、，,。/／/]/)
+      .map(part => part.replace(/(表示|某个|某物|一个|东西|可以|用来|的人|的地方|的部分|的事)/g, '').trim())
+      .filter(part => part.length >= 2);
+
+    const hasMeaningOverlap = (first, second) => {
+      const left = meaningChunks(first);
+      const right = meaningChunks(second);
+      return left.some(a => right.some(b => (
+        a === b || a.includes(b) || b.includes(a)
+      )));
     };
 
-    const scoreDistractor = (target, candidate, opts = {}) => {
-      let score = Math.random();
-      if (isSamePos(target, candidate)) score += 40;
-      if (isSpellingSimilar(target, candidate, opts.spellingThreshold ?? 0.5)) score += 35;
-      score += getSpellingSimilarity(target, candidate) * 15;
-      return score;
+    // 释义是整句解释而不是简洁词义时，放入四选一会显得不自然；只作为最后兜底。
+    const isExplanationLikeMeaning = (meaning) => (
+      /某物|一个可以|表示|用来|东西|的人|的地方|的部分/.test(normalizeMeaning(meaning))
+    );
+
+    const scoreDistractor = (target, candidate) => {
+      const targetMeaning = normalizeMeaning(target.chinese_meaning);
+      const candidateMeaning = normalizeMeaning(candidate.chinese_meaning);
+      // 词性一致能保持题目难度；拼写相似不再加分，避免把形近词误当作语义干扰。
+      return Math.random()
+        + (isSamePos(target, candidate) ? 20 : 0)
+        + (isExplanationLikeMeaning(candidateMeaning) ? -30 : 0)
+        + Math.min(candidateMeaning.length, 8) / 100
+        + (hasMeaningOverlap(targetMeaning, candidateMeaning) ? -1000 : 0);
     };
 
-    // 见英选义：干扰项须满足「同词性 / 拼写相似」至少一项，可来自全词库
+    // 见英选义：错误选项必须与正确释义明确不同。优先同词性、简洁释义，
+    // 词性缺失时从全库取义项清楚的词，最后才使用解释型释义兜底。
     const buildRecognitionChoices = (currentWord, allWords, choiceCount = 4) => {
       const correct = normalizeMeaning(currentWord.chinese_meaning);
       const pool = allWords.filter(w =>
         w.id !== currentWord.id &&
         normalizeMeaning(w.chinese_meaning) !== correct &&
-        normalizeMeaning(w.chinese_meaning).length > 0
+        normalizeMeaning(w.chinese_meaning).length > 0 &&
+        !hasMeaningOverlap(correct, normalizeMeaning(w.chinese_meaning))
       );
 
       const need = choiceCount - 1;
@@ -438,11 +455,12 @@
       const usedIds = new Set();
       const usedMeanings = new Set([correct]);
 
-      const addFromTier = (opts) => {
+      const addFromTier = ({ samePos = false, allowExplanation = false }) => {
         const ranked = pool
           .filter(w => !usedIds.has(w.id))
-          .filter(w => matchesDistractorRule(currentWord, w, opts))
-          .sort((a, b) => scoreDistractor(currentWord, b, opts) - scoreDistractor(currentWord, a, opts));
+          .filter(w => !samePos || isSamePos(currentWord, w))
+          .filter(w => allowExplanation || !isExplanationLikeMeaning(w.chinese_meaning))
+          .sort((a, b) => scoreDistractor(currentWord, b) - scoreDistractor(currentWord, a));
 
         for (const w of ranked) {
           const meaning = normalizeMeaning(w.chinese_meaning);
@@ -455,9 +473,10 @@
       };
 
       const tiers = [
-        { spellingThreshold: 0.5 },
-        { posOnly: true },
-        { spellingOnly: true, spellingThreshold: 0.3 },
+        { samePos: true, allowExplanation: false },
+        { samePos: false, allowExplanation: false },
+        { samePos: true, allowExplanation: true },
+        { samePos: false, allowExplanation: true },
       ];
 
       for (const opts of tiers) {

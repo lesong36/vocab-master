@@ -191,6 +191,14 @@
       (word?.learning_requirement || '').includes('见英文')
     );
 
+    const hasAuditedRecognitionChoices = (word) => {
+      const choices = word?.recognition_choices;
+      return Array.isArray(choices)
+        && choices.length === 4
+        && choices.filter(choice => choice?.isCorrect === true).length === 1
+        && choices.every(choice => typeof choice?.text === 'string' && choice.text.trim());
+    };
+
     const normalizeMeaning = (text) => (text || '').trim();
 
     const POS_CANON = {
@@ -442,6 +450,13 @@
     // 见英选义：错误选项必须与正确释义明确不同。优先同词性、简洁释义，
     // 词性缺失时从全库取义项清楚的词，最后才使用解释型释义兜底。
     const buildRecognitionChoices = (currentWord, allWords, choiceCount = 4) => {
+      // KET 的识义题只能使用逐题审核后的固定选项；审核未通过的词不拼题。
+      if (currentWord.source === 'ket') {
+        return hasAuditedRecognitionChoices(currentWord)
+          ? [...currentWord.recognition_choices].sort(() => Math.random() - 0.5)
+          : [];
+      }
+
       const correct = normalizeMeaning(currentWord.chinese_meaning);
       const pool = allWords.filter(w =>
         w.id !== currentWord.id &&
@@ -1716,7 +1731,8 @@
         if (!isHydrated || !currentUserId) return;
         Promise.all([
           fetch('./词库.md').then(res => (res.ok ? res.text() : null)),
-          fetch('./ket_vocab.json').then(res => (res.ok ? res.json() : null)),
+          // KET 题目数据会带逐题审核结果；不使用旧缓存，确保审核题库及时生效。
+          fetch('./ket_vocab.json', { cache: 'no-store' }).then(res => (res.ok ? res.json() : null)),
         ])
           .then(([text, ketData]) => {
             const parsed = [
@@ -1733,7 +1749,9 @@
                 prev.learning_requirement !== w.learning_requirement ||
                 prev.chinese_meaning !== w.chinese_meaning ||
                 prev.section !== w.section ||
-                (prev.pos || '') !== (w.pos || '')
+                (prev.pos || '') !== (w.pos || '') ||
+                (prev.recognition_audit || '') !== (w.recognition_audit || '') ||
+                JSON.stringify(prev.recognition_choices || null) !== JSON.stringify(w.recognition_choices || null)
               );
             });
             if (existing.length === 0 || hasNewWords || hasUpdatedMeta) {
@@ -2316,7 +2334,10 @@
             }
           });
         });
-        return filteredWords.filter((word, index, list) => list.findIndex(item => item.id === word.id) === index);
+        return filteredWords
+          .filter((word, index, list) => list.findIndex(item => item.id === word.id) === index)
+          // KET 审核未通过的识义题宁可暂不出题，也不能退回随机干扰项。
+          .filter(word => word.source !== 'ket' || !isRecognitionWord(word) || hasAuditedRecognitionChoices(word));
       };
 
       const startStudy = () => {

@@ -12236,8 +12236,29 @@
       "incorrectCount": 0,
       "consecutiveCorrect": 0,
       "mistakeCleared": false,
-      "recognition_audit": "rejected",
-      "recognition_choices": null
+      "recognition_audit": "approved-fixed-sense",
+      "recognition_choices": [
+        {
+          "key": "ket-0559",
+          "text": "公平的",
+          "isCorrect": true
+        },
+        {
+          "key": "ket-0559-d1",
+          "text": "便宜的",
+          "isCorrect": false
+        },
+        {
+          "key": "ket-0559-d2",
+          "text": "安静的",
+          "isCorrect": false
+        },
+        {
+          "key": "ket-0559-d3",
+          "text": "危险的",
+          "isCorrect": false
+        }
+      ]
     },
     {
       "id": "ket-0560",
@@ -18389,8 +18410,29 @@
       "incorrectCount": 0,
       "consecutiveCorrect": 0,
       "mistakeCleared": false,
-      "recognition_audit": "rejected",
-      "recognition_choices": null
+      "recognition_audit": "approved-fixed-sense",
+      "recognition_choices": [
+        {
+          "key": "ket-0834",
+          "text": "工具包",
+          "isCorrect": true
+        },
+        {
+          "key": "ket-0834-d1",
+          "text": "手提箱",
+          "isCorrect": false
+        },
+        {
+          "key": "ket-0834-d2",
+          "text": "书包",
+          "isCorrect": false
+        },
+        {
+          "key": "ket-0834-d3",
+          "text": "雨伞",
+          "isCorrect": false
+        }
+      ]
     },
     {
       "id": "ket-0835",
@@ -20430,7 +20472,7 @@
       "id": "ket-0926",
       "section": "KET Unit 31",
       "english_word": "might",
-      "chinese_meaning": "可能",
+      "chinese_meaning": "也许",
       "learning_requirement": "见到英文会中文",
       "pos": "",
       "source": "ket",
@@ -20438,8 +20480,29 @@
       "incorrectCount": 0,
       "consecutiveCorrect": 0,
       "mistakeCleared": false,
-      "recognition_audit": "rejected",
-      "recognition_choices": null
+      "recognition_audit": "approved-fixed-sense",
+      "recognition_choices": [
+        {
+          "key": "ket-0926",
+          "text": "也许",
+          "isCorrect": true
+        },
+        {
+          "key": "ket-0926-d1",
+          "text": "必须",
+          "isCorrect": false
+        },
+        {
+          "key": "ket-0926-d2",
+          "text": "已经",
+          "isCorrect": false
+        },
+        {
+          "key": "ket-0926-d3",
+          "text": "从不",
+          "isCorrect": false
+        }
+      ]
     },
     {
       "id": "ket-0927",
@@ -36329,8 +36392,29 @@
       "incorrectCount": 0,
       "consecutiveCorrect": 0,
       "mistakeCleared": false,
-      "recognition_audit": "rejected",
-      "recognition_choices": null
+      "recognition_audit": "approved-fixed-sense",
+      "recognition_choices": [
+        {
+          "key": "ket-1644",
+          "text": "洗手洗脸",
+          "isCorrect": true
+        },
+        {
+          "key": "ket-1644-d1",
+          "text": "吃早饭",
+          "isCorrect": false
+        },
+        {
+          "key": "ket-1644-d2",
+          "text": "去睡觉",
+          "isCorrect": false
+        },
+        {
+          "key": "ket-1644-d3",
+          "text": "上学",
+          "isCorrect": false
+        }
+      ]
     },
     {
       "id": "ket-1645",
@@ -37306,31 +37390,16 @@
     }
   ],
   "choice_audit": {
-    "audited_at": "2026-09-06T16:16:02.124Z",
+    "audited_at": "2026-09-07T00:04:43.568Z",
     "method": "independent generation and strict semantic review",
-    "approved": 677,
-    "rejected": 4,
-    "rejected_words": [
-      {
-        "id": "ket-0559",
-        "english_word": "fair",
-        "chinese_meaning": "公平的"
-      },
-      {
-        "id": "ket-0834",
-        "english_word": "kit",
-        "chinese_meaning": "工具包"
-      },
-      {
-        "id": "ket-0926",
-        "english_word": "might",
-        "chinese_meaning": "可能"
-      },
-      {
-        "id": "ket-1644",
-        "english_word": "wash up",
-        "chinese_meaning": "洗手洗脸"
-      }
+    "approved": 681,
+    "rejected": 0,
+    "rejected_words": [],
+    "fixed_senses": [
+      "fair",
+      "kit",
+      "might",
+      "wash up"
     ]
   }
 }

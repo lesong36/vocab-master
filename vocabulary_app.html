@@ -3247,9 +3247,6 @@
 
         const actionButtons = (
           <>
-          {renderTodayStudyReport()}
-          {renderWeeklyStudyTracker()}
-          {renderMistakeStrategy()}
           {readingImportReview && (() => {
             const recommended = readingImportReview.filter(entry => entry.keep);
             const deferred = readingImportReview.filter(entry => !entry.keep);
@@ -3304,6 +3301,10 @@
               重新导入
             </button>
           </div>
+          <details className="mt-6 rounded-2xl border border-slate-200 bg-white p-5 text-left shadow-sm">
+            <summary className="cursor-pointer list-none font-bold text-slate-800"><span className="mr-2">📊</span>学习看板 <span className="ml-2 text-sm font-normal text-slate-500">查看今日报告、学习追踪和错题策略</span></summary>
+            <div className="mt-5 border-t border-slate-100 pt-5">{renderTodayStudyReport()}{renderMistakeStrategy()}{renderWeeklyStudyTracker()}</div>
+          </details>
           </>
         );
 
@@ -4025,7 +4026,7 @@
                 )}
               </div>
 
-              <div className="mt-4">
+              {showAnswered && <div className="mt-4">
                 {!phonicsHintText && !liveWord.phonicsMnemonic && !isPhonicsLoading ? (
                   <button
                     onClick={handlePhonicsMnemonic}
@@ -4041,7 +4042,7 @@
                   </div>
                 )}
                 {phonicsHintError && <p className="mt-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">{phonicsHintError}</p>}
-              </div>
+              </div>}
             </div>
             
             {/* Live Stats */}

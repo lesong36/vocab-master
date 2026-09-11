@@ -2349,8 +2349,9 @@
           else if (serverAvailableRef.current) text = await fetchAIHintFromServer(prompt);
           if (!text) throw new Error('AI 没有返回助记卡，请检查 AI Key 或稍后重试。');
           setPhonicsHintText(text);
+          const generatedAt = new Date().toISOString();
           setWords(previous => previous.map(word => word.id === currentWord.id
-            ? { ...word, phonicsMnemonic: text, phonicsMnemonicAddedAt: new Date().toISOString() }
+            ? { ...word, phonicsMnemonic: text, phonicsMnemonicAddedAt: generatedAt, vocabMasterProgressUpdatedAt: generatedAt }
             : word));
         } catch (error) {
           setPhonicsHintError(error.message || '生成失败，请稍后重试。');
@@ -2390,8 +2391,9 @@
             const items = JSON.parse(json)?.items || [];
             const mnemonics = new Map(items.filter(item => item?.id && item?.text).map(item => [String(item.id), String(item.text).slice(0, 240)]));
             if (!mnemonics.size) throw new Error(`第 ${Math.floor(index / PHONICS_BATCH_SIZE) + 1} 批没有返回有效结果`);
+            const generatedAt = new Date().toISOString();
             setWords(previous => previous.map(word => mnemonics.has(word.id)
-              ? { ...word, phonicsMnemonic: mnemonics.get(word.id), phonicsMnemonicAddedAt: new Date().toISOString() }
+              ? { ...word, phonicsMnemonic: mnemonics.get(word.id), phonicsMnemonicAddedAt: generatedAt, vocabMasterProgressUpdatedAt: generatedAt }
               : word));
             completed += batch.length;
             setBulkPhonicsProgress({ completed, total: targets.length, label });

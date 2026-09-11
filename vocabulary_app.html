@@ -2359,8 +2359,7 @@
         }
       };
 
-      const generateAllReadingPhonics = async () => {
-        const targets = words.filter(word => word.source === 'reading');
+      const generatePhonicsForWords = async (targets, label = '所选词库') => {
         if (!targets.length || isBulkPhonicsLoading) return;
         const hasReaderAiSettings = Boolean(readerAiPreferences?.cloudBaseUrl && readerAiPreferences?.cloudModel);
         if (hasReaderAiSettings && !readerAiKey.trim()) {
@@ -2374,7 +2373,7 @@
         setIsBulkPhonicsLoading(true);
         setBulkPhonicsError('');
         let completed = 0;
-        setBulkPhonicsProgress({ completed, total: targets.length });
+        setBulkPhonicsProgress({ completed, total: targets.length, label });
         try {
           for (let index = 0; index < targets.length; index += PHONICS_BATCH_SIZE) {
             const batch = targets.slice(index, index + PHONICS_BATCH_SIZE);
@@ -2395,14 +2394,24 @@
               ? { ...word, phonicsMnemonic: mnemonics.get(word.id), phonicsMnemonicAddedAt: new Date().toISOString() }
               : word));
             completed += batch.length;
-            setBulkPhonicsProgress({ completed, total: targets.length });
+            setBulkPhonicsProgress({ completed, total: targets.length, label });
           }
-          setErrorMsg(`已为 ${targets.length} 个阅读词生成 AI 自然拼读助记。`);
+          setErrorMsg(`已为${label}的 ${targets.length} 个词生成 AI 自然拼读助记。`);
         } catch (error) {
-          setBulkPhonicsError(`批量生成在 ${completed}/${targets.length} 词后暂停：${error.message || '请稍后重试'}。已完成的词已保存。`);
+          setBulkPhonicsError(`${label}的批量生成在 ${completed}/${targets.length} 词后暂停：${error.message || '请稍后重试'}。已完成的词已保存。`);
         } finally {
           setIsBulkPhonicsLoading(false);
         }
+      };
+
+      const generateAllReadingPhonics = () => (
+        generatePhonicsForWords(words.filter(word => word.source === 'reading'), '阅读生词本')
+      );
+
+      const generateSelectedBookPhonics = () => {
+        const normalSections = selectedSections.filter(section => !isMistakeBookKey(section) && section !== READING_VOCAB_SECTION);
+        const targets = words.filter(word => normalSections.includes(word.section) && word.source !== 'reading');
+        generatePhonicsForWords(targets, normalSections.join('、') || '所选书本');
       };
       // --- End AI Hint Logic ---
 
@@ -3251,6 +3260,12 @@
             </section>;
           })()}
           {readingFilterError && <p className="mb-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">{readingFilterError}</p>}
+          {(() => {
+            const bookSections = selectedSections.filter(section => !isMistakeBookKey(section) && section !== READING_VOCAB_SECTION);
+            const bookWordCount = words.filter(word => bookSections.includes(word.section) && word.source !== 'reading').length;
+            if (!bookWordCount) return null;
+            return <section className="mb-5 rounded-2xl border-2 border-emerald-200 bg-emerald-50 p-5 text-left"><div className="flex flex-wrap items-center justify-between gap-3"><div><h3 className="font-bold text-emerald-950">整本词库的 AI 自然拼读助记</h3><p className="mt-1 text-sm text-emerald-800">当前选择：{bookSections.join('、')} · {bookWordCount} 词。每 8 词一批，完成即保存。</p></div><button onClick={generateSelectedBookPhonics} disabled={isBulkPhonicsLoading} className="rounded-lg bg-emerald-600 px-4 py-2.5 font-bold text-white hover:bg-emerald-700 disabled:bg-emerald-300">{isBulkPhonicsLoading ? `AI 生成中 ${bulkPhonicsProgress?.completed || 0}/${bulkPhonicsProgress?.total || bookWordCount}` : `🪄 一键生成整本 ${bookWordCount} 词`}</button></div>{bulkPhonicsProgress && <p className="mt-3 text-sm font-medium text-emerald-700">{bulkPhonicsProgress.label}：{bulkPhonicsProgress.completed}/{bulkPhonicsProgress.total} 词已生成。</p>}{bulkPhonicsError && <p className="mt-3 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">{bulkPhonicsError}</p>}</section>;
+          })()}
           <div className="flex flex-col sm:flex-row gap-4">
             {pendingReadingEntries.length > 0 && (
               <button

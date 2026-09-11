@@ -544,6 +544,7 @@
     const MISTAKE_EXIT_STREAK = 2;
     const READING_GROUP_SIZE = 25;
     const READING_FILTER_BATCH_SIZE = 24;
+    const PHONICS_BATCH_SIZE = 8;
     const PHONICS_MAGIC_BOOK_URL = 'https://lesong36.github.io/phonics-magic-book/';
 
     const normalizeReadingWord = (value) => String(value || '').trim().toLowerCase().replace(/\s+/g, ' ');
@@ -568,6 +569,8 @@
 
     const buildPhonicsPrompt = (word, phonetic = '') =>
       `你是严谨的小学英语自然拼读老师。请只根据单词、词义和音标，为孩子写一张简短“拼读规则助记卡”。单词：${word.english_word}；中文：${word.chinese_meaning}；音标：${phonetic ? `/${phonetic}/` : '暂未取得'}。\n\n要求：1. 说明最适合的一条或两条自然拼读规则（如 CVC、Magic E、元音组合、r 控制元音、辅音组合、音节）；2. 把单词按声音或音节拆开；3. 给一句孩子能跟读的提示；4. 不确定或不规则时必须明确说“这是例外，以音标和听读为准”，绝不硬套规则；5. 用简体中文，120 字以内，不要 Markdown 标题。`;
+
+    const buildPhonicsBatchPrompt = (entries) => `你是严谨的小学英语自然拼读老师。请为每个词生成一张 80 字以内的拼读规则助记卡。根据词形和给出的词义判断 CVC、Magic E、元音组合、r 控制元音、辅音组合、音节等；不规则或不确定时必须写“例外，以音标和听读为准”，不要硬套。\n\n只返回严格 JSON，不要 Markdown：{"items":[{"id":"原 id","text":"助记卡"}]}。每个输入必须恰好出现一次。\n\n${entries.map(entry => `- id=${entry.id}; word=${entry.english_word}; meaning=${entry.chinese_meaning}`).join('\n')}`;
 
     const getReadingDate = (word) => {
       const value = word.sourceArticleDate || word.addedAt || word.importedAt || word.createdAt || '';
@@ -1214,6 +1217,9 @@
       const [phonicsHintText, setPhonicsHintText] = useState('');
       const [isPhonicsLoading, setIsPhonicsLoading] = useState(false);
       const [phonicsHintError, setPhonicsHintError] = useState('');
+      const [isBulkPhonicsLoading, setIsBulkPhonicsLoading] = useState(false);
+      const [bulkPhonicsProgress, setBulkPhonicsProgress] = useState(null);
+      const [bulkPhonicsError, setBulkPhonicsError] = useState('');
 
       // Lesson example sentences from 课文原文
       const [lessonSentences, setLessonSentences] = useState([]);
@@ -2352,6 +2358,52 @@
           setIsPhonicsLoading(false);
         }
       };
+
+      const generateAllReadingPhonics = async () => {
+        const targets = words.filter(word => word.source === 'reading');
+        if (!targets.length || isBulkPhonicsLoading) return;
+        const hasReaderAiSettings = Boolean(readerAiPreferences?.cloudBaseUrl && readerAiPreferences?.cloudModel);
+        if (hasReaderAiSettings && !readerAiKey.trim()) {
+          setBulkPhonicsError('请先在右上角“阅读器账号”输入同步加密口令，解锁 AI Key。');
+          return;
+        }
+        if (!hasReaderAiSettings && !serverAvailableRef.current) {
+          setBulkPhonicsError('需要已解锁的阅读器 AI Key，或启动本地服务并配置 AI Key。');
+          return;
+        }
+        setIsBulkPhonicsLoading(true);
+        setBulkPhonicsError('');
+        let completed = 0;
+        setBulkPhonicsProgress({ completed, total: targets.length });
+        try {
+          for (let index = 0; index < targets.length; index += PHONICS_BATCH_SIZE) {
+            const batch = targets.slice(index, index + PHONICS_BATCH_SIZE);
+            const prompt = buildPhonicsBatchPrompt(batch);
+            let text = null;
+            if (readerAiKey && hasReaderAiSettings) text = await fetchAIHintFromReaderConfig(prompt, 1100);
+            else {
+              const res = await fetch('/api/ai-phonics-batch', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt })
+              });
+              if (res.ok) text = (await res.json()).text?.trim() || null;
+            }
+            const json = String(text || '').replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
+            const items = JSON.parse(json)?.items || [];
+            const mnemonics = new Map(items.filter(item => item?.id && item?.text).map(item => [String(item.id), String(item.text).slice(0, 240)]));
+            if (!mnemonics.size) throw new Error(`第 ${Math.floor(index / PHONICS_BATCH_SIZE) + 1} 批没有返回有效结果`);
+            setWords(previous => previous.map(word => mnemonics.has(word.id)
+              ? { ...word, phonicsMnemonic: mnemonics.get(word.id), phonicsMnemonicAddedAt: new Date().toISOString() }
+              : word));
+            completed += batch.length;
+            setBulkPhonicsProgress({ completed, total: targets.length });
+          }
+          setErrorMsg(`已为 ${targets.length} 个阅读词生成 AI 自然拼读助记。`);
+        } catch (error) {
+          setBulkPhonicsError(`批量生成在 ${completed}/${targets.length} 词后暂停：${error.message || '请稍后重试'}。已完成的词已保存。`);
+        } finally {
+          setIsBulkPhonicsLoading(false);
+        }
+      };
       // --- End AI Hint Logic ---
 
       // 1. Parser Logic for Markdown and CSV File
@@ -3260,8 +3312,10 @@
                 <ChevronLeft size={18} /> 返回词库选择
               </button>
               <div className="mb-6">
-                <div className="flex flex-wrap items-center justify-between gap-3"><h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2"><BookOpen className="text-emerald-600" /> 阅读生词本</h2><div className="flex flex-wrap gap-2"><button onClick={reviewExistingReadingWords} disabled={isExistingReadingFilterLoading || !readingWords.length} className="rounded-lg bg-sky-600 px-3 py-2 text-sm font-semibold text-white hover:bg-sky-700 disabled:bg-sky-300">{isExistingReadingFilterLoading ? 'AI 正在批量整理…' : `AI 批量整理当前 ${readingWords.length} 词`}</button><button onClick={() => { setShowReadingManager(true); setReadingManagerError(''); }} className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm font-semibold text-red-700 hover:bg-red-100">管理删除</button></div></div>
+                <div className="flex flex-wrap items-center justify-between gap-3"><h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2"><BookOpen className="text-emerald-600" /> 阅读生词本</h2><div className="flex flex-wrap gap-2"><button onClick={generateAllReadingPhonics} disabled={isBulkPhonicsLoading || !readingWords.length} className="rounded-lg bg-emerald-600 px-3 py-2 text-sm font-semibold text-white hover:bg-emerald-700 disabled:bg-emerald-300">{isBulkPhonicsLoading ? `AI 生成中 ${bulkPhonicsProgress?.completed || 0}/${bulkPhonicsProgress?.total || readingWords.length}` : `🪄 AI 生成全部 ${readingWords.length} 词拼读助记`}</button><button onClick={reviewExistingReadingWords} disabled={isExistingReadingFilterLoading || !readingWords.length} className="rounded-lg bg-sky-600 px-3 py-2 text-sm font-semibold text-white hover:bg-sky-700 disabled:bg-sky-300">{isExistingReadingFilterLoading ? 'AI 正在批量整理…' : `AI 批量整理当前 ${readingWords.length} 词`}</button><button onClick={() => { setShowReadingManager(true); setReadingManagerError(''); }} className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm font-semibold text-red-700 hover:bg-red-100">管理删除</button></div></div>
                 <p className="mt-2 text-sm text-gray-500">每组最多 {READING_GROUP_SIZE} 词；日常学习只显示未暂缓词。当前筛出 {filteredCount} / {activeReadingWords.length} 个活跃词（总计 {readingWords.length} 词）。</p>
+                {bulkPhonicsProgress && <p className="mt-2 text-sm font-medium text-emerald-700">拼读助记进度：{bulkPhonicsProgress.completed}/{bulkPhonicsProgress.total} 词。每完成一小批都会立即保存。</p>}
+                {bulkPhonicsError && <p className="mt-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">{bulkPhonicsError}</p>}
               </div>
 
               {readingExistingReview && (() => {

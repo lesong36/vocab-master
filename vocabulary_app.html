@@ -544,6 +544,7 @@
     const MISTAKE_EXIT_STREAK = 2;
     const READING_GROUP_SIZE = 25;
     const READING_FILTER_BATCH_SIZE = 24;
+    const PHONICS_MAGIC_BOOK_URL = 'https://lesong36.github.io/phonics-magic-book/';
 
     const normalizeReadingWord = (value) => String(value || '').trim().toLowerCase().replace(/\s+/g, ' ');
 
@@ -564,6 +565,9 @@
       if (word.endsWith('s') && word.length > 4) return word.slice(0, -1);
       return word;
     };
+
+    const buildPhonicsPrompt = (word, phonetic = '') =>
+      `你是严谨的小学英语自然拼读老师。请只根据单词、词义和音标，为孩子写一张简短“拼读规则助记卡”。单词：${word.english_word}；中文：${word.chinese_meaning}；音标：${phonetic ? `/${phonetic}/` : '暂未取得'}。\n\n要求：1. 说明最适合的一条或两条自然拼读规则（如 CVC、Magic E、元音组合、r 控制元音、辅音组合、音节）；2. 把单词按声音或音节拆开；3. 给一句孩子能跟读的提示；4. 不确定或不规则时必须明确说“这是例外，以音标和听读为准”，绝不硬套规则；5. 用简体中文，120 字以内，不要 Markdown 标题。`;
 
     const getReadingDate = (word) => {
       const value = word.sourceArticleDate || word.addedAt || word.importedAt || word.createdAt || '';
@@ -1207,6 +1211,9 @@
       const [aiHintText, setAiHintText] = useState('');
       const [aiHintSource, setAiHintSource] = useState(''); // 'ai' | 'local'
       const [aiHintError, setAiHintError] = useState('');
+      const [phonicsHintText, setPhonicsHintText] = useState('');
+      const [isPhonicsLoading, setIsPhonicsLoading] = useState(false);
+      const [phonicsHintError, setPhonicsHintError] = useState('');
 
       // Lesson example sentences from 课文原文
       const [lessonSentences, setLessonSentences] = useState([]);
@@ -2318,6 +2325,33 @@
           setIsAILoading(false);
         }
       };
+
+      const handlePhonicsMnemonic = async () => {
+        const currentWord = studyList[currentIndex];
+        if (!currentWord) return;
+        setIsPhonicsLoading(true);
+        setPhonicsHintText('');
+        setPhonicsHintError('');
+        try {
+          const prompt = buildPhonicsPrompt(currentWord, currentPhonetic);
+          const hasReaderAiSettings = Boolean(readerAiPreferences?.cloudBaseUrl && readerAiPreferences?.cloudModel);
+          let text = null;
+          if (hasReaderAiSettings && !readerAiKey.trim()) {
+            throw new Error('请先在右上角“阅读器账号”输入同步加密口令，解锁 AI Key。');
+          }
+          if (readerAiKey && hasReaderAiSettings) text = await fetchAIHintFromReaderConfig(prompt, 450);
+          else if (serverAvailableRef.current) text = await fetchAIHintFromServer(prompt);
+          if (!text) throw new Error('AI 没有返回助记卡，请检查 AI Key 或稍后重试。');
+          setPhonicsHintText(text);
+          setWords(previous => previous.map(word => word.id === currentWord.id
+            ? { ...word, phonicsMnemonic: text, phonicsMnemonicAddedAt: new Date().toISOString() }
+            : word));
+        } catch (error) {
+          setPhonicsHintError(error.message || '生成失败，请稍后重试。');
+        } finally {
+          setIsPhonicsLoading(false);
+        }
+      };
       // --- End AI Hint Logic ---
 
       // 1. Parser Logic for Markdown and CSV File
@@ -2537,6 +2571,7 @@
         setShowHint(false);
         setSelectedChoiceKey(null);
         setRecognitionChoices([]);
+        setPhonicsHintText('');
         setCurrentPhonetic('');
         setCurrentAudioUrl('');
         setAppState('study');
@@ -2560,6 +2595,7 @@
         setShowHint(false);
         setSelectedChoiceKey(null);
         setRecognitionChoices([]);
+        setPhonicsHintText('');
         setCurrentPhonetic('');
         setCurrentAudioUrl('');
         setAppState('study');
@@ -2582,6 +2618,7 @@
         setShowHint(false);
         setSelectedChoiceKey(null);
         setRecognitionChoices([]);
+        setPhonicsHintText('');
         setCurrentPhonetic('');
         setCurrentAudioUrl('');
         setAppState('study');
@@ -2827,6 +2864,7 @@
         setSelectedChoiceKey(null);
         setAiHintText('');
         setAiHintSource('');
+        setPhonicsHintText('');
         if (graduatedFromMistakeBook) {
           // brief pause already handled in handleCheck timeout
         }
@@ -3916,6 +3954,24 @@
                     )}
                   </div>
                 )}
+              </div>
+
+              <div className="mt-4">
+                {!phonicsHintText && !liveWord.phonicsMnemonic && !isPhonicsLoading ? (
+                  <button
+                    onClick={handlePhonicsMnemonic}
+                    className="w-full rounded-xl border border-emerald-200 bg-emerald-50 py-3 font-semibold text-emerald-800 shadow-sm transition-colors hover:bg-emerald-100"
+                  >
+                    🪄 一键生成 AI 拼读规则助记
+                  </button>
+                ) : (
+                  <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-5 text-left animate-fade-in">
+                    <h4 className="font-bold text-emerald-900">🪄 AI 拼读规则助记</h4>
+                    <p className="mt-2 whitespace-pre-line leading-relaxed text-gray-700">{isPhonicsLoading ? 'AI 正在根据音标分析拼读规律…' : (phonicsHintText || liveWord.phonicsMnemonic)}</p>
+                    {!isPhonicsLoading && <a href={PHONICS_MAGIC_BOOK_URL} target="_blank" rel="noreferrer" className="mt-3 inline-block text-sm font-semibold text-emerald-700 underline">到《英语自然拼读魔法书》复习规则 →</a>}
+                  </div>
+                )}
+                {phonicsHintError && <p className="mt-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">{phonicsHintError}</p>}
               </div>
             </div>
             

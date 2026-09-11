@@ -543,6 +543,27 @@
     const MISTAKE_BOOK_ALL = '⚠️ 错题本';
     const MISTAKE_EXIT_STREAK = 2;
     const READING_GROUP_SIZE = 25;
+    const READING_FILTER_BATCH_SIZE = 24;
+
+    const normalizeReadingWord = (value) => String(value || '').trim().toLowerCase().replace(/\s+/g, ' ');
+
+    // This is deliberately only a hint for AI/review, never a destructive rule.
+    // It catches common classroom variants such as play/played/playing and book/books.
+    const getReadingVariantStem = (value) => {
+      const word = normalizeReadingWord(value);
+      if (!/^[a-z]+$/.test(word) || word.length < 5) return word;
+      if (word.endsWith('ies') && word.length > 5) return `${word.slice(0, -3)}y`;
+      if (word.endsWith('ied') && word.length > 5) return `${word.slice(0, -3)}y`;
+      if (word.endsWith('ing') && word.length > 6) {
+        let stem = word.slice(0, -3);
+        if (stem.length >= 2 && stem.at(-1) === stem.at(-2)) stem = stem.slice(0, -1);
+        return stem;
+      }
+      if (word.endsWith('ed') && word.length > 5) return word.slice(0, -2);
+      if (word.endsWith('es') && word.length > 5) return word.slice(0, -2);
+      if (word.endsWith('s') && word.length > 4) return word.slice(0, -1);
+      return word;
+    };
 
     const getReadingDate = (word) => {
       const value = word.sourceArticleDate || word.addedAt || word.importedAt || word.createdAt || '';
@@ -610,6 +631,9 @@
 
     // 阅读词按表现分层：难词优先，避免曾多次答错的词被“已会”状态掩盖。
     const getReadingLevel = (word) => {
+      if (word.readingDeferred) {
+        return { key: 'deferred', label: '暂缓', className: 'text-slate-700 bg-slate-100 border-slate-200' };
+      }
       const correct = word.correctCount || 0;
       const incorrect = word.incorrectCount || 0;
       if (incorrect >= 2 || (incorrect > 0 && incorrect >= correct)) {
@@ -1150,6 +1174,11 @@
       const [readingManagerError, setReadingManagerError] = useState('');
       const [readingManagerUnlocked, setReadingManagerUnlocked] = useState(false);
       const [readingDeleteIds, setReadingDeleteIds] = useState([]);
+      const [readingImportReview, setReadingImportReview] = useState(null);
+      const [isReadingFilterLoading, setIsReadingFilterLoading] = useState(false);
+      const [readingFilterError, setReadingFilterError] = useState('');
+      const [readingExistingReview, setReadingExistingReview] = useState(null);
+      const [isExistingReadingFilterLoading, setIsExistingReadingFilterLoading] = useState(false);
       
       // Study State
       const [studyList, setStudyList] = useState([]);
@@ -1387,12 +1416,155 @@
         window.history.replaceState({}, '', `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`);
       }, [isHydrated, currentUserId]);
 
-      const importReadingInbox = () => {
+      const parseAIReadingFilter = (rawText, entries, preliminaryByWord) => {
+        let parsed = null;
+        try {
+          const json = String(rawText || '').replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
+          parsed = JSON.parse(json);
+        } catch {
+          // A malformed AI response must never silently discard a learner's words.
+        }
+        const verdicts = new Map((parsed?.items || []).map(item => [normalizeReadingWord(item.word), item]));
+        return entries.map(entry => {
+          const word = String(entry.word || '').trim();
+          const preliminary = preliminaryByWord.get(normalizeReadingWord(word));
+          const verdict = verdicts.get(normalizeReadingWord(word));
+          const keep = typeof verdict?.keep === 'boolean' ? verdict.keep : !preliminary;
+          return {
+            ...entry,
+            word,
+            keep,
+            reason: String(verdict?.reason || preliminary || (keep ? '常用、适合当前阅读' : '暂不建议纳入')).slice(0, 80),
+          };
+        });
+      };
+
+      const buildReadingFilterPrompt = (entries, preliminaryByWord) => `你是小学英语词汇编辑。为四年级学生审核阅读生词，目标是保留“见英文选中文”值得练习的高频、能帮助理解近期阅读的词。\n\n请排除：过于难或生僻的词、专有名词、明显重复词、同一词的复数/时态/ing 等词形（应保留最基础词形）。不要因为词较长就排除常用词。\n\n只返回严格 JSON，不要 Markdown：{"items":[{"word":"原词","keep":true,"reason":"不超过12字中文理由"}]}。每个输入词必须出现一次。\n\n待审核：${entries.map(entry => {
+        const word = String(entry.word || '').trim();
+        const meaning = String(entry.meaning || '').trim();
+        const preliminary = preliminaryByWord.get(normalizeReadingWord(word));
+        return `- ${word}${meaning ? `：${meaning}` : ''}${preliminary ? `（规则提示：${preliminary}）` : ''}`;
+      }).join('\n')}`;
+
+      const reviewReadingInbox = async () => {
+        if (!pendingReadingEntries.length) return;
+        setIsReadingFilterLoading(true);
+        setReadingFilterError('');
+        try {
+          const existingWords = words.filter(word => word.source === 'reading').map(word => word.english_word);
+          const seenWords = new Set(existingWords.map(normalizeReadingWord));
+          const seenStems = new Map(existingWords.map(word => [getReadingVariantStem(word), word]));
+          const preliminaryByWord = new Map();
+          pendingReadingEntries.forEach(entry => {
+            const key = normalizeReadingWord(entry.word);
+            const stem = getReadingVariantStem(entry.word);
+            if (seenWords.has(key)) preliminaryByWord.set(key, '已在学习列表，更新资料即可');
+            else if (seenStems.has(stem)) preliminaryByWord.set(key, `可能是 ${seenStems.get(stem)} 的词形`);
+            else {
+              seenWords.add(key);
+              seenStems.set(stem, entry.word);
+            }
+          });
+
+          const batches = [];
+          for (let index = 0; index < pendingReadingEntries.length; index += READING_FILTER_BATCH_SIZE) {
+            batches.push(pendingReadingEntries.slice(index, index + READING_FILTER_BATCH_SIZE));
+          }
+          const reviewed = [];
+          for (const batch of batches) {
+            const prompt = buildReadingFilterPrompt(batch, preliminaryByWord);
+            let text = null;
+            if (readerAiKey && readerAiPreferences?.cloudBaseUrl && readerAiPreferences?.cloudModel) {
+              text = await fetchAIHintFromReaderConfig(prompt, 1000);
+            } else if (serverAvailableRef.current) {
+              const res = await fetch('/api/ai-filter-reading', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt })
+              });
+              if (res.ok) text = (await res.json()).text?.trim() || null;
+            }
+            reviewed.push(...parseAIReadingFilter(text, batch, preliminaryByWord));
+          }
+          setReadingImportReview(reviewed);
+          if (!readerAiKey && !serverAvailableRef.current) {
+            setReadingFilterError('未连接 AI，已使用重复词和词形的保守预筛；可连接阅读器账号后重新筛选。');
+          }
+        } catch (error) {
+          setReadingFilterError(`AI 筛选暂不可用：${error.message || '请稍后重试'}；未删除任何词。`);
+        } finally {
+          setIsReadingFilterLoading(false);
+        }
+      };
+
+      const reviewExistingReadingWords = async () => {
+        const readingWords = words.filter(word => word.source === 'reading');
+        if (!readingWords.length) return;
+        setIsExistingReadingFilterLoading(true);
+        setReadingFilterError('');
+        try {
+          const entries = readingWords.map(word => ({ id: word.id, word: word.english_word, meaning: word.chinese_meaning }));
+          const seenWords = new Set();
+          const seenStems = new Map();
+          const preliminaryByWord = new Map();
+          entries.forEach(entry => {
+            const key = normalizeReadingWord(entry.word);
+            const stem = getReadingVariantStem(entry.word);
+            if (seenWords.has(key)) preliminaryByWord.set(key, '重复词');
+            else if (seenStems.has(stem)) preliminaryByWord.set(key, `可能是 ${seenStems.get(stem)} 的词形`);
+            else {
+              seenWords.add(key);
+              seenStems.set(stem, entry.word);
+            }
+          });
+          const reviewed = [];
+          for (let index = 0; index < entries.length; index += READING_FILTER_BATCH_SIZE) {
+            const batch = entries.slice(index, index + READING_FILTER_BATCH_SIZE);
+            const prompt = buildReadingFilterPrompt(batch, preliminaryByWord);
+            let text = null;
+            if (readerAiKey && readerAiPreferences?.cloudBaseUrl && readerAiPreferences?.cloudModel) {
+              text = await fetchAIHintFromReaderConfig(prompt, 1000);
+            } else if (serverAvailableRef.current) {
+              const res = await fetch('/api/ai-filter-reading', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt })
+              });
+              if (res.ok) text = (await res.json()).text?.trim() || null;
+            }
+            reviewed.push(...parseAIReadingFilter(text, batch, preliminaryByWord));
+          }
+          setReadingExistingReview(reviewed);
+          if (!readerAiKey && !serverAvailableRef.current) {
+            setReadingFilterError('未连接 AI，已使用重复词和词形的保守预筛；没有删除任何词。');
+          }
+        } catch (error) {
+          setReadingFilterError(`AI 批量整理暂不可用：${error.message || '请稍后重试'}；未修改任何词。`);
+        } finally {
+          setIsExistingReadingFilterLoading(false);
+        }
+      };
+
+      const applyExistingReadingReview = () => {
+        if (!readingExistingReview?.length) return;
+        const verdicts = new Map(readingExistingReview.map(entry => [entry.id, entry]));
+        const deferredCount = readingExistingReview.filter(entry => !entry.keep).length;
+        setWords(previous => previous.map(word => {
+          const verdict = verdicts.get(word.id);
+          return verdict ? {
+            ...word,
+            readingDeferred: !verdict.keep,
+            readingReviewReason: verdict.reason,
+            readingReviewedAt: new Date().toISOString(),
+          } : word;
+        }));
+        setReadingExistingReview(null);
+        setReadingFilters(previous => ({ ...previous, group: '', level: '' }));
+        setErrorMsg(`已批量整理：${deferredCount} 个词暂缓学习；它们仍保留在词本中，随时可恢复。`);
+      };
+
+      const importReadingInbox = (entries = pendingReadingEntries) => {
         if (!currentUserId) {
           setErrorMsg('请先创建或选择一个用户，再导入阅读生词本。');
           return;
         }
-        const imported = pendingReadingEntries
+        const imported = entries
           .filter(entry => typeof entry?.word === 'string' && entry.word.trim())
           .map(entry => {
             const englishWord = entry.word.trim();
@@ -1441,15 +1613,10 @@
         );
         localStorage.removeItem(READING_VOCAB_INBOX_KEY);
         setReadingInboxEntries([]);
+        setReadingImportReview(null);
+        setReadingFilterError('');
         setErrorMsg('');
       };
-
-      // A connected learner should never need to manually carry reader words
-      // between the two apps. The visible import button remains as a fallback.
-      useEffect(() => {
-        if (!readerCloudUser || !currentUserId || pendingReadingEntries.length === 0) return;
-        importReadingInbox();
-      }, [readerCloudUser, currentUserId, pendingReadingEntries.length]);
 
       useEffect(() => {
         if (!readerCloudUser || !cloudMasterStateLoaded || !cloudMasterStateAppliedRef.current) return;
@@ -2061,7 +2228,7 @@
         return data.text?.trim() || null;
       };
 
-      const fetchAIHintFromReaderConfig = async (prompt) => {
+      const fetchAIHintFromReaderConfig = async (prompt, maxTokens = 500) => {
         const apiKey = readerAiKey.trim();
         const baseUrl = String(readerAiPreferences?.cloudBaseUrl || '').trim().replace(/\/+$/, '');
         const model = String(readerAiPreferences?.cloudModel || '').trim();
@@ -2075,7 +2242,7 @@
           body: JSON.stringify({
             model,
             temperature: 0.7,
-            max_tokens: 500,
+            max_tokens: maxTokens,
             // DeepSeek V4 enables thinking by default. Mnemonics need the
             // final answer directly, not an empty/non-display reasoning turn.
             thinking: { type: 'disabled' },
@@ -2188,7 +2355,7 @@
             if (Array.isArray(parsed.entries)) {
               localStorage.setItem(READING_VOCAB_INBOX_KEY, JSON.stringify(parsed));
               setReadingInboxEntries(parsed.entries);
-              setErrorMsg('已载入阅读生词本收件箱，请点击“导入阅读生词本”。');
+              setErrorMsg('已载入阅读生词本收件箱，请先进行 AI 筛选。');
               return;
             }
             if (Array.isArray(parsed) && parsed.length > 0 && parsed[0].hasOwnProperty('english_word') && parsed[0].hasOwnProperty('correctCount')) {
@@ -2238,7 +2405,13 @@
       };
 
       const updateReadingFilter = (field, value) => {
-        const next = { ...readingFilters, [field]: readingFilters[field] === value ? '' : value };
+        const nextValue = readingFilters[field] === value ? '' : value;
+        const next = {
+          ...readingFilters,
+          [field]: nextValue,
+          // 暂缓词不属于活跃学习包，查看它们时不保留旧学习组。
+          ...(field === 'level' && nextValue === 'deferred' ? { group: '' } : {}),
+        };
         setReadingFilters(next);
         updateUserSelectionMeta({ readingFilters: next });
       };
@@ -2303,6 +2476,8 @@
           .filter(word => !selectedGroup || selectedGroup.words.some(item => item.id === word.id))
           .filter(word => !readingFilters.article || getReadingArticle(word) === readingFilters.article)
           .filter(word => !readingFilters.date || getReadingDate(word) === readingFilters.date)
+          // 暂缓词默认不进入每日学习队列；点“暂缓”后才可查看并重新批量审核。
+          .filter(word => readingFilters.level === 'deferred' ? Boolean(word.readingDeferred) : !word.readingDeferred)
           .filter(word => !readingFilters.level || getReadingLevel(word).key === readingFilters.level);
       };
 
@@ -2736,14 +2911,25 @@
               <p className="font-semibold">阅读器有 {pendingReadingEntries.length} 个生词等待导入</p>
               <p className="text-sm mt-1">导入后会进入独立的“阅读生词本”，练习只需见英选义。</p>
               <button
-                onClick={importReadingInbox}
-                disabled={!currentUserId}
+                onClick={reviewReadingInbox}
+                disabled={!currentUserId || isReadingFilterLoading}
                 className="mt-3 bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-300 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
               >
-                {currentUserId ? '导入阅读生词本' : '请先连接阅读器账号'}
+                {!currentUserId ? '请先连接阅读器账号' : isReadingFilterLoading ? 'AI 正在筛选…' : 'AI 筛选阅读生词'}
               </button>
             </div>
           )}
+
+          {readingImportReview && (() => {
+            const recommended = readingImportReview.filter(entry => entry.keep);
+            const deferred = readingImportReview.filter(entry => !entry.keep);
+            return <div className="w-full max-w-lg mb-6 rounded-2xl border-2 border-sky-200 bg-sky-50 p-5 text-left text-sky-950">
+              <div className="flex items-start justify-between gap-3"><div><h3 className="font-bold">AI 导入建议</h3><p className="mt-1 text-sm">推荐 {recommended.length} 词；暂缓 {deferred.length} 词。暂缓不等于删除。</p></div><button onClick={() => setReadingImportReview(null)} className="text-sm font-semibold underline">关闭</button></div>
+              <div className="mt-3 max-h-40 space-y-1 overflow-y-auto rounded-xl bg-white/80 p-3 text-sm">{readingImportReview.map(entry => <div key={normalizeReadingWord(entry.word)}><span className={entry.keep ? 'font-semibold text-emerald-700' : 'font-semibold text-amber-700'}>{entry.keep ? '保留' : '暂缓'}</span><span className="mx-2 font-semibold">{entry.word}</span><span className="text-gray-600">{entry.reason}</span></div>)}</div>
+              <button disabled={!recommended.length} onClick={() => importReadingInbox(recommended)} className="mt-4 rounded-lg bg-emerald-600 px-4 py-2 font-bold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:bg-emerald-300">导入推荐的 {recommended.length} 词</button>
+            </div>;
+          })()}
+          {readingFilterError && <p className="w-full max-w-lg mb-5 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">{readingFilterError}</p>}
 
           {!currentUserId ? (
             <div className="w-full max-w-md mb-8 p-6 bg-white rounded-xl border-2 border-blue-100 shadow-sm">
@@ -2965,13 +3151,24 @@
           {renderTodayStudyReport()}
           {renderWeeklyStudyTracker()}
           {renderMistakeStrategy()}
+          {readingImportReview && (() => {
+            const recommended = readingImportReview.filter(entry => entry.keep);
+            const deferred = readingImportReview.filter(entry => !entry.keep);
+            return <section className="mb-5 rounded-2xl border-2 border-sky-200 bg-sky-50 p-5 text-left">
+              <div className="flex flex-wrap items-start justify-between gap-3"><div><h3 className="font-bold text-sky-950">AI 导入建议</h3><p className="mt-1 text-sm text-sky-800">推荐 {recommended.length} 词；暂缓 {deferred.length} 词。暂缓词不会删除，之后可重新筛选。</p></div><button onClick={() => { setReadingImportReview(null); setReadingFilterError(''); }} className="text-sm font-semibold text-sky-700 underline">关闭</button></div>
+              <div className="mt-3 max-h-40 space-y-1 overflow-y-auto rounded-xl bg-white/80 p-3 text-sm">{readingImportReview.map(entry => <div key={normalizeReadingWord(entry.word)} className="flex gap-2"><span className={entry.keep ? 'font-semibold text-emerald-700' : 'font-semibold text-amber-700'}>{entry.keep ? '保留' : '暂缓'}</span><span className="font-semibold text-gray-800">{entry.word}</span><span className="text-gray-500">{entry.reason}</span></div>)}</div>
+              <div className="mt-4 flex flex-wrap gap-3"><button disabled={!recommended.length} onClick={() => importReadingInbox(recommended)} className="rounded-lg bg-emerald-600 px-4 py-2 font-bold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:bg-emerald-300">导入推荐的 {recommended.length} 词</button><button onClick={reviewReadingInbox} className="rounded-lg border border-sky-300 bg-white px-4 py-2 font-semibold text-sky-800 hover:bg-sky-100">重新筛选</button></div>
+            </section>;
+          })()}
+          {readingFilterError && <p className="mb-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">{readingFilterError}</p>}
           <div className="flex flex-col sm:flex-row gap-4">
             {pendingReadingEntries.length > 0 && (
               <button
-                onClick={importReadingInbox}
-                className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-colors"
+                onClick={reviewReadingInbox}
+                disabled={isReadingFilterLoading}
+                className="bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-300 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-colors"
               >
-                导入阅读生词本 ({pendingReadingEntries.length} 词)
+                {isReadingFilterLoading ? 'AI 正在筛选…' : `AI 筛选后导入 (${pendingReadingEntries.length} 词)`}
               </button>
             )}
             <button 
@@ -3007,13 +3204,15 @@
 
         if (appState === 'reading') {
           const readingWords = words.filter(word => word.source === 'reading');
-          const studyGroups = getReadingStudyGroups(readingWords);
+          const activeReadingWords = readingWords.filter(word => !word.readingDeferred);
+          const studyGroups = getReadingStudyGroups(activeReadingWords);
           const selectedReadingGroup = studyGroups.find(group => group.id === readingFilters.group);
           const readingMistakeCount = readingWords.filter(isInMistakeBook).length;
           const levels = [
             { key: 'new', label: '生词', description: '还未形成稳定记忆', className: 'border-amber-200 bg-amber-50 text-amber-800' },
             { key: 'hard', label: '难词', description: '答错较多，优先巩固', className: 'border-red-200 bg-red-50 text-red-800' },
             { key: 'mastered', label: '已掌握', description: '答对稳定或标记为已会', className: 'border-emerald-200 bg-emerald-50 text-emerald-800' },
+            { key: 'deferred', label: '暂缓', description: 'AI 建议暂不进入日常学习', className: 'border-slate-200 bg-slate-50 text-slate-800' },
           ];
           const filteredCount = getFilteredReadingWords().length;
 
@@ -3023,9 +3222,15 @@
                 <ChevronLeft size={18} /> 返回词库选择
               </button>
               <div className="mb-6">
-                <div className="flex flex-wrap items-center justify-between gap-3"><h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2"><BookOpen className="text-emerald-600" /> 阅读生词本</h2><button onClick={() => { setShowReadingManager(true); setReadingManagerError(''); }} className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm font-semibold text-red-700 hover:bg-red-100">管理删除</button></div>
-                <p className="mt-2 text-sm text-gray-500">每组最多 {READING_GROUP_SIZE} 词，优先保持同一来源文章和导入日期在一起；再按学习表现分层。当前筛出 {filteredCount} / {readingWords.length} 词。</p>
+                <div className="flex flex-wrap items-center justify-between gap-3"><h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2"><BookOpen className="text-emerald-600" /> 阅读生词本</h2><div className="flex flex-wrap gap-2"><button onClick={reviewExistingReadingWords} disabled={isExistingReadingFilterLoading || !readingWords.length} className="rounded-lg bg-sky-600 px-3 py-2 text-sm font-semibold text-white hover:bg-sky-700 disabled:bg-sky-300">{isExistingReadingFilterLoading ? 'AI 正在批量整理…' : `AI 批量整理当前 ${readingWords.length} 词`}</button><button onClick={() => { setShowReadingManager(true); setReadingManagerError(''); }} className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm font-semibold text-red-700 hover:bg-red-100">管理删除</button></div></div>
+                <p className="mt-2 text-sm text-gray-500">每组最多 {READING_GROUP_SIZE} 词；日常学习只显示未暂缓词。当前筛出 {filteredCount} / {activeReadingWords.length} 个活跃词（总计 {readingWords.length} 词）。</p>
               </div>
+
+              {readingExistingReview && (() => {
+                const keep = readingExistingReview.filter(entry => entry.keep);
+                const defer = readingExistingReview.filter(entry => !entry.keep);
+                return <section className="mb-6 rounded-2xl border-2 border-sky-200 bg-sky-50 p-5"><div className="flex flex-wrap items-start justify-between gap-3"><div><h3 className="font-bold text-sky-950">AI 批量整理建议</h3><p className="mt-1 text-sm text-sky-800">保留 {keep.length} 词；建议暂缓 {defer.length} 词。应用后可在“暂缓”中重新审核或恢复。</p></div><button onClick={() => setReadingExistingReview(null)} className="text-sm font-semibold text-sky-700 underline">取消</button></div><div className="mt-3 max-h-52 space-y-1 overflow-y-auto rounded-xl bg-white/80 p-3 text-sm">{readingExistingReview.map(entry => <div key={entry.id} className="flex gap-2"><span className={entry.keep ? 'font-semibold text-emerald-700' : 'font-semibold text-amber-700'}>{entry.keep ? '保留' : '暂缓'}</span><span className="font-semibold text-gray-800">{entry.word}</span><span className="text-gray-500">{entry.reason}</span></div>)}</div><button onClick={applyExistingReadingReview} className="mt-4 rounded-lg bg-sky-600 px-4 py-2 font-bold text-white hover:bg-sky-700">应用整理结果</button></section>;
+              })()}
 
               {showReadingManager && (
                 <div className="mb-6 rounded-2xl border-2 border-red-200 bg-red-50 p-5">
@@ -3831,8 +4036,8 @@
                 )}
 
                 {pendingReadingEntries.length > 0 && (
-                  <button onClick={importReadingInbox} className="text-sm px-3 py-1.5 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 transition-colors">
-                    导入阅读生词本 ({pendingReadingEntries.length})
+                  <button onClick={reviewReadingInbox} disabled={isReadingFilterLoading} className="text-sm px-3 py-1.5 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 disabled:bg-emerald-300 transition-colors">
+                    {isReadingFilterLoading ? 'AI 筛选中…' : `AI 筛选后导入 (${pendingReadingEntries.length})`}
                   </button>
                 )}
 

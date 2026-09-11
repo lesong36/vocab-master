@@ -74,7 +74,7 @@ def log_ai(message: str) -> None:
     sys.stderr.flush()
 
 
-def call_chat_completion(prompt: str) -> tuple[str | None, str | None]:
+def call_chat_completion(prompt: str, max_tokens: int = 400) -> tuple[str | None, str | None]:
     cfg = load_ai_config()
     info = describe_ai_config(cfg)
     api_key = (cfg.get("apiKey") or "").strip()
@@ -88,7 +88,7 @@ def call_chat_completion(prompt: str) -> tuple[str | None, str | None]:
     payload = {
         "model": model,
         "messages": [{"role": "user", "content": prompt}],
-        "max_tokens": 400,
+        "max_tokens": max(64, min(int(max_tokens), 1200)),
         "temperature": 0.85,
         # DeepSeek V4 默认开启 thinking；助记场景关闭以降低延迟
         "thinking": {"type": "disabled"},
@@ -226,7 +226,7 @@ class VocabHandler(SimpleHTTPRequestHandler):
         super().do_GET()
 
     def do_POST(self) -> None:
-        if self.path == "/api/ai-hint":
+        if self.path in {"/api/ai-hint", "/api/ai-filter-reading"}:
             length = int(self.headers.get("Content-Length", "0"))
             raw = self.rfile.read(length)
             try:
@@ -240,7 +240,10 @@ class VocabHandler(SimpleHTTPRequestHandler):
                 self._json_response(400, {"error": "prompt required"})
                 return
 
-            text, err = call_chat_completion(prompt)
+            # Import filtering needs a compact JSON verdict for a small batch,
+            # which is slightly longer than a single-word mnemonic.
+            max_tokens = 1000 if self.path == "/api/ai-filter-reading" else 400
+            text, err = call_chat_completion(prompt, max_tokens=max_tokens)
             ai_info = describe_ai_config()
             if text:
                 self._json_response(

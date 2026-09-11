@@ -3520,10 +3520,14 @@
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
               {gradeSections.map(section => {
                 const { unitLabel } = parseSectionMeta(section);
+                const unitWords = words.filter(word => word.section === section && word.source !== 'reading');
                 return (
-                  <button
+                  <div
                     key={section}
                     onClick={() => toggleSection(section)}
+                    onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); toggleSection(section); } }}
+                    role="button"
+                    tabIndex={0}
                     className={`p-4 rounded-xl border-2 text-left transition-all ${
                       selectedSections.includes(section)
                         ? 'border-blue-600 bg-blue-50 text-blue-800 font-semibold shadow-sm'
@@ -3535,9 +3539,17 @@
                       {selectedSections.includes(section) && <Check size={18} className="text-blue-600" />}
                     </div>
                     <div className="text-xs mt-1 text-gray-500 font-normal">
-                      {words.filter(w => w.section === section).length} 词
+                      {unitWords.length} 词
                     </div>
-                  </button>
+                    <button
+                      type="button"
+                      onClick={(event) => { event.stopPropagation(); generatePhonicsForWords(unitWords, `${selectedGrade} ${unitLabel}`); }}
+                      disabled={isBulkPhonicsLoading || !unitWords.length}
+                      className="mt-3 w-full rounded-lg border border-emerald-200 bg-emerald-50 px-2 py-2 text-xs font-bold text-emerald-800 transition hover:bg-emerald-100 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400"
+                    >
+                      {isBulkPhonicsLoading ? 'AI 生成中…' : `🪄 生成本 Unit ${unitWords.length} 词`}
+                    </button>
+                  </div>
                 );
               })}
             </div>

@@ -2962,6 +2962,22 @@
         linkElement.click();
       };
 
+      const exportReadingEnglishWords = () => {
+        const exportedWords = words
+          .filter(word => word.source === 'reading')
+          .map(word => String(word.english_word || '').trim())
+          .filter(Boolean)
+          .filter((word, index, list) => list.findIndex(item => item.toLowerCase() === word.toLowerCase()) === index)
+          .join(',');
+        const dataUri = 'data:text/plain;charset=utf-8,' + encodeURIComponent(exportedWords);
+        const userLabel = currentUser?.name ? currentUser.name.replace(/\s+/g, '_') : 'user';
+        const linkElement = document.createElement('a');
+
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', `reading_words_${userLabel}_${new Date().toISOString().slice(0, 10)}.txt`);
+        linkElement.click();
+      };
+
       // --- UI Components ---
 
       const renderImport = () => (
@@ -3330,7 +3346,7 @@
                 <ChevronLeft size={18} /> 返回词库选择
               </button>
               <div className="mb-6">
-                <div className="flex flex-wrap items-center justify-between gap-3"><h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2"><BookOpen className="text-emerald-600" /> 阅读生词本</h2><div className="flex flex-wrap gap-2"><button onClick={generateAllReadingPhonics} disabled={isBulkPhonicsLoading || !readingWords.length} className="rounded-lg bg-emerald-600 px-3 py-2 text-sm font-semibold text-white hover:bg-emerald-700 disabled:bg-emerald-300">{isBulkPhonicsLoading ? `AI 生成中 ${bulkPhonicsProgress?.completed || 0}/${bulkPhonicsProgress?.total || readingWords.length}` : `🪄 AI 生成全部 ${readingWords.length} 词拼读助记`}</button><button onClick={reviewExistingReadingWords} disabled={isExistingReadingFilterLoading || !readingWords.length} className="rounded-lg bg-sky-600 px-3 py-2 text-sm font-semibold text-white hover:bg-sky-700 disabled:bg-sky-300">{isExistingReadingFilterLoading ? 'AI 正在批量整理…' : `AI 批量整理当前 ${readingWords.length} 词`}</button><button onClick={() => { setShowReadingManager(true); setReadingManagerError(''); }} className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm font-semibold text-red-700 hover:bg-red-100">管理删除</button></div></div>
+                <div className="flex flex-wrap items-center justify-between gap-3"><h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2"><BookOpen className="text-emerald-600" /> 阅读生词本</h2><div className="flex flex-wrap gap-2"><button onClick={exportReadingEnglishWords} disabled={!readingWords.length} className="inline-flex items-center gap-1 rounded-lg border border-emerald-300 bg-emerald-50 px-3 py-2 text-sm font-semibold text-emerald-700 hover:bg-emerald-100 disabled:cursor-not-allowed disabled:opacity-50" title="导出全部阅读生词的英文单词，使用逗号分隔"><Download size={16} />导出英文单词</button><button onClick={generateAllReadingPhonics} disabled={isBulkPhonicsLoading || !readingWords.length} className="rounded-lg bg-emerald-600 px-3 py-2 text-sm font-semibold text-white hover:bg-emerald-700 disabled:bg-emerald-300">{isBulkPhonicsLoading ? `AI 生成中 ${bulkPhonicsProgress?.completed || 0}/${bulkPhonicsProgress?.total || readingWords.length}` : `🪄 AI 生成全部 ${readingWords.length} 词拼读助记`}</button><button onClick={reviewExistingReadingWords} disabled={isExistingReadingFilterLoading || !readingWords.length} className="rounded-lg bg-sky-600 px-3 py-2 text-sm font-semibold text-white hover:bg-sky-700 disabled:bg-sky-300">{isExistingReadingFilterLoading ? 'AI 正在批量整理…' : `AI 批量整理当前 ${readingWords.length} 词`}</button><button onClick={() => { setShowReadingManager(true); setReadingManagerError(''); }} className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm font-semibold text-red-700 hover:bg-red-100">管理删除</button></div></div>
                 <p className="mt-2 text-sm text-gray-500">每组最多 {READING_GROUP_SIZE} 词；日常学习只显示未暂缓词。当前筛出 {filteredCount} / {activeReadingWords.length} 个活跃词（总计 {readingWords.length} 词）。</p>
                 {bulkPhonicsProgress && <p className="mt-2 text-sm font-medium text-emerald-700">拼读助记进度：{bulkPhonicsProgress.completed}/{bulkPhonicsProgress.total} 词。每完成一小批都会立即保存。</p>}
                 {bulkPhonicsError && <p className="mt-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">{bulkPhonicsError}</p>}

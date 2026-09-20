@@ -1182,6 +1182,7 @@
       const [readingManagerUnlocked, setReadingManagerUnlocked] = useState(false);
       const [readingDeleteIds, setReadingDeleteIds] = useState([]);
       const [readingImportReview, setReadingImportReview] = useState(null);
+      const [readingImportSelectedKeys, setReadingImportSelectedKeys] = useState([]);
       const [isReadingFilterLoading, setIsReadingFilterLoading] = useState(false);
       const [readingFilterError, setReadingFilterError] = useState('');
       const [readingExistingReview, setReadingExistingReview] = useState(null);
@@ -1508,6 +1509,18 @@
         }
       };
 
+      const openReadingImportConfirmation = () => {
+        if (!pendingReadingEntries.length) return;
+        setReadingImportSelectedKeys([]);
+        setReadingFilterError('');
+        setReadingImportReview(pendingReadingEntries.map(entry => ({
+          ...entry,
+          word: String(entry.word || '').trim(),
+          keep: false,
+          reason: '待教师确认',
+        })));
+      };
+
       const reviewExistingReadingWords = async () => {
         const readingWords = words.filter(word => word.source === 'reading');
         if (!readingWords.length) return;
@@ -1624,9 +1637,15 @@
           '阅读器生词本',
           selectedSections.filter(section => section !== READING_VOCAB_SECTION)
         );
-        localStorage.removeItem(READING_VOCAB_INBOX_KEY);
-        setReadingInboxEntries([]);
+        const importedKeys = new Set(imported.map(word => word.english_word.toLowerCase()));
+        setReadingInboxEntries(previous => {
+          const remaining = previous.filter(entry => !importedKeys.has(String(entry?.word || '').trim().toLowerCase()));
+          if (remaining.length) localStorage.setItem(READING_VOCAB_INBOX_KEY, JSON.stringify({ entries: remaining }));
+          else localStorage.removeItem(READING_VOCAB_INBOX_KEY);
+          return remaining;
+        });
         setReadingImportReview(null);
+        setReadingImportSelectedKeys([]);
         setReadingFilterError('');
         setErrorMsg('');
       };
@@ -3028,22 +3047,22 @@
               <p className="font-semibold">阅读器有 {pendingReadingEntries.length} 个生词等待导入</p>
               <p className="text-sm mt-1">导入后会进入独立的“阅读生词本”，练习只需见英选义。</p>
               <button
-                onClick={reviewReadingInbox}
-                disabled={!currentUserId || isReadingFilterLoading}
+                onClick={openReadingImportConfirmation}
+                disabled={!currentUserId}
                 className="mt-3 bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-300 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
               >
-                {!currentUserId ? '请先连接阅读器账号' : isReadingFilterLoading ? 'AI 正在筛选…' : 'AI 筛选阅读生词'}
+                {!currentUserId ? '请先连接阅读器账号' : '教师确认后导入'}
               </button>
             </div>
           )}
 
           {readingImportReview && (() => {
-            const recommended = readingImportReview.filter(entry => entry.keep);
-            const deferred = readingImportReview.filter(entry => !entry.keep);
+            const selectedEntries = readingImportReview.filter(entry => readingImportSelectedKeys.includes(normalizeReadingWord(entry.word)));
             return <div className="w-full max-w-lg mb-6 rounded-2xl border-2 border-sky-200 bg-sky-50 p-5 text-left text-sky-950">
-              <div className="flex items-start justify-between gap-3"><div><h3 className="font-bold">AI 导入建议</h3><p className="mt-1 text-sm">推荐 {recommended.length} 词；暂缓 {deferred.length} 词。暂缓不等于删除。</p></div><button onClick={() => setReadingImportReview(null)} className="text-sm font-semibold underline">关闭</button></div>
-              <div className="mt-3 max-h-40 space-y-1 overflow-y-auto rounded-xl bg-white/80 p-3 text-sm">{readingImportReview.map(entry => <div key={normalizeReadingWord(entry.word)}><span className={entry.keep ? 'font-semibold text-emerald-700' : 'font-semibold text-amber-700'}>{entry.keep ? '保留' : '暂缓'}</span><span className="mx-2 font-semibold">{entry.word}</span><span className="text-gray-600">{entry.reason}</span></div>)}</div>
-              <button disabled={!recommended.length} onClick={() => importReadingInbox(recommended)} className="mt-4 rounded-lg bg-emerald-600 px-4 py-2 font-bold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:bg-emerald-300">导入推荐的 {recommended.length} 词</button>
+              <div className="flex items-start justify-between gap-3"><div><h3 className="font-bold">教师确认导入</h3><p className="mt-1 text-sm">请勾选需要进入阅读生词本的词；未勾选的词不会导入。</p></div><button onClick={() => { setReadingImportReview(null); setReadingImportSelectedKeys([]); }} className="text-sm font-semibold underline">关闭</button></div>
+              <div className="mt-3 flex flex-wrap gap-2"><button onClick={() => setReadingImportSelectedKeys(readingImportReview.map(entry => normalizeReadingWord(entry.word)))} className="rounded-lg border border-sky-300 bg-white px-3 py-1.5 text-sm font-semibold text-sky-800 hover:bg-sky-100">全选</button><button onClick={() => setReadingImportSelectedKeys([])} className="rounded-lg border border-sky-300 bg-white px-3 py-1.5 text-sm font-semibold text-sky-800 hover:bg-sky-100">清空</button><button onClick={reviewReadingInbox} disabled={isReadingFilterLoading} className="rounded-lg border border-sky-300 bg-white px-3 py-1.5 text-sm font-semibold text-sky-800 hover:bg-sky-100 disabled:opacity-50">{isReadingFilterLoading ? 'AI 分析中…' : 'AI 提供建议'}</button></div>
+              <div className="mt-3 max-h-56 space-y-1 overflow-y-auto rounded-xl bg-white/80 p-3 text-sm">{readingImportReview.map(entry => { const key = normalizeReadingWord(entry.word); return <label key={key} className="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-sky-100"><input type="checkbox" checked={readingImportSelectedKeys.includes(key)} onChange={() => setReadingImportSelectedKeys(previous => previous.includes(key) ? previous.filter(item => item !== key) : [...previous, key])} /><span className="font-semibold">{entry.word}</span><span className={entry.keep ? 'text-emerald-700' : 'text-gray-600'}>{entry.keep ? `AI 建议：${entry.reason}` : entry.reason}</span></label>; })}</div>
+              <button disabled={!selectedEntries.length} onClick={() => importReadingInbox(selectedEntries)} className="mt-4 rounded-lg bg-emerald-600 px-4 py-2 font-bold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:bg-emerald-300">导入教师确认的 {selectedEntries.length} 词</button>
             </div>;
           })()}
           {readingFilterError && <p className="w-full max-w-lg mb-5 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">{readingFilterError}</p>}
@@ -3266,12 +3285,12 @@
         const actionButtons = (
           <>
           {readingImportReview && (() => {
-            const recommended = readingImportReview.filter(entry => entry.keep);
-            const deferred = readingImportReview.filter(entry => !entry.keep);
+            const selectedEntries = readingImportReview.filter(entry => readingImportSelectedKeys.includes(normalizeReadingWord(entry.word)));
             return <section className="mb-5 rounded-2xl border-2 border-sky-200 bg-sky-50 p-5 text-left">
-              <div className="flex flex-wrap items-start justify-between gap-3"><div><h3 className="font-bold text-sky-950">AI 导入建议</h3><p className="mt-1 text-sm text-sky-800">推荐 {recommended.length} 词；暂缓 {deferred.length} 词。暂缓词不会删除，之后可重新筛选。</p></div><button onClick={() => { setReadingImportReview(null); setReadingFilterError(''); }} className="text-sm font-semibold text-sky-700 underline">关闭</button></div>
-              <div className="mt-3 max-h-40 space-y-1 overflow-y-auto rounded-xl bg-white/80 p-3 text-sm">{readingImportReview.map(entry => <div key={normalizeReadingWord(entry.word)} className="flex gap-2"><span className={entry.keep ? 'font-semibold text-emerald-700' : 'font-semibold text-amber-700'}>{entry.keep ? '保留' : '暂缓'}</span><span className="font-semibold text-gray-800">{entry.word}</span><span className="text-gray-500">{entry.reason}</span></div>)}</div>
-              <div className="mt-4 flex flex-wrap gap-3"><button disabled={!recommended.length} onClick={() => importReadingInbox(recommended)} className="rounded-lg bg-emerald-600 px-4 py-2 font-bold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:bg-emerald-300">导入推荐的 {recommended.length} 词</button><button onClick={reviewReadingInbox} className="rounded-lg border border-sky-300 bg-white px-4 py-2 font-semibold text-sky-800 hover:bg-sky-100">重新筛选</button></div>
+              <div className="flex flex-wrap items-start justify-between gap-3"><div><h3 className="font-bold text-sky-950">教师确认导入</h3><p className="mt-1 text-sm text-sky-800">请逐项勾选；只有教师确认的词会被导入。</p></div><button onClick={() => { setReadingImportReview(null); setReadingImportSelectedKeys([]); setReadingFilterError(''); }} className="text-sm font-semibold text-sky-700 underline">关闭</button></div>
+              <div className="mt-3 flex flex-wrap gap-2"><button onClick={() => setReadingImportSelectedKeys(readingImportReview.map(entry => normalizeReadingWord(entry.word)))} className="rounded-lg border border-sky-300 bg-white px-3 py-1.5 text-sm font-semibold text-sky-800 hover:bg-sky-100">全选</button><button onClick={() => setReadingImportSelectedKeys([])} className="rounded-lg border border-sky-300 bg-white px-3 py-1.5 text-sm font-semibold text-sky-800 hover:bg-sky-100">清空</button><button onClick={reviewReadingInbox} disabled={isReadingFilterLoading} className="rounded-lg border border-sky-300 bg-white px-3 py-1.5 text-sm font-semibold text-sky-800 hover:bg-sky-100 disabled:opacity-50">{isReadingFilterLoading ? 'AI 分析中…' : 'AI 提供建议'}</button></div>
+              <div className="mt-3 max-h-56 space-y-1 overflow-y-auto rounded-xl bg-white/80 p-3 text-sm">{readingImportReview.map(entry => { const key = normalizeReadingWord(entry.word); return <label key={key} className="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-sky-100"><input type="checkbox" checked={readingImportSelectedKeys.includes(key)} onChange={() => setReadingImportSelectedKeys(previous => previous.includes(key) ? previous.filter(item => item !== key) : [...previous, key])} /><span className="font-semibold text-gray-800">{entry.word}</span><span className={entry.keep ? 'text-emerald-700' : 'text-gray-500'}>{entry.keep ? `AI 建议：${entry.reason}` : entry.reason}</span></label>; })}</div>
+              <div className="mt-4 flex flex-wrap gap-3"><button disabled={!selectedEntries.length} onClick={() => importReadingInbox(selectedEntries)} className="rounded-lg bg-emerald-600 px-4 py-2 font-bold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:bg-emerald-300">导入教师确认的 {selectedEntries.length} 词</button></div>
             </section>;
           })()}
           {readingFilterError && <p className="mb-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">{readingFilterError}</p>}
@@ -3284,11 +3303,10 @@
           <div className="flex flex-col sm:flex-row gap-4">
             {pendingReadingEntries.length > 0 && (
               <button
-                onClick={reviewReadingInbox}
-                disabled={isReadingFilterLoading}
+                onClick={openReadingImportConfirmation}
                 className="bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-300 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-colors"
               >
-                {isReadingFilterLoading ? 'AI 正在筛选…' : `AI 筛选后导入 (${pendingReadingEntries.length} 词)`}
+                教师确认后导入 ({pendingReadingEntries.length} 词)
               </button>
             )}
             <button 
@@ -3367,13 +3385,12 @@
                       <div className="flex gap-2"><input type="password" value={readingManagerPassword} onChange={event => setReadingManagerPassword(event.target.value)} required autoComplete="current-password" className="min-w-0 flex-1 rounded-lg border border-red-200 px-3 py-2" placeholder="阅读器账号密码" /><button className="rounded-lg bg-red-600 px-4 py-2 font-semibold text-white hover:bg-red-700">确认</button></div>
                       {readingManagerError && <p className="mt-2 text-sm text-red-600">{readingManagerError}</p>}
                     </form>
-                  ) : !selectedReadingGroup ? (
-                    <p className="mt-4 text-sm text-red-800">请先选择一个学习组，再勾选其中不需要学习的词。</p>
                   ) : (
                     <div className="mt-4">
-                      <p className="mb-3 text-sm text-red-800">勾选“第 {selectedReadingGroup.number} 组”中误加入的词。删除后仅从 VocabMaster 学习列表移除，并会永久忽略后续导入。</p>
+                      <p className="mb-3 text-sm text-red-800">勾选不需要学习的词，可跨学习组批量删除。删除后仅从 VocabMaster 学习列表移除，并会永久忽略后续导入。</p>
+                      <div className="mb-3 flex flex-wrap gap-2"><button onClick={() => setReadingDeleteIds(readingWords.map(word => word.id))} className="rounded-lg border border-red-300 bg-white px-3 py-1.5 text-sm font-semibold text-red-700 hover:bg-red-100">全选 {readingWords.length} 词</button><button onClick={() => setReadingDeleteIds([])} className="rounded-lg border border-red-300 bg-white px-3 py-1.5 text-sm font-semibold text-red-700 hover:bg-red-100">清空选择</button></div>
                       <div className="max-h-64 space-y-2 overflow-y-auto rounded-xl border border-red-100 bg-white p-3">
-                        {selectedReadingGroup.words.map(word => <label key={word.id} className="flex cursor-pointer items-center gap-3 rounded-lg px-2 py-1.5 hover:bg-red-50"><input type="checkbox" checked={readingDeleteIds.includes(word.id)} onChange={() => setReadingDeleteIds(previous => previous.includes(word.id) ? previous.filter(id => id !== word.id) : [...previous, word.id])} /><span className="font-semibold text-gray-800">{word.english_word}</span><span className="text-sm text-gray-500">{word.chinese_meaning}</span></label>)}
+                        {readingWords.map(word => <label key={word.id} className="flex cursor-pointer items-center gap-3 rounded-lg px-2 py-1.5 hover:bg-red-50"><input type="checkbox" checked={readingDeleteIds.includes(word.id)} onChange={() => setReadingDeleteIds(previous => previous.includes(word.id) ? previous.filter(id => id !== word.id) : [...previous, word.id])} /><span className="font-semibold text-gray-800">{word.english_word}</span><span className="text-sm text-gray-500">{word.chinese_meaning}</span></label>)}
                       </div>
                       <button disabled={readingDeleteIds.length === 0} onClick={deleteSelectedReadingWords} className="mt-4 rounded-lg bg-red-600 px-4 py-2 font-semibold text-white hover:bg-red-700 disabled:cursor-not-allowed disabled:bg-red-300">删除选中的 {readingDeleteIds.length} 词</button>
                     </div>
@@ -4192,8 +4209,8 @@
                 )}
 
                 {pendingReadingEntries.length > 0 && (
-                  <button onClick={reviewReadingInbox} disabled={isReadingFilterLoading} className="text-sm px-3 py-1.5 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 disabled:bg-emerald-300 transition-colors">
-                    {isReadingFilterLoading ? 'AI 筛选中…' : `AI 筛选后导入 (${pendingReadingEntries.length})`}
+                  <button onClick={openReadingImportConfirmation} className="text-sm px-3 py-1.5 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 transition-colors">
+                    教师确认导入 ({pendingReadingEntries.length})
                   </button>
                 )}
 

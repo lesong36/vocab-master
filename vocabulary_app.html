@@ -2839,10 +2839,6 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
       };
 
       const startStudy = () => {
-        if (appState === 'reading' && !hasSelectedReadingGroup()) {
-          setErrorMsg(`请先选择一个不超过 ${READING_GROUP_SIZE} 词的学习组`);
-          return;
-        }
         const filteredWords = getWordsToStudy();
         if (filteredWords.length === 0) {
           setErrorMsg('请至少选择一个 Unit、错题本，或调整阅读生词本筛选条件');
@@ -3605,8 +3601,6 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         if (appState === 'reading') {
           const readingWords = words.filter(word => word.source === 'reading');
           const activeReadingWords = readingWords.filter(word => !word.readingDeferred);
-          const studyGroups = getReadingStudyGroups(activeReadingWords);
-          const selectedReadingGroup = studyGroups.find(group => group.id === readingFilters.group);
           const readingMistakeCount = readingWords.filter(isInMistakeBook).length;
           const rollingPlan = getReadingRollingPlan();
           const levels = [
@@ -3624,7 +3618,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
               </button>
               <div className="mb-6">
                 <div className="flex flex-wrap items-center justify-between gap-3"><h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2"><BookOpen className="text-emerald-600" /> 阅读生词本</h2><div className="flex flex-wrap gap-2"><button onClick={exportReadingEnglishWords} disabled={!readingWords.length} className="inline-flex items-center gap-1 rounded-lg border border-emerald-300 bg-emerald-50 px-3 py-2 text-sm font-semibold text-emerald-700 hover:bg-emerald-100 disabled:cursor-not-allowed disabled:opacity-50" title="导出全部阅读生词的英文单词，使用逗号分隔"><Download size={16} />导出英文单词</button><button onClick={generateAllReadingPhonics} disabled={isBulkPhonicsLoading || !readingWords.length} className="rounded-lg bg-emerald-600 px-3 py-2 text-sm font-semibold text-white hover:bg-emerald-700 disabled:bg-emerald-300">{isBulkPhonicsLoading ? `AI 生成中 ${bulkPhonicsProgress?.completed || 0}/${bulkPhonicsProgress?.total || readingWords.length}` : `🪄 AI 生成全部 ${readingWords.length} 词拼读助记`}</button><button onClick={reviewExistingReadingWords} disabled={isExistingReadingFilterLoading || !readingWords.length} className="rounded-lg bg-sky-600 px-3 py-2 text-sm font-semibold text-white hover:bg-sky-700 disabled:bg-sky-300">{isExistingReadingFilterLoading ? 'AI 正在批量整理…' : `AI 批量整理当前 ${readingWords.length} 词`}</button><button onClick={() => { setShowReadingManager(true); setReadingManagerError(''); }} className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm font-semibold text-red-700 hover:bg-red-100">管理删除</button></div></div>
-                <p className="mt-2 text-sm text-gray-500">每组最多 {READING_GROUP_SIZE} 词；日常学习只显示未暂缓词。当前筛出 {filteredCount} / {activeReadingWords.length} 个活跃词（总计 {readingWords.length} 词）。</p>
+                <p className="mt-2 text-sm text-gray-500">自动滚动复习每日最多 {READING_DAILY_LIMIT} 词；日常学习只显示未暂缓词。当前筛出 {filteredCount} / {activeReadingWords.length} 个活跃词（总计 {readingWords.length} 词）。</p>
                 {bulkPhonicsProgress && <p className="mt-2 text-sm font-medium text-emerald-700">拼读助记进度：{bulkPhonicsProgress.completed}/{bulkPhonicsProgress.total} 词。每完成一小批都会立即保存。</p>}
                 {bulkPhonicsError && <p className="mt-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">{bulkPhonicsError}</p>}
               </div>
@@ -3683,29 +3677,11 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                 </section>
               )}
 
-              <section className="mb-6">
-                <h3 className="mb-3 font-bold text-gray-700">1. 选择一组（每组最多 {READING_GROUP_SIZE} 词）</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {studyGroups.map(group => {
-                    const active = readingFilters.group === group.id;
-                    const sourcePreview = group.sources.slice(0, 2).join(' · ');
-                    const datePreview = group.dates.length === 1 ? group.dates[0] : `${group.dates[group.dates.length - 1]} 至 ${group.dates[0]}`;
-                    return <button key={group.id} onClick={() => selectReadingGroup(group.id)} className={`rounded-xl border-2 p-4 text-left transition ${active ? 'border-emerald-600 bg-emerald-50 text-emerald-900 font-semibold' : 'border-gray-200 bg-white hover:border-emerald-300 text-gray-700'}`}>
-                      <div className="flex items-center justify-between gap-3"><span className="font-bold">第 {group.number} 组</span><span className="text-sm font-semibold">{group.words.length} / {READING_GROUP_SIZE} 词</span></div>
-                      <div className="mt-2 truncate text-sm">{sourcePreview}{group.sources.length > 2 ? ` 等 ${group.sources.length} 篇文章` : ''}</div>
-                      <div className="mt-1 text-xs opacity-70">{datePreview}</div>
-                    </button>;
-                  })}
-                </div>
-              </section>
-
               <section className="mb-8">
-                <h3 className="mb-3 font-bold text-gray-700">2. 在当前组内按学习表现分层（可选）</h3>
+                <h3 className="mb-3 font-bold text-gray-700">学习表现分层（可选）</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {levels.map(level => {
-                    const activeGroup = studyGroups.find(group => group.id === readingFilters.group);
-                    const countBase = activeGroup?.words || readingWords;
-                    const count = countBase.filter(word => getReadingLevel(word).key === level.key).length;
+                    const count = readingWords.filter(word => getReadingLevel(word).key === level.key).length;
                     const active = readingFilters.level === level.key;
                     return <button key={level.key} onClick={() => updateReadingFilter('level', level.key)} className={`rounded-xl border-2 p-4 text-left transition ${active ? 'ring-2 ring-offset-1 ring-blue-300 ' : ''}${level.className}`}>
                       <div className="font-bold">{level.label} · {count} 词</div><div className="mt-1 text-xs opacity-75">{level.description}</div>

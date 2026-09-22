@@ -2889,30 +2889,6 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         fetchWordDataAndPlay(shuffled[0].english_word, true);
       };
 
-      const startReadingMistakeStudy = () => {
-        const mistakeWords = words.filter(word => word.source === 'reading' && isInMistakeBook(word));
-        if (!mistakeWords.length) {
-          setErrorMsg('阅读错题本暂时没有待复习的单词');
-          return;
-        }
-        const shuffled = [...mistakeWords].sort(() => Math.random() - 0.5);
-        setErrorMsg('');
-        setStudyList(shuffled);
-        setCurrentIndex(0);
-        setSessionStats({ correct: 0, incorrect: 0, mistakeWordIds: [] });
-        setUserInput('');
-        setFeedback(null);
-        setShowHint(false);
-        setSelectedChoiceKey(null);
-        setRecognitionChoices([]);
-        setRecognitionChoiceStatus('');
-        setPhonicsHintText('');
-        setCurrentPhonetic('');
-        setCurrentAudioUrl('');
-        setAppState('study');
-        fetchWordDataAndPlay(shuffled[0].english_word, true);
-      };
-
       const startReadingRollingStudy = () => {
         const plan = getReadingRollingPlan();
         if (!plan.words.length) {
@@ -3601,7 +3577,6 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         if (appState === 'reading') {
           const readingWords = words.filter(word => word.source === 'reading');
           const activeReadingWords = readingWords.filter(word => !word.readingDeferred);
-          const readingMistakeCount = readingWords.filter(isInMistakeBook).length;
           const rollingPlan = getReadingRollingPlan();
           const levels = [
             { key: 'new', label: '生词', description: '还未形成稳定记忆', className: 'border-amber-200 bg-amber-50 text-amber-800' },
@@ -3667,15 +3642,6 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                   <button onClick={startReadingRollingStudy} disabled={!rollingPlan.words.length} className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-emerald-600 px-5 py-3 font-bold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:bg-emerald-300"><Play size={20} />开始今日 {rollingPlan.words.length} 词</button>
                 </div>
               </section>
-
-              {readingMistakeCount > 0 && (
-                <section className="mb-6 rounded-2xl border-2 border-red-200 bg-red-50 p-5">
-                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                    <div><h3 className="font-bold text-red-900">⚠️ 阅读错题本 · {readingMistakeCount} 词</h3><p className="mt-1 text-sm text-red-700">答错的阅读词会自动进入这里；连续答对 {MISTAKE_EXIT_STREAK} 次后移出。</p></div>
-                    <button onClick={startReadingMistakeStudy} className="rounded-lg bg-red-600 px-4 py-2.5 font-bold text-white hover:bg-red-700">复习阅读错词</button>
-                  </div>
-                </section>
-              )}
 
               <section className="mb-8">
                 <h3 className="mb-3 font-bold text-gray-700">学习表现分层（可选）</h3>

@@ -226,7 +226,7 @@ class VocabHandler(SimpleHTTPRequestHandler):
         super().do_GET()
 
     def do_POST(self) -> None:
-        if self.path in {"/api/ai-hint", "/api/ai-filter-reading", "/api/ai-phonics-batch"}:
+        if self.path in {"/api/ai-hint", "/api/ai-filter-reading", "/api/ai-phonics-batch", "/api/ai-choice-audit"}:
             length = int(self.headers.get("Content-Length", "0"))
             raw = self.rfile.read(length)
             try:
@@ -242,7 +242,7 @@ class VocabHandler(SimpleHTTPRequestHandler):
 
             # Import filtering needs a compact JSON verdict for a small batch,
             # which is slightly longer than a single-word mnemonic.
-            max_tokens = 1000 if self.path in {"/api/ai-filter-reading", "/api/ai-phonics-batch"} else 400
+            max_tokens = 1000 if self.path in {"/api/ai-filter-reading", "/api/ai-phonics-batch", "/api/ai-choice-audit"} else 400
             text, err = call_chat_completion(prompt, max_tokens=max_tokens)
             ai_info = describe_ai_config()
             if text:

@@ -431,6 +431,34 @@
       )));
     };
 
+    // AI 的返回也必须经过本地硬校验：只有一个正确项，正确释义保持词库原文，
+    // 三个干扰项彼此及与正确项均不得重义。这样模型偶尔的格式/语义失误不会进入题目。
+    const normalizeAuditedChoices = (word, choices) => {
+      const correct = normalizeMeaning(word?.chinese_meaning);
+      if (!Array.isArray(choices) || choices.length !== 4 || !correct) return null;
+      const normalized = choices.map((choice, index) => ({
+        key: choice?.key || `${word.id}:audit:${index}`,
+        text: normalizeMeaning(choice?.text),
+        isCorrect: choice?.isCorrect === true,
+      }));
+      if (normalized.filter(choice => choice.isCorrect).length !== 1) return null;
+      const answer = normalized.find(choice => choice.isCorrect);
+      if (answer.text !== correct) return null;
+      const seen = new Set();
+      for (const choice of normalized) {
+        if (!choice.text || seen.has(choice.text)) return null;
+        seen.add(choice.text);
+        if (!choice.isCorrect && (hasMeaningOverlap(correct, choice.text) || isExplanationLikeMeaning(choice.text))) return null;
+      }
+      const distractors = normalized.filter(choice => !choice.isCorrect);
+      for (let i = 0; i < distractors.length; i++) {
+        for (let j = i + 1; j < distractors.length; j++) {
+          if (hasMeaningOverlap(distractors[i].text, distractors[j].text)) return null;
+        }
+      }
+      return normalized;
+    };
+
     // 释义是整句解释而不是简洁词义时，放入四选一会显得不自然；只作为最后兜底。
     const isExplanationLikeMeaning = (meaning) => (
       /某物|一个可以|表示|用来|东西|的人|的地方|的部分/.test(normalizeMeaning(meaning))
@@ -456,6 +484,9 @@
           ? [...currentWord.recognition_choices].sort(() => Math.random() - 0.5)
           : [];
       }
+
+      const cachedAudit = normalizeAuditedChoices(currentWord, currentWord.recognitionChoiceAudit?.choices);
+      if (cachedAudit) return [...cachedAudit].sort(() => Math.random() - 0.5);
 
       const correct = normalizeMeaning(currentWord.chinese_meaning);
       const pool = allWords.filter(w =>
@@ -543,6 +574,10 @@
     const MISTAKE_BOOK_ALL = '⚠️ 错题本';
     const MISTAKE_EXIT_STREAK = 2;
     const READING_GROUP_SIZE = 25;
+    const READING_DAILY_LIMIT = 50;
+    const READING_WARMUP_NEW_LIMIT = 30;
+    const READING_DEFAULT_NEW_LIMIT = 15;
+    const READING_MASTERED_SAMPLE_LIMIT = 5;
     const READING_FILTER_BATCH_SIZE = 24;
     const PHONICS_BATCH_SIZE = 8;
     const PHONICS_MAGIC_BOOK_URL = 'https://lesong36.github.io/phonics-magic-book/';
@@ -646,7 +681,7 @@
       if (incorrect >= 2 || (incorrect > 0 && incorrect >= correct)) {
         return { key: 'hard', label: '难词', className: 'text-red-700 bg-red-100 border-red-200' };
       }
-      if (word.flashcardKnown || (correct >= 3 && (word.consecutiveCorrect || 0) >= 2)) {
+      if (word.readingMasteredAt || word.flashcardKnown || (correct >= 2 && (word.consecutiveCorrect || 0) >= 2)) {
         return { key: 'mastered', label: '已掌握', className: 'text-emerald-700 bg-emerald-100 border-emerald-200' };
       }
       return { key: 'new', label: '生词', className: 'text-amber-700 bg-amber-100 border-amber-200' };
@@ -707,6 +742,12 @@
       incorrectCount: word.incorrectCount || 0,
       consecutiveCorrect: word.consecutiveCorrect || 0,
       mistakeCleared: word.mistakeCleared || false,
+      ...(word.source === 'reading' ? {
+        readingIntroducedAt: word.readingIntroducedAt || '',
+        readingNextDueAt: word.readingNextDueAt || '',
+        readingMasteredAt: word.readingMasteredAt || '',
+        readingReviewStage: Number.isFinite(word.readingReviewStage) ? word.readingReviewStage : 0,
+      } : {}),
     });
 
     const MAX_STUDY_EVENTS = 5000;
@@ -728,6 +769,13 @@
       if (Number.isNaN(date.getTime())) return '';
       const offsetDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
       return offsetDate.toISOString().slice(0, 10);
+    };
+
+    const addLocalDays = (value, days) => {
+      const date = new Date(value);
+      date.setHours(12, 0, 0, 0);
+      date.setDate(date.getDate() + days);
+      return getLocalDateKey(date);
     };
 
     const getTodayStudySummary = (events) => {
@@ -1198,6 +1246,7 @@
       const [feedback, setFeedback] = useState(null); // 'correct', 'incorrect'
       const [showHint, setShowHint] = useState(false);
       const [recognitionChoices, setRecognitionChoices] = useState([]);
+      const [recognitionChoiceStatus, setRecognitionChoiceStatus] = useState(''); // loading | audited | local | rejected
       const [selectedChoiceKey, setSelectedChoiceKey] = useState(null);
       const [flashcardList, setFlashcardList] = useState([]);
       const [flashcardIndex, setFlashcardIndex] = useState(0);
@@ -1616,6 +1665,10 @@
               consecutiveCorrect: progress.consecutiveCorrect || 0,
               mistakeCleared: Boolean(progress.mistakeCleared),
               flashcardKnown: Boolean(progress.flashcardKnown),
+              readingIntroducedAt: progress.readingIntroducedAt || '',
+              readingNextDueAt: progress.readingNextDueAt || '',
+              readingMasteredAt: progress.readingMasteredAt || '',
+              readingReviewStage: progress.readingReviewStage || 0,
               vocabMasterProgressUpdatedAt: progress.updatedAt || new Date().toISOString(),
             });
           });
@@ -1661,6 +1714,10 @@
           consecutiveCorrect: word.consecutiveCorrect || 0,
           mistakeCleared: Boolean(word.mistakeCleared),
           flashcardKnown: Boolean(word.flashcardKnown),
+          readingIntroducedAt: word.readingIntroducedAt || '',
+          readingNextDueAt: word.readingNextDueAt || '',
+          readingMasteredAt: word.readingMasteredAt || '',
+          readingReviewStage: word.readingReviewStage || 0,
           updatedAt: word.vocabMasterProgressUpdatedAt || now
         }]));
         const savedAt = new Date(Math.max(0, ...Object.values(users).map(user => new Date(user.updatedAt || 0).getTime() || 0))).toISOString();
@@ -1693,6 +1750,13 @@
               consecutiveCorrect: Math.max(remoteProgress.consecutiveCorrect || 0, localProgress.consecutiveCorrect || 0),
               mistakeCleared: Boolean(remoteProgress.mistakeCleared || localProgress.mistakeCleared),
               flashcardKnown: Boolean(remoteProgress.flashcardKnown || localProgress.flashcardKnown),
+              readingIntroducedAt: (remoteProgress.readingIntroducedAt || '') < (localProgress.readingIntroducedAt || '')
+                ? remoteProgress.readingIntroducedAt : localProgress.readingIntroducedAt,
+              readingNextDueAt: (remoteProgress.updatedAt || '') > (localProgress.updatedAt || '')
+                ? remoteProgress.readingNextDueAt : localProgress.readingNextDueAt,
+              readingMasteredAt: (remoteProgress.updatedAt || '') > (localProgress.updatedAt || '')
+                ? remoteProgress.readingMasteredAt : localProgress.readingMasteredAt,
+              readingReviewStage: Math.max(remoteProgress.readingReviewStage || 0, localProgress.readingReviewStage || 0),
               updatedAt: (remoteProgress.updatedAt || '') > (localProgress.updatedAt || '') ? remoteProgress.updatedAt : localProgress.updatedAt,
             };
           });
@@ -2061,11 +2125,44 @@
         const currentWord = studyList[currentIndex];
         if (!currentWord || !isRecognitionWord(currentWord)) {
           setRecognitionChoices([]);
+          setRecognitionChoiceStatus('');
           setSelectedChoiceKey(null);
           return;
         }
-        setRecognitionChoices(buildRecognitionChoices(currentWord, wordsRef.current));
+        let cancelled = false;
+        const cached = normalizeAuditedChoices(currentWord, currentWord.recognitionChoiceAudit?.choices);
+        if (cached || currentWord.source === 'ket') {
+          setRecognitionChoices(cached || buildRecognitionChoices(currentWord, wordsRef.current));
+          setRecognitionChoiceStatus('audited');
+          setSelectedChoiceKey(null);
+          return () => { cancelled = true; };
+        }
+        const candidates = buildRecognitionChoices(currentWord, wordsRef.current);
+        if (candidates.length !== 4) {
+          setRecognitionChoices([]);
+          setRecognitionChoiceStatus('rejected');
+          setSelectedChoiceKey(null);
+          return () => { cancelled = true; };
+        }
+        setRecognitionChoices([]);
+        setRecognitionChoiceStatus('loading');
         setSelectedChoiceKey(null);
+        auditRecognitionChoices(currentWord, candidates).then(result => {
+          if (cancelled) return;
+          if (!result) {
+            setRecognitionChoiceStatus('rejected');
+            return;
+          }
+          setRecognitionChoices(result.choices);
+          setRecognitionChoiceStatus(result.source === 'ai' ? 'audited' : 'local');
+          if (result.source === 'ai') {
+            setWords(previous => previous.map(word => word.id === currentWord.id ? {
+              ...word,
+              recognitionChoiceAudit: { choices: result.choices, auditedAt: new Date().toISOString() },
+            } : word));
+          }
+        });
+        return () => { cancelled = true; };
       }, [currentIndex, appState, studyList]);
 
       // 系统英语朗读是 iPad 及音频加载失败时的后备。
@@ -2258,6 +2355,46 @@
         if (!res.ok) return null;
         const data = await res.json();
         return data.text?.trim() || null;
+      };
+
+      const buildChoiceAuditPrompt = (word, choices, retry = false) => `你是小学英语“见英选义”题的严格质检员兼改题老师。目标词：${word.english_word}；唯一正确中文释义必须严格写为：${normalizeMeaning(word.chinese_meaning)}；词性：${word.pos || '未提供'}。
+
+候选题：${choices.map(choice => `- ${choice.isCorrect ? '正确' : '错误'}：${choice.text}`).join('\n')}
+
+检查唯一正确性：不能有近义词、包含关系、可同时成立的解释、泛化词（如“某种东西”“做某事”）或语义模糊的选项。错误项应是孩子能明确排除的具体词义，尽量与目标保持同词性或同表达层级。
+
+${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须重写一组更清楚的选项。' : '若候选题不合格，请直接重写。'} 无论审核结果如何，都必须只返回严格 JSON，不要 Markdown：{"approved":true,"choices":[{"text":"唯一正确释义","isCorrect":true},{"text":"明确错误释义1","isCorrect":false},{"text":"明确错误释义2","isCorrect":false},{"text":"明确错误释义3","isCorrect":false}]}。必须恰好 4 项、恰好 1 项正确；正确项必须与给定正确释义逐字一致。`;
+
+      const extractAIJson = (text) => {
+        const source = String(text || '').trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
+        const start = source.indexOf('{');
+        const end = source.lastIndexOf('}');
+        if (start < 0 || end <= start) return null;
+        try { return JSON.parse(source.slice(start, end + 1)); } catch { return null; }
+      };
+
+      const auditRecognitionChoices = async (word, choices) => {
+        const hasReaderAiSettings = Boolean(readerAiPreferences?.cloudBaseUrl && readerAiPreferences?.cloudModel);
+        for (let attempt = 0; attempt < 2; attempt++) {
+          const prompt = buildChoiceAuditPrompt(word, choices, attempt > 0);
+          let text = null;
+          try {
+            if (readerAiKey && hasReaderAiSettings) text = await fetchAIHintFromReaderConfig(prompt, 700);
+            else if (serverAvailableRef.current) {
+              const res = await fetch('/api/ai-choice-audit', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt })
+              });
+              if (res.ok) text = (await res.json()).text?.trim() || null;
+            }
+          } catch {
+            text = null;
+          }
+          const audited = normalizeAuditedChoices(word, extractAIJson(text)?.choices);
+          if (audited) return { choices: audited, source: 'ai' };
+        }
+        // 离线时仍只接受已有的本地硬规则；不以模糊选项凑数。
+        const safeLocal = normalizeAuditedChoices(word, choices);
+        return safeLocal ? { choices: safeLocal, source: 'local' } : null;
       };
 
       const fetchAIHintFromReaderConfig = async (prompt, maxTokens = 500) => {
@@ -2602,6 +2739,76 @@
           .some(group => group.id === readingFilters.group)
       );
 
+      // 阅读生词本不是预分组：它是一个最多 50 词的到期队列。新词只在
+      // 复习债允许时补入；cursor 让“从新到旧”是一次持续扫描，而不是每天
+      // 又从最新词重新开始，避免旧词被持续新增的词饿死。
+      const getReadingRollingPlan = () => {
+        const now = new Date();
+        const today = getLocalDateKey(now);
+        const readingWords = words.filter(word => word.source === 'reading' && !word.readingDeferred);
+        const introduced = readingWords.filter(word => word.readingIntroducedAt);
+        const activeDue = introduced
+          .filter(word => !word.readingMasteredAt)
+          .filter(word => !word.readingNextDueAt || word.readingNextDueAt <= today)
+          .sort((a, b) => {
+            const difficulty = (b.incorrectCount || 0) - (a.incorrectCount || 0);
+            return difficulty || String(a.readingNextDueAt || '').localeCompare(String(b.readingNextDueAt || ''));
+          });
+        const masteredDue = introduced
+          .filter(word => Boolean(word.readingMasteredAt))
+          .filter(word => word.readingNextDueAt && word.readingNextDueAt <= today)
+          .sort((a, b) => {
+            const risk = (b.incorrectCount || 0) - (a.incorrectCount || 0);
+            return risk || String(a.readingNextDueAt || '').localeCompare(String(b.readingNextDueAt || ''));
+          });
+
+        const readingEvents = normalizeStudyEvents(studyEvents).filter(event => event.section === READING_VOCAB_SECTION);
+        const recentEvents = readingEvents.filter(event => {
+          const at = new Date(event.at);
+          return !Number.isNaN(at.getTime()) && now - at <= 14 * 24 * 60 * 60 * 1000;
+        });
+        const correctRate = recentEvents.length
+          ? recentEvents.filter(event => event.result === 'correct').length / recentEvents.length
+          : null;
+        const firstIntroducedAt = introduced.map(word => word.readingIntroducedAt).sort()[0];
+        const hasTwoWeekHistory = firstIntroducedAt
+          && now - new Date(firstIntroducedAt) >= 14 * 24 * 60 * 60 * 1000
+          && recentEvents.length >= 20;
+        const newLimit = introduced.length === 0
+          ? READING_WARMUP_NEW_LIMIT
+          : !hasTwoWeekHistory ? READING_DEFAULT_NEW_LIMIT
+            : correctRate >= 0.93 ? 20
+              : correctRate >= 0.90 ? 18
+                : correctRate >= 0.85 ? 15
+                  : correctRate >= 0.80 ? 12 : 8;
+
+        const active = activeDue.slice(0, READING_DAILY_LIMIT);
+        const roomAfterActive = READING_DAILY_LIMIT - active.length;
+        const samples = masteredDue.slice(0, Math.min(READING_MASTERED_SAMPLE_LIMIT, roomAfterActive));
+        const remaining = READING_DAILY_LIMIT - active.length - samples.length;
+        const cursor = currentUser?.readingQueueCursor || '';
+        const orderKey = (word) => `${word.importedAt || word.sourceArticleDate || ''}\u0000${word.id}`;
+        const unseen = readingWords
+          .filter(word => !word.readingIntroducedAt)
+          .sort((a, b) => orderKey(b).localeCompare(orderKey(a)));
+        let candidates = cursor ? unseen.filter(word => orderKey(word) < cursor) : unseen;
+        // 到达最旧词后才开启下一轮；新导入词不会打断当前从新到旧的扫描。
+        if (cursor && candidates.length === 0) candidates = unseen;
+        const newcomers = candidates.slice(0, Math.min(newLimit, remaining));
+        const nextCursor = newcomers.length ? orderKey(newcomers.at(-1)) : cursor;
+
+        return {
+          words: [...active, ...samples, ...newcomers],
+          activeCount: active.length,
+          sampleCount: samples.length,
+          newCount: newcomers.length,
+          newLimit,
+          correctRate,
+          nextCursor,
+          hasTwoWeekHistory,
+        };
+      };
+
       // Helper function to get the combined list of words selected
       const getWordsToStudy = () => {
         let filteredWords = [];
@@ -2653,6 +2860,7 @@
         setShowHint(false);
         setSelectedChoiceKey(null);
         setRecognitionChoices([]);
+        setRecognitionChoiceStatus('');
         setPhonicsHintText('');
         setCurrentPhonetic('');
         setCurrentAudioUrl('');
@@ -2677,6 +2885,7 @@
         setShowHint(false);
         setSelectedChoiceKey(null);
         setRecognitionChoices([]);
+        setRecognitionChoiceStatus('');
         setPhonicsHintText('');
         setCurrentPhonetic('');
         setCurrentAudioUrl('');
@@ -2700,11 +2909,35 @@
         setShowHint(false);
         setSelectedChoiceKey(null);
         setRecognitionChoices([]);
+        setRecognitionChoiceStatus('');
         setPhonicsHintText('');
         setCurrentPhonetic('');
         setCurrentAudioUrl('');
         setAppState('study');
         fetchWordDataAndPlay(shuffled[0].english_word, true);
+      };
+
+      const startReadingRollingStudy = () => {
+        const plan = getReadingRollingPlan();
+        if (!plan.words.length) {
+          setErrorMsg('今天没有到期的阅读词；明天会自动安排下一轮复习。');
+          return;
+        }
+        setErrorMsg('');
+        setStudyList(plan.words);
+        setCurrentIndex(0);
+        setSessionStats({ correct: 0, incorrect: 0, mistakeWordIds: [] });
+        setUserInput('');
+        setFeedback(null);
+        setShowHint(false);
+        setSelectedChoiceKey(null);
+        setRecognitionChoices([]);
+        setRecognitionChoiceStatus('');
+        setPhonicsHintText('');
+        setCurrentPhonetic('');
+        setCurrentAudioUrl('');
+        setAppState('study');
+        fetchWordDataAndPlay(plan.words[0].english_word, true);
       };
 
       const startPrintPreview = () => {
@@ -2839,13 +3072,26 @@
 
       const updateGlobalWordStats = (wordId, isCorrect) => {
         recordStudyEvent(wordId, isCorrect);
+        const now = new Date().toISOString();
+        const liveWord = wordsRef.current.find(word => word.id === wordId);
+        // 游标只在真正完成首次作答后前移；中途退出不会跳过已经选中但尚未作答的词。
+        if (liveWord?.source === 'reading' && !liveWord.readingIntroducedAt) {
+          updateUserSelectionMeta({ readingQueueCursor: `${liveWord.importedAt || liveWord.sourceArticleDate || ''}\u0000${liveWord.id}` });
+        }
         setWords(prevWords =>
           prevWords.map(w => {
             if (w.id !== wordId) return w;
 
+            const isReadingWord = w.source === 'reading';
+            const introducedAt = w.readingIntroducedAt || now;
+
             if (isCorrect) {
               const consecutiveCorrect = (w.consecutiveCorrect || 0) + 1;
               const hadMistakes = (w.incorrectCount || 0) > 0;
+              const wasMastered = isReadingWord && Boolean(w.readingMasteredAt);
+              const becomesMastered = isReadingWord && !wasMastered && consecutiveCorrect >= MISTAKE_EXIT_STREAK;
+              const nextReviewStage = wasMastered ? Math.min((w.readingReviewStage || 0) + 1, 3) : (becomesMastered ? 0 : (w.readingReviewStage || 0));
+              const reviewIntervals = [7, 14, 30, 60];
               const mistakeCleared = hadMistakes && !w.mistakeCleared && consecutiveCorrect >= MISTAKE_EXIT_STREAK
                 ? true
                 : (w.mistakeCleared || false);
@@ -2855,7 +3101,13 @@
                 correctCount: (w.correctCount || 0) + 1,
                 consecutiveCorrect,
                 mistakeCleared,
-                vocabMasterProgressUpdatedAt: new Date().toISOString(),
+                ...(isReadingWord ? {
+                  readingIntroducedAt: introducedAt,
+                  readingMasteredAt: becomesMastered || wasMastered ? (w.readingMasteredAt || now) : '',
+                  readingReviewStage: nextReviewStage,
+                  readingNextDueAt: addLocalDays(now, becomesMastered || wasMastered ? reviewIntervals[nextReviewStage] : 1),
+                } : {}),
+                vocabMasterProgressUpdatedAt: now,
               };
             }
 
@@ -2864,7 +3116,13 @@
               incorrectCount: (w.incorrectCount || 0) + 1,
               consecutiveCorrect: 0,
               mistakeCleared: false,
-              vocabMasterProgressUpdatedAt: new Date().toISOString(),
+              ...(isReadingWord ? {
+                readingIntroducedAt: introducedAt,
+                readingMasteredAt: '',
+                readingReviewStage: 0,
+                readingNextDueAt: addLocalDays(now, 1),
+              } : {}),
+              vocabMasterProgressUpdatedAt: now,
             };
           })
         );
@@ -3350,6 +3608,7 @@
           const studyGroups = getReadingStudyGroups(activeReadingWords);
           const selectedReadingGroup = studyGroups.find(group => group.id === readingFilters.group);
           const readingMistakeCount = readingWords.filter(isInMistakeBook).length;
+          const rollingPlan = getReadingRollingPlan();
           const levels = [
             { key: 'new', label: '生词', description: '还未形成稳定记忆', className: 'border-amber-200 bg-amber-50 text-amber-800' },
             { key: 'hard', label: '难词', description: '答错较多，优先巩固', className: 'border-red-200 bg-red-50 text-red-800' },
@@ -3397,6 +3656,23 @@
                   )}
                 </div>
               )}
+
+              <section className="mb-6 rounded-2xl border-2 border-emerald-200 bg-emerald-50 p-5">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <h3 className="font-bold text-emerald-950">今日自动滚动复习</h3>
+                    <p className="mt-1 text-sm text-emerald-800">到期复习优先；新词按最新加入向旧词持续滚动。每日总量不超过 {READING_DAILY_LIMIT} 词。</p>
+                    <div className="mt-3 flex flex-wrap gap-2 text-xs font-semibold">
+                      <span className="rounded-full bg-white px-2.5 py-1 text-rose-700">到期复习 {rollingPlan.activeCount}</span>
+                      <span className="rounded-full bg-white px-2.5 py-1 text-amber-700">新词 {rollingPlan.newCount}/{rollingPlan.newLimit}</span>
+                      <span className="rounded-full bg-white px-2.5 py-1 text-emerald-700">风险抽查 {rollingPlan.sampleCount}</span>
+                      <span className="rounded-full bg-white px-2.5 py-1 text-slate-700">合计 {rollingPlan.words.length}/{READING_DAILY_LIMIT}</span>
+                    </div>
+                    <p className="mt-2 text-xs text-emerald-700">{rollingPlan.hasTwoWeekHistory ? `近 14 天识义正确率：${Math.round((rollingPlan.correctRate || 0) * 100)}%，新词额度已自动调整。` : '预热和观察期：第 1 天最多 30 新词，之后默认每天最多 15 新词；满 14 天后自动调节。'}</p>
+                  </div>
+                  <button onClick={startReadingRollingStudy} disabled={!rollingPlan.words.length} className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-emerald-600 px-5 py-3 font-bold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:bg-emerald-300"><Play size={20} />开始今日 {rollingPlan.words.length} 词</button>
+                </div>
+              </section>
 
               {readingMistakeCount > 0 && (
                 <section className="mb-6 rounded-2xl border-2 border-red-200 bg-red-50 p-5">
@@ -3795,9 +4071,7 @@
           : 0;
         const justGraduated = feedback === 'correct' && liveWord.mistakeCleared && (liveWord.incorrectCount || 0) > 0;
         const choicesLocked = showHint || feedback === 'correct' || (feedback === 'incorrect' && selectedChoiceKey);
-        const activeChoices = recognitionChoices.length > 0
-          ? recognitionChoices
-          : (recognitionMode ? buildRecognitionChoices(currentWord, words) : []);
+        const activeChoices = recognitionChoices;
         const showAnswered = feedback === 'correct' || feedback === 'incorrect' || showHint;
         const lessonExamples = showAnswered
           ? findLessonExamples(currentWord, lessonSentences)
@@ -3887,21 +4161,27 @@
                     )}
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
-                    {activeChoices.map(choice => (
-                      <button
-                        key={choice.key}
-                        type="button"
-                        onClick={() => handleChoiceSelect(choice)}
-                        disabled={choicesLocked}
-                        className={`text-left px-4 py-4 rounded-xl border-2 transition-all font-medium leading-snug ${getChoiceClassName(choice)} ${
-                          choicesLocked ? 'cursor-default' : 'cursor-pointer'
-                        }`}
-                      >
-                        {choice.text}
-                      </button>
-                    ))}
-                  </div>
+                  {recognitionChoiceStatus === 'loading' ? (
+                    <div className="mt-4 rounded-xl border border-sky-200 bg-sky-50 px-4 py-5 text-sm font-medium text-sky-800">正在进行 AI 唯一正确性审核，并在需要时重写选项…</div>
+                  ) : recognitionChoiceStatus === 'rejected' ? (
+                    <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-5 text-sm leading-6 text-amber-800">这道题无法生成四个含义明确、唯一正确的选项，已暂停出题以避免模棱两可。请使用提示学习后跳到下一词。</div>
+                  ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+                      {activeChoices.map(choice => (
+                        <button
+                          key={choice.key}
+                          type="button"
+                          onClick={() => handleChoiceSelect(choice)}
+                          disabled={choicesLocked}
+                          className={`text-left px-4 py-4 rounded-xl border-2 transition-all font-medium leading-snug ${getChoiceClassName(choice)} ${
+                            choicesLocked ? 'cursor-default' : 'cursor-pointer'
+                          }`}
+                        >
+                          {choice.text}
+                        </button>
+                      ))}
+                    </div>
+                  )}
 
                   {feedback === 'incorrect' && !showHint && (
                     <p className="text-sm text-red-600 mt-4">答错了，绿色为正确含义。可点「不会 / 提示」或「下一个」继续。</p>

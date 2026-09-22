@@ -573,7 +573,6 @@
 
     const MISTAKE_BOOK_ALL = '⚠️ 错题本';
     const MISTAKE_EXIT_STREAK = 2;
-    const READING_GROUP_SIZE = 25;
     const READING_DAILY_LIMIT = 50;
     const READING_WARMUP_NEW_LIMIT = 30;
     const READING_DEFAULT_NEW_LIMIT = 15;
@@ -616,60 +615,6 @@
     const getReadingArticle = (word) => (
       (word.sourceArticleTitle || '').trim() || '未归档文章'
     );
-
-    // 先保留同一文章、同一天导入的词；小批次再按时间顺序合并为 25 词学习包。
-    const getReadingStudyGroups = (wordList) => {
-      const buckets = new Map();
-      (wordList || []).forEach(word => {
-        const article = getReadingArticle(word);
-        const date = getReadingDate(word);
-        const key = `${date}\u0000${article}`;
-        if (!buckets.has(key)) buckets.set(key, { article, date, words: [] });
-        buckets.get(key).words.push(word);
-      });
-      const sourceChunks = [...buckets.values()]
-        .sort((a, b) => b.date.localeCompare(a.date) || a.article.localeCompare(b.article, 'zh-CN'))
-        .flatMap(bucket => bucket.words
-          .sort((a, b) => String(a.importedAt || '').localeCompare(String(b.importedAt || '')))
-          .reduce((groups, word, index) => {
-            const part = Math.floor(index / READING_GROUP_SIZE);
-            if (!groups[part]) {
-              groups[part] = {
-                id: `${bucket.date}\u0000${bucket.article}\u0000${part + 1}`,
-                article: bucket.article,
-                date: bucket.date,
-                part: part + 1,
-                words: [],
-              };
-            }
-            groups[part].words.push(word);
-            return groups;
-          }, []));
-
-      const packed = [];
-      sourceChunks.forEach(chunk => {
-        const current = packed[packed.length - 1];
-        if (current && current.words.length + chunk.words.length <= READING_GROUP_SIZE) {
-          current.words.push(...chunk.words);
-          current.sources.add(chunk.article);
-          current.dates.add(chunk.date);
-          return;
-        }
-        packed.push({
-          words: [...chunk.words],
-          sources: new Set([chunk.article]),
-          dates: new Set([chunk.date]),
-        });
-      });
-
-      return packed.map((group, index) => ({
-        id: `reading-pack:${group.words.map(word => word.id).sort().join('|')}`,
-        number: index + 1,
-        words: group.words,
-        sources: [...group.sources],
-        dates: [...group.dates].sort((a, b) => b.localeCompare(a)),
-      }));
-    };
 
     // 阅读词按表现分层：难词优先，避免曾多次答错的词被“已会”状态掩盖。
     const getReadingLevel = (word) => {
@@ -2666,31 +2611,6 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         updateUserSelectionMeta({ selectedSections: next });
       };
 
-      const updateReadingFilter = (field, value) => {
-        const nextValue = readingFilters[field] === value ? '' : value;
-        const next = {
-          ...readingFilters,
-          [field]: nextValue,
-          // 暂缓词不属于活跃学习包，查看它们时不保留旧学习组。
-          ...(field === 'level' && nextValue === 'deferred' ? { group: '' } : {}),
-        };
-        setReadingFilters(next);
-        updateUserSelectionMeta({ readingFilters: next });
-      };
-
-      const selectReadingGroup = (groupId) => {
-        // 组切换不继承上一组的“生词/难词/已掌握”筛选，避免出现选中一组却是 0 词的假象。
-        const next = {
-          ...readingFilters,
-          group: readingFilters.group === groupId ? '' : groupId,
-          article: '',
-          date: '',
-          level: '',
-        };
-        setReadingFilters(next);
-        updateUserSelectionMeta({ readingFilters: next });
-      };
-
       const unlockReadingManager = async (event) => {
         event.preventDefault();
         setReadingManagerError('');
@@ -2729,24 +2649,8 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
       };
 
       const getFilteredReadingWords = () => {
-        const readingWords = words.filter(word => word.source === 'reading');
-        const selectedGroup = readingFilters.group
-          ? getReadingStudyGroups(readingWords).find(group => group.id === readingFilters.group)
-          : null;
-        return readingWords
-          // 分组规则升级后，旧的筛选 key 自动退回到全词库，不会把词“筛没”。
-          .filter(word => !selectedGroup || selectedGroup.words.some(item => item.id === word.id))
-          .filter(word => !readingFilters.article || getReadingArticle(word) === readingFilters.article)
-          .filter(word => !readingFilters.date || getReadingDate(word) === readingFilters.date)
-          // 暂缓词默认不进入每日学习队列；点“暂缓”后才可查看并重新批量审核。
-          .filter(word => readingFilters.level === 'deferred' ? Boolean(word.readingDeferred) : !word.readingDeferred)
-          .filter(word => !readingFilters.level || getReadingLevel(word).key === readingFilters.level);
+        return words.filter(word => word.source === 'reading' && !word.readingDeferred);
       };
-
-      const hasSelectedReadingGroup = () => (
-        Boolean(readingFilters.group) && getReadingStudyGroups(words.filter(word => word.source === 'reading'))
-          .some(group => group.id === readingFilters.group)
-      );
 
       // 阅读生词本不是预分组：它是一个最多 50 词的到期队列。新词只在
       // 复习债允许时补入；cursor 让“从新到旧”是一次持续扫描，而不是每天
@@ -2922,10 +2826,6 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
       };
 
       const startPrintPreview = () => {
-        if (appState === 'reading' && !hasSelectedReadingGroup()) {
-          setErrorMsg(`请先选择一个不超过 ${READING_GROUP_SIZE} 词的学习组`);
-          return;
-        }
         const filteredWords = getWordsToStudy();
         if (filteredWords.length === 0) {
           setErrorMsg('没有可打印的单词，请调整选择条件');
@@ -2968,10 +2868,6 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
       };
 
       const startFlashcards = () => {
-        if (appState === 'reading' && !hasSelectedReadingGroup()) {
-          setErrorMsg(`请先选择一个不超过 ${READING_GROUP_SIZE} 词的学习组`);
-          return;
-        }
         const cards = [...getWordsToStudy()].sort(() => Math.random() - 0.5);
         if (!cards.length) {
           setErrorMsg('所选词库暂时没有单词');
@@ -3587,12 +3483,6 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
           const readingWords = words.filter(word => word.source === 'reading');
           const activeReadingWords = readingWords.filter(word => !word.readingDeferred);
           const rollingPlan = getReadingRollingPlan();
-          const levels = [
-            { key: 'new', label: '生词', description: '还未形成稳定记忆', className: 'border-amber-200 bg-amber-50 text-amber-800' },
-            { key: 'hard', label: '难词', description: '答错较多，优先巩固', className: 'border-red-200 bg-red-50 text-red-800' },
-            { key: 'mastered', label: '已掌握', description: '答对稳定或标记为已会', className: 'border-emerald-200 bg-emerald-50 text-emerald-800' },
-            { key: 'deferred', label: '暂缓', description: 'AI 建议暂不进入日常学习', className: 'border-slate-200 bg-slate-50 text-slate-800' },
-          ];
           const filteredCount = getFilteredReadingWords().length;
 
           return (
@@ -3652,20 +3542,6 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                 </div>
               </section>
 
-              <section className="mb-8">
-                <h3 className="mb-3 font-bold text-gray-700">学习表现分层（可选）</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  {levels.map(level => {
-                    const count = readingWords.filter(word => getReadingLevel(word).key === level.key).length;
-                    const active = readingFilters.level === level.key;
-                    return <button key={level.key} onClick={() => updateReadingFilter('level', level.key)} className={`rounded-xl border-2 p-4 text-left transition ${active ? 'ring-2 ring-offset-1 ring-blue-300 ' : ''}${level.className}`}>
-                      <div className="font-bold">{level.label} · {count} 词</div><div className="mt-1 text-xs opacity-75">{level.description}</div>
-                    </button>;
-                  })}
-                </div>
-              </section>
-
-              {(readingFilters.group || readingFilters.article || readingFilters.date || readingFilters.level) && <button onClick={() => { const next = { group: '', article: '', date: '', level: '' }; setReadingFilters(next); updateUserSelectionMeta({ readingFilters: next }); }} className="mb-5 text-sm text-gray-500 hover:text-gray-700 underline">清除全部筛选</button>}
               {errorMsg && <p className="text-red-500 mb-4">{errorMsg}</p>}
               {actionButtons}
             </div>

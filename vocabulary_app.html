@@ -971,20 +971,27 @@
       if (!isValidAppData(local)) return remote;
       const users = { ...remote.users };
       const remoteUserIdByName = new Map(Object.entries(remote.users).map(([id, user]) => [String(user.name || '').trim().toLowerCase(), id]));
-      const localUserIdMap = new Map();
-      Object.entries(local.users).forEach(([id, localUser]) => {
+        const localUserIdMap = new Map();
+        Object.entries(local.users).forEach(([id, localUser]) => {
         const matchingRemoteId = users[id] ? id : remoteUserIdByName.get(String(localUser.name || '').trim().toLowerCase());
         localUserIdMap.set(id, matchingRemoteId || id);
         const remoteUser = matchingRemoteId ? users[matchingRemoteId] : null;
         if (!remoteUser) { users[id] = localUser; return; }
+        const ignoredReadingWordIds = [...new Set([
+          ...(remoteUser.ignoredReadingWordIds || []),
+          ...(localUser.ignoredReadingWordIds || []),
+        ])];
+        const ignored = new Set(ignoredReadingWordIds);
         const words = new Map((remoteUser.words || []).map(word => [word.id, word]));
         (localUser.words || []).forEach(word => words.set(word.id, mergeCloudWord(words.get(word.id), word)));
         const remoteIsNewer = (remoteUser.updatedAt || '') > (localUser.updatedAt || '');
         users[matchingRemoteId] = {
           ...(remoteIsNewer ? localUser : remoteUser),
           ...(remoteIsNewer ? remoteUser : localUser),
-          words: [...words.values()],
+          // 删除阅读词是跨设备的墓碑操作，不能被另一台设备的旧副本重新合并回来。
+          words: [...words.values()].filter(word => !ignored.has(word.id)),
           studyEvents: mergeStudyEvents(remoteUser.studyEvents, localUser.studyEvents),
+          ignoredReadingWordIds,
           updatedAt: remoteIsNewer ? remoteUser.updatedAt : localUser.updatedAt,
         };
       });
@@ -1010,9 +1017,11 @@
       }
       const newest = records.reduce((latest, user) =>
         !latest || (user.updatedAt || '') > (latest.updatedAt || '') ? user : latest, null);
+      const ignoredReadingWordIds = [...new Set(records.flatMap(user => user.ignoredReadingWordIds || []))];
+      const ignored = new Set(ignoredReadingWordIds);
       const words = new Map();
       records.forEach(user => (user.words || []).forEach(word =>
-        words.set(word.id, mergeCloudWord(words.get(word.id), word))
+        !ignored.has(word.id) && words.set(word.id, mergeCloudWord(words.get(word.id), word))
       ));
       const merged = {
         ...newest,
@@ -1021,7 +1030,7 @@
         words: [...words.values()],
         selectedSections: [...new Set(records.flatMap(user => user.selectedSections || []))],
         studyEvents: records.reduce((events, user) => mergeStudyEvents(events, user.studyEvents), []),
-        ignoredReadingWordIds: [...new Set(records.flatMap(user => user.ignoredReadingWordIds || []))],
+        ignoredReadingWordIds,
         updatedAt: records.reduce((latest, user) => (user.updatedAt || '') > latest ? (user.updatedAt || '') : latest, ''),
       };
       return buildPayload(accountId, { [accountId]: merged });

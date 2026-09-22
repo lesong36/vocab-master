@@ -3257,6 +3257,23 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
           ? gradeSections.filter(s => selectedSections.includes(s)).length
           : 0;
         const selectedMistakeCount = selectedSections.filter(isMistakeBookKey).length;
+        const readingWords = words.filter(word => word.source === 'reading');
+        const activeReadingWords = readingWords.filter(word => !word.readingDeferred);
+        const readingPlan = getReadingRollingPlan();
+        const readingStats = {
+          total: readingWords.length,
+          waiting: activeReadingWords.filter(word => !word.readingIntroducedAt).length,
+          learning: activeReadingWords.filter(word => word.readingIntroducedAt && !word.readingMasteredAt).length,
+          hard: activeReadingWords.filter(word => !word.readingMasteredAt && (word.incorrectCount || 0) >= 2).length,
+          mastered: activeReadingWords.filter(word => Boolean(word.readingMasteredAt)).length,
+          deferred: readingWords.filter(word => word.readingDeferred).length,
+        };
+        const readingProgress = activeReadingWords.length ? Math.round(readingStats.mastered / activeReadingWords.length * 100) : 0;
+        const sourceToday = (source) => getTodayStudySummary(studyEvents.filter(event => source === 'reading' ? event.section === READING_VOCAB_SECTION : event.section !== READING_VOCAB_SECTION));
+        const renderSourceDashboard = (title, source, className) => {
+          const summary = sourceToday(source);
+          return <section className={`mb-4 rounded-xl border p-4 ${className}`}><div className="flex items-center justify-between gap-3"><h4 className="font-bold">{title}</h4><span className="text-xs">今日 {summary.words.length} 词</span></div><div className="mt-3 grid grid-cols-3 gap-2 text-center text-sm"><div className="rounded-lg bg-white/80 p-2"><b>{summary.correct}</b><br/><span className="text-xs">答对</span></div><div className="rounded-lg bg-white/80 p-2"><b>{summary.incorrect}</b><br/><span className="text-xs">答错</span></div><div className="rounded-lg bg-white/80 p-2"><b>{summary.total ? `${Math.round(summary.correct / summary.total * 100)}%` : '—'}</b><br/><span className="text-xs">正确率</span></div></div></section>;
+        };
 
         const renderMistakeLevelBadges = (stats) => (
           <div className="flex flex-wrap gap-1 mt-2">
@@ -3474,7 +3491,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
           </div>
           <details className="mt-6 rounded-2xl border border-slate-200 bg-white p-5 text-left shadow-sm">
             <summary className="cursor-pointer list-none font-bold text-slate-800"><span className="mr-2">📊</span>学习看板 <span className="ml-2 text-sm font-normal text-slate-500">查看今日报告、学习追踪和错题策略</span></summary>
-            <div className="mt-5 border-t border-slate-100 pt-5">{renderTodayStudyReport()}{renderMistakeStrategy()}{renderWeeklyStudyTracker()}</div>
+            <div className="mt-5 border-t border-slate-100 pt-5">{renderSourceDashboard('标准词库', 'standard', 'border-blue-200 bg-blue-50 text-blue-950')}{renderSourceDashboard('阅读生词本', 'reading', 'border-emerald-200 bg-emerald-50 text-emerald-950')}{renderMistakeStrategy()}{renderWeeklyStudyTracker()}</div>
           </details>
           </>
         );
@@ -3570,10 +3587,12 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
 
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
                 {renderMistakeBookCard()}
-                {words.some(word => word.source === 'reading') && (
-                  <button onClick={() => { setAppState('reading'); setErrorMsg(''); }} className="p-4 rounded-xl border-2 text-left transition-all border-emerald-200 bg-emerald-50 text-emerald-800 hover:border-emerald-400">
-                    <div className="flex justify-between items-center"><span className="font-bold">📖 阅读生词本</span><ArrowRight size={18} /></div>
-                    <div className="text-xs mt-2 text-emerald-700">{words.filter(word => word.source === 'reading').length} 词 · 按文章、日期、掌握程度整理</div>
+                {readingWords.length > 0 && (
+                  <button onClick={startReadingRollingStudy} className="p-4 rounded-xl border-2 text-left transition-all border-emerald-200 bg-emerald-50 text-emerald-800 hover:border-emerald-400">
+                    <div className="flex justify-between items-center"><span className="font-bold">📖 阅读生词本</span><Play size={18} /></div>
+                    <div className="mt-2 text-xs text-emerald-700">总进度 {readingStats.mastered}/{activeReadingWords.length} · {readingProgress}% 已掌握</div>
+                    <div className="mt-2 flex flex-wrap gap-1 text-xs"><span className="rounded bg-white px-1.5 py-0.5">待学 {readingStats.waiting}</span><span className="rounded bg-white px-1.5 py-0.5">学习中 {readingStats.learning}</span><span className="rounded bg-red-50 px-1.5 py-0.5 text-red-700">难词 {readingStats.hard}</span><span className="rounded bg-white px-1.5 py-0.5">暂缓 {readingStats.deferred}</span></div>
+                    <div className="mt-3 text-sm font-bold">开始今日自动复习（{readingPlan.words.length} 词）</div>
                   </button>
                 )}
               </div>

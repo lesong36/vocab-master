@@ -1995,7 +1995,9 @@
               );
             });
             if (existing.length === 0 || hasNewWords || hasUpdatedMeta) {
-              const merged = mergeWordStats(parsed, existing);
+              const bundledIds = new Set(parsed.map(word => word.id));
+              const preservedWords = existing.filter(word => !bundledIds.has(word.id));
+              const merged = mergeWordStats([...parsed, ...preservedWords], existing);
               const savedSections = currentUserId ? usersRef.current[currentUserId]?.selectedSections || [] : [];
               const savedGrade = currentUserId ? usersRef.current[currentUserId]?.selectedGrade || null : null;
               applyWordsToState(merged, '词库.md + KET词库', savedSections, savedGrade, existing.length > 0);

@@ -866,6 +866,29 @@
       if (!user) return user;
       let words = migrateMislabeledWords(user.words);
       words = migrateSanxiaWords(words).map(normalizeWordStats);
+      const studyEvents = normalizeStudyEvents(user.studyEvents);
+      const readingEvents = new Map();
+      studyEvents.forEach(event => {
+        if (event.section !== READING_VOCAB_SECTION) return;
+        const history = readingEvents.get(event.wordId) || [];
+        history.push(event);
+        readingEvents.set(event.wordId, history);
+      });
+      words = words.map(word => {
+        const history = word.source === 'reading' ? readingEvents.get(word.id) : null;
+        if (!history?.length || word.readingIntroducedAt) return word;
+        history.sort((a, b) => a.at.localeCompare(b.at));
+        const correct = history.filter(event => event.result === 'correct').length;
+        const incorrect = history.length - correct;
+        return {
+          ...word,
+          readingIntroducedAt: history[0].at,
+          readingNextDueAt: word.readingNextDueAt || addLocalDays(history.at(-1).at, 1),
+          correctCount: Math.max(word.correctCount || 0, correct),
+          incorrectCount: Math.max(word.incorrectCount || 0, incorrect),
+          vocabMasterProgressUpdatedAt: new Date().toISOString(),
+        };
+      });
       let selectedSections = migrateSelectedSections(user.selectedSections, words);
       selectedSections = migrateSanxiaSelectedSections(selectedSections);
       selectedSections = selectedSections.filter(section => !isHiddenGrade(parseSectionMeta(section).grade));
@@ -873,7 +896,7 @@
         ...user,
         words,
         selectedSections,
-        studyEvents: normalizeStudyEvents(user.studyEvents),
+        studyEvents,
       };
     };
 
@@ -2911,14 +2934,15 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
       };
 
       // 3. Study Logic
-      const recordStudyEvent = (wordId, isCorrect) => {
+      const recordStudyEvent = (wordId, isCorrect, nextWords, readingQueueCursor) => {
         const word = wordsRef.current.find(item => item.id === wordId);
         if (!word) return;
         const at = new Date().toISOString();
         const id = typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
           ? crypto.randomUUID()
           : `${at}-${wordId}-${Math.random().toString(36).slice(2, 8)}`;
-        const nextEvents = normalizeStudyEvents([...studyEvents, {
+        const activeUser = usersRef.current[currentUserId];
+        const nextEvents = normalizeStudyEvents([...(activeUser?.studyEvents || studyEvents), {
           id,
           at,
           wordId,
@@ -2929,15 +2953,15 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         }]);
         setStudyEvents(nextEvents);
 
-        // localStorage 是 iPad 上最可靠的立即落盘点。完整档案仍会由
-        // 下方的自动保存同步到服务器，但不能让答题事件只依赖 400ms 防抖。
-        const activeUser = usersRef.current[currentUserId];
+        // 答题事件和词状态必须一起立即落盘，不能让词状态只依赖 400ms 防抖。
         if (activeUser) {
           const nextUsers = {
             ...usersRef.current,
             [currentUserId]: {
               ...activeUser,
+              words: nextWords,
               studyEvents: nextEvents,
+              ...(readingQueueCursor ? { readingQueueCursor } : {}),
               updatedAt: at,
             },
           };
@@ -2948,15 +2972,13 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
       };
 
       const updateGlobalWordStats = (wordId, isCorrect) => {
-        recordStudyEvent(wordId, isCorrect);
         const now = new Date().toISOString();
         const liveWord = wordsRef.current.find(word => word.id === wordId);
         // 游标只在真正完成首次作答后前移；中途退出不会跳过已经选中但尚未作答的词。
-        if (liveWord?.source === 'reading' && !liveWord.readingIntroducedAt) {
-          updateUserSelectionMeta({ readingQueueCursor: `${liveWord.importedAt || liveWord.sourceArticleDate || ''}\u0000${liveWord.id}` });
-        }
-        setWords(prevWords =>
-          prevWords.map(w => {
+        const readingQueueCursor = liveWord?.source === 'reading' && !liveWord.readingIntroducedAt
+          ? `${liveWord.importedAt || liveWord.sourceArticleDate || ''}\u0000${liveWord.id}`
+          : '';
+        const nextWords = wordsRef.current.map(w => {
             if (w.id !== wordId) return w;
 
             const isReadingWord = w.source === 'reading';
@@ -3001,8 +3023,10 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
               } : {}),
               vocabMasterProgressUpdatedAt: now,
             };
-          })
-        );
+          });
+        wordsRef.current = nextWords;
+        setWords(nextWords);
+        recordStudyEvent(wordId, isCorrect, nextWords, readingQueueCursor);
       };
 
       const recordSessionMistake = (wordId) => {
@@ -3262,13 +3286,14 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         const readingPlan = getReadingRollingPlan();
         const readingStats = {
           total: readingWords.length,
-          waiting: activeReadingWords.filter(word => !word.readingIntroducedAt).length,
+          studied: activeReadingWords.filter(word => word.readingIntroducedAt || word.readingMasteredAt).length,
+          waiting: activeReadingWords.filter(word => !word.readingIntroducedAt && !word.readingMasteredAt).length,
           learning: activeReadingWords.filter(word => word.readingIntroducedAt && !word.readingMasteredAt).length,
           hard: activeReadingWords.filter(word => !word.readingMasteredAt && (word.incorrectCount || 0) >= 2).length,
           mastered: activeReadingWords.filter(word => Boolean(word.readingMasteredAt)).length,
           deferred: readingWords.filter(word => word.readingDeferred).length,
         };
-        const readingProgress = activeReadingWords.length ? Math.round(readingStats.mastered / activeReadingWords.length * 100) : 0;
+        const readingProgress = activeReadingWords.length ? Math.round(readingStats.studied / activeReadingWords.length * 100) : 0;
         const sourceToday = (source) => getTodayStudySummary(studyEvents.filter(event => source === 'reading' ? event.section === READING_VOCAB_SECTION : event.section !== READING_VOCAB_SECTION));
         const renderSourceDashboard = (title, source, className) => {
           const summary = sourceToday(source);
@@ -3590,7 +3615,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                 {readingWords.length > 0 && (
                   <button onClick={startReadingRollingStudy} className="p-4 rounded-xl border-2 text-left transition-all border-emerald-200 bg-emerald-50 text-emerald-800 hover:border-emerald-400">
                     <div className="flex justify-between items-center"><span className="font-bold">📖 阅读生词本</span><Play size={18} /></div>
-                    <div className="mt-2 text-xs text-emerald-700">总进度 {readingStats.mastered}/{activeReadingWords.length} · {readingProgress}% 已掌握</div>
+                    <div className="mt-2 text-xs text-emerald-700">学习进度 {readingStats.studied}/{activeReadingWords.length} · {readingProgress}% 已学 · 已掌握 {readingStats.mastered}</div>
                     <div className="mt-2 flex flex-wrap gap-1 text-xs"><span className="rounded bg-white px-1.5 py-0.5">待学 {readingStats.waiting}</span><span className="rounded bg-white px-1.5 py-0.5">学习中 {readingStats.learning}</span><span className="rounded bg-red-50 px-1.5 py-0.5 text-red-700">难词 {readingStats.hard}</span><span className="rounded bg-white px-1.5 py-0.5">暂缓 {readingStats.deferred}</span></div>
                     <div className="mt-3 text-sm font-bold">开始今日自动复习（{readingPlan.words.length} 词）</div>
                   </button>

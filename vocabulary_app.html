@@ -144,7 +144,8 @@
     };
 
     const findLessonExamples = (word, lessonSentences, limit = MAX_LESSON_EXAMPLES) => {
-      if (!word || !lessonSentences?.length) return [];
+      // 阅读生词独立于课文词库，同形词不应附带课文例句并阻断自动跳题。
+      if (!word || word.source === 'reading' || word.section === READING_VOCAB_SECTION || !lessonSentences?.length) return [];
       const preferredUnit = getPreferredLessonUnit(word.section);
       const matched = lessonSentences.filter(s => sentenceContainsWord(s.en, word.english_word));
       const sameUnit = preferredUnit
@@ -423,10 +424,14 @@
       .map(part => part.replace(/(表示|某个|某物|一个|东西|可以|用来|的人|的地方|的部分|的事)/g, '').trim())
       .filter(part => part.length >= 2);
 
+    // 不同写法也可能同时成立；例如 order 的「订购」不能与「买；购买」同题。
+    const purchaseMeaningPattern = /(?:买|购买|采购|订购|订货|下单|点餐|订餐)/;
+
     const hasMeaningOverlap = (first, second) => {
       const left = meaningChunks(first);
       const right = meaningChunks(second);
-      return left.some(a => right.some(b => (
+      return (purchaseMeaningPattern.test(normalizeMeaning(first)) &&
+        purchaseMeaningPattern.test(normalizeMeaning(second))) || left.some(a => right.some(b => (
         a === b || a.includes(b) || b.includes(a)
       )));
     };
@@ -459,6 +464,15 @@
       return normalized;
     };
 
+    const shuffleRecognitionChoices = (choices) => {
+      const shuffled = [...choices];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      return shuffled;
+    };
+
     // 释义是整句解释而不是简洁词义时，放入四选一会显得不自然；只作为最后兜底。
     const isExplanationLikeMeaning = (meaning) => (
       /某物|一个可以|表示|用来|东西|的人|的地方|的部分/.test(normalizeMeaning(meaning))
@@ -481,12 +495,12 @@
       // KET 的识义题只能使用逐题审核后的固定选项；审核未通过的词不拼题。
       if (currentWord.source === 'ket') {
         return hasAuditedRecognitionChoices(currentWord)
-          ? [...currentWord.recognition_choices].sort(() => Math.random() - 0.5)
+          ? currentWord.recognition_choices
           : [];
       }
 
       const cachedAudit = normalizeAuditedChoices(currentWord, currentWord.recognitionChoiceAudit?.choices);
-      if (cachedAudit) return [...cachedAudit].sort(() => Math.random() - 0.5);
+      if (cachedAudit) return cachedAudit;
 
       const correct = normalizeMeaning(currentWord.chinese_meaning);
       const pool = allWords.filter(w =>
@@ -537,7 +551,7 @@
           text: normalizeMeaning(w.chinese_meaning),
           isCorrect: false,
         })),
-      ].sort(() => Math.random() - 0.5);
+      ];
     };
 
     const sortGrades = (grades) => (
@@ -2111,7 +2125,7 @@
         let cancelled = false;
         const cached = normalizeAuditedChoices(currentWord, currentWord.recognitionChoiceAudit?.choices);
         if (cached || currentWord.source === 'ket') {
-          setRecognitionChoices(cached || buildRecognitionChoices(currentWord, wordsRef.current));
+          setRecognitionChoices(shuffleRecognitionChoices(cached || buildRecognitionChoices(currentWord, wordsRef.current)));
           setRecognitionChoiceStatus('audited');
           setSelectedChoiceKey(null);
           return () => { cancelled = true; };
@@ -2132,7 +2146,7 @@
             setRecognitionChoiceStatus('rejected');
             return;
           }
-          setRecognitionChoices(result.choices);
+          setRecognitionChoices(shuffleRecognitionChoices(result.choices));
           setRecognitionChoiceStatus(result.source === 'ai' ? 'audited' : 'local');
           if (result.source === 'ai') {
             setWords(previous => previous.map(word => word.id === currentWord.id ? {

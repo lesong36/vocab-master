@@ -1,0 +1,3793 @@
+{
+  "scope": "四年级上下册全部260卡与12单元故事",
+  "standard": "中文意义能通过正确读音与具体字母线索找回英文；明确弱读、不发音、同音与重复字母，遮住认读与拼写。故事仅支持词义和情节顺序，不能代替逐词拼写。",
+  "cards": [
+    {
+      "section": "四上Unit 1",
+      "word": "worried",
+      "changed": true,
+      "recognitionCue": "读 /ˈwʌrid/，worry 的 y 读 /i/，ed 读 /d/",
+      "spellingCue": "worry 双 r；y 换 i 再加 ed",
+      "recallTask": "遮住英文，看中文先读出 worried，再写一遍；核对 worry 双 r；y 换 i 再加 ed，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；worry 双 r；y 换 i 再加 ed 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "6d5843b3b95662e50433c2663efb0abb9120f2fbe4846732cb88ee7baef5a10f"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "late",
+      "changed": true,
+      "recognitionCue": "a-e 读 /eɪ/",
+      "spellingCue": "l-a-t-e；保留不发音 e",
+      "recallTask": "遮住英文，看中文先读出 late，再写一遍；核对 l-a-t-e；保留不发音 e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；l-a-t-e；保留不发音 e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "916ad156a649cd7d47550953978fe581949739c94205b2bf39844aebc57618f1"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "worry",
+      "changed": true,
+      "recognitionCue": "读 /ˈwʌri/，o 在这里读 /ʌ/，y 读 /i/",
+      "spellingCue": "双 r 和末尾 y",
+      "recallTask": "遮住英文，看中文先读出 worry，再写一遍；核对 双 r 和末尾 y，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；双 r 和末尾 y 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "0c00ecc8f61600d0ff54b2ddac443664d81496fca554719027867d080a1140fe"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "just",
+      "changed": true,
+      "recognitionCue": "j /dʒ/、u /ʌ/、st /st/",
+      "spellingCue": "j-u-st",
+      "recallTask": "遮住英文，看中文先读出 just，再写一遍；核对 j-u-st，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；j-u-st 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "273df3e175d598548b81670189e981b975e31259c35d7fa38d03d60c579b3cf8"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "in time",
+      "changed": true,
+      "recognitionCue": "in 读 /ɪn/；time 的 i-e 读 /aɪ/",
+      "spellingCue": "in 与 time 分写；time 保留 e",
+      "recallTask": "遮住英文，看中文先读出 in time，再写一遍；核对 in 与 time 分写；time 保留 e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；in 与 time 分写；time 保留 e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "115fdda09a87799a2e9deb17b7d9ec1aa04d5c162c38362f4d83b895726bc2ce"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "welcome",
+      "changed": true,
+      "recognitionCue": "读 /ˈwelkəm/，后半 come 在这里轻读 /kəm/",
+      "spellingCue": "wel＋come；come 保留 o、e",
+      "recallTask": "遮住英文，从迎人进门的动作回忆“欢迎”，独立说读音并写英文，再核对前段 wel 和尾段 come。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；wel＋come；come 保留 o、e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "1795434803952c47b7985abd6ed6123098e0f559a8abdb6b6a62d627db2c97cf"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "feel",
+      "changed": true,
+      "recognitionCue": "ee 读 /iː/",
+      "spellingCue": "f-ee-l；不能省一个 e",
+      "recallTask": "遮住英文，看中文先读出 feel，再写一遍；核对 f-ee-l；不能省一个 e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；f-ee-l；不能省一个 e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "44916fcea52ce077344bc98d41f99b9b6db8bb82cac2c358d430f75d903a903a"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "today",
+      "changed": true,
+      "recognitionCue": "读 /təˈdeɪ/，to 轻读 /tə/，day 的 ay 读 /eɪ/",
+      "spellingCue": "to＋day 连写",
+      "recallTask": "遮住英文，看中文先读出 today，再写一遍；核对 to＋day 连写，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；to＋day 连写 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "fcad9599b1ea1551f53792286a5f7078c0950a7008be7045bffaf57f5ac22cc7"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "excited",
+      "changed": true,
+      "recognitionCue": "读 /ɪkˈsaɪtɪd/；c 在 i 前读 /s/；末尾 ted 读 /tɪd/",
+      "spellingCue": "ex-ci-ted；中间 i、最后只加 d",
+      "recallTask": "遮住英文，看中文先读出 excited，再写一遍；核对 ex-ci-ted；中间 i、最后只加 d，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；ex-ci-ted；中间 i、最后只加 d 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "9b51455de25bf2c0250c7375dbf90a9583f7eb05aff4503de42d30ef19554414"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "so",
+      "changed": true,
+      "recognitionCue": "o 读 /əʊ/",
+      "spellingCue": "s-o 两字母",
+      "recallTask": "遮住英文，看中文先读出 so，再写一遍；核对 s-o 两字母，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；s-o 两字母 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "fa3b4033bef9a342b77cd869de45924c286de39c1edb320ac41993dbd75ac15c"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "matter",
+      "changed": true,
+      "recognitionCue": "读 /ˈmætə/，a 读 /æ/，末尾 er 轻读 /ə/",
+      "spellingCue": "ma-tt-er，双 t",
+      "recallTask": "遮住英文，看中文先读出 matter，再写一遍；核对 ma-tt-er，双 t，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；ma-tt-er，双 t 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "fb41cf463fd51feacbb20dfa84bb7690669bd9a15c76cd18a6318ffdfae5cd19"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "sad",
+      "changed": true,
+      "recognitionCue": "s /s/、a /æ/、d /d/",
+      "spellingCue": "s-a-d",
+      "recallTask": "遮住英文，看中文先读出 sad，再写一遍；核对 s-a-d，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；s-a-d 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "9ec746728de6bd1a2fc6455f2562d51c7668a2ed77940eb4f4cf52fe178fefad"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "find",
+      "changed": true,
+      "recognitionCue": "i 读 /aɪ/，末尾 nd",
+      "spellingCue": "f-i-nd",
+      "recallTask": "遮住英文，看中文先读出 find，再写一遍；核对 f-i-nd，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；f-i-nd 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "04c41d26d99716f08fc4bb3f5a9bff70065ec809dd60412958ccfde3773d0888"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "dog",
+      "changed": true,
+      "recognitionCue": "d /d/、o /ɒ/、g /g/",
+      "spellingCue": "d-o-g，末尾 g",
+      "recallTask": "遮住英文，看中文先读出 dog，再写一遍；核对 d-o-g，末尾 g，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；d-o-g，末尾 g 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "3f85a5d26b4926013a7d9809e7a925166893952073a8f3c85d695cb5711268a2"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "cry",
+      "changed": true,
+      "recognitionCue": "cr /kr/，y /aɪ/",
+      "spellingCue": "cr＋y",
+      "recallTask": "遮住英文，看中文先读出 cry，再写一遍；核对 cr＋y，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；cr＋y 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "896763b1fa965531f38e36142f9dbd990d0bc37c0ad60dd3884ec200ebf97b33"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "together",
+      "changed": true,
+      "recognitionCue": "读 /təˈɡeðə/，to 轻读 /tə/，ge 读 /ɡe/，th 读 /ð/",
+      "spellingCue": "to-ge-ther；第二段 e，末尾 er",
+      "recallTask": "遮住英文，看中文先读出 together，再写一遍；核对 to-ge-ther；第二段 e，末尾 er，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；to-ge-ther；第二段 e，末尾 er 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "ec9bec6845d35bb6f2bf0a148105ce01206cc2ee98a72ca471492935d6f69941"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "with",
+      "changed": true,
+      "recognitionCue": "i /ɪ/，th /ð/ 或 /θ/",
+      "spellingCue": "w-i-th",
+      "recallTask": "遮住英文，看中文先读出 with，再写一遍；核对 w-i-th，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；w-i-th 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "38eb5c1c2f1b86e2dd78b92192495616ce10e49e7b8dcf519540710deb37f1bf"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "model",
+      "changed": true,
+      "recognitionCue": "读 /ˈmɒdəl/，末尾 el 轻读 /əl/",
+      "spellingCue": "mod＋el；末尾 el 不是 le",
+      "recallTask": "遮住英文，看中文先读出 model，再写一遍；核对 mod＋el；末尾 el 不是 le，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；mod＋el；末尾 el 不是 le 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "e8799e29cec06718661901855174b57fa9b989497de0545aa584423dc9ffc5b0"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "plane",
+      "changed": true,
+      "recognitionCue": "pl /pl/，a-e /eɪ/",
+      "spellingCue": "pl-a-n-e",
+      "recallTask": "遮住英文，看中文先读出 plane，再写一遍；核对 pl-a-n-e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；pl-a-n-e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "be89284a3edf9534011fa20783056101db6af62a9788735a7038c5ee895a202e"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "angry",
+      "changed": true,
+      "recognitionCue": "读 /ˈæŋɡri/，ng 后仍读 /g/",
+      "spellingCue": "ang＋ry；末尾 y",
+      "recallTask": "遮住英文，看中文先读出 angry，再写一遍；核对 ang＋ry；末尾 y，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；ang＋ry；末尾 y 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "2af7af5f16c3851dfa3b4798051c57fc015fc64e37e27fea27e66f345862459b"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "better",
+      "changed": true,
+      "recognitionCue": "读 /ˈbetə/，e /e/",
+      "spellingCue": "be-tt-er；不写 gooder",
+      "recallTask": "遮住英文，看中文先读出 better，再写一遍；核对 be-tt-er；不写 gooder，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；be-tt-er；不写 gooder 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "9ec2c9828aef0fe99cd343d78efc77adbb82731e59e941e83c07ce82ea703ef7"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "calm down",
+      "changed": true,
+      "recognitionCue": "calm /kɑːm/，l 不发音；down 的 ow /aʊ/",
+      "spellingCue": "calm 保留 l；down 用 ow，分写",
+      "recallTask": "遮住英文，看中文先读出 calm down，再写一遍；核对 calm 保留 l；down 用 ow，分写，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；calm 保留 l；down 用 ow，分写 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "acc9d87e4b0c515b420af8de5036eeb751a170f964668321cc35749943e20e17"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "fix",
+      "changed": true,
+      "recognitionCue": "f /f/、i /ɪ/、x /ks/",
+      "spellingCue": "f-i-x；一个 x 表示 /ks/",
+      "recallTask": "遮住英文，看中文先读出 fix，再写一遍；核对 f-i-x；一个 x 表示 /ks/，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；f-i-x；一个 x 表示 /ks/ 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "93d105cc704011dc0771ea502f73884532f6fe51ee1f03dd9b3d61372d2e41d0"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "his",
+      "changed": true,
+      "recognitionCue": "i /ɪ/，s /z/",
+      "spellingCue": "h-i-s，/z/ 仍写 s",
+      "recallTask": "遮住英文，看中文先读出 his，再写一遍；核对 h-i-s，/z/ 仍写 s，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；h-i-s，/z/ 仍写 s 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "58a27ca9bc850d8773e0c0026750b2f5acdf5597080a9311d8184e70da5483ae"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "mouse",
+      "changed": true,
+      "recognitionCue": "ou /aʊ/，se /s/",
+      "spellingCue": "m-ou-se；保留 e",
+      "recallTask": "遮住英文，看中文先读出 mouse，再写一遍；核对 m-ou-se；保留 e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；m-ou-se；保留 e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "d8465cf6a7b16f2fd5250cb69d0b408e34e682f1e40b7baae0587c5206b32c3b"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "come",
+      "changed": true,
+      "recognitionCue": "读 /kʌm/，o /ʌ/，e 不发音",
+      "spellingCue": "c-o-m-e；o、e 不能靠常规长音规则推出",
+      "recallTask": "遮住英文，看中文先读出 come，再写一遍；核对 c-o-m-e；o、e 不能靠常规长音规则推出，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；c-o-m-e；o、e 不能靠常规长音规则推出 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "815f0cf9802971781eaeb891eb0c9566b479c5144c7b6ac6441c4f02be79764e"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "have",
+      "changed": true,
+      "recognitionCue": "读 /hæv/，a /æ/，e 不发音",
+      "spellingCue": "h-a-v-e；例外保留 e",
+      "recallTask": "遮住英文，看中文先读出 have，再写一遍；核对 h-a-v-e；例外保留 e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；h-a-v-e；例外保留 e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "61d89b1d7376e5143d7bf4e1285bfc517bd3369bffab475d1b48e0916a0720cd"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "idea",
+      "changed": true,
+      "recognitionCue": "读 /aɪˈdɪə/，前 i /aɪ/，后 ea 在这里 /ɪə/",
+      "spellingCue": "i-de-a；末尾 a",
+      "recallTask": "遮住英文，看中文先读出 idea，再写一遍；核对 i-de-a；末尾 a，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；i-de-a；末尾 a 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "0b1ba851691820afb7c31d831e61243db25c9be683a1fcdcc55ec3bff06f5b17"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "stop",
+      "changed": true,
+      "recognitionCue": "st /st/，o /ɒ/",
+      "spellingCue": "st-o-p",
+      "recallTask": "遮住英文，看中文先读出 stop，再写一遍；核对 st-o-p，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；st-o-p 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "fda4a83bd803e89510f818085cc83ace4035f88dc67ecaa06f76665d3563e875"
+    },
+    {
+      "section": "四上Unit 1",
+      "word": "but",
+      "changed": true,
+      "recognitionCue": "u /ʌ/",
+      "spellingCue": "b-u-t",
+      "recallTask": "遮住英文，看中文先读出 but，再写一遍；核对 b-u-t，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；b-u-t 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "c0a1ce331f68147b7b21d40cf49f37cf08cf03120942ace999ab64208b7c8862"
+    },
+    {
+      "section": "四上Unit 2",
+      "word": "animal",
+      "changed": true,
+      "recognitionCue": "读 /ˈænɪməl/，a /æ/，i /ɪ/，末尾 a 轻读 /ə/",
+      "spellingCue": "an-i-mal；两个 a，中间 i",
+      "recallTask": "遮住英文，看中文先读出 animal，再写一遍；核对 an-i-mal；两个 a，中间 i，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；an-i-mal；两个 a，中间 i 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "429c3b08c2dbd2ac641490b5cf2e1d9ef59afe95c350299fa956d9e609dfa7c6"
+    },
+    {
+      "section": "四上Unit 2",
+      "word": "different",
+      "changed": true,
+      "recognitionCue": "读 /ˈdɪfərənt/，i /ɪ/，后面元音轻读",
+      "spellingCue": "di-ff-er-ent；双 f，后面两个 e",
+      "recallTask": "遮住英文，看中文先读出 different，再写一遍；核对 di-ff-er-ent；双 f，后面两个 e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；di-ff-er-ent；双 f，后面两个 e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "e10c357994be5f4b94cf980565a44c51fe11605e490483c0e38f32e3865f7ec0"
+    },
+    {
+      "section": "四上Unit 2",
+      "word": "interesting",
+      "changed": true,
+      "recognitionCue": "读 /ˈɪntrəstɪŋ/ 或 /ˈɪntərəstɪŋ/，末尾 ing /ɪŋ/",
+      "spellingCue": "interest＋ing；不能漏 est",
+      "recallTask": "遮住英文，看中文先读出 interesting，再写一遍；核对 interest＋ing；不能漏 est，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；interest＋ing；不能漏 est 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "d61825efaaa81b4ef25404c02da2de3d98f70766c92fe7fa30df6333c1ff1f7f"
+    },
+    {
+      "section": "四上Unit 2",
+      "word": "story",
+      "changed": true,
+      "recognitionCue": "or /ɔː/，y /i/",
+      "spellingCue": "stor＋y",
+      "recallTask": "遮住英文，看中文先读出 story，再写一遍；核对 stor＋y，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；stor＋y 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "6e4d1cc94e0629c74ca0df7cbd5f4ae50a34f8d74569645e6f126436bddbc52a"
+    },
+    {
+      "section": "四上Unit 2",
+      "word": "brush",
+      "changed": true,
+      "recognitionCue": "br /br/，u /ʌ/，sh /ʃ/",
+      "spellingCue": "br-u-sh",
+      "recallTask": "遮住英文，看中文先读出 brush，再写一遍；核对 br-u-sh，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；br-u-sh 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "48fb53adcdc180c670648e79509d684f5c294b87f28ff29e0b807e9ff7039836"
+    },
+    {
+      "section": "四上Unit 2",
+      "word": "remember",
+      "changed": true,
+      "recognitionCue": "读 /rɪˈmembə/，第一 e /ɪ/，第二 e /e/",
+      "spellingCue": "re-mem-ber；两个 m 由 e 隔开",
+      "recallTask": "遮住英文，看中文先读出 remember，再写一遍；核对 re-mem-ber；两个 m 由 e 隔开，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；re-mem-ber；两个 m 由 e 隔开 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "ec936522ebc842537040611eddb5a3557afa99a3fa676fede167579f6c68cc85"
+    },
+    {
+      "section": "四上Unit 2",
+      "word": "poem",
+      "changed": true,
+      "recognitionCue": "读 /ˈpəʊɪm/，o /əʊ/，e 这里 /ɪ/",
+      "spellingCue": "po＋em；中间 oe 两字母",
+      "recallTask": "遮住英文，看中文先读出 poem，再写一遍；核对 po＋em；中间 oe 两字母，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；po＋em；中间 oe 两字母 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "3608791fe4741cd9480efe382559894962761727537fe5f7191ebeedabb84794"
+    },
+    {
+      "section": "四上Unit 2",
+      "word": "hard",
+      "changed": true,
+      "recognitionCue": "ar /ɑː/",
+      "spellingCue": "h-ar-d",
+      "recallTask": "遮住英文，看中文先读出 hard，再写一遍；核对 h-ar-d，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；h-ar-d 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "be54adbcd6abe2d1165c012e961ef334afbadc3fceeca6214723111da79e8e36"
+    },
+    {
+      "section": "四上Unit 2",
+      "word": "may",
+      "changed": true,
+      "recognitionCue": "ay /eɪ/",
+      "spellingCue": "m-ay",
+      "recallTask": "遮住英文，看中文先读出 may，再写一遍；核对 m-ay，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；m-ay 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "bb892dc7e708692a0d8c14f4ef68d0064b2fabc7f3df0f213b3d06a9a6763161"
+    },
+    {
+      "section": "四上Unit 2",
+      "word": "try",
+      "changed": true,
+      "recognitionCue": "tr /tr/，y /aɪ/",
+      "spellingCue": "tr-y",
+      "recallTask": "遮住英文，看中文先读出 try，再写一遍；核对 tr-y，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；tr-y 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "a6abba2320b54c4be0577fa0cd3de89feba4df15778e2c399f2c829733223ba1"
+    },
+    {
+      "section": "四上Unit 2",
+      "word": "ill",
+      "changed": true,
+      "recognitionCue": "i /ɪ/",
+      "spellingCue": "i-ll；双 l",
+      "recallTask": "遮住英文，看中文先读出 ill，再写一遍；核对 i-ll；双 l，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；i-ll；双 l 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "a81076751c8331bae69c60becac5e2093a905785b8ac7504146d67bb8744b6c1"
+    },
+    {
+      "section": "四上Unit 2",
+      "word": "call",
+      "changed": true,
+      "recognitionCue": "all /ɔːl/",
+      "spellingCue": "c-all；双 l",
+      "recallTask": "遮住英文，看中文先读出 call，再写一遍；核对 c-all；双 l，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；c-all；双 l 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "63cc0722be0f49a4ed902cabfcab27ad136a48de570423a8eea6306056f0928d"
+    },
+    {
+      "section": "四上Unit 2",
+      "word": "her",
+      "changed": true,
+      "recognitionCue": "er 重读 /ɜː/",
+      "spellingCue": "h-er，结尾无 s",
+      "recallTask": "遮住英文，看中文先读出 her，再写一遍；核对 h-er，结尾无 s，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；h-er，结尾无 s 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "63649ca6dc8ed20572f3a2e7f4f7c8f29c6e237874486ace8f2e9e30a9620cb0"
+    },
+    {
+      "section": "四上Unit 2",
+      "word": "tomorrow",
+      "changed": true,
+      "recognitionCue": "tomorrow（明天）读 /təˈmɒrəʊ/：第一拍 to 轻读 /tə/，第二个 o 读 /ɒ/，最后 ow 读 /əʊ/",
+      "spellingCue": "英文，先读再写 to＋mor＋row，核对两个相邻的 r 和结尾 ow。",
+      "recallTask": "遮住英文，看教材中文义项先认读，再按具体字母线索写回；核对易错字母。",
+      "rationale": "根据最终文本的读音、弱读或具体字形处理认读和拼写，而非给场景贴英文标签。",
+      "status": "pass",
+      "hintSha256": "db84687941a94502f59ae385425a1cbfcc7afa300a28716aa92360d2a66c793a"
+    },
+    {
+      "section": "四上Unit 2",
+      "word": "should",
+      "changed": true,
+      "recognitionCue": "读 /ʃʊd/，sh /ʃ/，ou /ʊ/，l 不发音",
+      "spellingCue": "sh-ould；保留 l",
+      "recallTask": "遮住英文，看中文先读出 should，再写一遍；核对 sh-ould；保留 l，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；sh-ould；保留 l 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "1be0a2cdbac2be123c498761d501fd8822bf5251160370279051fb1ded69c9f4"
+    },
+    {
+      "section": "四上Unit 2",
+      "word": "rest",
+      "changed": true,
+      "recognitionCue": "e /e/，st /st/",
+      "spellingCue": "r-e-st",
+      "recallTask": "遮住英文，看中文先读出 rest，再写一遍；核对 r-e-st，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；r-e-st 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "64f10e05a13cead5e3209f26660ff22a49aacdcb454b1eee73b69a8b31a7290d"
+    },
+    {
+      "section": "四上Unit 2",
+      "word": "wait",
+      "changed": true,
+      "recognitionCue": "ai /eɪ/",
+      "spellingCue": "w-ai-t；与 weight 同音但拼 ai",
+      "recallTask": "遮住英文，看中文先读出 wait，再写一遍；核对 w-ai-t；与 weight 同音但拼 ai，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；w-ai-t；与 weight 同音但拼 ai 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "0f990f887128deeeed82619e62c88dff055683b895036d30f1067d088a362c93"
+    },
+    {
+      "section": "四上Unit 2",
+      "word": "mouth",
+      "changed": true,
+      "recognitionCue": "ou /aʊ/，th /θ/",
+      "spellingCue": "m-ou-th",
+      "recallTask": "遮住英文，看中文先读出 mouth，再写一遍；核对 m-ou-th，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；m-ou-th 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "4233aa8a12c8b3bf15b98dbbbd5c9f5793e5d2ae2c09f274384155c5e22b6d1b"
+    },
+    {
+      "section": "四上Unit 2",
+      "word": "best",
+      "changed": true,
+      "recognitionCue": "e /e/，st /st/",
+      "spellingCue": "b-e-st；不写 goodest",
+      "recallTask": "遮住英文，看中文先读出 best，再写一遍；核对 b-e-st；不写 goodest，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；b-e-st；不写 goodest 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "b42aefb98ed14917fcb8af67aa9ba50937600f8fc2e921760d42a0ad2eaf651b"
+    },
+    {
+      "section": "四上Unit 2",
+      "word": "share",
+      "changed": true,
+      "recognitionCue": "sh /ʃ/，are /eə/",
+      "spellingCue": "sh-are；保留 e",
+      "recallTask": "遮住英文，看中文先读出 share，再写一遍；核对 sh-are；保留 e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；sh-are；保留 e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "33af93d053ea668ff9ca5628f6e563c786e725a4c8e6637cf0b8451d6724df96"
+    },
+    {
+      "section": "四上Unit 2",
+      "word": "little",
+      "changed": true,
+      "recognitionCue": "读 /ˈlɪtəl/，i /ɪ/，le /əl/",
+      "spellingCue": "li-tt-le；双 t，末尾 le",
+      "recallTask": "遮住英文，看中文先读出 little，再写一遍；核对 li-tt-le；双 t，末尾 le，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；li-tt-le；双 t，末尾 le 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "ec5bddcda64b48e09f6fec797e3f94325f9a81b39b6da6faaef6d49ee60c9a8f"
+    },
+    {
+      "section": "四上Unit 2",
+      "word": "small",
+      "changed": true,
+      "recognitionCue": "sm /sm/，all /ɔːl/",
+      "spellingCue": "sm-all；双 l",
+      "recallTask": "遮住英文，看中文先读出 small，再写一遍；核对 sm-all；双 l，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；sm-all；双 l 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "46cbcb82bd842f6a771af5d5ffa2b5332fe34f754163fa7f5fde170e3f1c9082"
+    },
+    {
+      "section": "四上Unit 3",
+      "word": "excuse me",
+      "changed": true,
+      "recognitionCue": "excuse /ɪkˈskjuːz/，me /miː/。",
+      "spellingCue": "excuse 按字形记成 ex＋c＋use；c 后接完整的 use，不能漏 c 或末尾 e。再空一格写 me。",
+      "recallTask": "写出“打扰一下”这个短语，检查 excuse 中的 c 和两个 e，再检查 me 与词间空格。",
+      "rationale": "线索直接定位字母顺序及易漏、易替换字母；遮住英文后写出全词，再核对具体难点。联想仅作为字形提示，不作为词源解释。",
+      "status": "pass",
+      "hintSha256": "dbee85919a149bd1953e52cc2d4c5c2a70fa40eb28343ab41de16c211406ceae",
+      "spellingImage": "把已学会的 use 放在右边，前面依次接 ex 和 c。这只是拼写分块，不是词根或词源。"
+    },
+    {
+      "section": "四上Unit 3",
+      "word": "please",
+      "changed": true,
+      "recognitionCue": "读 /pliːz/：pl /pl/，ea /iː/，s /z/。",
+      "spellingCue": "先拼 pl，再写表示 /iː/ 的 ea，最后接 s＋e：pl－ea－s－e。这里 /z/ 写 s；末尾 e 不发音也要写。",
+      "recallTask": "写出“请”，圈出 ea，检查最后一个字母是否为 e。",
+      "rationale": "线索直接定位字母顺序及易漏、易替换字母；遮住英文后写出全词，再核对具体难点。联想仅作为字形提示，不作为词源解释。",
+      "status": "pass",
+      "hintSha256": "a90a7efadb270c9083229ae2ae00f5f86317e51c2f7fb4487cdd6a98a1029144"
+    },
+    {
+      "section": "四上Unit 3",
+      "word": "bat",
+      "changed": true,
+      "recognitionCue": "读 /bæt/：/b/－/æ/－/t/。",
+      "spellingCue": "按三个声音依次选 b－a－t。中间 /æ/ 写 a；最后 /t/ 写 t。",
+      "recallTask": "先慢读三个声音，再写出“球拍”，检查末尾 t。",
+      "rationale": "线索直接定位字母顺序及易漏、易替换字母；遮住英文后写出全词，再核对具体难点。联想仅作为字形提示，不作为词源解释。",
+      "status": "pass",
+      "hintSha256": "61cb47bc71432a323df1efd4b0f72242d22b48e07a57c1e19f3fbff67226dab2"
+    },
+    {
+      "section": "四上Unit 3",
+      "word": "use",
+      "changed": true,
+      "recognitionCue": "作动词读 /juːz/。",
+      "spellingCue": "u 和末尾不发音的 e 一起提示 /juː/；中间 /z/ 写 s。按 u－s－e 写，不能写成 uz 或 us。",
+      "recallTask": "写出“使用”，检查 /z/ 是否写成 s、末尾是否保留 e。",
+      "rationale": "线索直接定位字母顺序及易漏、易替换字母；遮住英文后写出全词，再核对具体难点。联想仅作为字形提示，不作为词源解释。",
+      "status": "pass",
+      "hintSha256": "79c3eb99630a3296affdb6681e148d0ed8bb5dc6869d159feb1a94717449079d"
+    },
+    {
+      "section": "四上Unit 3",
+      "word": "sorry",
+      "changed": true,
+      "recognitionCue": "读 /ˈsɒri/；末尾 /i/ 写 y。",
+      "spellingCue": "先写 so，再写连在一起的 rr，最后写 y：so－rr－y。/r/ 虽只听到一次，也要写两个 r。",
+      "recallTask": "写出“对不起”，数一数 r 是否有两个，检查末尾 y。",
+      "rationale": "线索直接定位字母顺序及易漏、易替换字母；遮住英文后写出全词，再核对具体难点。联想仅作为字形提示，不作为词源解释。",
+      "status": "pass",
+      "hintSha256": "76517206103421cb598ed2a5afe537d2802d8e79c020bb806ee97246a392bcae",
+      "spellingImage": "两个 r 一起弯腰道歉：把两个人都写上，rr 不能少一个。"
+    },
+    {
+      "section": "四上Unit 3",
+      "word": "would",
+      "changed": true,
+      "recognitionCue": "读 /wʊd/。",
+      "spellingCue": "先写 w，再写表示 /ʊ/ 的 ou，接上不发音的 l，最后写 d：w－ou－l－d。听不到 l，拼写仍要保留。",
+      "recallTask": "写出“愿意”，检查 ou 后、d 前有没有不发音的 l。",
+      "rationale": "线索直接定位字母顺序及易漏、易替换字母；遮住英文后写出全词，再核对具体难点。联想仅作为字形提示，不作为词源解释。",
+      "status": "pass",
+      "hintSha256": "26549ca3493b02a0e9abd931db9a192d556432657001bd665801c97bcbad8fe4",
+      "spellingImage": "l 静静站在 ou 和 d 中间：不出声，也不能漏写。"
+    },
+    {
+      "section": "四上Unit 3",
+      "word": "open",
+      "changed": true,
+      "recognitionCue": "读 /ˈəʊpən/，o /əʊ/，末尾 e 轻读 /ə/",
+      "spellingCue": "o-pen；末尾 en 不是 an",
+      "recallTask": "遮住英文，看中文先读出 open，再写一遍；核对 o-pen；末尾 en 不是 an，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；o-pen；末尾 en 不是 an 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "51dcee80313ed6cf5e6810576b0f6b8101cec3cd21a40f230c0d06ea81964390"
+    },
+    {
+      "section": "四上Unit 3",
+      "word": "door",
+      "changed": true,
+      "recognitionCue": "oor /ɔː/",
+      "spellingCue": "d-oo-r；两个 o",
+      "recallTask": "遮住英文，看中文先读出 door，再写一遍；核对 d-oo-r；两个 o，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；d-oo-r；两个 o 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "8acb78b55d97dde7201592e1c72fb988bd70c9119469ab4cdf3416aadbe7f485"
+    },
+    {
+      "section": "四上Unit 3",
+      "word": "problem",
+      "changed": true,
+      "recognitionCue": "读 /ˈprɒbləm/，o /ɒ/，e 轻读 /ə/",
+      "spellingCue": "prob-lem；后面 e",
+      "recallTask": "遮住英文，看中文先读出 problem，再写一遍；核对 prob-lem；后面 e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；prob-lem；后面 e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "60a439e73e4d1cd8717f06ac9f6c7562b97f13ef631c94fdb6bf03c54416378b"
+    },
+    {
+      "section": "四上Unit 3",
+      "word": "must",
+      "changed": true,
+      "recognitionCue": "u /ʌ/，st /st/",
+      "spellingCue": "m-u-st",
+      "recallTask": "遮住英文，看中文先读出 must，再写一遍；核对 m-u-st，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；m-u-st 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "ebd93ec3ca2fd40d0b71ab8ccb7f2f622c2214ee1e267c64ff0dea3634908491"
+    },
+    {
+      "section": "四上Unit 3",
+      "word": "stand",
+      "changed": true,
+      "recognitionCue": "st /st/、a /æ/、nd /nd/",
+      "spellingCue": "st-a-nd；两个辅音组",
+      "recallTask": "遮住英文，看中文先读出 stand，再写一遍；核对 st-a-nd；两个辅音组，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；st-a-nd；两个辅音组 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "fb8df5ca0aa15f522a2c98167de0131b2cc182fa8df9bf926ffc5a7d20f1974a"
+    },
+    {
+      "section": "四上Unit 3",
+      "word": "polite",
+      "changed": true,
+      "recognitionCue": "读 /pəˈlaɪt/，o 轻读 /ə/，i-e /aɪ/",
+      "spellingCue": "po-lite；轻音 o、末尾 e",
+      "recallTask": "遮住英文，看中文先读出 polite，再写一遍；核对 po-lite；轻音 o、末尾 e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；po-lite；轻音 o、末尾 e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "182b1c2b1c5bc63ab020d6e71b23b01802e5f853f098d98bf7e1281edaba9974"
+    },
+    {
+      "section": "四上Unit 3",
+      "word": "could",
+      "changed": true,
+      "recognitionCue": "读 /kʊd/，ou /ʊ/，l 不发音",
+      "spellingCue": "c-ould；保留 l",
+      "recallTask": "遮住英文，看中文先读出 could，再写一遍；核对 c-ould；保留 l，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；c-ould；保留 l 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "20d686a9edc2197aac3a7754b2b3c0e0f2927104bb253b04160b7cbefc38bbef"
+    },
+    {
+      "section": "四上Unit 3",
+      "word": "get",
+      "changed": true,
+      "recognitionCue": "get（得到、拿到）读 /ɡet/：g /ɡ/、e /e/、t /t/",
+      "spellingCue": "英文，看“拿到”先读，再按 g-e-t 写；中间短音 /e/ 用 e。",
+      "recallTask": "遮住英文，看教材中文义项先认读，再按具体字母线索写回；核对易错字母。",
+      "rationale": "根据最终文本的读音、弱读或具体字形处理认读和拼写，而非给场景贴英文标签。",
+      "status": "pass",
+      "hintSha256": "89eb6f9b8ec6d57dd3d62d6aae952c4dacf8152067b763453bc1ce4f4cc306ec"
+    },
+    {
+      "section": "四上Unit 3",
+      "word": "monkey",
+      "changed": true,
+      "recognitionCue": "读 /ˈmʌŋki/，o /ʌ/，n 在 k 前 /ŋ/，ey /i/",
+      "spellingCue": "mon-key；o 和末尾 ey",
+      "recallTask": "遮住英文，看中文先读出 monkey，再写一遍；核对 mon-key；o 和末尾 ey，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；mon-key；o 和末尾 ey 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "b5f5d93b21d23acb43a624e3a37db9b12e3b5b47765db18e7e7a64e44b132d57"
+    },
+    {
+      "section": "四上Unit 3",
+      "word": "banana",
+      "changed": true,
+      "recognitionCue": "读 /bəˈnɑːnə/，首尾 a 轻读 /ə/，中间 a /ɑː/",
+      "spellingCue": "ba-na-na；三次 a、两次 na",
+      "recallTask": "遮住英文，看中文先读出 banana，再写一遍；核对 ba-na-na；三次 a、两次 na，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；ba-na-na；三次 a、两次 na 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "e7349f452a3a88e1921318b0544a3c0661f20f420023bbf434d962be00dfda77"
+    },
+    {
+      "section": "四上Unit 3",
+      "word": "garden",
+      "changed": true,
+      "recognitionCue": "读 /ˈɡɑːdən/，ar /ɑː/，en 轻读 /ən/",
+      "spellingCue": "g-ar-d-en；末尾轻音仍写 e",
+      "recallTask": "遮住英文，看中文先读出 garden，再写一遍；核对 g-ar-d-en；末尾轻音仍写 e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；g-ar-d-en；末尾轻音仍写 e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "bc9251fb2412e00b31e3b48ae2e1b3a4ba78570797db9e5d087d3889a3c6ce47"
+    },
+    {
+      "section": "四上Unit 3",
+      "word": "want",
+      "changed": true,
+      "recognitionCue": "读 /wɒnt/，a 这里 /ɒ/",
+      "spellingCue": "w-a-nt；a 不改 o",
+      "recallTask": "遮住英文，看中文先读出 want，再写一遍；核对 w-a-nt；a 不改 o，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；w-a-nt；a 不改 o 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "7d5012c196c7a0de2fa64bae9d6b7222edd30bc359cd8c0099b30f017e1e635d"
+    },
+    {
+      "section": "四上Unit 5",
+      "word": "sandwich",
+      "changed": true,
+      "recognitionCue": "读 /ˈsænwɪtʃ/，d 可不读，a /æ/，i /ɪ/",
+      "spellingCue": "sand-wich；保留 d，没有 t",
+      "recallTask": "遮住英文，看中文先读出 sandwich，再写一遍；核对 sand-wich；保留 d，没有 t，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；sand-wich；保留 d，没有 t 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "597f6c0a582180d4746d0d7c1107e0d0615ae274bd91e596064089effcb5a9c7"
+    },
+    {
+      "section": "四上Unit 5",
+      "word": "tomato",
+      "changed": true,
+      "recognitionCue": "读 /təˈmɑːtəʊ/，开头 o 轻读 /ə/，a /ɑː/，末尾 o /əʊ/",
+      "spellingCue": "to-ma-to；首尾 to",
+      "recallTask": "遮住英文，看中文先读出 tomato，再写一遍；核对 to-ma-to；首尾 to，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；to-ma-to；首尾 to 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "fa73abf257c3d0f14916444bd22c828e39d84b9585f34124eedf4b5e428a2af4"
+    },
+    {
+      "section": "四上Unit 5",
+      "word": "potato",
+      "changed": true,
+      "recognitionCue": "读 /pəˈteɪtəʊ/，开头 o 轻读 /ə/，a /eɪ/，末尾 o /əʊ/",
+      "spellingCue": "po-ta-to；开头 po，后 ta-to",
+      "recallTask": "遮住英文，看中文先读出 potato，再写一遍；核对 po-ta-to；开头 po，后 ta-to，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；po-ta-to；开头 po，后 ta-to 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "c35de1449e6485132f0b86b2d157b19c7fc073da18ceaae4cfe9c335c9d88ad3"
+    },
+    {
+      "section": "四上Unit 5",
+      "word": "meatball",
+      "changed": true,
+      "recognitionCue": "meat 的 ea /iː/，ball 的 all /ɔːl/",
+      "spellingCue": "meat＋ball；ea、双 l",
+      "recallTask": "遮住英文，看中文先读出 meatball，再写一遍；核对 meat＋ball；ea、双 l，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；meat＋ball；ea、双 l 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "d0a4d0f6bf0c0254a33842bdf11f9a6f592a678f3e106508f8fbb5d6f0213e96"
+    },
+    {
+      "section": "四上Unit 5",
+      "word": "eat",
+      "changed": true,
+      "recognitionCue": "ea /iː/、t /t/",
+      "spellingCue": "ea-t",
+      "recallTask": "遮住英文，看中文先读出 eat，再写一遍；核对 ea-t，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；ea-t 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "3b26413db828f214df2aa0c2bac73e1bddcab0c909d573fe773bb4e93838ce5a"
+    },
+    {
+      "section": "四上Unit 5",
+      "word": "steak",
+      "changed": true,
+      "recognitionCue": "ea 这里 /eɪ/",
+      "spellingCue": "st-ea-k；/eɪ/ 固定用 ea",
+      "recallTask": "遮住词，看“牛排”先读再写 st-ea-k，核对 ea。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；st-ea-k；与 stake 同音但用 ea 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "d416ebc996cdcd0e502c67e4c35ac290c2d0dfe488b151fe3c4dc94858342837"
+    },
+    {
+      "section": "四上Unit 5",
+      "word": "soup",
+      "changed": true,
+      "recognitionCue": "ou 这里 /uː/",
+      "spellingCue": "s-ou-p，不写 oo",
+      "recallTask": "遮住英文，看中文先读出 soup，再写一遍；核对 s-ou-p，不写 oo，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；s-ou-p，不写 oo 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "4ceeda07e87586cd98390f48c814d6c0b4749cc8c9d773891eedf4fccf7f70ad"
+    },
+    {
+      "section": "四上Unit 5",
+      "word": "dessert",
+      "changed": true,
+      "recognitionCue": "读 /dɪˈzɜːt/，ss /z/，er /ɜː/",
+      "spellingCue": "de-ss-ert；甜点双 s",
+      "recallTask": "遮住英文，看中文先读出 dessert，再写一遍；核对 de-ss-ert；甜点双 s，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；de-ss-ert；甜点双 s 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "63cf213e5475298d1714ecaadfd2badcf9a872019a3f9cae9d2cd6748cd049e2"
+    },
+    {
+      "section": "四上Unit 5",
+      "word": "ice cream",
+      "changed": true,
+      "recognitionCue": "ice 的 i-e /aɪ/，cream 的 ea /iː/",
+      "spellingCue": "ice＋cream 分写；两处 e",
+      "recallTask": "遮住英文，看中文先读出 ice cream，再写一遍；核对 ice＋cream 分写；两处 e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；ice＋cream 分写；两处 e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "31727c27d5257a77cae39bfbc3fdeada1809cb6e39a1d6d62befe171a5cfe727"
+    },
+    {
+      "section": "四上Unit 5",
+      "word": "chopsticks",
+      "changed": true,
+      "recognitionCue": "ch /tʃ/，o /ɒ/，stick 的 i /ɪ/，ck /k/",
+      "spellingCue": "chop-stick-s；保留 ck 与 s",
+      "recallTask": "遮住英文，看中文先读出 chopsticks，再写一遍；核对 chop-stick-s；保留 ck 与 s，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；chop-stick-s；保留 ck 与 s 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "00c2f5c128942a9fd6d22f4daf92f8943fb3363cae5e69d8a8a11f39581224e1"
+    },
+    {
+      "section": "四上Unit 5",
+      "word": "them",
+      "changed": true,
+      "recognitionCue": "th /ð/、e /e/",
+      "spellingCue": "th-e-m",
+      "recallTask": "遮住英文，看中文先读出 them，再写一遍；核对 th-e-m，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；th-e-m 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "31fb17c2329d5eed4be196b2e9412475200535daf1b838ea8a1352d3cf910cb9"
+    },
+    {
+      "section": "四上Unit 5",
+      "word": "cut",
+      "changed": true,
+      "recognitionCue": "c /k/、u /ʌ/、t /t/",
+      "spellingCue": "c-u-t",
+      "recallTask": "遮住英文，看中文先读出 cut，再写一遍；核对 c-u-t，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；c-u-t 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "75bcf537fe587dbb3a86a72e54df5907c474e7883d5d85468e37bd342f80eb96"
+    },
+    {
+      "section": "四上Unit 5",
+      "word": "knife",
+      "changed": true,
+      "recognitionCue": "读 /naɪf/，k 不发音，i-e /aɪ/",
+      "spellingCue": "k-n-i-f-e；两个不发音字母 k、e",
+      "recallTask": "遮住英文，看中文先读出 knife，再写一遍；核对 k-n-i-f-e；两个不发音字母 k、e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；k-n-i-f-e；两个不发音字母 k、e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "b851f6d2614483a49a58e86091e4b4bb6cfeedb67e1b5c2db48f1ceae76246fa"
+    },
+    {
+      "section": "四上Unit 5",
+      "word": "fork",
+      "changed": true,
+      "recognitionCue": "or /ɔː/",
+      "spellingCue": "f-or-k",
+      "recallTask": "遮住英文，看中文先读出 fork，再写一遍；核对 f-or-k，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；f-or-k 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "5331abb596d78973c2c4bebbc78e683553467e2d3f804fcf69e65def6fb12ab0"
+    },
+    {
+      "section": "四上Unit 5",
+      "word": "right",
+      "changed": true,
+      "recognitionCue": "igh /aɪ/，gh 不发音",
+      "spellingCue": "r-igh-t；不写同音 write",
+      "recallTask": "遮住英文，看中文先读出 right，再写一遍；核对 r-igh-t；不写同音 write，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；r-igh-t；不写同音 write 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "f2422157ccecfdc37aa9deaac323c30877f8eb83b58edcca14b7e2a03ddd3f19"
+    },
+    {
+      "section": "四上Unit 5",
+      "word": "left",
+      "changed": true,
+      "recognitionCue": "e /e/、ft /ft/",
+      "spellingCue": "l-e-ft",
+      "recallTask": "遮住英文，看中文先读出 left，再写一遍；核对 l-e-ft，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；l-e-ft 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "2b24e63853c7146e2c1bb687179a928af7ff749585cb9f2a1d3517fb17e99f8c"
+    },
+    {
+      "section": "四上Unit 5",
+      "word": "apple",
+      "changed": true,
+      "recognitionCue": "a /æ/，le /əl/",
+      "spellingCue": "a-pp-le；双 p，末尾 le",
+      "recallTask": "遮住英文，看中文先读出 apple，再写一遍；核对 a-pp-le；双 p，末尾 le，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；a-pp-le；双 p，末尾 le 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "85264b4aca5cf0ff94b544a7d77bd92a2aa5e586ce915ad40c5ba7f4d7952427"
+    },
+    {
+      "section": "四上Unit 5",
+      "word": "salad",
+      "changed": true,
+      "recognitionCue": "读 /ˈsæləd/，第一个 a /æ/，第二个 a /ə/",
+      "spellingCue": "s-a-l-a-d；两次 a",
+      "recallTask": "遮住英文，看中文先读出 salad，再写一遍；核对 s-a-l-a-d；两次 a，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；s-a-l-a-d；两次 a 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "a1ad4e6f6d4bac10b94cea344e3d30eff14494a2172a28ce061f4ca5d5f80c9f"
+    },
+    {
+      "section": "四上Unit 5",
+      "word": "first",
+      "changed": true,
+      "recognitionCue": "ir /ɜː/，st /st/",
+      "spellingCue": "f-ir-st，不写 er",
+      "recallTask": "遮住英文，看中文先读出 first，再写一遍；核对 f-ir-st，不写 er，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；f-ir-st，不写 er 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "f524011b2df097a3256a2e101151fbb538f94a9280d6cb92b2dc9c714f493767"
+    },
+    {
+      "section": "四上Unit 5",
+      "word": "next",
+      "changed": true,
+      "recognitionCue": "e /e/，x /ks/",
+      "spellingCue": "n-e-x-t",
+      "recallTask": "遮住英文，看中文先读出 next，再写一遍；核对 n-e-x-t，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；n-e-x-t 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "d89dcd6df2cdd221aa4ad2999c47236f7b09b9549e8be82cfe7fc027e39e6982"
+    },
+    {
+      "section": "四上Unit 5",
+      "word": "then",
+      "changed": true,
+      "recognitionCue": "th /ð/，e /e/",
+      "spellingCue": "th-e-n",
+      "recallTask": "遮住英文，看中文先读出 then，再写一遍；核对 th-e-n，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；th-e-n 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "9db76782b3b454c816158b74f21fc2cb79b7b80fbb8f1d5eed6dd9b729603e8f"
+    },
+    {
+      "section": "四上Unit 5",
+      "word": "last",
+      "changed": true,
+      "recognitionCue": "a 英式 /ɑː/、美式 /æ/",
+      "spellingCue": "l-a-st；不是 lost 的 o",
+      "recallTask": "遮住英文，看中文先读出 last，再写一遍；核对 l-a-st；不是 lost 的 o，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；l-a-st；不是 lost 的 o 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "b8f4bd9e28e306b8d9b64b7d7b12141a6488e762068dd3144f7f638ebf9c82fe"
+    },
+    {
+      "section": "四上Unit 6",
+      "word": "nature",
+      "changed": true,
+      "recognitionCue": "读 /ˈneɪtʃə/，a /eɪ/，ture /tʃə/",
+      "spellingCue": "na-ture；/tʃ/ 在这里用 t，尾有 e",
+      "recallTask": "遮住英文，看中文先读出 nature，再写一遍；核对 na-ture；/tʃ/ 在这里用 t，尾有 e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；na-ture；/tʃ/ 在这里用 t，尾有 e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "bc484dca3a02f4ff48e4e7e696248542fcc67b3a8f50174319fdcc2205018715"
+    },
+    {
+      "section": "四上Unit 6",
+      "word": "Internet",
+      "changed": true,
+      "recognitionCue": "读 /ˈɪntənet/，首 i /ɪ/，最后 e /e/",
+      "spellingCue": "In-ter-net；首字母大写",
+      "recallTask": "遮住英文，看中文先读出 Internet，再写一遍；核对 In-ter-net；首字母大写，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；In-ter-net；首字母大写 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "420c5f8287fe0c00be9461b0bc5819d68b197ccc7d6981fd883d23491c51f236"
+    },
+    {
+      "section": "四上Unit 6",
+      "word": "everything",
+      "changed": true,
+      "recognitionCue": "every /ˈevri/，thing /θɪŋ/",
+      "spellingCue": "every＋thing；every 中第二 e 保留",
+      "recallTask": "遮住英文，看中文先读出 everything，再写一遍；核对 every＋thing；every 中第二 e 保留，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；every＋thing；every 中第二 e 保留 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "4673a480fdaf641e2f5086c8ca02a915cebb7375f97ffc75c913c9fa1f6c667e"
+    },
+    {
+      "section": "四上Unit 6",
+      "word": "air",
+      "changed": true,
+      "recognitionCue": "air /eə/",
+      "spellingCue": "a-i-r；不加 e",
+      "recallTask": "遮住英文，看中文先读出 air，再写一遍；核对 a-i-r；不加 e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；a-i-r；不加 e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "55da2daba196f85b4dfe85f50df5a04801d483bc030d70a2104a0da1fbda1c80"
+    },
+    {
+      "section": "四上Unit 6",
+      "word": "around",
+      "changed": true,
+      "recognitionCue": "读 /əˈraʊnd/，开头 a /ə/，ou /aʊ/",
+      "spellingCue": "a＋round；ou 不写 ow",
+      "recallTask": "遮住英文，看中文先读出 around，再写一遍；核对 a＋round；ou 不写 ow，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；a＋round；ou 不写 ow 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "f35a92261f43c4350e97308323827deb2c3ba7cac5353d7974799a88b9a5db1f"
+    },
+    {
+      "section": "四上Unit 6",
+      "word": "live",
+      "changed": true,
+      "recognitionCue": "居住读 /lɪv/，i /ɪ/，e 不发音",
+      "spellingCue": "l-i-v-e；不是 i-e 长音",
+      "recallTask": "遮住英文，看中文先读出 live，再写一遍；核对 l-i-v-e；不是 i-e 长音，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；l-i-v-e；不是 i-e 长音 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "f09cb16b2956be51172fa7a544c96e09ba389d2221f528aa018dac67735fe332"
+    },
+    {
+      "section": "四上Unit 6",
+      "word": "without",
+      "changed": true,
+      "recognitionCue": "with /wɪð/，out /aʊt/",
+      "spellingCue": "with＋out；连写",
+      "recallTask": "遮住英文，看中文先读出 without，再写一遍；核对 with＋out；连写，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；with＋out；连写 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "6eaaf7af4add0894557cb42a764017415634d25861de374dbbb23f328b243de1"
+    },
+    {
+      "section": "四上Unit 6",
+      "word": "farm",
+      "changed": true,
+      "recognitionCue": "ar /ɑː/",
+      "spellingCue": "f-ar-m",
+      "recallTask": "遮住英文，看中文先读出 farm，再写一遍；核对 f-ar-m，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；f-ar-m 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "486d4239b7cac6f96ca20db4126ef146b29a9da05eeb421fb8dc646193f8ec4e"
+    },
+    {
+      "section": "四上Unit 6",
+      "word": "feed",
+      "changed": true,
+      "recognitionCue": "ee /iː/",
+      "spellingCue": "f-ee-d，与 feel 尾音不同",
+      "recallTask": "遮住英文，看中文先读出 feed，再写一遍；核对 f-ee-d，与 feel 尾音不同，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；f-ee-d，与 feel 尾音不同 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "b1296d59e646f9b645034564564f681a47401d3d60f8e5fb1a3d19f1f34cf24c"
+    },
+    {
+      "section": "四上Unit 6",
+      "word": "pig",
+      "changed": true,
+      "recognitionCue": "p /p/、i /ɪ/、g /g/",
+      "spellingCue": "p-i-g",
+      "recallTask": "遮住英文，看中文先读出 pig，再写一遍；核对 p-i-g，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；p-i-g 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "19ba863505b0e71a77d664108c58d07eacacd4e8bda93c11d7cdf06ca0481f27"
+    },
+    {
+      "section": "四上Unit 6",
+      "word": "smell",
+      "changed": true,
+      "recognitionCue": "sm /sm/，e /e/",
+      "spellingCue": "sm-e-ll；双 l",
+      "recallTask": "遮住英文，看中文先读出 smell，再写一遍；核对 sm-e-ll；双 l，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；sm-e-ll；双 l 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "fc36a86c61a1b3b43906227ba3267f6a9e730feb49932e0cbda5116f1684cdf6"
+    },
+    {
+      "section": "四上Unit 6",
+      "word": "listen",
+      "changed": true,
+      "recognitionCue": "读 /ˈlɪsən/，t 不发音，en /ən/",
+      "spellingCue": "lis-ten；保留 t，轻音写 e",
+      "recallTask": "遮住英文，看中文先读出 listen，再写一遍；核对 lis-ten；保留 t，轻音写 e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；lis-ten；保留 t，轻音写 e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "03971bca9b78abfe2afe6e69bcaae36f7c13a0eb68ce1b174c222d3d766344e4"
+    },
+    {
+      "section": "四上Unit 6",
+      "word": "hear",
+      "changed": true,
+      "recognitionCue": "ear /ɪə/",
+      "spellingCue": "h＋ear；同音 here 不同拼法",
+      "recallTask": "遮住英文，看中文先读出 hear，再写一遍；核对 h＋ear；同音 here 不同拼法，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；h＋ear；同音 here 不同拼法 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "4c0e4087e059e62192b933a2fe44981f42ccc507223a9c589cb24791803f381a"
+    },
+    {
+      "section": "四上Unit 6",
+      "word": "glass",
+      "changed": true,
+      "recognitionCue": "a 英式 /ɑː/、美式 /æ/",
+      "spellingCue": "gl-a-ss；双 s",
+      "recallTask": "遮住英文，看中文先读出 glass，再写一遍；核对 gl-a-ss；双 s，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；gl-a-ss；双 s 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "51a75657ae4a42e5a693ddc31b764a9a4857548af3ee5d01332daa1b15e2ac28"
+    },
+    {
+      "section": "四上Unit 6",
+      "word": "turn",
+      "changed": true,
+      "recognitionCue": "ur /ɜː/",
+      "spellingCue": "t-ur-n",
+      "recallTask": "遮住英文，看中文先读出 turn，再写一遍；核对 t-ur-n，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；t-ur-n 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "e479a837e5044ba9206e29c1365728a3d759cf051609c9f614915179200e6386"
+    },
+    {
+      "section": "四上Unit 6",
+      "word": "after",
+      "changed": true,
+      "recognitionCue": "读 /ˈɑːftə/，a 英式 /ɑː/，er 轻读 /ə/",
+      "spellingCue": "af-ter；保留 ft 与 er",
+      "recallTask": "遮住英文，看中文先读出 after，再写一遍；核对 af-ter；保留 ft 与 er，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；af-ter；保留 ft 与 er 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "1a49278577698a3c956e64bad751c4f45f908bc8f4db9a1828e452c410589be0"
+    },
+    {
+      "section": "四上Unit 6",
+      "word": "sun",
+      "changed": true,
+      "recognitionCue": "u /ʌ/",
+      "spellingCue": "s-u-n，太阳写 u，非 son",
+      "recallTask": "遮住英文，看中文先读出 sun，再写一遍；核对 s-u-n，太阳写 u，非 son，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；s-u-n，太阳写 u，非 son 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "c504f90f10dada701f29bd74e7ff11bac7041165c53b24fe1435c09b8bf39086"
+    },
+    {
+      "section": "四上Unit 6",
+      "word": "bad",
+      "changed": true,
+      "recognitionCue": "a /æ/，d /d/",
+      "spellingCue": "b-a-d，末尾 d",
+      "recallTask": "遮住英文，看中文先读出 bad，再写一遍；核对 b-a-d，末尾 d，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；b-a-d，末尾 d 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "a28e2eafda77c77767a2d08db3aa9b89f7b1be8e99f9a89b413726fe5346baf4"
+    },
+    {
+      "section": "四上Unit 6",
+      "word": "start",
+      "changed": true,
+      "recognitionCue": "st /st/、ar /ɑː/",
+      "spellingCue": "st-ar-t；开头和末尾都有 t",
+      "recallTask": "遮住英文，看中文先读出 start，再写一遍；核对 st-ar-t；开头和末尾都有 t，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；st-ar-t；开头和末尾都有 t 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "e56984fc29db320681dca0ca38da33fa511c5ac582e9a5dde07b23149b9c7f73"
+    },
+    {
+      "section": "四上Unit 6",
+      "word": "forest",
+      "changed": true,
+      "recognitionCue": "读 /ˈfɒrɪst/，o /ɒ/，e 在这里 /ɪ/",
+      "spellingCue": "for-est；弱音仍写 e",
+      "recallTask": "遮住英文，看中文先读出 forest，再写一遍；核对 for-est；弱音仍写 e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；for-est；弱音仍写 e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "4e0862c208004a0f46bd5d8e25ac64c7f11e0c6ee7541bf8ffa451d93968fa2a"
+    },
+    {
+      "section": "四上Unit 6",
+      "word": "cross",
+      "changed": true,
+      "recognitionCue": "cr /kr/、o /ɒ/",
+      "spellingCue": "cr-o-ss；双 s",
+      "recallTask": "遮住英文，看中文先读出 cross，再写一遍；核对 cr-o-ss；双 s，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；cr-o-ss；双 s 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "1c1de3f9eb7427deec9878ab5ea3be606acdb64090d5fe944982a87d4a9df179"
+    },
+    {
+      "section": "四上Unit 7",
+      "word": "gift",
+      "changed": true,
+      "recognitionCue": "i /ɪ/，ft /ft/",
+      "spellingCue": "g-i-ft",
+      "recallTask": "遮住英文，看中文先读出 gift，再写一遍；核对 g-i-ft，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；g-i-ft 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "5c983b21f1d6d8c6a50edd1a6dee6b133b0f3af5ce86f1d5bb2c3077fb798bf2"
+    },
+    {
+      "section": "四上Unit 7",
+      "word": "firework",
+      "changed": true,
+      "recognitionCue": "fire /faɪə/，work /wɜːk/",
+      "spellingCue": "fire＋work；fire 留 e，work 用 or",
+      "recallTask": "遮住英文，看中文先读出 firework，再写一遍；核对 fire＋work；fire 留 e，work 用 or，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；fire＋work；fire 留 e，work 用 or 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "fc4c8b823478137760223def4a54e39de2e992f353c44afa1a692755eef473ee"
+    },
+    {
+      "section": "四上Unit 7",
+      "word": "January",
+      "changed": true,
+      "recognitionCue": "读 /ˈdʒænjuəri/，Jan /dʒæn/，u /ju/，ary 轻读 /əri/",
+      "spellingCue": "Jan-u-ar-y；首大写，尾 ary",
+      "recallTask": "遮住英文，看中文先读出 January，再写一遍；核对 Jan-u-ar-y；首大写，尾 ary，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；Jan-u-ar-y；首大写，尾 ary 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "883da2a0c148f2dba48d39356fd575a27ecd7f8f075a691297db621deae8ed50"
+    },
+    {
+      "section": "四上Unit 7",
+      "word": "goal",
+      "changed": true,
+      "recognitionCue": "oa /əʊ/",
+      "spellingCue": "g-oa-l，不是 gold",
+      "recallTask": "遮住英文，看中文先读出 goal，再写一遍；核对 g-oa-l，不是 gold，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；g-oa-l，不是 gold 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "5a465b73644aa3b5417a855adfeec73dd9be00d4088602ed99e9f32e077b3060"
+    },
+    {
+      "section": "四上Unit 7",
+      "word": "fifty",
+      "changed": true,
+      "recognitionCue": "读 /ˈfɪfti/，i /ɪ/，y /i/",
+      "spellingCue": "fif-ty；第二个 f，不是 v",
+      "recallTask": "遮住英文，看中文先读出 fifty，再写一遍；核对 fif-ty；第二个 f，不是 v，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；fif-ty；第二个 f，不是 v 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "1548afb9e05e5f3ea4c0f44b66ed24235644f7daffe3aba47760f63edbff19a2"
+    },
+    {
+      "section": "四上Unit 7",
+      "word": "sixty",
+      "changed": true,
+      "recognitionCue": "six /sɪks/，ty /ti/",
+      "spellingCue": "six＋ty；x 不改",
+      "recallTask": "遮住英文，看中文先读出 sixty，再写一遍；核对 six＋ty；x 不改，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；six＋ty；x 不改 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "eee2d04f5222a5b1c4849903c6b7663b00da233aea3909ca477bf1918bcb4474"
+    },
+    {
+      "section": "四上Unit 7",
+      "word": "Spring Festival",
+      "changed": true,
+      "recognitionCue": "Spring /sprɪŋ/，Festival /ˈfestɪvəl/",
+      "spellingCue": "Spring＋Festival 分写；spr，Festival 三元音 e-i-a",
+      "recallTask": "遮住英文，看中文先读出 Spring Festival，再写一遍；核对 Spring＋Festival 分写；spr，Festival 三元音 e-i-a，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；Spring＋Festival 分写；spr，Festival 三元音 e-i-a 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "2444316bbe3862f659057bf8259afb0e76c77ea6c96121979eda08442e3e7811"
+    },
+    {
+      "section": "四上Unit 7",
+      "word": "Mrs",
+      "changed": true,
+      "recognitionCue": "读 /ˈmɪsɪz/，与逐字母读不同",
+      "spellingCue": "M 大写、r s 小写",
+      "recallTask": "遮住英文，看中文先读出 Mrs，再写一遍；核对 M 大写、r s 小写，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；M 大写、r s 小写 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "b7f1e37a94ec2dabb7bf60b02013c3c94e4cabdb6879d323abccef26cba1f684"
+    },
+    {
+      "section": "四上Unit 7",
+      "word": "lucky",
+      "changed": true,
+      "recognitionCue": "luck /lʌk/，y /i/",
+      "spellingCue": "luck＋y；ck 不改",
+      "recallTask": "遮住英文，看中文先读出 lucky，再写一遍；核对 luck＋y；ck 不改，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；luck＋y；ck 不改 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "ddcc14d19759a66d2973003461c5401e198a71c3ca443ccddff72ba9793dc96a"
+    },
+    {
+      "section": "四上Unit 7",
+      "word": "money",
+      "changed": true,
+      "recognitionCue": "读 /ˈmʌni/，o /ʌ/，ey /i/",
+      "spellingCue": "mon-ey；o 和 ey 不按声音改",
+      "recallTask": "遮住英文，看中文先读出 money，再写一遍；核对 mon-ey；o 和 ey 不按声音改，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；mon-ey；o 和 ey 不按声音改 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "20aed4cedd42931cb46fe6447f802b951d086b0b81fe7954a9691fe678ae29f3"
+    },
+    {
+      "section": "四上Unit 7",
+      "word": "wish",
+      "changed": true,
+      "recognitionCue": "i /ɪ/、sh /ʃ/",
+      "spellingCue": "w-i-sh",
+      "recallTask": "遮住英文，看中文先读出 wish，再写一遍；核对 w-i-sh，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；w-i-sh 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "0d91c9f471752f1d2f68d2322feef156aa3aeab672fdb9ebd35ac06450213bd7"
+    },
+    {
+      "section": "四上Unit 7",
+      "word": "mean",
+      "changed": true,
+      "recognitionCue": "ea /iː/",
+      "spellingCue": "m-ea-n",
+      "recallTask": "遮住英文，看中文先读出 mean，再写一遍；核对 m-ea-n，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；m-ea-n 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "6449ef8739dcb3a6311c12d0cce22eac0f88519d22729dc9ef5f185b1ecbb22f"
+    },
+    {
+      "section": "四上Unit 7",
+      "word": "Lantern Festival",
+      "changed": true,
+      "recognitionCue": "Lantern /ˈlæntən/，Festival /ˈfestɪvəl/",
+      "spellingCue": "Lan-tern，轻音写 er；两个词分写",
+      "recallTask": "遮住英文，看中文先读出 Lantern Festival，再写一遍；核对 Lan-tern，轻音写 er；两个词分写，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；Lan-tern，轻音写 er；两个词分写 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "0e1fc1080f3939fd8cac317979df60bc8bdbe83e9663e3d203c9520645595419"
+    },
+    {
+      "section": "四上Unit 7",
+      "word": "February",
+      "changed": true,
+      "recognitionCue": "读 /ˈfebruəri/，Feb /feb/，r 后 u /u/，末尾 ary /əri/",
+      "spellingCue": "Feb-ru-ar-y；两个 r",
+      "recallTask": "遮住英文，看中文先读出 February，再写一遍；核对 Feb-ru-ar-y；两个 r，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；Feb-ru-ar-y；两个 r 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "6ec9cc21af5e1244e75620766b2e1ee90dee9374e3956ec5e9fd5c5911b3cf2b"
+    },
+    {
+      "section": "四上Unit 7",
+      "word": "riddle",
+      "changed": true,
+      "recognitionCue": "i /ɪ/，le /əl/",
+      "spellingCue": "ri-dd-le；双 d，末尾 le",
+      "recallTask": "遮住英文，看中文先读出 riddle，再写一遍；核对 ri-dd-le；双 d，末尾 le，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；ri-dd-le；双 d，末尾 le 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "8a1b17ecb9a094949f365cef91a0cdbb4bfd0bf54caa2e16295149d69a9ae589"
+    },
+    {
+      "section": "四上Unit 7",
+      "word": "guess",
+      "changed": true,
+      "recognitionCue": "读 /ɡes/，u 不发音",
+      "spellingCue": "g-u-e-ss；保留 u 和双 s",
+      "recallTask": "遮住英文，看中文先读出 guess，再写一遍；核对 g-u-e-ss；保留 u 和双 s，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；g-u-e-ss；保留 u 和双 s 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "1e165b8afdf0547bfd429ecd949361fab58e69540c88bad2c0b80fe8ea7fecee"
+    },
+    {
+      "section": "四上Unit 7",
+      "word": "of",
+      "changed": true,
+      "recognitionCue": "f 读 /v/，弱读 /əv/",
+      "spellingCue": "o-f，/v/ 不写 v",
+      "recallTask": "遮住英文，看中文先读出 of，再写一遍；核对 o-f，/v/ 不写 v，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；o-f，/v/ 不写 v 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "7ecb05f318582f22964250a18bab9fe5402686e836e95388859f91ff9163e397"
+    },
+    {
+      "section": "四上Unit 7",
+      "word": "loud",
+      "changed": true,
+      "recognitionCue": "ou /aʊ/",
+      "spellingCue": "l-ou-d",
+      "recallTask": "遮住英文，看中文先读出 loud，再写一遍；核对 l-ou-d，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；l-ou-d 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "deff5653f9fdc2bf7855ed7e320057759e2fb8d3d46492b2715df339421aa635"
+    },
+    {
+      "section": "四上Unit 7",
+      "word": "sound",
+      "changed": true,
+      "recognitionCue": "ou /aʊ/、nd /nd/",
+      "spellingCue": "s-ou-nd",
+      "recallTask": "遮住英文，看中文先读出 sound，再写一遍；核对 s-ou-nd，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；s-ou-nd 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "a41d441a1d499817a0729262c0451dea49841d812eb0dd864e66d3f486219e6f"
+    },
+    {
+      "section": "四上Unit 7",
+      "word": "run",
+      "changed": true,
+      "recognitionCue": "u /ʌ/",
+      "spellingCue": "r-u-n",
+      "recallTask": "遮住英文，看中文先读出 run，再写一遍；核对 r-u-n，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；r-u-n 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "aca76d3e7aad6d4e7e1731ca12c3a019bacbb89436a489643858441d0a74d7e7"
+    },
+    {
+      "section": "四下Unit 1",
+      "word": "hobby",
+      "changed": true,
+      "recognitionCue": "读 /ˈhɒbi/，o /ɒ/，y /i/",
+      "spellingCue": "ho-bb-y；双 b",
+      "recallTask": "遮住英文，看中文先读出 hobby，再写一遍；核对 ho-bb-y；双 b，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；ho-bb-y；双 b 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "161b907143f7d9f937148522a56eff51314cab835e03529b14c75f56ecda347f"
+    },
+    {
+      "section": "四下Unit 1",
+      "word": "kind",
+      "changed": true,
+      "recognitionCue": "i /aɪ/、nd /nd/",
+      "spellingCue": "k-i-nd",
+      "recallTask": "遮住英文，看中文先读出 kind，再写一遍；核对 k-i-nd，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；k-i-nd 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "90f93375578cf7ba3e68dc894b9ec4ecf7707c7a2f53c936c642202a83cff6f4"
+    },
+    {
+      "section": "四下Unit 1",
+      "word": "folk",
+      "changed": true,
+      "recognitionCue": "读 /fəʊk/，l 不发音",
+      "spellingCue": "f-o-l-k；保留 l",
+      "recallTask": "遮住英文，看中文先读出 folk，再写一遍；核对 f-o-l-k；保留 l，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；f-o-l-k；保留 l 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "8f95bac32c3a37d1f93dc95cddb8182dbae5551a91125ff75acf46cb05b49122"
+    },
+    {
+      "section": "四下Unit 1",
+      "word": "club",
+      "changed": true,
+      "recognitionCue": "cl /kl/、u /ʌ/",
+      "spellingCue": "cl-u-b",
+      "recallTask": "遮住英文，看中文先读出 club，再写一遍；核对 cl-u-b，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；cl-u-b 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "4573532f930a55fee8a4c2c55e59f88e6e79c633b477c1acc7a7d86342cb6534"
+    },
+    {
+      "section": "四下Unit 1",
+      "word": "join",
+      "changed": true,
+      "recognitionCue": "oi /ɔɪ/",
+      "spellingCue": "j-oi-n，不写 oy",
+      "recallTask": "遮住英文，看中文先读出 join，再写一遍；核对 j-oi-n，不写 oy，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；j-oi-n，不写 oy 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "ecfef6d60ac7f68afae159e533275dfcf73b3f3fa76af0ca728890c5fb27bba5"
+    },
+    {
+      "section": "四下Unit 1",
+      "word": "because",
+      "changed": true,
+      "recognitionCue": "because（因为）读 /bɪˈkɒz/，也可读 /bɪˈkɔːz/：be 在这里读 /bɪ/，au 对应 /ɒ/ 或 /ɔː/，s 读 /z/，末尾 e 不单独发音",
+      "spellingCue": "英文，先读再写 be＋cause；中间用 au，结尾 se 不漏。",
+      "recallTask": "遮住英文，看教材中文义项先认读，再按具体字母线索写回；核对易错字母。",
+      "rationale": "根据最终文本的读音、弱读或具体字形处理认读和拼写，而非给场景贴英文标签。",
+      "status": "pass",
+      "hintSha256": "edb9d3839a0fe5558a277dfd08ac13ad7410141095f46c44d84ba1a5855ebd37"
+    },
+    {
+      "section": "四下Unit 1",
+      "word": "science",
+      "changed": true,
+      "recognitionCue": "读 /ˈsaɪəns/，sc /s/、i /aɪ/、ence /əns/",
+      "spellingCue": "sci-ence；两个 c，末尾 e",
+      "recallTask": "遮住英文，看中文先读出 science，再写一遍；核对 sci-ence；两个 c，末尾 e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；sci-ence；两个 c，末尾 e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "e18bdc629b4130bed4c9ec57fcd3a50fcd778adc05b503bc378dec2c8f173623"
+    },
+    {
+      "section": "四下Unit 1",
+      "word": "chess",
+      "changed": true,
+      "recognitionCue": "ch /tʃ/、e /e/",
+      "spellingCue": "ch-e-ss；双 s",
+      "recallTask": "遮住英文，看中文先读出 chess，再写一遍；核对 ch-e-ss；双 s，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；ch-e-ss；双 s 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "021da4bd67dfb0a4985a67686b57b319f93e5210dfb6f9deedc7367340a199e9"
+    },
+    {
+      "section": "四下Unit 1",
+      "word": "well",
+      "changed": true,
+      "recognitionCue": "e /e/",
+      "spellingCue": "w-e-ll；双 l",
+      "recallTask": "遮住英文，看中文先读出 well，再写一遍；核对 w-e-ll；双 l，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；w-e-ll；双 l 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "746a3c3e7b01a9671f571a6acfb0f53de24ee056dac72d7974c1acbf8c2d78af"
+    },
+    {
+      "section": "四下Unit 1",
+      "word": "why",
+      "changed": true,
+      "recognitionCue": "wh /w/、y /aɪ/",
+      "spellingCue": "wh-y；h 不发音也写",
+      "recallTask": "遮住英文，看中文先读出 why，再写一遍；核对 wh-y；h 不发音也写，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；wh-y；h 不发音也写 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "3bc805ececd4f3e4342d6fb797e0aefbc17b160ad1396152a4c8e29d2dc9eca4"
+    },
+    {
+      "section": "四下Unit 1",
+      "word": "fan",
+      "changed": true,
+      "recognitionCue": "fan 读 /fæn/：f /f/、a /æ/、n /n/",
+      "spellingCue": "英文，看“迷，狂热爱好者”先读，再写 f-a-n。",
+      "recallTask": "遮住英文，看教材中文义项先认读，再按具体字母线索写回；核对易错字母。",
+      "rationale": "根据最终文本的读音、弱读或具体字形处理认读和拼写，而非给场景贴英文标签。",
+      "status": "pass",
+      "hintSha256": "a354302e40d9cd7fda3f7103fde909279d4209606d2d7b64e29ade5697704204"
+    },
+    {
+      "section": "四下Unit 1",
+      "word": "travel",
+      "changed": true,
+      "recognitionCue": "读 /ˈtrævəl/，a /æ/、el /əl/",
+      "spellingCue": "trav-el；一个 l，尾 el",
+      "recallTask": "遮住英文，看中文先读出 travel，再写一遍；核对 trav-el；一个 l，尾 el，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；trav-el；一个 l，尾 el 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "a16cdd720e5736e86bf0c1031f0a0d7db088c94bb6faf3aacbe9eed39e280935"
+    },
+    {
+      "section": "四下Unit 1",
+      "word": "study",
+      "changed": true,
+      "recognitionCue": "读 /ˈstʌdi/，u /ʌ/、y /i/",
+      "spellingCue": "stud-y；末尾 y",
+      "recallTask": "遮住英文，看中文先读出 study，再写一遍；核对 stud-y；末尾 y，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；stud-y；末尾 y 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "7376cac97bf756f9766557982d971e3bd9cc2062ce4adb714a12c16a5e353402"
+    },
+    {
+      "section": "四下Unit 1",
+      "word": "face",
+      "changed": true,
+      "recognitionCue": "a-e /eɪ/，c 在 e 前 /s/",
+      "spellingCue": "f-a-c-e",
+      "recallTask": "遮住英文，看中文先读出 face，再写一遍；核对 f-a-c-e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；f-a-c-e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "a45186bcae08b072847da85dff7e31e7dbe9254e5777e318430e88cedc496e9b"
+    },
+    {
+      "section": "四下Unit 1",
+      "word": "feeling",
+      "changed": true,
+      "recognitionCue": "feel 的 ee /iː/，ing /ɪŋ/",
+      "spellingCue": "feel＋ing；一个 l",
+      "recallTask": "遮住英文，看中文先读出 feeling，再写一遍；核对 feel＋ing；一个 l，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；feel＋ing；一个 l 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "c1c39b4b552cbefa2021aedc2c4af957220c1c162de7c587fb45df02b635fb41"
+    },
+    {
+      "section": "四下Unit 2",
+      "word": "throw",
+      "changed": true,
+      "recognitionCue": "th /θ/、r /r/、ow /əʊ/",
+      "spellingCue": "thr-ow",
+      "recallTask": "遮住英文，看中文先读出 throw，再写一遍；核对 thr-ow，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；thr-ow 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "95f124d09ce8ab850d9c0b4acaa07d1ac5178fbd942cde4133bddb02423e03ce"
+    },
+    {
+      "section": "四下Unit 2",
+      "word": "thing",
+      "changed": true,
+      "recognitionCue": "th /θ/、i /ɪ/、ng /ŋ/",
+      "spellingCue": "th-i-ng",
+      "recallTask": "遮住英文，看中文先读出 thing，再写一遍；核对 th-i-ng，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；th-i-ng 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "55026678aba9e9e3e420123cb396ca6c3d1eb2c4f41a26b7da02d54e33afb3f9"
+    },
+    {
+      "section": "四下Unit 2",
+      "word": "out",
+      "changed": true,
+      "recognitionCue": "ou /aʊ/",
+      "spellingCue": "ou-t",
+      "recallTask": "遮住英文，看中文先读出 out，再写一遍；核对 ou-t，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；ou-t 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "6c6ea009aa26e9483c44e2c870a2d243ea250b5bd7eacd8fe33ba0e8a7cec496"
+    },
+    {
+      "section": "四下Unit 2",
+      "word": "safe",
+      "changed": true,
+      "recognitionCue": "a-e /eɪ/",
+      "spellingCue": "s-a-f-e",
+      "recallTask": "遮住英文，看中文先读出 safe，再写一遍；核对 s-a-f-e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；s-a-f-e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "99155a46dd1305f47f77bf098809d25f23d56d7d8d7d129f1f2a5c1b6434bba0"
+    },
+    {
+      "section": "四下Unit 2",
+      "word": "down",
+      "changed": true,
+      "recognitionCue": "ow /aʊ/",
+      "spellingCue": "d-ow-n",
+      "recallTask": "遮住英文，看中文先读出 down，再写一遍；核对 d-ow-n，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；d-ow-n 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "6db4d609bddecff9e40236a0325dd578e457110cd002bb73112b2baaa767c0a0"
+    },
+    {
+      "section": "四下Unit 2",
+      "word": "stair",
+      "changed": true,
+      "recognitionCue": "air /eə/",
+      "spellingCue": "st-air；同音 stare 不同拼法",
+      "recallTask": "遮住英文，看中文先读出 stair，再写一遍；核对 st-air；同音 stare 不同拼法，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；st-air；同音 stare 不同拼法 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "6c38153d02ad245bf9947ba43922cfc900a9f391f5c7bc86e81289aa8ab8d318"
+    },
+    {
+      "section": "四下Unit 2",
+      "word": "skate",
+      "changed": true,
+      "recognitionCue": "sk /sk/、a-e /eɪ/",
+      "spellingCue": "sk-a-t-e",
+      "recallTask": "遮住英文，看中文先读出 skate，再写一遍；核对 sk-a-t-e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；sk-a-t-e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "fd9f4d87c906678077e925f501be9d28c9e66706ff579f2e96943daa507dff81"
+    },
+    {
+      "section": "四下Unit 2",
+      "word": "fall",
+      "changed": true,
+      "recognitionCue": "all /ɔːl/",
+      "spellingCue": "f-all；双 l",
+      "recallTask": "遮住英文，看中文先读出 fall，再写一遍；核对 f-all；双 l，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；f-all；双 l 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "8ea4b99aa7f0d4211b18d8590bd079e07774b39ac6c0ce6776e2cb8d2ebd27bb"
+    },
+    {
+      "section": "四下Unit 2",
+      "word": "March",
+      "changed": true,
+      "recognitionCue": "ar /ɑː/、ch /tʃ/",
+      "spellingCue": "M-ar-ch，月份大写 M",
+      "recallTask": "遮住英文，看中文先读出 March，再写一遍；核对 M-ar-ch，月份大写 M，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；M-ar-ch，月份大写 M 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "32aeefec8782a56dc842f6e18382c988fdd99ea3f7fa22fd553388ad9ba337e9"
+    },
+    {
+      "section": "四下Unit 2",
+      "word": "thin",
+      "changed": true,
+      "recognitionCue": "th /θ/、i /ɪ/",
+      "spellingCue": "th-i-n；不是 thing",
+      "recallTask": "遮住英文，看中文先读出 thin，再写一遍；核对 th-i-n；不是 thing，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；th-i-n；不是 thing 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "5b590784634d76188fb370141241408f485a41f941e9ef5f8dfaf1b28a93ff4c"
+    },
+    {
+      "section": "四下Unit 2",
+      "word": "dangerous",
+      "changed": true,
+      "recognitionCue": "读 /ˈdeɪndʒərəs/，a /eɪ/、g 在 e 前 /dʒ/、ous /əs/",
+      "spellingCue": "danger＋ous；ous 的 o-u-s 都保留",
+      "recallTask": "遮住英文，看中文先读出 dangerous，再写一遍；核对 danger＋ous；ous 的 o-u-s 都保留，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；danger＋ous；ous 的 o-u-s 都保留 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "7458f4ad4137818bd0d3d99f85a1890f98c296c53dabd639952c55ae1e198dfe"
+    },
+    {
+      "section": "四下Unit 2",
+      "word": "board",
+      "changed": true,
+      "recognitionCue": "oar /ɔː/",
+      "spellingCue": "b-oar-d；不写同音 bored",
+      "recallTask": "遮住英文，看中文先读出 board，再写一遍；核对 b-oar-d；不写同音 bored，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；b-oar-d；不写同音 bored 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "a93db53241ee79cab617d21604ef0246a9df9b5fa627ec1a4924eb73646b2299"
+    },
+    {
+      "section": "四下Unit 2",
+      "word": "lake",
+      "changed": true,
+      "recognitionCue": "a-e /eɪ/",
+      "spellingCue": "l-a-k-e",
+      "recallTask": "遮住英文，看中文先读出 lake，再写一遍；核对 l-a-k-e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；l-a-k-e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "ace2be771a0af69c1da4d974ae9dc9c59a2bb4821c5670bc1a38586861ceec8d"
+    },
+    {
+      "section": "四下Unit 2",
+      "word": "careful",
+      "changed": true,
+      "recognitionCue": "读 /ˈkeəfəl/，care /keə/、ful /fəl/",
+      "spellingCue": "care＋ful；e 保留，ful 单 l",
+      "recallTask": "遮住英文，看中文先读出 careful，再写一遍；核对 care＋ful；e 保留，ful 单 l，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；care＋ful；e 保留，ful 单 l 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "91256ec80be854ff572e5e178cb68cc739eef08558dbc82fcbec12b54f667353"
+    },
+    {
+      "section": "四下Unit 2",
+      "word": "push",
+      "changed": true,
+      "recognitionCue": "u /ʊ/、sh /ʃ/",
+      "spellingCue": "p-u-sh；不按 cut 读",
+      "recallTask": "遮住英文，看中文先读出 push，再写一遍；核对 p-u-sh；不按 cut 读，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；p-u-sh；不按 cut 读 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "4b98ed57e083818447bb1f8b5f7c8498c5a350133275524327e6fcc7926c5acd"
+    },
+    {
+      "section": "四下Unit 2",
+      "word": "crowd",
+      "changed": true,
+      "recognitionCue": "cr /kr/、ow /aʊ/",
+      "spellingCue": "cr-ow-d",
+      "recallTask": "遮住英文，看中文先读出 crowd，再写一遍；核对 cr-ow-d，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；cr-ow-d 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "136e66f2a259c3221d460586e1c98204d1e2c4934377d1fda7de96dad173226a"
+    },
+    {
+      "section": "四下Unit 2",
+      "word": "slowly",
+      "changed": true,
+      "recognitionCue": "slow 的 ow /əʊ/、ly /li/",
+      "spellingCue": "slow＋ly；末尾 y",
+      "recallTask": "遮住英文，看中文先读出 slowly，再写一遍；核对 slow＋ly；末尾 y，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；slow＋ly；末尾 y 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "685640e5f1dfbd66303dd21a22be06deec2264ab2991ae3579ff4e4c67fe29fe"
+    },
+    {
+      "section": "四下Unit 2",
+      "word": "fast",
+      "changed": true,
+      "recognitionCue": "a 英式 /ɑː/、美式 /æ/，st /st/",
+      "spellingCue": "f-a-st",
+      "recallTask": "遮住英文，看中文先读出 fast，再写一遍；核对 f-a-st，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；f-a-st 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "a7e1ea1bbd48c0026b9b00630617622c53cf56202e72ad02ba778321d40984d9"
+    },
+    {
+      "section": "四下Unit 2",
+      "word": "street",
+      "changed": true,
+      "recognitionCue": "str /str/、ee /iː/",
+      "spellingCue": "str-ee-t",
+      "recallTask": "遮住英文，看中文先读出 street，再写一遍；核对 str-ee-t，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；str-ee-t 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "88b794ef041b72d88069e469c231a2902f4ca914a53c22d7f81edccce2f3a43d"
+    },
+    {
+      "section": "四下Unit 2",
+      "word": "light",
+      "changed": true,
+      "recognitionCue": "igh /aɪ/",
+      "spellingCue": "l-igh-t；gh 不发音也保留",
+      "recallTask": "遮住英文，看中文先读出 light，再写一遍；核对 l-igh-t；gh 不发音也保留，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；l-igh-t；gh 不发音也保留 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "93dbade31b58dab6f61f789edf98e4f146a3800545678668dc8696b82b65258f"
+    },
+    {
+      "section": "四下Unit 2",
+      "word": "again",
+      "changed": true,
+      "recognitionCue": "读 /əˈɡen/，也读 /əˈɡeɪn/",
+      "spellingCue": "a-gain；保留 ai",
+      "recallTask": "遮住英文，看中文先读出 again，再写一遍；核对 a-gain；保留 ai，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；a-gain；保留 ai 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "a369772d2afc4c7c1838a956828ecdbbdc099d63818d144c2a8fb321165e4e25"
+    },
+    {
+      "section": "四下Unit 3",
+      "word": "fun",
+      "changed": true,
+      "recognitionCue": "u /ʌ/",
+      "spellingCue": "f-u-n",
+      "recallTask": "遮住英文，看中文先读出 fun，再写一遍；核对 f-u-n，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；f-u-n 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "3de98098bab5f8bcc5ea035ee7d5f08863ec2a2c252a30deec74fa3bf4bdd74f"
+    },
+    {
+      "section": "四下Unit 3",
+      "word": "game",
+      "changed": true,
+      "recognitionCue": "a-e /eɪ/",
+      "spellingCue": "g-a-m-e",
+      "recallTask": "遮住英文，看中文先读出 game，再写一遍；核对 g-a-m-e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；g-a-m-e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "38fb4be3ab0988d9a7e989cc53603575db39a1e1bd43ad418d42e3ce05839bdc"
+    },
+    {
+      "section": "四下Unit 3",
+      "word": "be good at",
+      "changed": true,
+      "recognitionCue": "be /biː/、good /ɡʊd/、at /æt/",
+      "spellingCue": "be-good-at 分三词，good 双 o",
+      "recallTask": "遮住英文，看中文先读出 be good at，再写一遍；核对 be-good-at 分三词，good 双 o，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；be-good-at 分三词，good 双 o 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "b6a5e8ba3361f4ea91d51ea1364f86829a0b6ce7b35238403a1e78e6c530ad14"
+    },
+    {
+      "section": "四下Unit 3",
+      "word": "seventy",
+      "changed": true,
+      "recognitionCue": "读 /ˈsevənti/，seven 末尾 en /ən/、ty /ti/",
+      "spellingCue": "seven＋ty；保留 en",
+      "recallTask": "遮住英文，看中文先读出 seventy，再写一遍；核对 seven＋ty；保留 en，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；seven＋ty；保留 en 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "d756421baba129d9a98371ff677242be60f18a126c687d2562c85482894e0ed5"
+    },
+    {
+      "section": "四下Unit 3",
+      "word": "eighty",
+      "changed": true,
+      "recognitionCue": "eight /eɪt/、y /i/",
+      "spellingCue": "eight＋y，只有一个 t，保留 gh",
+      "recallTask": "遮住英文，看中文先读出 eighty，再写一遍；核对 eight＋y，只有一个 t，保留 gh，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；eight＋y，只有一个 t，保留 gh 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "ec6a468d41a67fae6260b723747ea997158fde7264a6212ec340e1fbb52992f4"
+    },
+    {
+      "section": "四下Unit 3",
+      "word": "ninety",
+      "changed": true,
+      "recognitionCue": "读 /ˈnaɪnti/，i /aɪ/、ty /ti/",
+      "spellingCue": "nine＋ty＝ninety；nine 的 e 必须保留",
+      "recallTask": "遮住英文，看“九十”先读 /ˈnaɪnti/，再写 nine＋ty，核对 e 是否保留；稍后无提示再试。",
+      "rationale": "nine 直接加 ty 形成拼写 ninety，明确保留不发音 e；避免误套删 e 规则写成 ninty。",
+      "status": "pass",
+      "hintSha256": "93fb53fe2b0ecba407bca9d8b6a787bd96dcdd507ff5c7015a15c1e6e3a74bb2"
+    },
+    {
+      "section": "四下Unit 3",
+      "word": "tired",
+      "changed": true,
+      "recognitionCue": "读 /taɪəd/，ire /aɪə/，末尾 d /d/",
+      "spellingCue": "tire＋d；保留 e",
+      "recallTask": "遮住英文，看中文先读出 tired，再写一遍；核对 tire＋d；保留 e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；tire＋d；保留 e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "d5d4691aa99cc797615120fc596f76d0865237ec53a172463c30069baf8749b5"
+    },
+    {
+      "section": "四下Unit 3",
+      "word": "win",
+      "changed": true,
+      "recognitionCue": "i /ɪ/",
+      "spellingCue": "w-i-n",
+      "recallTask": "遮住英文，看中文先读出 win，再写一遍；核对 w-i-n，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；w-i-n 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "d4d73927e4b094ace38a3e12cb15140bf01eeefa0e8b99cce8540404d0304db5"
+    },
+    {
+      "section": "四下Unit 3",
+      "word": "hundred",
+      "changed": true,
+      "recognitionCue": "读 /ˈhʌndrəd/，u /ʌ/、后 e /ə/",
+      "spellingCue": "hun-dred；两个 d，轻音仍用 e",
+      "recallTask": "遮住英文，看中文先读出 hundred，再写一遍；核对 hun-dred；两个 d，轻音仍用 e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；hun-dred；两个 d，轻音仍用 e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "e5873f5ddb576579da1b8dd92b6e4011ec3e27edddf14d68f33a98403bae55e2"
+    },
+    {
+      "section": "四下Unit 3",
+      "word": "kung fu",
+      "changed": true,
+      "recognitionCue": "读 /ˌkʌŋ ˈfuː/，ng /ŋ/、u /uː/",
+      "spellingCue": "kung＋fu 分写；第二词仅 f-u",
+      "recallTask": "遮住英文，看中文先读出 kung fu，再写一遍；核对 kung＋fu 分写；第二词仅 f-u，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；kung＋fu 分写；第二词仅 f-u 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "de1c8dcc163bcc7355c9413f6422c97e7f95c91d3a175d718b3236538043fc14"
+    },
+    {
+      "section": "四下Unit 3",
+      "word": "leg",
+      "changed": true,
+      "recognitionCue": "e /e/、g /g/",
+      "spellingCue": "l-e-g",
+      "recallTask": "遮住英文，看中文先读出 leg，再写一遍；核对 l-e-g，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；l-e-g 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "5c801866e0377e5557e930f30044cadf23f7f9238f937a4409a15485ee3afcd4"
+    },
+    {
+      "section": "四下Unit 3",
+      "word": "hurt",
+      "changed": true,
+      "recognitionCue": "ur /ɜː/",
+      "spellingCue": "h-ur-t",
+      "recallTask": "遮住英文，看中文先读出 hurt，再写一遍；核对 h-ur-t，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；h-ur-t 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "1d070e0ff01b8cc42e4eabcf63475715b91a1f3a5a9dd11ef651fc2bf8d1cbb6"
+    },
+    {
+      "section": "四下Unit 3",
+      "word": "badly",
+      "changed": true,
+      "recognitionCue": "bad 的 a /æ/、ly /li/",
+      "spellingCue": "bad＋ly；d 不丢",
+      "recallTask": "遮住英文，看中文先读出 badly，再写一遍；核对 bad＋ly；d 不丢，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；bad＋ly；d 不丢 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "aebb2fbc7e73d277c2cdd140db7d4a543b9dd64fbbcfce85590f42087f8e1f91"
+    },
+    {
+      "section": "四下Unit 3",
+      "word": "king",
+      "changed": true,
+      "recognitionCue": "i /ɪ/、ng /ŋ/",
+      "spellingCue": "k-i-ng",
+      "recallTask": "遮住英文，看中文先读出 king，再写一遍；核对 k-i-ng，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；k-i-ng 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "538f855a1e40f48059bbcc6dc0f67ac9f11b5e383f6ef998a97daae5a98e832c"
+    },
+    {
+      "section": "四下Unit 3",
+      "word": "visit",
+      "changed": true,
+      "recognitionCue": "读 /ˈvɪzɪt/，两个 i /ɪ/，s /z/",
+      "spellingCue": "v-i-s-i-t；两个 i，/z/ 写 s",
+      "recallTask": "遮住英文，看中文先读出 visit，再写一遍；核对 v-i-s-i-t；两个 i，/z/ 写 s，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；v-i-s-i-t；两个 i，/z/ 写 s 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "b16870c1956661e295e9e59a1a7a0089bd664dbd1112277ccca5b85739a21cfb"
+    },
+    {
+      "section": "四下Unit 3",
+      "word": "the Great Wall",
+      "changed": true,
+      "recognitionCue": "Great 的 ea /eɪ/，Wall /wɔːl/",
+      "spellingCue": "the＋Great＋Wall；ea、双 l，名称大写 G W",
+      "recallTask": "遮住英文，看中文先读出 the Great Wall，再写一遍；核对 the＋Great＋Wall；ea、双 l，名称大写 G W，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；the＋Great＋Wall；ea、双 l，名称大写 G W 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "67ea24ca9e37f763b0bb005c38cd918df1d1cdd519bf981a25cd54d0c63f1ef7"
+    },
+    {
+      "section": "四下Unit 3",
+      "word": "hero",
+      "changed": true,
+      "recognitionCue": "读 /ˈhɪərəʊ/，he /hɪə/、ro /rəʊ/",
+      "spellingCue": "he-ro；尾 o 不添 w",
+      "recallTask": "遮住英文，看中文先读出 hero，再写一遍；核对 he-ro；尾 o 不添 w，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；he-ro；尾 o 不添 w 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "44bdb353e0c76e102e96eefe87623fee2624732f6764daa2abc3d8117d5b6a0a"
+    },
+    {
+      "section": "四下Unit 3",
+      "word": "him",
+      "changed": true,
+      "recognitionCue": "i /ɪ/",
+      "spellingCue": "h-i-m，不写 his",
+      "recallTask": "遮住英文，看中文先读出 him，再写一遍；核对 h-i-m，不写 his，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；h-i-m，不写 his 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "671990fbc78b394318775d07fda7fd41706a665b8c2311a78d05b704fd406639"
+    },
+    {
+      "section": "四下Unit 5",
+      "word": "Labour Day",
+      "changed": true,
+      "recognitionCue": "Labour /ˈleɪbə/，Day /deɪ/",
+      "spellingCue": "Lab-our＋Day；英式保留 ou",
+      "recallTask": "遮住英文，看中文先读出 Labour Day，再写一遍；核对 Lab-our＋Day；英式保留 ou，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；Lab-our＋Day；英式保留 ou 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "847a48226b07d0ecbed33e5b891e275950a4c5f03d6aa6e23e26a6f8c19c61e3"
+    },
+    {
+      "section": "四下Unit 5",
+      "word": "holiday",
+      "changed": true,
+      "recognitionCue": "读 /ˈhɒlədeɪ/，o /ɒ/、i /ə/、ay /eɪ/",
+      "spellingCue": "hol-i-day；轻音写 i",
+      "recallTask": "遮住英文，看中文先读出 holiday，再写一遍；核对 hol-i-day；轻音写 i，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；hol-i-day；轻音写 i 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "1b2547236329845ccd0699bdf071827ed462265f2eca0ab752bfe587668ffcdc"
+    },
+    {
+      "section": "四下Unit 5",
+      "word": "May",
+      "changed": true,
+      "recognitionCue": "ay /eɪ/",
+      "spellingCue": "M-ay，月份首大写",
+      "recallTask": "遮住英文，看中文先读出 May，再写一遍；核对 M-ay，月份首大写，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；M-ay，月份首大写 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "896e83336b23059d423f50bc7f9f07d9ab4e019e2262f47dbe67ea957870f144"
+    },
+    {
+      "section": "四下Unit 5",
+      "word": "chore",
+      "changed": true,
+      "recognitionCue": "ch /tʃ/、ore /ɔː/",
+      "spellingCue": "ch-ore；尾 e 不漏",
+      "recallTask": "遮住英文，看中文先读出 chore，再写一遍；核对 ch-ore；尾 e 不漏，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；ch-ore；尾 e 不漏 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "1ef99904b8063634d3439e1d5e3978dbf3105bb35325ff5ab65e0f1ccdd301bc"
+    },
+    {
+      "section": "四下Unit 5",
+      "word": "the USA",
+      "changed": true,
+      "recognitionCue": "the USA（美国）读 /ðə ˌjuː es ˈeɪ/：USA 按三个字母名 U、S、A 读",
+      "spellingCue": "名称，先按字母名读，再写 the＋USA，留空格，USA 三个字母大写。",
+      "recallTask": "遮住英文，看教材中文义项先认读，再按具体字母线索写回；核对易错字母。",
+      "rationale": "根据最终文本的读音、弱读或具体字形处理认读和拼写，而非给场景贴英文标签。",
+      "status": "pass",
+      "hintSha256": "8e0192cb60b160111b0160eb02f46c2de0a25e0a78ac332a3234e35dfde417c5"
+    },
+    {
+      "section": "四下Unit 5",
+      "word": "September",
+      "changed": true,
+      "recognitionCue": "读 /sepˈtembə/，Sep /sep/、tem /tem/、ber /bə/",
+      "spellingCue": "Sep-tem-ber；尾 er，首大写",
+      "recallTask": "遮住英文，看中文先读出 September，再写一遍；核对 Sep-tem-ber；尾 er，首大写，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；Sep-tem-ber；尾 er，首大写 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "e36b3841414ac0b1fe3cf61b3bbe63e9f4378ff32bb129ce6e0b933db98416fc"
+    },
+    {
+      "section": "四下Unit 5",
+      "word": "June",
+      "changed": true,
+      "recognitionCue": "j /dʒ/、u-e /uː/",
+      "spellingCue": "J-u-n-e；尾 e 首大写",
+      "recallTask": "遮住英文，看中文先读出 June，再写一遍；核对 J-u-n-e；尾 e 首大写，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；J-u-n-e；尾 e 首大写 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "2952819da90431c8140d853d73fdcdf2f1cb2be32f5da786109eb760b2e5907a"
+    },
+    {
+      "section": "四下Unit 5",
+      "word": "November",
+      "changed": true,
+      "recognitionCue": "读 /nəʊˈvembə/，No /nəʊ/、vem /vem/、ber /bə/",
+      "spellingCue": "No-vem-ber；两个 e，首大写",
+      "recallTask": "遮住英文，看中文先读出 November，再写一遍；核对 No-vem-ber；两个 e，首大写，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；No-vem-ber；两个 e，首大写 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "e0aaaafd5941924424de195876bea6f5f94e5f87278cef0cc1317ec314e7c254"
+    },
+    {
+      "section": "四下Unit 5",
+      "word": "Canada",
+      "changed": true,
+      "recognitionCue": "Canada（加拿大）读 /ˈkænədə/：第一拍 a 读 /æ/，后两拍 a 轻读 /ə/，三个音节的元音都写 a",
+      "spellingCue": "名称，看加拿大地图先读，再写 Ca＋na＋da；核对三个 a，首字母大写。",
+      "recallTask": "遮住英文，看教材中文义项先认读，再按具体字母线索写回；核对易错字母。",
+      "rationale": "根据最终文本的读音、弱读或具体字形处理认读和拼写，而非给场景贴英文标签。",
+      "status": "pass",
+      "hintSha256": "cae168827e1636a7c7c7586350490bb8c3a42fed4bc719153e1b311879fc4190"
+    },
+    {
+      "section": "四下Unit 5",
+      "word": "often",
+      "changed": true,
+      "recognitionCue": "读 /ˈɒfən/ 或 /ˈɒftən/，t 可读可不读",
+      "spellingCue": "of-ten；保留 t，弱音写 e",
+      "recallTask": "遮住英文，看中文先读出 often，再写一遍；核对 of-ten；保留 t，弱音写 e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；of-ten；保留 t，弱音写 e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "6d5054febb27551e6d55bf7f220ec482267c0cfb4352b0e45301e840c070c7e7"
+    },
+    {
+      "section": "四下Unit 5",
+      "word": "cinema",
+      "changed": true,
+      "recognitionCue": "读 /ˈsɪnəmə/，c /s/、i /ɪ/、e a 均轻读 /ə/",
+      "spellingCue": "ci-ne-ma；弱音分别用 e、a",
+      "recallTask": "遮住英文，看中文先读出 cinema，再写一遍；核对 ci-ne-ma；弱音分别用 e、a，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；ci-ne-ma；弱音分别用 e、a 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "ce0271e16c0b93d94728adb9b121f73f20462d87c5727d94e9fa89486fccdf2d"
+    },
+    {
+      "section": "四下Unit 5",
+      "word": "zoo",
+      "changed": true,
+      "recognitionCue": "oo /uː/",
+      "spellingCue": "z-oo；双 o",
+      "recallTask": "遮住英文，看中文先读出 zoo，再写一遍；核对 z-oo；双 o，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；z-oo；双 o 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "9309df10969f643cc642a2a468fa8881ce1b6b1f12c2ab70dcfe252bf8b1de91"
+    },
+    {
+      "section": "四下Unit 5",
+      "word": "National Day",
+      "changed": true,
+      "recognitionCue": "读 /ˈnæʃənəl deɪ/，tion 在这里 /ʃən/、al /əl/",
+      "spellingCue": "Nation＋al＋Day；tion 和尾 al",
+      "recallTask": "遮住英文，看中文先读出 National Day，再写一遍；核对 Nation＋al＋Day；tion 和尾 al，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；Nation＋al＋Day；tion 和尾 al 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "989d10cdeaaeecc0676ba6184fa1d581bc64c2ef05dbf33d2966ba314a072162"
+    },
+    {
+      "section": "四下Unit 5",
+      "word": "October",
+      "changed": true,
+      "recognitionCue": "读 /ɒkˈtəʊbə/，Oc /ɒk/、to /təʊ/、ber /bə/",
+      "spellingCue": "Oc-to-ber；c 表示 /k/，首大写",
+      "recallTask": "遮住英文，看中文先读出 October，再写一遍；核对 Oc-to-ber；c 表示 /k/，首大写，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；Oc-to-ber；c 表示 /k/，首大写 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "07d28ebe50e0973e61bbbd8d5403cf03b03671d89c21d8da4d9e1e2686769709"
+    },
+    {
+      "section": "四下Unit 5",
+      "word": "flag",
+      "changed": true,
+      "recognitionCue": "fl /fl/、a /æ/、g /g/",
+      "spellingCue": "fl-a-g",
+      "recallTask": "遮住英文，看中文先读出 flag，再写一遍；核对 fl-a-g，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；fl-a-g 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "0c730b8366a263cf6b1c831cce4c4486911af2ee6a51ead6177d33282671933f"
+    },
+    {
+      "section": "四下Unit 5",
+      "word": "watch",
+      "changed": true,
+      "recognitionCue": "a /ɒ/、tch /tʃ/",
+      "spellingCue": "w-a-tch；t 不漏",
+      "recallTask": "遮住英文，看中文先读出 watch，再写一遍；核对 w-a-tch；t 不漏，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；w-a-tch；t 不漏 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "6720404c9703db21deac516dea18cf2c33e19d3dc7e7ba939c90c543da611449"
+    },
+    {
+      "section": "四下Unit 5",
+      "word": "early",
+      "changed": true,
+      "recognitionCue": "ear 在这里 /ɜː/、ly /li/",
+      "spellingCue": "ear-ly，ear 三字母保留",
+      "recallTask": "遮住英文，看中文先读出 early，再写一遍；核对 ear-ly，ear 三字母保留，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；ear-ly，ear 三字母保留 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "a2098f566426be1ed0f774b3417d5830c9e990f7d174668f1da5b36d96b9692a"
+    },
+    {
+      "section": "四下Unit 5",
+      "word": "special",
+      "changed": true,
+      "recognitionCue": "读 /ˈspeʃəl/，e /e/、cial /ʃəl/",
+      "spellingCue": "spe-cial；/ʃ/ 用 c，轻音写 ia",
+      "recallTask": "遮住英文，看中文先读出 special，再写一遍；核对 spe-cial；/ʃ/ 用 c，轻音写 ia，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；spe-cial；/ʃ/ 用 c，轻音写 ia 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "a3a72867a705afd881136e50b942086d2a2668f9b2ea1e73686aae215027557a"
+    },
+    {
+      "section": "四下Unit 5",
+      "word": "Water-Splashing Festival",
+      "changed": true,
+      "recognitionCue": "Water /ˈwɔːtə/、Splashing /ˈsplæʃɪŋ/、Festival /ˈfestɪvəl/",
+      "spellingCue": "Water-Splashing＋Festival；连字符、sh、ing",
+      "recallTask": "遮住英文，看中文先读出 Water-Splashing Festival，再写一遍；核对 Water-Splashing＋Festival；连字符、sh、ing，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；Water-Splashing＋Festival；连字符、sh、ing 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "ee3e3c2325795daa1d69bce876fc935b57e243811ed621ef8e24025138835417"
+    },
+    {
+      "section": "四下Unit 5",
+      "word": "April",
+      "changed": true,
+      "recognitionCue": "读 /ˈeɪprəl/，A /eɪ/、pr /pr/、i /ə/",
+      "spellingCue": "A-pril；弱音用 i，末尾单 l",
+      "recallTask": "遮住英文，看中文先读出 April，再写一遍；核对 A-pril；弱音用 i，末尾单 l，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；A-pril；弱音用 i，末尾单 l 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "753ae248f7db9009a49435b0f26eb7810062b15cebb0050b7feb1afd54f41854"
+    },
+    {
+      "section": "四下Unit 5",
+      "word": "Inner Mongolia",
+      "changed": true,
+      "recognitionCue": "Inner /ˈɪnə/，Mongolia /mɒŋˈɡəʊliə/",
+      "spellingCue": "Inner 双 n；Mon-go-li-a，两个词大写",
+      "recallTask": "遮住英文，看中文先读出 Inner Mongolia，再写一遍；核对 Inner 双 n；Mon-go-li-a，两个词大写，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；Inner 双 n；Mon-go-li-a，两个词大写 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "477411daba5d1b22af029f315f9824860fb827f730b3a29f0459fa7a17f34e3f"
+    },
+    {
+      "section": "四下Unit 5",
+      "word": "Naadam",
+      "changed": true,
+      "recognitionCue": "Naadam 是“那达慕”的英文专名，不能按普通英语拼读规则唯一推回",
+      "spellingCue": "名称写回，核对 N 大写、开头双 a 和末尾 dam。",
+      "recallTask": "遮住英文，看教材中文义项先认读，再按具体字母线索写回；核对易错字母。",
+      "rationale": "外来专名使用课本音频提供认读桥，已熟中文节日名连接固定转写 Naa-dam；不能从普通英语规则猜读，具体指出开头双 a 与第三个 a 的位置。",
+      "status": "pass",
+      "hintSha256": "15593b34fc351ca650c2470420e9467eac5e17c0d6ad729963d3f83359006735"
+    },
+    {
+      "section": "四下Unit 5",
+      "word": "July",
+      "changed": true,
+      "recognitionCue": "读 /dʒuˈlaɪ/，Ju /dʒu/、ly /laɪ/",
+      "spellingCue": "Ju-ly；末尾 y，无 e",
+      "recallTask": "遮住英文，看中文先读出 July，再写一遍；核对 Ju-ly；末尾 y，无 e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；Ju-ly；末尾 y，无 e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "5ff31b32c20a57409d24cf43e9a83c24b2aabd6a0e64ab480fc5eba76eff6e32"
+    },
+    {
+      "section": "四下Unit 5",
+      "word": "August",
+      "changed": true,
+      "recognitionCue": "读 /ˈɔːɡəst/，Au /ɔː/、后 u /ə/",
+      "spellingCue": "Au-gust；首 Au，后半仍写 u",
+      "recallTask": "遮住英文，看中文先读出 August，再写一遍；核对 Au-gust；首 Au，后半仍写 u，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；Au-gust；首 Au，后半仍写 u 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "acb4644a7ec0581b372be9e9970e88f8ed8a62ca071f819ee796380742137474"
+    },
+    {
+      "section": "四下Unit 6",
+      "word": "grandma",
+      "changed": true,
+      "recognitionCue": "grandma（奶奶、外婆）常读 /ˈɡrænmɑː/：中间 d 通常不单独读，拼写仍保留",
+      "spellingCue": "英文，先说“奶奶”，再写 grand＋ma，核对 d 和结尾 ma。",
+      "recallTask": "遮住英文，看教材中文义项先认读，再按具体字母线索写回；核对易错字母。",
+      "rationale": "根据最终文本的读音、弱读或具体字形处理认读和拼写，而非给场景贴英文标签。",
+      "status": "pass",
+      "hintSha256": "20613904ad7087a185bbf687cd653c3576b988a00d0180b060e04af1cdcdc9b2"
+    },
+    {
+      "section": "四下Unit 6",
+      "word": "dear",
+      "changed": true,
+      "recognitionCue": "ear /ɪə/",
+      "spellingCue": "d-ear；与 deer 同音但用 ea",
+      "recallTask": "遮住英文，看中文先读出 dear，再写一遍；核对 d-ear；与 deer 同音但用 ea，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；d-ear；与 deer 同音但用 ea 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "b43b6d76689a4fde3f3b5241c62082b9376384ebac8c05f0969a37db9abf65ce"
+    },
+    {
+      "section": "四下Unit 6",
+      "word": "TV",
+      "changed": true,
+      "recognitionCue": "读两个字母 /ˌtiːˈviː/",
+      "spellingCue": "大写 T V 连写",
+      "recallTask": "遮住英文，看中文先读出 TV，再写一遍；核对 大写 T V 连写，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；大写 T V 连写 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "42a78ec1d428abadb59da2c55a5bd28a1d25c4b5ab2d33f556abb4a4c361e532"
+    },
+    {
+      "section": "四下Unit 6",
+      "word": "grandpa",
+      "changed": true,
+      "recognitionCue": "grandpa（爷爷、外公）常读 /ˈɡrænpɑː/：中间 d 通常不单独读，拼写仍保留",
+      "spellingCue": "英文，先说“爷爷”，再写 grand＋pa，核对 d 和结尾 pa。",
+      "recallTask": "遮住英文，看教材中文义项先认读，再按具体字母线索写回；核对易错字母。",
+      "rationale": "根据最终文本的读音、弱读或具体字形处理认读和拼写，而非给场景贴英文标签。",
+      "status": "pass",
+      "hintSha256": "bab1cbdf1224284ef2e054e37613b71f2d95bc10b89e5f38de780d258298d65c"
+    },
+    {
+      "section": "四下Unit 6",
+      "word": "plant",
+      "changed": true,
+      "recognitionCue": "pl /pl/、a 英式 /ɑː/、nt /nt/",
+      "spellingCue": "pl-a-nt",
+      "recallTask": "遮住英文，看中文先读出 plant，再写一遍；核对 pl-a-nt，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；pl-a-nt 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "4f830dc8866c7ab0e6f008d0f7e112357bbc5bded75ddfebc7fcfef7b6f1636b"
+    },
+    {
+      "section": "四下Unit 6",
+      "word": "kitchen",
+      "changed": true,
+      "recognitionCue": "读 /ˈkɪtʃɪn/，i /ɪ/、tch /tʃ/、e 轻读 /ɪ/",
+      "spellingCue": "kit-chen；tch 和末尾 e",
+      "recallTask": "遮住英文，看中文先读出 kitchen，再写一遍；核对 kit-chen；tch 和末尾 e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；kit-chen；tch 和末尾 e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "183bfa69256bf140ae96af8f0b4c2ac467551f6ffbdced5c20ba58457b4f72bb"
+    },
+    {
+      "section": "四下Unit 6",
+      "word": "weekend",
+      "changed": true,
+      "recognitionCue": "week 的 ee /iː/、end 的 e /e/",
+      "spellingCue": "week＋end；交界有 k-e",
+      "recallTask": "遮住英文，看中文先读出 weekend，再写一遍；核对 week＋end；交界有 k-e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；week＋end；交界有 k-e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "65556e2b25d68670861a5f43d3fae69de7ab075668da9afeb45ca2133ae5f943"
+    },
+    {
+      "section": "四下Unit 6",
+      "word": "people",
+      "changed": true,
+      "recognitionCue": "读 /ˈpiːpəl/，eo /iː/、le /əl/",
+      "spellingCue": "p-eo-p-le；不能写 ee",
+      "recallTask": "遮住英文，看中文先读出 people，再写一遍；核对 p-eo-p-le；不能写 ee，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；p-eo-p-le；不能写 ee 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "7ebb61af998c9a5c41e86b305e04c53a0d968219e4dc2e763663850443521a70"
+    },
+    {
+      "section": "四下Unit 6",
+      "word": "they",
+      "changed": true,
+      "recognitionCue": "th /ð/、ey /eɪ/",
+      "spellingCue": "th-ey",
+      "recallTask": "遮住英文，看中文先读出 they，再写一遍；核对 th-ey，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；th-ey 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "9e161c8f2e92465f2e2b2fbd23990ef05881b2411b9d49a2fa1e90431ca6f868"
+    },
+    {
+      "section": "四下Unit 6",
+      "word": "sky",
+      "changed": true,
+      "recognitionCue": "sk /sk/、y /aɪ/",
+      "spellingCue": "sk-y",
+      "recallTask": "遮住英文，看中文先读出 sky，再写一遍；核对 sk-y，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；sk-y 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "679676d6cd71c14dd4cab15ad5f595ac51840eeff973eee42e1abc9bb09ceecc"
+    },
+    {
+      "section": "四下Unit 6",
+      "word": "fly",
+      "changed": true,
+      "recognitionCue": "fl /fl/、y /aɪ/",
+      "spellingCue": "fl-y",
+      "recallTask": "遮住英文，看中文先读出 fly，再写一遍；核对 fl-y，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；fl-y 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "8b2786f6b8d6037ded0b6d7fc9cd26b1f4219c55fe30218981175805270b1367"
+    },
+    {
+      "section": "四下Unit 6",
+      "word": "put",
+      "changed": true,
+      "recognitionCue": "u /ʊ/",
+      "spellingCue": "p-u-t；不读 cut 的 /ʌ/",
+      "recallTask": "遮住英文，看中文先读出 put，再写一遍；核对 p-u-t；不读 cut 的 /ʌ/，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；p-u-t；不读 cut 的 /ʌ/ 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "7d535952aba2cc8590c3f2f018fd03609c863ec1e543f678bbbb4b2be25d6281"
+    },
+    {
+      "section": "四下Unit 6",
+      "word": "role",
+      "changed": true,
+      "recognitionCue": "o-e /əʊ/",
+      "spellingCue": "r-o-l-e；与 roll 同音但尾 le",
+      "recallTask": "遮住英文，看中文先读出 role，再写一遍；核对 r-o-l-e；与 roll 同音但尾 le，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；r-o-l-e；与 roll 同音但尾 le 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "cc35c27b422920fadb6f8ec6ad96a6e99d99218b0d43532cfc1ce60449f2b6f3"
+    },
+    {
+      "section": "四下Unit 6",
+      "word": "paint",
+      "changed": true,
+      "recognitionCue": "paint（描绘，绘画）读 /peɪnt/：ai 读 /eɪ/，nt 连读 /nt/",
+      "spellingCue": "英文，看“描绘”先读，再写 p-ai-nt，核对 ai 和末尾 nt。",
+      "recallTask": "遮住英文，看教材中文义项先认读，再按具体字母线索写回；核对易错字母。",
+      "rationale": "根据最终文本的读音、弱读或具体字形处理认读和拼写，而非给场景贴英文标签。",
+      "status": "pass",
+      "hintSha256": "88bcdc31f4e8458651a2f5f6a505546bb439560e9ccdd2fa6356163dddbf0045"
+    },
+    {
+      "section": "四下Unit 6",
+      "word": "funny",
+      "changed": true,
+      "recognitionCue": "读 /ˈfʌni/，u /ʌ/、y /i/",
+      "spellingCue": "fun 双写 n＋y",
+      "recallTask": "遮住英文，看中文先读出 funny，再写一遍；核对 fun 双写 n＋y，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；fun 双写 n＋y 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "d5ec47f2794b0830bfa3e289eb4f36dfbf012af576ea8c23ab8fe3251cdac6a4"
+    },
+    {
+      "section": "四下Unit 6",
+      "word": "brave",
+      "changed": true,
+      "recognitionCue": "br /br/、a-e /eɪ/",
+      "spellingCue": "br-a-v-e",
+      "recallTask": "遮住英文，看中文先读出 brave，再写一遍；核对 br-a-v-e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；br-a-v-e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "cbcd0257440bf09375ef5e9587c35d35b08da3ac6c288d50e89fc7bfef25117a"
+    },
+    {
+      "section": "四下Unit 6",
+      "word": "enjoy",
+      "changed": true,
+      "recognitionCue": "读 /ɪnˈdʒɔɪ/，e 轻读 /ɪ/、j /dʒ/、oy /ɔɪ/",
+      "spellingCue": "en-joy；末尾 oy，不是 oi",
+      "recallTask": "遮住英文，看中文先读出 enjoy，再写一遍；核对 en-joy；末尾 oy，不是 oi，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；en-joy；末尾 oy，不是 oi 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "0492b4504df428c79def5c15057dc02d27739217d29239301354f466b45bc4e2"
+    },
+    {
+      "section": "四下Unit 6",
+      "word": "world",
+      "changed": true,
+      "recognitionCue": "or /ɜː/、ld /ld/",
+      "spellingCue": "w-or-ld；不写 ur",
+      "recallTask": "遮住英文，看中文先读出 world，再写一遍；核对 w-or-ld；不写 ur，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；w-or-ld；不写 ur 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "dd444a419f070d940562cb707c4e2b1f89d19aa00aa051d43180b889f4713ea5"
+    },
+    {
+      "section": "四下Unit 6",
+      "word": "woman",
+      "changed": true,
+      "recognitionCue": "读 /ˈwʊmən/，首 o /ʊ/、后 a /ə/",
+      "spellingCue": "wo-man；单数 o、a，不写 women",
+      "recallTask": "遮住英文，看中文先读出 woman，再写一遍；核对 wo-man；单数 o、a，不写 women，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；wo-man；单数 o、a，不写 women 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "8dfb6053653376823e14f621ebcf7feefb1e05d6440b7ab16fe24623f95a052b"
+    },
+    {
+      "section": "四下Unit 6",
+      "word": "tea",
+      "changed": true,
+      "recognitionCue": "ea /iː/",
+      "spellingCue": "t-ea，不写同音 tee",
+      "recallTask": "遮住英文，看中文先读出 tea，再写一遍；核对 t-ea，不写同音 tee，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；t-ea，不写同音 tee 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "202086d9718659b182973bc01b8a1ba6932d36bf39e7ea3394552d57dc84e35b"
+    },
+    {
+      "section": "四下Unit 6",
+      "word": "rabbit",
+      "changed": true,
+      "recognitionCue": "a /æ/、i /ɪ/",
+      "spellingCue": "ra-bb-it；双 b",
+      "recallTask": "遮住英文，看中文先读出 rabbit，再写一遍；核对 ra-bb-it；双 b，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；ra-bb-it；双 b 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "c5f27a5b8b38539bbbb803b846f13aaac1e6b7523f0b07b2b629e1650a69f027"
+    },
+    {
+      "section": "四下Unit 7",
+      "word": "glad",
+      "changed": true,
+      "recognitionCue": "gl /ɡl/、a /æ/",
+      "spellingCue": "gl-a-d",
+      "recallTask": "遮住英文，看中文先读出 glad，再写一遍；核对 gl-a-d，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；gl-a-d 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "c5bc4fb2f4e5bb5e500911d94d31dcaf8ef01e22ccd5d4faa5d45665ddbe5403"
+    },
+    {
+      "section": "四下Unit 7",
+      "word": "need",
+      "changed": true,
+      "recognitionCue": "ee /iː/",
+      "spellingCue": "n-ee-d",
+      "recallTask": "遮住英文，看中文先读出 need，再写一遍；核对 n-ee-d，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；n-ee-d 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "16d8f5ca0aea6bdfb023681ebb254ad41d7f217b7967c24ae41a07d036330952"
+    },
+    {
+      "section": "四下Unit 7",
+      "word": "buy",
+      "changed": true,
+      "recognitionCue": "读 /baɪ/，uy 在这里 /aɪ/",
+      "spellingCue": "b-u-y；同音 by 不能漏 u",
+      "recallTask": "遮住英文，看中文先读出 buy，再写一遍；核对 b-u-y；同音 by 不能漏 u，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；b-u-y；同音 by 不能漏 u 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "c4f5c47d2c8abd8cbe83c36c5efcbefdd951589d86eed8223136faa35ff9b2ed"
+    },
+    {
+      "section": "四下Unit 7",
+      "word": "tell",
+      "changed": true,
+      "recognitionCue": "e /e/",
+      "spellingCue": "t-e-ll；双 l",
+      "recallTask": "遮住英文，看中文先读出 tell，再写一遍；核对 t-e-ll；双 l，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；t-e-ll；双 l 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "2bff8e17a2bebbca0f6074c562591de3f6685fcc3489f281941b4d561bb76f03"
+    },
+    {
+      "section": "四下Unit 7",
+      "word": "way",
+      "changed": true,
+      "recognitionCue": "ay /eɪ/",
+      "spellingCue": "w-ay；同音 weigh 拼法不同",
+      "recallTask": "遮住英文，看中文先读出 way，再写一遍；核对 w-ay；同音 weigh 拼法不同，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；w-ay；同音 weigh 拼法不同 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "7565a3cef3b7bfc1a303fabf3b5dfdc965132524a9e4e39f41655737fbd4ccea"
+    },
+    {
+      "section": "四下Unit 7",
+      "word": "shop",
+      "changed": true,
+      "recognitionCue": "sh /ʃ/、o /ɒ/",
+      "spellingCue": "sh-o-p",
+      "recallTask": "遮住英文，看中文先读出 shop，再写一遍；核对 sh-o-p，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；sh-o-p 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "4dfe97c79caa2c351751c596adee7a9fa3e422f76b66a5ffe039857e01f76f59"
+    },
+    {
+      "section": "四下Unit 7",
+      "word": "near",
+      "changed": true,
+      "recognitionCue": "ear /ɪə/",
+      "spellingCue": "n-ear；尾无 e",
+      "recallTask": "遮住英文，看中文先读出 near，再写一遍；核对 n-ear；尾无 e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；n-ear；尾无 e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "0fc460df6cc4a1107acc19a954dc64ff8214a0d5753a51b3d64c68184c4ec030"
+    },
+    {
+      "section": "四下Unit 7",
+      "word": "front",
+      "changed": true,
+      "recognitionCue": "o /ʌ/、nt /nt/",
+      "spellingCue": "fr-o-nt；/ʌ/ 不写 u",
+      "recallTask": "遮住英文，看中文先读出 front，再写一遍；核对 fr-o-nt；/ʌ/ 不写 u，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；fr-o-nt；/ʌ/ 不写 u 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "4bbd13c26fa0db59847037b099bb5d7811c2e40435ca1a0a2b8e124810f790e2"
+    },
+    {
+      "section": "四下Unit 7",
+      "word": "in front of",
+      "changed": true,
+      "recognitionCue": "in /ɪn/、front /frʌnt/、of 弱读 /əv/",
+      "spellingCue": "三词分写；front 用 o，of 用 f",
+      "recallTask": "遮住英文，看中文先读出 in front of，再写一遍；核对 三词分写；front 用 o，of 用 f，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；三词分写；front 用 o，of 用 f 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "22896adbdec37af1ecf3ced1c6b7e8b3b82cfa41703911f20362d62e1fefd74f"
+    },
+    {
+      "section": "四下Unit 7",
+      "word": "building",
+      "changed": true,
+      "recognitionCue": "build 的 ui /ɪ/、ing /ɪŋ/",
+      "spellingCue": "build＋ing；ui 保留 u",
+      "recallTask": "遮住英文，看中文先读出 building，再写一遍；核对 build＋ing；ui 保留 u，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；build＋ing；ui 保留 u 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "2c583872aa0f5be7dc9837731c2c75e32c2c7d8c99fa2efdb071422e6018c163"
+    },
+    {
+      "section": "四下Unit 7",
+      "word": "far",
+      "changed": true,
+      "recognitionCue": "ar /ɑː/",
+      "spellingCue": "f-ar",
+      "recallTask": "遮住英文，看中文先读出 far，再写一遍；核对 f-ar，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；f-ar 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "319763adca1ad9316721ab0f2485f61fd9c234e903300a4eef21421884253e79"
+    },
+    {
+      "section": "四下Unit 7",
+      "word": "robot",
+      "changed": true,
+      "recognitionCue": "读 /ˈrəʊbɒt/，首 o /əʊ/、后 o /ɒ/",
+      "spellingCue": "ro-bot；两个 o",
+      "recallTask": "遮住英文，看中文先读出 robot，再写一遍；核对 ro-bot；两个 o，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；ro-bot；两个 o 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "fffa7b5f8401ac41d1a63bfbc6ebd1abd35a4dea8f74cd987a21a0fedbef7d62"
+    },
+    {
+      "section": "四下Unit 7",
+      "word": "know",
+      "changed": true,
+      "recognitionCue": "k 不发音、ow /əʊ/",
+      "spellingCue": "k-n-ow；与 no 同音，保留 k w",
+      "recallTask": "遮住英文，看中文先读出 know，再写一遍；核对 k-n-ow；与 no 同音，保留 k w，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；k-n-ow；与 no 同音，保留 k w 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "64ce8a0fa91e61ec79cddf9ce0c6e6512c0f8f3055ac4fa1d42b326c58becda4"
+    },
+    {
+      "section": "四下Unit 7",
+      "word": "third",
+      "changed": true,
+      "recognitionCue": "th /θ/、ir /ɜː/",
+      "spellingCue": "th-ir-d；不写 threeth",
+      "recallTask": "遮住英文，看中文先读出 third，再写一遍；核对 th-ir-d；不写 threeth，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；th-ir-d；不写 threeth 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "89a85f7eef899ac8558763a610f407f9f5d148dbc20e3dc4ba5d3e94f0df2f70"
+    },
+    {
+      "section": "四下Unit 7",
+      "word": "shelf",
+      "changed": true,
+      "recognitionCue": "sh /ʃ/、e /e/、lf /lf/",
+      "spellingCue": "sh-e-lf",
+      "recallTask": "遮住英文，看中文先读出 shelf，再写一遍；核对 sh-e-lf，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；sh-e-lf 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "40f77c3bb971960abda8f99a6c9bd1a64feb93cde392fc160e355abe21357884"
+    },
+    {
+      "section": "四下Unit 7",
+      "word": "letter",
+      "changed": true,
+      "recognitionCue": "读 /ˈletə/，e /e/、er 轻读 /ə/",
+      "spellingCue": "le-tt-er；双 t",
+      "recallTask": "遮住英文，看中文先读出 letter，再写一遍；核对 le-tt-er；双 t，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；le-tt-er；双 t 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "2d2931ff5d61b3b15dbdf4756911fd33171a51437676d226a1284632eb0fa43a"
+    },
+    {
+      "section": "四下Unit 7",
+      "word": "second",
+      "changed": true,
+      "recognitionCue": "读 /ˈsekənd/，e /e/、c /k/、o /ə/",
+      "spellingCue": "sec-ond；轻音 o，末尾 nd",
+      "recallTask": "遮住英文，看中文先读出 second，再写一遍；核对 sec-ond；轻音 o，末尾 nd，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；sec-ond；轻音 o，末尾 nd 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "e6e03b33e7fa03bb6eb92e5415ed7254d79b03c413b5d63e9b033585119614a3"
+    },
+    {
+      "section": "四下Unit 7",
+      "word": "beside",
+      "changed": true,
+      "recognitionCue": "读 /bɪˈsaɪd/，be /bɪ/、side 的 i-e /aɪ/",
+      "spellingCue": "be＋side；尾 e",
+      "recallTask": "遮住英文，看中文先读出 beside，再写一遍；核对 be＋side；尾 e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；be＋side；尾 e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "d1cd77a5cb585caf3d75f7227f3b504340990c502cd7386fe45d57fae52437eb"
+    },
+    {
+      "section": "四下Unit 7",
+      "word": "playground",
+      "changed": true,
+      "recognitionCue": "play 的 ay /eɪ/、ground 的 ou /aʊ/",
+      "spellingCue": "play＋ground；连写 ay、ou",
+      "recallTask": "遮住英文，看中文先读出 playground，再写一遍；核对 play＋ground；连写 ay、ou，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；play＋ground；连写 ay、ou 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "932b78cdeeb9b2fce648bf88d05e1a010ee86b7b64149faa14d3a55d615e4359"
+    },
+    {
+      "section": "四下Unit 7",
+      "word": "centre",
+      "changed": true,
+      "recognitionCue": "读 /ˈsentə/，c /s/，末尾 tre /tə/",
+      "spellingCue": "cen-tre；英式 tre，不是 ter",
+      "recallTask": "遮住英文，看中文先读出 centre，再写一遍；核对 cen-tre；英式 tre，不是 ter，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；cen-tre；英式 tre，不是 ter 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "fb58e6d9acf92da53fae7296fa1eb459ed882b12c7d04dd2c5a9fdaa967cd503"
+    },
+    {
+      "section": "四下Unit 7",
+      "word": "smart",
+      "changed": true,
+      "recognitionCue": "sm /sm/、ar /ɑː/",
+      "spellingCue": "sm-ar-t",
+      "recallTask": "遮住英文，看中文先读出 smart，再写一遍；核对 sm-ar-t，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；sm-ar-t 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "4aba036874cd166aabd46dd8e80ee088212018ad3895f3097dd838bd967d54dc"
+    },
+    {
+      "section": "四下Unit 7",
+      "word": "community",
+      "changed": true,
+      "recognitionCue": "读 /kəˈmjuːnəti/，mu /mjuː/、ni /nə/、ty /ti/",
+      "spellingCue": "com-mu-ni-ty；双 m，弱音用 o i",
+      "recallTask": "遮住英文，看中文先读出 community，再写一遍；核对 com-mu-ni-ty；双 m，弱音用 o i，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；com-mu-ni-ty；双 m，弱音用 o i 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "ad1455cc5ff7443367cb12f4efb9e383a9e96d865309dd5994960ad01e58fbff"
+    },
+    {
+      "section": "四下Unit 7",
+      "word": "themselves",
+      "changed": true,
+      "recognitionCue": "them /ðəm/、selves /selvz/",
+      "spellingCue": "them＋selves；末尾 ves，不是 selfs",
+      "recallTask": "遮住英文，看中文先读出 themselves，再写一遍；核对 them＋selves；末尾 ves，不是 selfs，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；them＋selves；末尾 ves，不是 selfs 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "a77af7c194c1719066283c91248b84c78548636ae728b63c374b0ad3fb4e6be0"
+    },
+    {
+      "section": "四下Unit 7",
+      "word": "dark",
+      "changed": true,
+      "recognitionCue": "ar /ɑː/",
+      "spellingCue": "d-ar-k",
+      "recallTask": "遮住英文，看中文先读出 dark，再写一遍；核对 d-ar-k，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；d-ar-k 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "75d05eec5e7fe50645ed92f486dc3c895ea5fef016b9cd5fb4ce90e84341ff8f"
+    },
+    {
+      "section": "四下Unit 7",
+      "word": "toilet",
+      "changed": true,
+      "recognitionCue": "toilet（厕所）读 /ˈtɔɪlət/：oi 是双元音 /ɔɪ/ 的字母组合，末尾 e 轻读 /ə/",
+      "spellingCue": "英文，看“厕所”先读，再写 toi＋let；中间 oi 不写 oy，后面轻音写 e。",
+      "recallTask": "遮住英文，看教材中文义项先认读，再按具体字母线索写回；核对易错字母。",
+      "rationale": "根据最终文本的读音、弱读或具体字形处理认读和拼写，而非给场景贴英文标签。",
+      "status": "pass",
+      "hintSha256": "33383673f41c3b289bbaaaf43578f9494da7af635c8ab249b7d4621e7f6137ea"
+    },
+    {
+      "section": "四下Unit 7",
+      "word": "between",
+      "changed": true,
+      "recognitionCue": "读 /bɪˈtwiːn/，be /bɪ/、tween /twiːn/",
+      "spellingCue": "be-tween；tw、双 e",
+      "recallTask": "遮住英文，看中文先读出 between，再写一遍；核对 be-tween；tw、双 e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；be-tween；tw、双 e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "fb4df76c8b05cf482d5dffe251231c2811e172a336fae35c8974942a8d3cb995"
+    },
+    {
+      "section": "四下Unit 7",
+      "word": "supermarket",
+      "changed": true,
+      "recognitionCue": "super /ˈsuːpə/、market /ˈmɑːkɪt/",
+      "spellingCue": "super＋market；er、ar、弱音 e",
+      "recallTask": "遮住英文，看中文先读出 supermarket，再写一遍；核对 super＋market；er、ar、弱音 e，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；super＋market；er、ar、弱音 e 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "935be15743774d1198380518cf80b26c920f9a6326dccd0420133a35743189f6"
+    },
+    {
+      "section": "四下Unit 7",
+      "word": "quickly",
+      "changed": true,
+      "recognitionCue": "quick 的 qu /kw/、i /ɪ/、ck /k/，ly /li/",
+      "spellingCue": "quick＋ly；qu、ck、末尾 y",
+      "recallTask": "遮住英文，看中文先读出 quickly，再写一遍；核对 quick＋ly；qu、ck、末尾 y，稍后不看提示重试。",
+      "rationale": "听到或读出词后，用这条具体声形路径定位字母；quick＋ly；qu、ck、末尾 y 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "status": "pass",
+      "hintSha256": "c0dea0b88a3ff112a620a47ea9454e45ab0968e922202009cf62284bc2783a8b"
+    }
+  ],
+  "stories": [
+    {
+      "section": "四上Unit 1",
+      "changed": true,
+      "status": "pass",
+      "sceneCount": 5,
+      "meaningAndOrderCue": [
+        {
+          "words": [
+            "worried",
+            "late",
+            "worry",
+            "just",
+            "in time",
+            "welcome",
+            "feel"
+          ],
+          "cues": [
+            "小狗不见时担心的状态",
+            "眼看上课要迟到",
+            "爸爸劝他不要担心",
+            "爸爸刚刚看到小狗",
+            "赶在上课前到达",
+            "老师迎他进来时的欢迎",
+            "老师询问他的感受"
+          ]
+        },
+        {
+          "words": [
+            "today",
+            "excited",
+            "so",
+            "matter",
+            "sad",
+            "find"
+          ],
+          "cues": [
+            "今天要放飞模型的日期词",
+            "得知活动时兴奋的状态",
+            "老师说他这么安静",
+            "老师问发生了什么事",
+            "模型坏了的难过",
+            "找不到螺丝的动词"
+          ]
+        },
+        {
+          "words": [
+            "dog",
+            "cry",
+            "together",
+            "with",
+            "model",
+            "plane"
+          ],
+          "cues": [
+            "扑到模型上的小狗",
+            "小乐急得想哭",
+            "老师请大家一起动手",
+            "老师让小乐跟她来",
+            "需要修好的模型",
+            "模型具体是哪种交通工具"
+          ]
+        },
+        {
+          "words": [
+            "angry",
+            "better",
+            "calm down",
+            "fix",
+            "his",
+            "mouse"
+          ],
+          "cues": [
+            "想起坏机翼时生气",
+            "老师说会变得更好",
+            "老师劝他平静下来",
+            "爸爸答应修理的动作",
+            "属于爸爸的箱子的代词",
+            "箱中拨走螺丝的小动物"
+          ]
+        },
+        {
+          "words": [
+            "come",
+            "have",
+            "idea",
+            "stop",
+            "but"
+          ],
+          "cues": [
+            "小乐招手让爸爸来",
+            "小乐说自己有一个主意",
+            "想出的办法",
+            "爸爸让他停下",
+            "想抓住却跑了的转折"
+          ]
+        }
+      ],
+      "rationale": "全部场景改为人物行动、问题、处理与结果；目标词在有意义的完整英文表达中出现，没有为覆盖而贴标签。中文提示对应具体事件；遮住英文按情节回想词义与顺序。故事不承担字母级拼写，需结合本单元逐词声形助记。",
+      "storySha256": "e08d2ad1b5df672462f1a09afcf7bce15fa377a1f540207abc7c8b896b4f1dd0"
+    },
+    {
+      "section": "四上Unit 2",
+      "changed": true,
+      "status": "pass",
+      "sceneCount": 4,
+      "meaningAndOrderCue": [
+        {
+          "words": [
+            "animal",
+            "different",
+            "interesting",
+            "story",
+            "brush",
+            "remember"
+          ],
+          "cues": [
+            "故事里的动物总称",
+            "两人选择不同",
+            "故事让人想继续读的有趣",
+            "两人共同读的故事",
+            "小兔梳毛用的刷子",
+            "合上书后还记得的动作"
+          ]
+        },
+        {
+          "words": [
+            "poem",
+            "hard",
+            "may",
+            "try",
+            "ill",
+            "call"
+          ],
+          "cues": [
+            "小乐打算写的文学作品",
+            "写到一半觉得困难",
+            "小米请求允许的词",
+            "一起尝试的动作",
+            "小熊生病的状态",
+            "请医生时打电话的动作"
+          ]
+        },
+        {
+          "words": [
+            "her",
+            "tomorrow",
+            "should",
+            "rest",
+            "wait",
+            "mouth"
+          ],
+          "cues": [
+            "小米准备读给妹妹的她",
+            "准备读诗的明天",
+            "老师建议应该休息",
+            "妹妹现在需要的休息",
+            "等她舒服些的等待",
+            "轻声朗读时张开的身体部位"
+          ]
+        },
+        {
+          "words": [
+            "best",
+            "share",
+            "little",
+            "small"
+          ],
+          "cues": [
+            "妹妹最喜欢的程度",
+            "把蛋糕分给别人",
+            "蛋糕一小块的大小",
+            "妹妹个子小的形容词"
+          ]
+        }
+      ],
+      "rationale": "全部场景改为人物行动、问题、处理与结果；目标词在有意义的完整英文表达中出现，没有为覆盖而贴标签。中文提示对应具体事件；遮住英文按情节回想词义与顺序。故事不承担字母级拼写，需结合本单元逐词声形助记。",
+      "storySha256": "63580c9de0ba70d7b72f761cd73e5ac8ba7c97df5cfcce9a09beccc2d1574a3d"
+    },
+    {
+      "section": "四上Unit 3",
+      "changed": true,
+      "status": "pass",
+      "sceneCount": 3,
+      "meaningAndOrderCue": [
+        {
+          "words": [
+            "excuse me",
+            "please",
+            "bat",
+            "use",
+            "sorry",
+            "would"
+          ],
+          "cues": [
+            "“打扰一下”：ex 后接哪个字母，再接 use？两个词之间怎样写？",
+            "“请”：/iː/ 写哪两个字母？/z/ 写什么？末尾还要留哪个字母？",
+            "“球拍”：/b/－/æ/－/t/ 依次对应哪三个字母？",
+            "“使用”：/z/ 写哪个字母？末尾不发音的字母是什么？",
+            "“对不起”：中间要写几个 r？末尾 /i/ 写什么？",
+            "“愿意”：ou 和 d 中间藏着哪个不发音的字母？"
+          ]
+        },
+        {
+          "words": [
+            "open",
+            "door",
+            "problem",
+            "must",
+            "stand",
+            "polite"
+          ],
+          "cues": [
+            "尝试打开的动作",
+            "打不开的门",
+            "锁出现的问题",
+            "必须遵守的要求",
+            "退到后面站好的动作",
+            "照顾旁人时的礼貌"
+          ]
+        },
+        {
+          "words": [
+            "could",
+            "get",
+            "monkey",
+            "banana",
+            "garden",
+            "want"
+          ],
+          "cues": [
+            "礼貌询问能否去拿",
+            "拿到钥匙的动作",
+            "入口挡路的猴子",
+            "猴子抱的水果",
+            "备用钥匙所在的花园",
+            "猴子可能想要更多的动词"
+          ]
+        }
+      ],
+      "rationale": "第一幕改为写便条并检查缺字，明确锚定 excuse 的 c 与 e、please 的 ea 与尾 e、bat 的三音三字母、use 的 s 与尾 e、sorry 的双 r 与 y、would 的静音 l。另两幕沿用既有词义情节，不据此宣称能掌握拼写；拼写掌握须独立遮词默写检验。",
+      "storySha256": "5c0c6d4e9f1b1cb2df0edc6ef6001ddc6179c139d74a0db775800e0eb9b78695"
+    },
+    {
+      "section": "四上Unit 5",
+      "changed": true,
+      "status": "pass",
+      "sceneCount": 4,
+      "meaningAndOrderCue": [
+        {
+          "words": [
+            "sandwich",
+            "tomato",
+            "potato",
+            "meatball",
+            "eat",
+            "steak"
+          ],
+          "cues": [
+            "要做的夹心面包",
+            "三明治里的红色蔬菜",
+            "小米洗的块茎蔬菜",
+            "爸爸揉好的肉丸",
+            "小乐想吃的动作",
+            "还要等着煎好的肉"
+          ]
+        },
+        {
+          "words": [
+            "soup",
+            "dessert",
+            "ice cream",
+            "chopsticks",
+            "them",
+            "cut"
+          ],
+          "cues": [
+            "先端来的热汤",
+            "饭后的甜点",
+            "妈妈准备的冰冻甜食",
+            "小米拿的成双餐具",
+            "代指筷子的它们",
+            "牛排需要的切的动作"
+          ]
+        },
+        {
+          "words": [
+            "knife",
+            "fork",
+            "right",
+            "left",
+            "apple",
+            "salad"
+          ],
+          "cues": [
+            "切东西的餐具",
+            "叉食物的餐具",
+            "爸爸要求放刀的方向",
+            "放叉的方向",
+            "小米切的水果",
+            "苹果拌入的凉菜"
+          ]
+        },
+        {
+          "words": [
+            "first",
+            "next",
+            "then",
+            "last"
+          ],
+          "cues": [
+            "收盘子的第一步",
+            "擦桌子的下一步",
+            "接着洗碗的然后",
+            "最后放回去的顺序词"
+          ]
+        }
+      ],
+      "rationale": "全部场景改为人物行动、问题、处理与结果；目标词在有意义的完整英文表达中出现，没有为覆盖而贴标签。中文提示对应具体事件；遮住英文按情节回想词义与顺序。故事不承担字母级拼写，需结合本单元逐词声形助记。",
+      "storySha256": "c2e14e560eb76924e706a825fe507e6cddc550a166f2fb869d2ba21da81ee011"
+    },
+    {
+      "section": "四上Unit 6",
+      "changed": true,
+      "status": "pass",
+      "sceneCount": 4,
+      "meaningAndOrderCue": [
+        {
+          "words": [
+            "nature",
+            "Internet",
+            "everything",
+            "air",
+            "around",
+            "live",
+            "without"
+          ],
+          "cues": [
+            "课堂要观察的大自然",
+            "小乐事先查资料的网络",
+            "老师说网络不能展示的一切",
+            "树下呼吸的空气",
+            "绕着树的位置词",
+            "植物生活的动词",
+            "没有空气的没有"
+          ]
+        },
+        {
+          "words": [
+            "farm",
+            "feed",
+            "pig",
+            "smell",
+            "listen",
+            "hear"
+          ],
+          "cues": [
+            "来到的农业场所",
+            "主人让小乐喂的动作",
+            "吃草料的小动物",
+            "鼻子闻草料的动作",
+            "主人请他集中注意听",
+            "耳朵听见猪叫的动作"
+          ]
+        },
+        {
+          "words": [
+            "glass",
+            "sun",
+            "bad",
+            "start"
+          ],
+          "cues": [
+            "盛水的玻璃杯",
+            "让杯子变暖的太阳",
+            "裂杯带来的坏情况",
+            "换杯后重新开始的动作"
+          ]
+        },
+        {
+          "words": [
+            "cross",
+            "turn",
+            "after",
+            "forest"
+          ],
+          "cues": [
+            "穿过小路的动作",
+            "过路后转弯的动作",
+            "参观农场之后的之后",
+            "下一站的一大片树林"
+          ]
+        }
+      ],
+      "rationale": "全部场景改为人物行动、问题、处理与结果；目标词在有意义的完整英文表达中出现，没有为覆盖而贴标签。中文提示对应具体事件；遮住英文按情节回想词义与顺序。故事不承担字母级拼写，需结合本单元逐词声形助记。",
+      "storySha256": "322caf9eef36e8bd3fad9f3d304af135c37f671b424b4b3efd8db164887c4ee9"
+    },
+    {
+      "section": "四上Unit 7",
+      "changed": true,
+      "status": "pass",
+      "sceneCount": 4,
+      "meaningAndOrderCue": [
+        {
+          "words": [
+            "gift",
+            "firework",
+            "January",
+            "goal",
+            "fifty",
+            "sixty"
+          ],
+          "cues": [
+            "新年收到的礼物",
+            "礼物里的烟花图案",
+            "新年的第一个月份",
+            "爸爸询问的目标",
+            "小乐要读的页数五十",
+            "小米更高的页数六十"
+          ]
+        },
+        {
+          "words": [
+            "Spring Festival",
+            "Mrs",
+            "lucky",
+            "money",
+            "wish",
+            "mean"
+          ],
+          "cues": [
+            "到来的春节名称",
+            "李太太的称谓",
+            "红包带来的幸运",
+            "红包里的钱",
+            "小乐许的健康愿望",
+            "妹妹问图案的意思"
+          ]
+        },
+        {
+          "words": [
+            "Lantern Festival",
+            "February",
+            "of",
+            "loud"
+          ],
+          "cues": [
+            "看灯猜谜的元宵节",
+            "到来的二月",
+            "纸做的灯中连接材料的词",
+            "鼓声很响的形容词"
+          ]
+        },
+        {
+          "words": [
+            "sound",
+            "run",
+            "riddle",
+            "guess"
+          ],
+          "cues": [
+            "传到街角的声音",
+            "奔向下一盏灯的跑",
+            "灯下要解的谜题",
+            "小乐准备猜的动作"
+          ]
+        }
+      ],
+      "rationale": "全部场景改为人物行动、问题、处理与结果；目标词在有意义的完整英文表达中出现，没有为覆盖而贴标签。中文提示对应具体事件；遮住英文按情节回想词义与顺序。故事不承担字母级拼写，需结合本单元逐词声形助记。",
+      "storySha256": "6868549272a96d68026df1819fefbcd832547103306ba844f43352b3c1e1d27d"
+    },
+    {
+      "section": "四下Unit 1",
+      "changed": true,
+      "status": "pass",
+      "sceneCount": 3,
+      "meaningAndOrderCue": [
+        {
+          "words": [
+            "hobby",
+            "kind",
+            "folk",
+            "club",
+            "join",
+            "because"
+          ],
+          "cues": [
+            "小乐想发展的爱好",
+            "老师问哪一种的词",
+            "听到的民间音乐",
+            "演奏音乐的社团",
+            "同学邀请加入的动作",
+            "说明热爱音乐的因为"
+          ]
+        },
+        {
+          "words": [
+            "science",
+            "chess",
+            "well",
+            "why"
+          ],
+          "cues": [
+            "磁铁实验所属的学科",
+            "小米玩的棋类",
+            "老师夸做得好的词",
+            "小乐追问为什么"
+          ]
+        },
+        {
+          "words": [
+            "study",
+            "face",
+            "feeling",
+            "fan",
+            "travel"
+          ],
+          "cues": [
+            "研究棋盘的动作",
+            "小乐观察的脸",
+            "脸上表现的感受",
+            "小米爱看棋赛的迷",
+            "去别处看比赛的旅行"
+          ]
+        }
+      ],
+      "rationale": "全部场景改为人物行动、问题、处理与结果；目标词在有意义的完整英文表达中出现，没有为覆盖而贴标签。中文提示对应具体事件；遮住英文按情节回想词义与顺序。故事不承担字母级拼写，需结合本单元逐词声形助记。",
+      "storySha256": "c805652af0c7fe26ea1b899e3b8304d3dd8cdffdbd5ee1b9d39b94377599c89a"
+    },
+    {
+      "section": "四下Unit 2",
+      "changed": true,
+      "status": "pass",
+      "sceneCount": 4,
+      "meaningAndOrderCue": [
+        {
+          "words": [
+            "throw",
+            "thing",
+            "out",
+            "safe",
+            "down",
+            "stair"
+          ],
+          "cues": [
+            "老师阻止的扔的动作",
+            "准备被扔的东西",
+            "离开教室出去",
+            "出去时要保持安全",
+            "下楼的方向",
+            "一次走一级的台阶"
+          ]
+        },
+        {
+          "words": [
+            "skate",
+            "fall",
+            "March",
+            "thin",
+            "dangerous",
+            "board"
+          ],
+          "cues": [
+            "小乐想做的滑冰",
+            "冰上可能发生的摔倒",
+            "冰已变薄的三月",
+            "冰面的薄",
+            "老师判断的危险",
+            "铺小路用的木板"
+          ]
+        },
+        {
+          "words": [
+            "lake",
+            "careful",
+            "push",
+            "crowd"
+          ],
+          "cues": [
+            "小路尽头的大水面",
+            "老师提醒小心",
+            "往前挤时的推",
+            "聚在观景处的人群"
+          ]
+        },
+        {
+          "words": [
+            "street",
+            "light",
+            "again",
+            "slowly",
+            "fast"
+          ],
+          "cues": [
+            "回校要经过的街道",
+            "指示通行的交通灯",
+            "老师让再看一次",
+            "过街时慢慢的方式",
+            "驶过汽车很快的速度"
+          ]
+        }
+      ],
+      "rationale": "全部场景改为人物行动、问题、处理与结果；目标词在有意义的完整英文表达中出现，没有为覆盖而贴标签。中文提示对应具体事件；遮住英文按情节回想词义与顺序。故事不承担字母级拼写，需结合本单元逐词声形助记。",
+      "storySha256": "40c9deda93d9c772c7e7691fd039f19d303dcb72eece8abb06087394d31e3a58"
+    },
+    {
+      "section": "四下Unit 3",
+      "changed": true,
+      "status": "pass",
+      "sceneCount": 3,
+      "meaningAndOrderCue": [
+        {
+          "words": [
+            "fun",
+            "game",
+            "be good at",
+            "seventy",
+            "eighty",
+            "ninety"
+          ],
+          "cues": [
+            "玩投球觉得有趣",
+            "投球这个游戏",
+            "小米希望擅长的短语",
+            "先到达的七十分",
+            "接着到达的八十分",
+            "最后到达的九十分"
+          ]
+        },
+        {
+          "words": [
+            "tired",
+            "win",
+            "hundred",
+            "kung fu",
+            "leg",
+            "hurt"
+          ],
+          "cues": [
+            "连投之后疲倦的状态",
+            "小乐鼓励能赢的动作",
+            "最后得到的一百分",
+            "接着参加的功夫",
+            "抬起碰椅子的腿",
+            "碰撞后受伤的动词"
+          ]
+        },
+        {
+          "words": [
+            "badly",
+            "king",
+            "visit",
+            "the Great Wall",
+            "hero",
+            "him"
+          ],
+          "cues": [
+            "老师形容伤得严重",
+            "故事里的国王",
+            "国王准备参观的动作",
+            "国王要去的中国城墙",
+            "扶国王上台阶的英雄",
+            "英雄帮助的他"
+          ]
+        }
+      ],
+      "rationale": "全部场景改为人物行动、问题、处理与结果；目标词在有意义的完整英文表达中出现，没有为覆盖而贴标签。中文提示对应具体事件；遮住英文按情节回想词义与顺序。故事不承担字母级拼写，需结合本单元逐词声形助记。",
+      "storySha256": "fca630486ab4ca7582a7b7bcb519f22e8ab95eb58f22c66c30322375abd58c2a"
+    },
+    {
+      "section": "四下Unit 5",
+      "changed": true,
+      "status": "pass",
+      "sceneCount": 4,
+      "meaningAndOrderCue": [
+        {
+          "words": [
+            "Labour Day",
+            "holiday",
+            "May",
+            "chore",
+            "the USA",
+            "September"
+          ],
+          "cues": [
+            "做家务的劳动节",
+            "不用上学的假日",
+            "劳动节所在的五月",
+            "小乐承诺做的家务",
+            "朋友所在的美国",
+            "朋友那边劳动节的九月"
+          ]
+        },
+        {
+          "words": [
+            "June",
+            "November",
+            "Canada",
+            "often",
+            "cinema",
+            "zoo"
+          ],
+          "cues": [
+            "旅行开始的六月",
+            "旅行最后的十一月",
+            "朋友亲人住的国家",
+            "反复探亲的经常",
+            "雨天去看电影的场所",
+            "晴天看动物的场所"
+          ]
+        },
+        {
+          "words": [
+            "National Day",
+            "October",
+            "flag",
+            "watch",
+            "early",
+            "special"
+          ],
+          "cues": [
+            "庆祝国家的节日",
+            "国庆节所在的十月",
+            "带去的小旗",
+            "观看仪式的动作",
+            "为了看升旗起得早",
+            "这一天特别的感受"
+          ]
+        },
+        {
+          "words": [
+            "Water-Splashing Festival",
+            "April",
+            "Inner Mongolia",
+            "Naadam",
+            "July",
+            "August"
+          ],
+          "cues": [
+            "四月参加的泼水节",
+            "泼水节所在的月份",
+            "七月旅行到的地区",
+            "草原观看的大会",
+            "到草原旅行的七月",
+            "回家的八月"
+          ]
+        }
+      ],
+      "rationale": "全部场景改为人物行动、问题、处理与结果；目标词在有意义的完整英文表达中出现，没有为覆盖而贴标签。中文提示对应具体事件；遮住英文按情节回想词义与顺序。故事不承担字母级拼写，需结合本单元逐词声形助记。",
+      "storySha256": "ab525985e7dd6217b57dd78a5f302ecef504ba9eaa0a16be2fa3e6d9f8c9015d"
+    },
+    {
+      "section": "四下Unit 6",
+      "changed": true,
+      "status": "pass",
+      "sceneCount": 4,
+      "meaningAndOrderCue": [
+        {
+          "words": [
+            "grandma",
+            "dear",
+            "TV",
+            "grandpa",
+            "plant",
+            "kitchen"
+          ],
+          "cues": [
+            "收到信的奶奶",
+            "信开头亲爱的称呼",
+            "爷爷关掉的电器",
+            "接待小乐的爷爷",
+            "窗台要浇水的植物",
+            "饭香传来的房间"
+          ]
+        },
+        {
+          "words": [
+            "weekend",
+            "people",
+            "they",
+            "sky",
+            "fly",
+            "put"
+          ],
+          "cues": [
+            "饭后去公园的周末",
+            "公园里放风筝的人们",
+            "小乐指那些人的他们",
+            "风筝升上的天空",
+            "风筝飞的动作",
+            "爷爷让放盒子的动作"
+          ]
+        },
+        {
+          "words": [
+            "role",
+            "paint",
+            "funny",
+            "brave",
+            "enjoy"
+          ],
+          "cues": [
+            "小乐抽到的剧中角色",
+            "拿画笔描绘盾牌的动作",
+            "盾牌笑脸的滑稽",
+            "冲向纸龙表现的勇敢",
+            "家人享受表演的喜欢"
+          ]
+        },
+        {
+          "words": [
+            "woman",
+            "tea",
+            "rabbit",
+            "world"
+          ],
+          "cues": [
+            "端茶来的女士",
+            "表演后喝的饮品",
+            "邻居带的小动物",
+            "动物让它更美好的世界"
+          ]
+        }
+      ],
+      "rationale": "全部场景改为人物行动、问题、处理与结果；目标词在有意义的完整英文表达中出现，没有为覆盖而贴标签。中文提示对应具体事件；遮住英文按情节回想词义与顺序。故事不承担字母级拼写，需结合本单元逐词声形助记。",
+      "storySha256": "09f82f7ffc55670cbf32d722a151a4dc12c62f35c70b7e3833e029d07b919ad8"
+    },
+    {
+      "section": "四下Unit 7",
+      "changed": true,
+      "status": "pass",
+      "sceneCount": 5,
+      "meaningAndOrderCue": [
+        {
+          "words": [
+            "glad",
+            "need",
+            "buy",
+            "tell",
+            "way",
+            "shop"
+          ],
+          "cues": [
+            "收到邀请的高兴",
+            "寄信所需要的动词",
+            "准备花钱买的动作",
+            "请求叔叔告诉",
+            "去商店的道路",
+            "叔叔指的小商店"
+          ]
+        },
+        {
+          "words": [
+            "near",
+            "front",
+            "in front of",
+            "building",
+            "far",
+            "robot"
+          ],
+          "cues": [
+            "店与高楼距离近",
+            "小乐来到楼的正面",
+            "小乐在楼前的完整位置短语",
+            "叔叔指的建筑",
+            "邮局还离得远",
+            "出来帮忙的送信机器人"
+          ]
+        },
+        {
+          "words": [
+            "know",
+            "third",
+            "shelf",
+            "letter",
+            "second",
+            "beside"
+          ],
+          "cues": [
+            "机器人知道位置的知道",
+            "先上去查看的第三层",
+            "三楼看到的架子",
+            "要投入邮筒的信",
+            "真正有邮筒的第二层",
+            "邮筒在架子旁边"
+          ]
+        },
+        {
+          "words": [
+            "playground",
+            "centre",
+            "smart",
+            "themselves",
+            "dark"
+          ],
+          "cues": [
+            "穿过的操场",
+            "机器人带到的服务中心",
+            "小乐赞机器人的聪明",
+            "孩子们自己动手的反身代词",
+            "告别时天色黑暗"
+          ]
+        },
+        {
+          "words": [
+            "toilet",
+            "between",
+            "supermarket",
+            "quickly",
+            "community"
+          ],
+          "cues": [
+            "小乐要找的设施",
+            "邮局与超市之间的位置",
+            "爸爸要买牛奶的大商店",
+            "赶在关门前迅速的方式",
+            "店员与小乐同住的社区"
+          ]
+        }
+      ],
+      "rationale": "全部场景改为人物行动、问题、处理与结果；目标词在有意义的完整英文表达中出现，没有为覆盖而贴标签。中文提示对应具体事件；遮住英文按情节回想词义与顺序。故事不承担字母级拼写，需结合本单元逐词声形助记。",
+      "storySha256": "bee8c3cb9b1a71094553b2e9c26c4f134630b1649eaf6507dbe71734a5918db1"
+    }
+  ]
+}

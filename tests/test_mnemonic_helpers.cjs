@@ -16,6 +16,17 @@ assert.ok(!unreviewed.includes('前缀 un-'), 'Do not invent a negative prefix f
 assert.ok(unreviewed.includes('尚无专属线索'), 'Fallback must identify the missing dedicated cue');
 console.log('PASS: reviewed flashcard/print hints take priority; unknown words get no fabricated morphology');
 
+const letterSource = html.slice(html.indexOf('const getMnemonicLetterParts ='), html.indexOf('const MnemonicPicture ='));
+const letterParts = vm.runInNewContext(letterSource + '\ngetMnemonicLetterParts');
+for (const [word, focus, expected] of [['sorry', ['rr'], 'rr'], ['would', ['l'], 'l'], ['dessert', ['ss'], 'ss'], ['meatball', ['ea', 'e'], 'ea']]) {
+  const parts = letterParts(word, focus);
+  assert.equal(parts.map(part => part.text).join(''), word, 'Visual highlighting must preserve the full spelling');
+  assert.equal(parts.filter(part => part.focus).map(part => part.text).join(''), expected);
+}
+assert.equal(letterParts('uncle', ['re']).filter(part => part.focus).length, 0, 'An absent cue must not invent letters');
+assert.equal(letterParts('ice cream', ['ea']).map(part => part.text).join(''), 'ice cream', 'Phrase spacing must survive highlighting');
+console.log('PASS: visual cues highlight double and silent letters without changing spelling or phrase spacing');
+
 const matchingSource = html.slice(html.indexOf('const matchesSpelling ='), html.indexOf('const levenshtein ='));
 const matchesSpelling = vm.runInNewContext(matchingSource + '\nmatchesSpelling');
 assert.ok(matchesSpelling('hi', 'hi'));

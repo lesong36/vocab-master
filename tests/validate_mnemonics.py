@@ -32,6 +32,7 @@ with (ROOT / "词库.md").open(encoding="utf-8-sig", newline="") as source:
 
 expected = {key(row["section"], row["english_word"]) for row in rows}
 assert len(rows) == len(expected), "The textbook source has duplicate section/word pairs"
+assert len({row['id'] for row in rows}) == len(rows), "Textbook words sharing an ID would disappear from learning and print selection"
 expected_by_section = defaultdict(set)
 for section, word in expected:
     expected_by_section[section].add(word)

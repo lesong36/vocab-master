@@ -5,6 +5,7 @@ const assert = require('node:assert/strict');
 const html = fs.readFileSync('vocabulary_app.html', 'utf8');
 const range = (start, end) => html.slice(html.indexOf(start), html.indexOf(end));
 const api = vm.runInNewContext(
+  range('const normalizeRewardLedger =', 'const FEEDBACK_SOUND_KEY =') +
   range('const normalizeWordStats =', 'const MAX_STUDY_EVENTS =') +
   range('const splitAlternativeWords =', 'const migrateUserRecord =') +
   range('const mergeCloudWord =', '// 阅读器账号是唯一的学习身份。') +

@@ -83,7 +83,7 @@ with sync_playwright() as playwright:
     before_unit = len(writes)
     page.get_by_role("button", name="练本单元拼写（18 词）", exact=True).click()
     unit = page.get_by_role("region", name="单元拼写练习")
-    assert unit.get_by_text("use", exact=True).is_visible()
+    assert unit.get_by_text("use", exact=True).first.is_visible()
     unit.screenshot(path=str(preview.parent / "unit-spelling-learn.png"))
     unit.get_by_role("button", name="收起线索，写完整单词", exact=True).click()
     assert not any(item.is_visible() for item in page.get_by_text("use", exact=True).all()), "Unit spelling answer leaked"
@@ -97,7 +97,9 @@ with sync_playwright() as playwright:
     unit.get_by_role("textbox", name="回忆本词拼写").press("Enter")
     assert unit.get_by_text("这次拼写正确。", exact=True).is_visible()
     unit.get_by_role("button", name="下一词", exact=True).click()
-    assert unit.get_by_text("sorry", exact=True).is_visible()
+    assert unit.get_by_text("sorry", exact=True).first.is_visible()
+    if unit.get_by_role("button", name="听音拼写", exact=True).count():
+        unit.get_by_role("button", name="听音拼写", exact=True).click()
     assert unit.get_by_text("so－rr－y", exact=False).count(), "Double-r spelling cue missing"
     unit.get_by_role("button", name="收起线索，写完整单词", exact=True).click()
     unit.get_by_role("textbox", name="回忆本词拼写").fill("sory")
@@ -105,7 +107,7 @@ with sync_playwright() as playwright:
     assert unit.get_by_text("漏写 r", exact=True).is_visible()
     unit.screenshot(path=str(preview.parent / "unit-spelling-feedback.png"))
     unit.get_by_role("button", name="下一词", exact=True).click()
-    assert unit.get_by_text("would", exact=True).is_visible()
+    assert unit.get_by_text("would", exact=True).first.is_visible()
     unit.get_by_role("button", name="收起线索，写完整单词", exact=True).click()
     unit.get_by_role("textbox", name="回忆本词拼写").fill("woud")
     unit.get_by_role("textbox", name="回忆本词拼写").press("Enter")
@@ -121,6 +123,8 @@ with sync_playwright() as playwright:
     pack = json.loads((Path(__file__).resolve().parents[1] / "mnemonics/grade4.json").read_text())
     expected_hint = next(card["hint"] for card in pack["cards"] if card["section"] == "四上Unit 3" and card["word"] == flash_word)
     page.get_by_role("button", name="显示词义和助记", exact=True).click()
+    if page.get_by_role("button", name="听音拼写", exact=True).count():
+        page.get_by_role("button", name="听音拼写", exact=True).click()
     assert page.get_by_text(expected_hint, exact=True).is_visible(), "Flashcard omits authored cue"
     page.get_by_role("button", name="返回 Unit 选择", exact=True).click()
     page.get_by_role("button", name="打印卡片 (18 词)", exact=True).click()

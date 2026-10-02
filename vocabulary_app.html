@@ -234,6 +234,430 @@
       return '尚无专属线索。先听标准读音，指着字母跟读；收起答案，试着读和写，再核对漏写或写错的字母。';
     };
 
+    const getMnemonicLetterParts = (word, focus = []) => {
+      const cues = [...new Set(focus.filter(cue => cue && word.includes(cue)))].sort((a, b) => b.length - a.length);
+      const parts = [];
+      for (let index = 0; index < word.length;) {
+        const cue = cues.find(item => word.startsWith(item, index));
+        const text = cue || word[index];
+        const highlighted = Boolean(cue);
+        const last = parts[parts.length - 1];
+        if (last && last.focus === highlighted) last.text += text;
+        else parts.push({ text, focus: highlighted });
+        index += text.length;
+      }
+      return parts;
+    };
+
+    const MnemonicPicture = ({ card, compact = false }) => {
+      const visual = card.dimensions.visual;
+      const word = card.word.toLowerCase();
+      const spatial = ['in', 'on', 'under', 'behind', 'next to'].includes(word);
+      const specialPicture = spatial || ['sorry', 'would', 'dessert', 'meatball'].includes(word);
+      return (
+        <figure className={`m-0 rounded-xl border border-amber-200 bg-amber-50 ${compact ? 'p-3' : 'p-5'}`}>
+          <p className="mb-3 text-xs font-semibold text-amber-900">{visual.diagram ? ({ combine: '找组成', compare: '辨一辨', change: '看变化', sequence: '看先后', parts: '找组成', position: '找位置', count: '数一数、找顺序', colour: '看颜色', body: '认部位', clock: '读钟面', family: '认亲属关系', measure: '比一比', reference: '看对象与关系', deixis: '近远与单复数', motion: '看起点和去向', frequency: '看发生次数', timeline: '在时间线上找位置', selection: '看选中范围', shape: '只比较轮廓', category: '找同一类的例子', partition: '从整体看部分', feature: '看结构和作用' })[visual.diagram.kind] : specialPicture ? '看具体图解' : '看图标，想画面'}</p>
+          {visual.diagram ? (
+            <MnemonicGraphic diagram={visual.diagram} card={card} compact={compact} />
+          ) : specialPicture ? (
+            <svg role="img" aria-label={`${card.word} 的视觉线索`} viewBox="0 0 320 130" className={`mx-auto w-full ${compact ? 'max-w-[200px]' : 'max-w-xs'}`}>
+              {word === 'in' && <>
+                <rect x="78" y="24" width="164" height="88" rx="8" fill="#fce3ae" stroke="#9a5b2a" strokeWidth="3" />
+                <text x="160" y="88" textAnchor="middle" fontSize="48">✏️</text>
+              </>}
+              {(word === 'on' || word === 'under') && <>
+                {word === 'on' && <text x="160" y="60" textAnchor="middle" fontSize="44">📚</text>}
+                <path d={`M70 ${word === 'on' ? 64 : 36} H250 M85 ${word === 'on' ? 64 : 36} V118 M235 ${word === 'on' ? 64 : 36} V118`} fill="none" stroke="#9a5b2a" strokeWidth="6" strokeLinecap="round" />
+                {word === 'under' && <text x="160" y="106" textAnchor="middle" fontSize="46">🐈</text>}
+              </>}
+              {word === 'behind' && <>
+                <text x="160" y="67" textAnchor="middle" fontSize="56">🧸</text>
+                <rect x="98" y="46" width="124" height="69" rx="6" fill="#f5c779" stroke="#9a5b2a" strokeWidth="3" />
+                <path d="M98 69 H222 M160 46 V69" stroke="#9a5b2a" strokeWidth="2" />
+              </>}
+              {word === 'next to' && <>
+                {[106, 194].map(x => <g key={x}>
+                  <text x={x} y="74" textAnchor="middle" fontSize="48">🧒</text>
+                  <path d={`M${x - 31} 83 H${x + 31} M${x - 24} 83 V117 M${x + 24} 83 V117`} stroke="#9a5b2a" strokeWidth="4" fill="none" />
+                </g>)}
+              </>}
+              {word === 'sorry' && <>
+                {[90, 200].map(x => <g key={x} transform={`translate(${x},12)`}>
+                  <circle cx="30" cy="15" r="11" fill="#f5c779" />
+                  <path d="M14 46 L43 32 L62 47" fill="none" stroke="#9a5b2a" strokeWidth="5" strokeLinecap="round" />
+                  <text x="3" y="101" fill="#9a5b2a" fontSize="85" fontFamily="Georgia, serif" fontWeight="bold">r</text>
+                </g>)}
+              </>}
+              {word === 'would' && <>
+                {['w', 'ou', 'l', 'd'].map((text, index) => <g key={text}>
+                  <rect x={12 + index * 78} y="34" width="62" height="65" rx="12" fill={text === 'l' ? '#fff' : '#fce3ae'} stroke="#9a5b2a" strokeDasharray={text === 'l' ? '5 4' : undefined} />
+                  <text x={43 + index * 78} y="80" textAnchor="middle" fill="#784621" fontSize="34" fontFamily="Georgia, serif">{text}</text>
+                  {text === 'l' && <text x="199" y="23" textAnchor="middle" fill="#784621" fontSize="16">不发音</text>}
+                </g>)}
+              </>}
+              {word === 'dessert' && <>
+                {[70, 195].map(x => <g key={x} transform={`translate(${x},15)`}>
+                  <path d="M4 55 Q-4 33 17 30 Q16 8 38 13 Q59 8 58 30 Q78 34 71 55 Z" fill="#edb7a5" stroke="#9a5b2a" strokeWidth="2" />
+                  <path d="M8 55 L18 105 H58 L68 55 Z" fill="#f5c779" stroke="#9a5b2a" strokeWidth="2" />
+                  <text x="38" y="92" textAnchor="middle" fill="#784621" fontSize="40" fontFamily="Georgia, serif">s</text>
+                </g>)}
+              </>}
+              {word === 'meatball' && <>
+                <path d="M30 47 Q38 21 80 31 Q126 35 104 79 Q70 108 36 84 Z" fill="#edb7a5" stroke="#9a5b2a" strokeWidth="3" />
+                <path d="M45 53 Q70 35 91 49 M47 72 Q68 57 84 72" fill="none" stroke="#fff4e3" strokeWidth="5" />
+                <path d="M138 62 H185 L176 54 M185 62 L176 70" fill="none" stroke="#9a5b2a" strokeWidth="3" />
+                <circle cx="249" cy="60" r="35" fill="#b67b4b" stroke="#784621" strokeWidth="3" />
+                <circle cx="239" cy="50" r="4" fill="#784621" /><circle cx="259" cy="69" r="4" fill="#784621" />
+                <text x="72" y="121" textAnchor="middle" fill="#784621" fontSize="16">肉</text>
+                <text x="249" y="121" textAnchor="middle" fill="#784621" fontSize="16">搓成球</text>
+              </>}
+            </svg>
+          ) : (
+            <div role="img" aria-label={visual.caption} className="flex flex-wrap items-center justify-center gap-3 py-2">
+              {visual.symbols.map((symbol, index) => <React.Fragment key={index}>
+                <span aria-hidden="true" className={`${compact ? 'text-3xl' : 'text-5xl'} leading-normal`}>{symbol}</span>
+              </React.Fragment>)}
+            </div>
+          )}
+          {!visual.diagram && visual.focus.length > 0 && <p aria-label="字形线索" className={`mt-2 whitespace-pre-wrap text-center font-mono font-bold text-stone-800 ${compact ? 'text-xl' : 'text-3xl'}`}>
+            {getMnemonicLetterParts(card.word, visual.focus).map((part, index) => part.focus
+              ? <mark key={index} className="rounded bg-amber-200 px-0.5 text-amber-950 underline decoration-amber-600 decoration-2 underline-offset-4">{part.text}</mark>
+              : <span key={index}>{part.text}</span>)}
+          </p>}
+          <figcaption className={`mt-3 text-stone-700 ${compact ? 'text-xs leading-5' : 'text-sm leading-6'}`}>{visual.caption}</figcaption>
+        </figure>
+      );
+    };
+
+    const MnemonicGraphic = ({ diagram, card, compact }) => {
+      const { kind } = diagram;
+      const svgClass = `mx-auto w-full ${compact ? 'max-w-[190px]' : 'max-w-xs'}`;
+      let content;
+      if (diagram.panels) {
+        const linear = ['sequence', 'parts'].includes(kind);
+        const longLabel = diagram.panels.some(panel => panel.label.length > 6);
+        const stacked = linear || diagram.panels.some(panel => panel.label.split(/\s+/).some(token => token.length > 12)) || (compact && (kind !== 'combine' || longLabel));
+        const responsive = !stacked && longLabel;
+        const cols = stacked ? 'grid-cols-1' : responsive ? 'grid-cols-1 sm:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]' : 'grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]';
+        const connector = kind === 'combine' || kind === 'parts' ? '＋' : kind === 'compare' ? '／' : '→';
+        content = <>
+          {kind === 'parts' && <p className={`mb-3 break-words text-center font-mono font-bold ${compact ? 'text-base' : 'text-xl'}`}>{diagram.result}</p>}
+          <div className={`grid ${cols} items-center gap-x-2 ${compact ? 'gap-y-1' : 'gap-y-3'}`}>
+            {diagram.panels.map((panel, index) => {
+              const textPanel = panel.symbols.some(symbol => /[A-Za-z0-9\u4e00-\u9fff]/.test(symbol) && Array.from(symbol).length > 2);
+              const inlinePanel = compact && stacked && !textPanel && panel.label.split(/\s+/).every(token => token.length <= 10);
+              return <React.Fragment key={index}>
+              {index > 0 && <span aria-hidden="true" className={`${kind === 'combine' && index === 2 && !stacked ? 'col-span-3' : ''} text-center ${compact ? 'text-base' : 'text-xl'} font-semibold text-amber-800 ${connector === '→' ? stacked ? 'rotate-90' : responsive ? 'rotate-90 sm:rotate-0' : '' : ''}`}>{kind === 'combine' && index === 2 ? '＝' : connector}</span>}
+              <div className={`${kind === 'combine' && index === 2 && !stacked ? 'col-span-3' : ''} min-w-0 rounded-lg border ${panel.tag === '本课词义' ? 'border-amber-500 bg-amber-100' : 'border-amber-200 bg-white/70'} px-2 ${compact ? 'py-1' : 'py-3'} text-center`}>
+                {panel.tag && <p className="mb-2 text-xs font-semibold text-stone-600">{panel.tag}</p>}
+                <div className={inlinePanel ? 'flex items-center gap-2 text-left' : ''}>
+                <div aria-hidden="true" className={`flex flex-wrap ${textPanel ? 'flex-col items-start' : 'justify-center'} gap-1 ${textPanel ? compact ? 'text-sm' : 'text-lg' : inlinePanel ? 'w-12 shrink-0 text-xl' : compact ? 'text-2xl' : 'text-4xl'} leading-normal`}>{panel.symbols.map((symbol, item) => <span key={item}>{symbol}</span>)}</div>
+                <div className="min-w-0">
+                <p className={`${inlinePanel ? '' : 'mt-2'} whitespace-normal break-normal font-mono font-bold text-stone-800 ${compact ? 'text-sm' : 'text-xl'}`}>
+                  {(panel.focusSuffix ? [{ text: panel.label.slice(0, -panel.focusSuffix.length), focus: false }, { text: panel.focusSuffix, focus: true }] : getMnemonicLetterParts(panel.label, panel.focus || [])).map((part, item) => part.focus
+                    ? <mark key={item} className="rounded bg-amber-200 px-0.5 text-amber-950 underline decoration-amber-600 underline-offset-4">{part.text}</mark>
+                    : <span key={item}>{part.text}</span>)}
+                </p>
+                <p className="mt-1 text-xs leading-5 text-stone-600">{panel.meaning}</p>
+                </div></div>
+              </div>
+            </React.Fragment>; })}
+          </div>
+        </>;
+      } else if (kind === 'reference') {
+        const { left, right, focus, link, sentence, relation } = diagram;
+        content = <>
+          <svg role="img" aria-label={`${card.word} 的对象与关系`} viewBox="0 0 320 150" className={svgClass}>
+            {[left, right].map((node, index) => <g key={index} data-reference-node={index === 0 ? 'left' : 'right'}>
+              <rect x={index === 0 ? 10 : 211} y="15" width="99" height="117" rx="10" fill={focus === (index === 0 ? 'left' : 'right') || focus === 'both' ? '#fce3ae' : '#fff'} stroke="#9a5b2a" strokeWidth="2" />
+              <text x={index === 0 ? 59 : 260} y="67" textAnchor="middle" fontSize="32">{node.symbol}</text>
+              <text x={index === 0 ? 59 : 260} y="98" textAnchor="middle" fontSize="12" fill="#784621">{node.label}</text>
+            </g>)}
+            <path data-reference-link={relation} d={relation === 'reflexive' ? 'M79 34 C148 -2 157 108 96 109' : 'M116 75 H201'} fill="none" stroke="#9a5b2a" strokeWidth="3" />
+            <path d={relation === 'reflexive' ? 'M103 102 L96 109 L106 113' : 'M191 67 L201 75 L191 83'} fill="none" stroke="#9a5b2a" strokeWidth="3" />
+            <text x="158" y={relation === 'reflexive' ? 144 : 58} textAnchor="middle" fontSize="12" fill="#784621">{link}</text>
+            {relation === 'reflexive' && <text x="158" y="85" textAnchor="middle" fontSize="23" fill="#784621">＝</text>}
+          </svg>
+          <p className={`mt-2 text-center font-mono ${compact ? 'text-xs' : 'text-base'}`}>{sentence.before}<mark className="rounded bg-amber-200 px-0.5 font-bold text-amber-950">{sentence.word}</mark>{sentence.after}</p>
+        </>;
+      } else if (kind === 'deixis') {
+        content = <svg role="img" aria-label={`${card.word} 的指代距离与数量`} viewBox="0 0 320 205" className={svgClass}>
+          <text x="29" y="123" textAnchor="middle" fontSize="29">🧒</text><text x="29" y="149" textAnchor="middle" fontSize="12" fill="#784621">说话者</text>
+          {[{ distance: 'near', plural: false, word: 'this', x: 107, y: 51 }, { distance: 'far', plural: false, word: 'that', x: 243, y: 51 }, { distance: 'near', plural: true, word: 'these', x: 107, y: 132 }, { distance: 'far', plural: true, word: 'those', x: 243, y: 132 }].map(node => {
+            const active = node.distance === diagram.distance && node.plural === diagram.plural;
+            return <g key={node.word} data-deixis-target={active ? node.word : undefined}>
+              <rect x={node.x - 43} y={node.y - 31} width="86" height="73" rx="8" fill={active ? '#fce3ae' : '#fff'} stroke="#9a5b2a" strokeWidth={active ? 3 : 1} />
+              {Array.from({ length: node.plural ? 3 : 1 }, (_, index) => <circle key={index} cx={node.x + (node.plural ? (index - 1) * 20 : 0)} cy={node.y - 8} r="7" fill="#d69b50" />)}
+              <text x={node.x} y={node.y + 15} textAnchor="middle" fontSize="15" fill="#784621">{node.word}</text>
+            </g>;
+          })}
+          <text x="107" y="196" textAnchor="middle" fontSize="12" fill="#784621">近处</text><text x="243" y="196" textAnchor="middle" fontSize="12" fill="#784621">远处</text>
+        </svg>;
+      } else if (kind === 'motion') {
+        const { direction, object, startLabel, endLabel } = diagram;
+        const vertical = ['up', 'down'].includes(direction);
+        const reverse = ['toward', 'left', 'pull', 'in', 'down'].includes(direction);
+        const start = vertical ? { x: 160, y: reverse ? 40 : 145 } : { x: reverse ? 260 : 60, y: 90 };
+        const end = vertical ? { x: 160, y: reverse ? 145 : 40 } : { x: reverse ? 60 : 260, y: 90 };
+        content = <svg role="img" aria-label={`${card.word} 从起点到终点的方向`} viewBox="0 0 320 205" className={svgClass}>
+          {['in', 'out'].includes(direction) && <rect x="17" y="25" width="86" height="113" rx="7" fill="#fff" stroke="#9a5b2a" strokeWidth="3" />}
+          {['toward', 'away', 'push', 'pull'].includes(direction) && <><text x="29" y="38" textAnchor="middle" fontSize="27">🧒</text><text x="29" y="57" textAnchor="middle" fontSize="11" fill="#784621">我</text></>}
+          <path data-motion-direction={direction} d={`M${start.x} ${start.y} L${end.x} ${end.y}`} fill="none" stroke="#9a5b2a" strokeWidth="3" strokeDasharray="6 4" />
+          {diagram.focusEndpoint && <circle data-motion-focus={diagram.focusEndpoint} cx={diagram.focusEndpoint === 'start' ? start.x : end.x} cy={(diagram.focusEndpoint === 'start' ? start.y : end.y) - 20} r="25" fill="#fce3ae" stroke="#9a5b2a" strokeWidth="3" />}
+          <path d={vertical ? `M148 ${end.y + (reverse ? -12 : 12)} L160 ${end.y} L172 ${end.y + (reverse ? -12 : 12)}` : `M${end.x + (reverse ? 12 : -12)} 78 L${end.x} 90 L${end.x + (reverse ? 12 : -12)} 102`} fill="none" stroke="#9a5b2a" strokeWidth="3" />
+          <text data-motion-start="true" x={start.x} y={start.y - 10} textAnchor="middle" fontSize="28" opacity="0.4">{object}</text>
+          <text data-motion-end="true" x={end.x} y={end.y - 10} textAnchor="middle" fontSize="28">{object}</text>
+          <text x={vertical ? 244 : start.x} y={vertical ? start.y : 143} textAnchor="middle" fontSize="12" fill="#784621">{startLabel}</text>
+          <text x={vertical ? 244 : end.x} y={vertical ? end.y : 143} textAnchor="middle" fontSize="12" fill="#784621">{endLabel}</text>
+          <text x="160" y="189" textAnchor="middle" fontSize="11" fill="#784621">淡色是起点，实色是终点</text>
+          {diagram.returning && <><path data-motion-history="outward" d="M60 157 H260 M250 151 L260 157 L250 163" stroke="#9a5b2a" strokeWidth="2" fill="none" /><text x="160" y="174" textAnchor="middle" fontSize="11" fill="#784621">先从这里带走，再沿上方箭头返回</text></>}
+        </svg>;
+      } else if (kind === 'frequency') {
+        content = <>
+          <svg role="img" aria-label={`${diagram.total} 次机会中发生 ${diagram.hits.length} 次的示例`} viewBox="0 0 320 120" className={svgClass}>
+            {Array.from({ length: diagram.total }, (_, index) => {
+              const active = diagram.hits.includes(index);
+              const x = 40 + (index % 5) * 60, y = 27 + Math.floor(index / 5) * 52;
+              return <g key={index}><circle data-frequency-hit={active ? 'true' : 'false'} cx={x} cy={y} r="15" fill={active ? '#a96d29' : '#fff'} stroke="#a96d29" strokeWidth="2" /><text x={x} y={y + 5} textAnchor="middle" fontSize="12" fill={active ? '#fff' : '#784621'}>{index + 1}</text></g>;
+            })}
+          </svg>
+          <p className="mt-2 text-center text-xs text-stone-700">深色＝发生，空圈＝未发生</p>
+        </>;
+      } else if (kind === 'timeline') {
+        content = <div className="space-y-2">
+          {diagram.points.map((point, index) => <div key={index} data-time-point={index} data-time-active={point.active ? 'true' : 'false'} className={`flex items-center gap-2 rounded-md border px-2 py-1 ${point.active ? 'border-amber-600 bg-amber-100' : 'border-stone-200 bg-white'}`}>
+            <span aria-hidden="true" className="text-amber-800">{index === 0 ? '●' : '↓'}</span>
+            <div className="min-w-0"><p className="font-mono text-xs font-bold">{point.label}</p><p className="text-xs leading-5 text-stone-700">{point.meaning}</p></div>
+          </div>)}
+          <p className="text-xs text-stone-700">从上到下，时间向前。</p>
+        </div>;
+      } else if (kind === 'selection') {
+        content = <>
+          <svg role="img" aria-label={`${diagram.total} 个对象中的选中范围`} viewBox="0 0 320 125" className={svgClass}>
+            {Array.from({ length: diagram.total }, (_, index) => {
+              const active = diagram.selected.includes(index);
+              const x = 38 + (index % 5) * 61, y = 30 + Math.floor(index / 5) * 57;
+              return <g key={index}><circle data-selection-active={active ? 'true' : 'false'} cx={x} cy={y} r="19" fill={active ? '#fce3ae' : '#fff'} stroke={active ? '#a96d29' : '#b9b0a4'} strokeWidth={active ? 3 : 1} /><text x={x} y={y + 5} textAnchor="middle" fontSize="14" fill="#784621">{diagram.individual ? index + 1 : '●'}</text></g>;
+            })}
+          </svg>
+          <p className="mt-2 text-center text-xs text-stone-700">{diagram.individual ? '逐个指出，每一个都算在内' : '深色边框表示选中，浅色表示未选中'}</p>
+          {diagram.comparison !== undefined && <div className="mt-2 rounded-md border border-amber-300 bg-white p-2 text-center">
+            <p className="font-mono text-lg font-bold text-amber-900">{diagram.selected.length} &gt; {diagram.comparison}</p>
+            <p className="text-xs text-stone-600">比较基准：{diagram.comparison} 个</p>
+            <svg role="img" aria-label={`比较基准 ${diagram.comparison} 个`} viewBox="0 0 320 34" className={svgClass}>{Array.from({ length: diagram.comparison }, (_, index) => <circle key={index} data-comparison-dot="true" cx={32 + index * 28} cy="17" r="8" fill="#a96d29" />)}</svg>
+          </div>}
+        </>;
+      } else if (kind === 'category') {
+        content = <div className="rounded-lg border-2 border-amber-600 bg-white p-2">
+          <p className="mb-2 text-center font-mono text-sm font-bold text-amber-900">{card.word}</p>
+          <ul className="ml-2 space-y-2 border-l-2 border-amber-300 pl-3">
+            {diagram.items.map(item => <li key={item.label} className="flex items-center gap-2">
+              <span aria-hidden="true" className="text-xl">{item.symbol}</span><div className="min-w-0"><p className="font-mono text-xs font-bold">{item.label}</p><p className="text-xs leading-5 text-stone-600">{item.meaning}</p></div>
+            </li>)}
+          </ul><p className="mt-2 text-xs text-stone-600">框内列举同类成员，未列出全部。</p>
+        </div>;
+      } else if (kind === 'partition') {
+        const width = 240 / diagram.pieces;
+        content = <svg role="img" aria-label={`一个整体分为 ${diagram.pieces} 份`} viewBox="0 0 320 180" className={svgClass}>
+          <rect x="40" y="15" width="240" height="45" rx="3" fill="#d69b50" stroke="#9a5b2a" strokeWidth="2" />
+          <text x="160" y="82" textAnchor="middle" fontSize="12" fill="#784621">一个完整的整体</text>
+          <path d="M160 91 V105 M153 99 L160 106 L167 99" fill="none" stroke="#9a5b2a" strokeWidth="2" />
+          {Array.from({ length: diagram.pieces }, (_, index) => <rect key={index} data-partition-piece={diagram.selected.includes(index) ? 'selected' : 'other'} x={40 + index * width + (diagram.separated ? 3 : 0)} y="116" width={width - (diagram.separated ? 6 : 0)} height="35" fill={diagram.selected.includes(index) ? '#a96d29' : '#fce3ae'} stroke="#9a5b2a" strokeWidth="2" />)}
+          <text x="160" y="173" textAnchor="middle" fontSize="12" fill="#784621">{diagram.separated ? '分开后的各份' : '深色是部分，外框是整体'}</text>
+        </svg>;
+      } else if (kind === 'feature') {
+        const { scene, focus } = diagram;
+        const ink = '#9a5b2a', paper = '#fce3ae';
+        const label = (text, x, y) => <text x={x} y={y} textAnchor="middle" fill="#784621" fontSize="12">{text}</text>;
+        content = <svg role="img" aria-label={`${card.word} 的具体结构示意`} data-feature-scene={scene} viewBox="0 0 320 205" className={svgClass}>
+          {scene === 'kite' && <><path d="M144 14 L199 64 L144 107 L96 64 Z" fill={paper} stroke={ink} strokeWidth="3" /><path d="M144 14 V107 M96 64 H199 M144 107 Q133 147 174 180" fill="none" stroke={ink} strokeWidth="2" /><path d="M174 180 H256 M251 175 L256 180 L251 185" stroke={ink} fill="none" />{label('牵引线',263,162)}{label('风筝面',61,64)}</>}
+          {scene === 'rope' && <><path d="M43 25 C232 -5 55 122 210 114 C238 126 147 180 62 175" fill="none" stroke={ink} strokeWidth="8" strokeLinecap="round" /><rect x="260" y="23" width="25" height="155" fill={paper} stroke={ink} />{Array.from({ length: 11 }, (_, i) => <path key={i} d={`M260 ${31 + i * 13} H273`} stroke={ink} />)}{label('绳：能弯曲',132,197)}{label('尺',273,197)}</>}
+          {scene === 'room' && <><rect x="25" y="19" width="270" height="152" fill="#fff" stroke={ink} strokeWidth="3" />{[0,1,2,3].map(i => <g key={i}><rect x={40 + (i % 2) * 131} y={35 + Math.floor(i / 2) * 64} width="106" height="48" fill={focus === 'school' || i === 0 && focus === 'room' ? paper : '#fff'} stroke={ink} /><text x={93 + (i % 2) * 131} y={66 + Math.floor(i / 2) * 64} textAnchor="middle" fontSize="24">{i === 0 ? '🧒👧' : i === 1 ? '📚' : i === 2 ? '🧪' : '🎨'}</text></g>)}{label(focus === 'class' ? '只指同一班的学生集体' : focus === 'room' ? '一间教室，不是整所学校' : '外框：学校；内部：不同房间',160,195)}{focus === 'class' && <rect x="57" y="42" width="73" height="34" rx="6" fill="none" stroke="#c35c21" strokeWidth="3" />}</>}
+          {scene === 'door-window' && <><path d="M30 24 H290 V169 H30 Z" fill="#fff" stroke={ink} strokeWidth="3" /><rect x="59" y="59" width="61" height="110" fill={focus === 'door' ? paper : '#fff'} stroke={ink} strokeWidth="3" /><circle cx="108" cy="116" r="3" fill={ink} /><rect x="184" y="49" width="75" height="64" fill={focus === 'window' ? paper : '#e1f0ef'} stroke={ink} strokeWidth="3" /><path d="M221 49 V113 M184 81 H259 M16 172 H303" stroke={ink} strokeWidth="2" />{label('门：连到地面供进出',89,195)}{label('窗：开在墙上',232,141)}</>}
+          {scene === 'lake-river' && <><path d="M26 78 C21 21 129 17 142 72 C161 133 66 165 27 127 Z" fill="#92c5cf" stroke="#468a9a" strokeWidth="2" /><path d="M211 4 C174 53 267 63 228 102 S202 161 262 200" fill="none" stroke="#92c5cf" strokeWidth="25" /><path d="M214 119 L232 144 M220 140 L232 144 L234 132" fill="none" stroke="#468a9a" strokeWidth="3" />{label('湖：陆地环绕水域',83,189)}{label('河：水流沿河道',247,26)}</>}
+          {scene === 'stair' && <><path d="M28 170 H80 V132 H132 V94 H184 V56 H236 V18 H290" fill="none" stroke={ink} strokeWidth="5" /><path d="M80 132 H132" stroke="#c35c21" strokeWidth="8" /><path d="M106 126 L72 85" stroke={ink} strokeWidth="2" />{label('一级 stair',66,76)}{label('多级连成 stairs',189,194)}</>}
+          {scene === 'plant-flow' && <><path d="M18 145 H303" stroke={ink} strokeWidth="2" /><path d="M157 30 V146 M157 146 L132 174 M157 145 L182 175 M157 146 V187" stroke="#638346" strokeWidth="7" fill="none" /><path d="M157 74 Q211 19 243 51 Q216 98 157 74 M157 107 Q97 59 72 87 Q101 129 157 107" fill="#85a963" /><path data-water-path="upward" d="M154 176 V50 M147 60 L154 50 L161 60" stroke="#468a9a" strokeWidth="3" fill="none" />{label('根吸水，茎向上输送',159,203)}</>}
+          {scene === 'protection' && <><path d="M69 61 Q160 -7 251 61 Z" fill={paper} stroke={ink} strokeWidth="3" /><path d="M160 61 V142 Q162 156 178 143" fill="none" stroke={ink} strokeWidth="3" /><text x="160" y="175" textAnchor="middle" fontSize="43">🧒</text>{[38,56,267,284].map((x,i) => <path key={x} d={`M${x} 32 V133 M${x-4} 126 L${x} 134 L${x+4} 126`} stroke="#468a9a" strokeWidth="2" fill="none" />)}{label('伞面挡雨，下面的人受到保护',160,201)}</>}
+          {scene === 'wind' && <><path d="M20 55 H222 M20 105 H256 M20 151 H230 M213 49 L223 55 L213 61 M247 99 L257 105 L247 111 M220 145 L230 151 L220 157" stroke="#468a9a" strokeWidth="3" fill="none" /><path d="M235 162 V103 Q236 68 278 54 M237 111 Q272 94 289 109" stroke="#638346" strokeWidth="4" fill="none" /><ellipse cx="278" cy="55" rx="20" ry="9" transform="rotate(-32 278 55)" fill="#85a963" />{label('空气向右流动，植物向右偏',160,199)}</>}
+          {scene === 'balance' && <><path d="M38 103 H282 M160 105 L130 168 H190 Z M65 103 V48 M255 103 V48" stroke={ink} strokeWidth="3" fill={paper} /><rect x="39" y="55" width="52" height="47" fill={paper} stroke={ink} />{label('4 kg',65,81)}{[0,1].map(i => <g key={i}><rect x={225+i*31} y="78" width="28" height="24" fill={paper} stroke={ink} /><text x={239+i*31} y="73" textAnchor="middle" fontSize="11" fill="#784621">2 kg</text></g>)}{label('支点居中：两边总重量相等',160,194)}</>}
+          {scene === 'sort' && <>{[0,1,2,3,4,5].map(i => i % 2 ? <rect key={i} x={37+i*44} y="20" width="18" height="18" fill={paper} stroke={ink} /> : <circle key={i} cx={46+i*44} cy="29" r="9" fill={paper} stroke={ink} />)}<path d="M160 50 V75 H82 V95 M160 75 H240 V95 M76 88 L82 95 L88 88 M234 88 L240 95 L246 88" stroke={ink} fill="none" strokeWidth="2" /><rect x="27" y="103" width="111" height="63" rx="8" fill="#fff" stroke={ink} /><rect x="183" y="103" width="111" height="63" rx="8" fill="#fff" stroke={ink} />{[0,1,2].map(i => <g key={i}><circle cx={48+i*34} cy="133" r="10" fill={paper} stroke={ink} /><rect x={200+i*33} y="123" width="20" height="20" fill={paper} stroke={ink} /></g>)}{label('圆形一组',82,191)}{label('正方形一组',240,191)}</>}
+          {scene === 'plaza' && <><rect x="40" y="42" width="240" height="130" rx="28" fill="#e9d8b6" stroke={ink} /><path d="M160 172 V202 M40 107 H9 M280 107 H311" stroke="#e9d8b6" strokeWidth="23" />{[40,225].map(x => <g key={x}><rect x={x} y="7" width="55" height="29" fill={paper} stroke={ink} /><path d={`M${x+10} 12 V30 M${x+25} 12 V30 M${x+40} 12 V30`} stroke={ink} /></g>)}<text x="113" y="115" textAnchor="middle" fontSize="32">🚶</text><text x="200" y="119" textAnchor="middle" fontSize="32">🧒</text>{label('建筑之间可供公众活动的开阔场地',160,158)}</>}
+        </svg>;
+      } else if (kind === 'shape') {
+        content = <svg role="img" aria-label="同色同高的轮廓对照" viewBox="0 0 320 110" className={svgClass}>
+          {[{ name: 'circle', label: '圆', x: 55 }, { name: 'square', label: '正方形', x: 160 }, { name: 'triangle', label: '三角形', x: 265 }].map(node => <g key={node.name} data-shape-name={node.name}>
+            {diagram.focus === node.name && <rect x={node.x - 44} y="4" width="88" height="100" rx="7" fill="#fce3ae" stroke="#9a5b2a" />}
+            {node.name === 'circle' ? <circle cx={node.x} cy="41" r="28" fill="#d69b50" /> : node.name === 'square' ? <rect x={node.x - 28} y="13" width="56" height="56" fill="#d69b50" /> : <path d={`M${node.x} 13 L${node.x - 28} 69 H${node.x + 28} Z`} fill="#d69b50" />}
+            <text x={node.x} y="91" textAnchor="middle" fontSize="12" fill="#784621">{node.label}</text>
+          </g>)}
+        </svg>;
+      } else if (kind === 'count') {
+        const groups = Math.ceil(diagram.value / 10);
+        content = <>
+          <svg role="img" aria-label={`${diagram.value} 个圆点，每框最多十个`} viewBox={`0 0 320 ${groups * 55 + 12}`} className={svgClass}>
+            {Array.from({ length: groups }, (_, group) => <g key={group} transform={`translate(20,${group * 55 + 6})`}>
+              <rect width="240" height="46" rx="5" fill="#fff" stroke="#d6b67a" />
+              {Array.from({ length: 10 }, (_, index) => { const number = group * 10 + index + 1; const cx = 16 + (index % 5) * 51; const cy = index < 5 ? 13 : 33; return <g key={index}>
+                <circle data-count-dot={number <= diagram.value ? 'filled' : 'empty'} data-ordinal-target={diagram.ordinal && number === diagram.value ? 'true' : undefined} cx={cx} cy={cy} r={diagram.ordinal ? 9 : 7} fill={diagram.ordinal ? number === diagram.value ? '#a96d29' : '#fff' : number <= diagram.value ? '#a96d29' : '#fff'} stroke="#a96d29" strokeWidth={diagram.ordinal && number === diagram.value ? 3 : 1} />
+                {diagram.ordinal && <text x={cx} y={cy + 3} textAnchor="middle" fontSize="9" fill={number === diagram.value ? '#fff' : '#784621'}>{number}</text>}
+              </g>; })}
+              {!diagram.ordinal && <text x="263" y="28" fontSize="15" fill="#784621">{Math.min(10, diagram.value - group * 10)}</text>}
+            </g>)}
+          </svg>
+          <p className="mt-2 text-center text-sm text-stone-700">{diagram.ordinal ? <>找到第 <strong>{diagram.value}</strong> 个位置</> : <>共 <strong>{diagram.value}</strong> 个 · 每框最多 10 个</>}</p>
+        </>;
+      } else if (kind === 'colour') {
+        content = <div className={`flex flex-wrap justify-center ${compact ? 'gap-2' : 'gap-4'}`}>
+          {diagram.swatches.map((swatch, index) => <React.Fragment key={swatch.label}>
+            {diagram.mix && index > 0 && <span aria-hidden="true" className="self-center text-xl text-amber-800">{index === 1 ? '＋' : '＝'}</span>}
+            <div className="text-center">
+              <span role="img" aria-label={swatch.meaning} className={`mx-auto block rounded-full border-2 border-stone-400 ${compact ? 'h-8 w-8' : 'h-12 w-12'}`} style={{ backgroundColor: swatch.colour }} />
+              <p className={`mt-1 font-mono font-semibold ${compact ? 'text-xs' : 'text-base'}`}>{swatch.label}</p><p className="text-xs text-stone-600">{swatch.meaning}</p>
+            </div>
+          </React.Fragment>)}
+        </div>;
+      } else if (kind === 'clock') {
+        const hourAngle = ((diagram.hour % 12) + diagram.minute / 60) * Math.PI / 6;
+        const minuteAngle = diagram.minute * Math.PI / 30;
+        content = <>
+          <svg role="img" aria-label={`${diagram.hour}时${diagram.minute}分的钟面`} viewBox="0 0 320 210" className={svgClass}>
+            <circle cx="160" cy="100" r="90" fill="#fff" stroke="#9a5b2a" strokeWidth="3" />
+            {Array.from({ length: 60 }, (_, index) => { const angle = index * Math.PI / 30; return <line key={index} x1={160 + Math.sin(angle) * (index % 5 ? 82 : 77)} y1={100 - Math.cos(angle) * (index % 5 ? 82 : 77)} x2={160 + Math.sin(angle) * 87} y2={100 - Math.cos(angle) * 87} stroke="#9a5b2a" strokeWidth={index % 5 ? 1 : 2} />; })}
+            {[12, 3, 6, 9].map(number => <text key={number} x={160 + Math.sin(number * Math.PI / 6) * 66} y={106 - Math.cos(number * Math.PI / 6) * 66} textAnchor="middle" fontSize="16" fill="#784621">{number}</text>)}
+            <line data-clock-hand="hour" x1="160" y1="100" x2={160 + Math.sin(hourAngle) * 47} y2={100 - Math.cos(hourAngle) * 47} stroke={diagram.focus === 'hour' ? '#c35c21' : '#784621'} strokeWidth="7" strokeLinecap="round" />
+            <line data-clock-hand="minute" x1="160" y1="100" x2={160 + Math.sin(minuteAngle) * 70} y2={100 - Math.cos(minuteAngle) * 70} stroke={diagram.focus === 'minute' ? '#c35c21' : '#784621'} strokeWidth="3" strokeLinecap="round" />
+            <circle cx="160" cy="100" r="5" fill="#784621" />
+          </svg>
+          <p className="text-center font-mono text-lg font-bold">{String(diagram.hour).padStart(2, '0')}:{String(diagram.minute).padStart(2, '0')}</p>
+          <p className="mt-1 text-center text-xs text-stone-600">短针指小时 · 长针指分钟{diagram.focus === 'hour' ? ' · 留意短针' : diagram.focus === 'minute' ? ' · 留意长针' : ''}</p>
+        </>;
+      } else if (kind === 'position') {
+        const { relation, object, reference } = diagram;
+        const positions = { inside: [160, 105], surface: [160, 69], below: [160, 167], above: [160, 46], behind: [160, 87], front: [160, 130], beside: [99, 117], between: [160, 117], near: [141, 117], far: [38, 117], outside: [40, 117], around: [160, 50], middle: [160, 110] };
+        const [x, y] = positions[relation];
+        const glyph = (symbol, gx, gy, key) => <text key={key} x={gx} y={gy} textAnchor="middle" fontSize="40">{symbol}</text>;
+        const referenceGraphic = ['inside', 'outside', 'middle'].includes(relation)
+          ? <><rect x="90" y="46" width="140" height="102" rx="8" fill="#fce3ae" stroke="#9a5b2a" strokeWidth="3" />{glyph(reference, 208, 81, 'reference')}</>
+          : relation === 'surface' ? <><path d="M88 73 H232 M102 73 V160 M218 73 V160" stroke="#9a5b2a" strokeWidth="5" fill="none" />{glyph(reference, 263, 136, 'reference')}</>
+          : relation === 'between' ? <>{glyph(reference, 65, 117, 'reference-left')}{glyph(reference, 255, 117, 'reference-right')}</>
+          : relation === 'around' ? glyph(reference, 160, 119, 'reference')
+          : glyph(reference, ['beside', 'near', 'far'].includes(relation) ? 215 : 160, relation === 'below' ? 95 : relation === 'above' ? 139 : 116, 'reference');
+        content = <svg role="img" aria-label={`${card.word} 的空间关系`} viewBox="0 0 320 195" className={svgClass}>
+          {relation === 'behind' && glyph(object, x, y, 'object')}
+          {referenceGraphic}
+          {relation !== 'behind' && glyph(object, x, y, 'object')}
+          {relation === 'around' && <>{glyph(object, 90, 122, 'around-left')}{glyph(object, 230, 122, 'around-right')}{glyph(object, 160, 177, 'around-bottom')}</>}
+          {['beside', 'near', 'far'].includes(relation) && <path d={`M${x + 25} 143 H190`} stroke="#b78b4b" strokeWidth="2" strokeDasharray="4 4" />}
+        </svg>;
+      } else if (kind === 'measure') {
+        const { dimension, labels } = diagram;
+        const maximum = Math.max(...labels.map(label => label.value));
+        content = <svg role="img" aria-label={`${card.word} 的尺寸对照`} viewBox="0 0 320 185" className={svgClass}>
+          {labels.map((label, index) => {
+            const fraction = label.value / maximum;
+            const vertical = dimension === 'height' || dimension === 'size';
+            const width = dimension === 'length' ? 200 * fraction : dimension === 'size' ? 72 * fraction : 34;
+            const height = dimension === 'height' ? 110 * fraction : dimension === 'size' ? 72 * fraction : dimension === 'thickness' ? 24 * fraction : 13;
+            const x = vertical ? 60 + index * 145 : 54;
+            const y = vertical ? 130 - height : 35 + index * 74;
+            return <g key={label.label}>
+              <rect data-measure-value={label.value} x={x} y={y} width={dimension === 'thickness' ? 200 : width} height={height} rx="2" fill="#d69b50" stroke="#9a5b2a" />
+              <text x={vertical ? x + width / 2 : 156} y={vertical ? 153 : y + height + 23} textAnchor="middle" fill="#784621" fontSize="15">{label.label}</text>
+              <text x={vertical ? x + width / 2 : 156} y={vertical ? 173 : y + height + 41} textAnchor="middle" fill="#784621" fontSize="12">{label.meaning}</text>
+            </g>;
+          })}
+          {['height', 'size'].includes(dimension) && <path d="M36 132 H289" stroke="#9a5b2a" strokeWidth="2" />}
+        </svg>;
+      } else if (kind === 'family') {
+        const { role } = diagram;
+        const parentsOnly = ['mum', 'dad', 'parent'].includes(role);
+        const focus = ({ grandpa: 'grand', grandma: 'grand', mum: 'parent', dad: 'parent', parent: 'parent', brother: 'sibling', sister: 'sibling', uncle: 'relative', aunt: 'relative', cousin: 'cousin' })[role];
+        const nodes = parentsOnly ? [
+          { id: 'parent', x: 160, y: 60, symbol: role === 'dad' ? '👨' : '👩', label: role === 'mum' ? '妈妈' : role === 'dad' ? '爸爸' : '家长（之一）' },
+          { id: 'me', x: 160, y: 155, symbol: '🧒', label: '孩子（我）' },
+        ] : [
+          { id: 'grand', x: 160, y: 33, symbol: role === 'grandpa' ? '👴' : role === 'grandma' ? '👵' : '👴 👵', label: role === 'grandpa' ? '爷爷' : role === 'grandma' ? '奶奶' : '祖辈' },
+          { id: 'parent', x: 88, y: 108, symbol: '👨', label: '爸爸' },
+          { id: 'relative', x: 241, y: 108, symbol: role === 'aunt' ? '👩' : '👨', label: role === 'aunt' ? '姑姑' : '叔叔' },
+          { id: 'me', x: 48, y: 183, symbol: '🧒', label: '我' },
+          { id: 'sibling', x: 131, y: 183, symbol: role === 'sister' ? '👧' : '👦', label: role === 'sister' ? '姐妹' : '兄弟' },
+          { id: 'cousin', x: 241, y: 183, symbol: '🧒', label: '堂兄弟姐妹' },
+        ];
+        content = <svg role="img" aria-label={`${card.word} 的家庭关系示例`} viewBox="0 0 320 218" className={svgClass}>
+          <path d={parentsOnly ? 'M160 86 V123' : 'M160 59 V72 H88 V83 M160 72 H241 V83 M88 134 V146 H48 V157 M88 146 H131 V157 M241 134 V157'} fill="none" stroke="#9a5b2a" strokeWidth="2" />
+          {nodes.map(node => <g key={node.id} data-family-node={node.id}>
+            {(focus === node.id || role === 'family') && <rect x={node.x - 39} y={node.y - 25} width="78" height="53" rx="8" fill="#fce3ae" stroke="#c35c21" strokeWidth="2" />}
+            <text x={node.x} y={node.y} textAnchor="middle" fontSize="27">{node.symbol}</text>
+            <text x={node.x} y={node.y + 20} textAnchor="middle" fontSize="12" fill="#784621">{node.label}</text>
+          </g>)}
+        </svg>;
+      } else if (kind === 'body') {
+        const { figure, part } = diagram;
+        const targets = {
+          person: { arm: [115, 110], leg: [145, 153], ear: [184, 48], eye: [151, 44], nose: [160, 53], mouth: [160, 61], hand: [99, 132], foot: [140, 177], neck: [160, 78], hair: [160, 25], face: [160, 48] },
+          bird: { wing: [153, 105], tail: [89, 121], leg: [166, 147], foot: [167, 167], eye: [216, 76], nose: [237, 84], mouth: [237, 87], neck: [192, 95], head: [213, 77] },
+          cat: { tail: [94, 103], ear: [210, 61], eye: [221, 80], nose: [236, 88], mouth: [231, 93], leg: [157, 145], foot: [157, 166], neck: [195, 102], face: [218, 86] },
+          plant: { root: [147, 162], stem: [160, 104], leaf: [128, 84], seed: [239, 164], pod: [203, 114] },
+        };
+        const [tx, ty] = targets[figure][part];
+        content = <svg role="img" aria-label={`${card.word} 的部位指认`} viewBox="0 0 320 195" className={svgClass}>
+          {figure === 'person' && <g fill="#fce3ae" stroke="#9a5b2a" strokeWidth="3" strokeLinecap="round">
+            <circle cx="160" cy="48" r="24" /><path d="M138 33 Q160 12 182 33" fill="#9a5b2a" /><circle cx="136" cy="48" r="4" /><circle cx="184" cy="48" r="4" /><circle cx="151" cy="44" r="2" /><circle cx="169" cy="44" r="2" /><path d="M160 48 V53 H163 M151 59 Q160 67 169 59 M154 73 V84 M166 73 V84" fill="none" />
+            <rect x="130" y="84" width="60" height="52" rx="10" /><path d="M131 91 L105 124 M189 91 L215 124 M146 137 V170 M174 137 V170 M145 177 H133 M175 177 H187" fill="none" strokeWidth="7" /><circle cx="100" cy="133" r="6" /><circle cx="220" cy="133" r="6" />
+          </g>}
+          {figure === 'bird' && <g fill="#f5c779" stroke="#9a5b2a" strokeWidth="3" strokeLinejoin="round">
+            <path d="M111 105 L76 108 L90 131 L116 125" /><ellipse cx="158" cy="107" rx="51" ry="34" /><circle cx="211" cy="79" r="23" /><path d="M232 77 L254 85 L231 93" /><path d="M130 94 Q165 82 180 114 Q148 137 130 94" fill="#e7ad62" /><circle cx="216" cy="76" r="3" fill="#784621" /><path d="M167 136 V163 M186 135 V163 M157 167 H176 M179 167 H197" fill="none" />
+          </g>}
+          {figure === 'cat' && <g fill="#e7bd91" stroke="#9a5b2a" strokeWidth="3" strokeLinecap="round">
+            <ellipse cx="157" cy="118" rx="53" ry="31" /><path d="M110 117 Q68 98 80 77" fill="none" strokeWidth="9" /><circle cx="214" cy="87" r="23" /><path d="M196 72 L198 52 L211 65 M218 66 L233 54 L232 80" /><circle cx="221" cy="80" r="3" fill="#784621" /><path d="M232 86 L240 88 L234 92 M225 96 H238 M132 143 V166 M157 144 V166 M184 140 V166" fill="none" />
+          </g>}
+          {figure === 'plant' && <g stroke="#537c43" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M65 140 H258" stroke="#9a5b2a" strokeWidth="2" /><path d="M160 140 V49" /><path d="M159 87 Q107 49 109 86 Q126 104 159 87 M163 103 Q218 69 216 107 Q191 122 163 103" fill="#93bc67" /><path d="M165 111 Q198 98 210 109 Q224 141 199 134 Q186 118 165 111" fill="#b6c876" /><path d="M160 141 L148 174 M160 144 L180 171 M151 160 L129 164 M173 160 L195 169" fill="none" stroke="#9a5b2a" strokeWidth="3" /><ellipse cx="239" cy="164" rx="9" ry="5" fill="#b9824d" stroke="#9a5b2a" strokeWidth="2" />
+          </g>}
+          <circle data-body-target={part} cx={tx} cy={ty} r={part === 'face' ? 25 : 8} fill="none" stroke="#c35c21" strokeWidth="3" />
+          <path d={`M271 30 L${tx + 10} ${ty - 8} l9 -1 m-9 1 l2 -9`} fill="none" stroke="#c35c21" strokeWidth="2" />
+          <text x="270" y="22" textAnchor="middle" fill="#a04c1e" fontSize="13">看这里</text>
+        </svg>;
+      }
+      return <div aria-label="图与词的对应" data-graphic-kind={kind}>{content}</div>;
+    };
+
+    const MnemonicPartsIcon = ({ size = 16, ...props }) => <svg {...props} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 4 H19 M12 4 V10 M5 10 H19 M5 10 V14 M19 10 V14" /><rect x="2" y="14" width="6" height="6" rx="1" /><rect x="16" y="14" width="6" height="6" rx="1" /></svg>;
+
+    const MnemonicDimensions = ({ card, compact = false }) => {
+      const [selected, setSelected] = useState('visual');
+      if (!card?.dimensions) return null;
+      const { semantic, context, morphology } = card.dimensions;
+      if (compact) return <div aria-label="多维助记" className="mt-3 space-y-2 text-left text-xs leading-5 text-stone-700">
+        <MnemonicPicture card={card} compact />
+        <p><strong>辨词义：</strong>{semantic}</p>
+        <p><strong>放进情境：</strong>{context.scene}</p>
+        <p><strong>换个情境想一想：</strong>{context.question}</p>
+        <p><strong>拆词理解：</strong>{morphology.note}</p>
+      </div>;
+      const options = [['visual', '看图记', Eye], ['semantic', '辨词义', Layers], ['context', '放进情境', BookOpen], ['morphology', '拆词理解', MnemonicPartsIcon], ['phonics', '听音拼写', Volume2]];
+      return <section aria-label="多维助记" className="mt-4">
+        <p className="mb-3 text-sm text-stone-600">选一条能帮你记住的线索，再收起试一试。</p>
+        <div role="group" aria-label="选择助记线索" className="mb-4 flex flex-wrap gap-2">
+          {options.map(([value, label, Icon]) => <button key={value} type="button" aria-pressed={selected === value} onClick={() => setSelected(value)} className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-2 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700 ${selected === value ? 'border-stone-800 bg-stone-800 text-white' : 'border-stone-300 bg-white text-stone-700 hover:border-stone-600'}`}><Icon aria-hidden="true" size={16} />{label}</button>)}
+        </div>
+        <div className="rounded-xl bg-white p-4 text-stone-800 sm:p-5" aria-live="polite">
+          {selected === 'visual' && <MnemonicPicture card={card} />}
+          {selected === 'semantic' && <><h5 className="mb-2 font-semibold">和熟悉的意思连起来</h5><p className="leading-7">{semantic}</p></>}
+          {selected === 'context' && <><h5 className="mb-2 font-semibold">什么时候会用到？</h5><p className="leading-7">{context.scene}</p><p className="mt-4 whitespace-pre-line border-t border-stone-200 pt-4 leading-7">{card.example}</p><p className="mt-4 rounded-lg bg-amber-50 p-3 text-sm leading-6"><strong>换个情境想一想：</strong>{context.question}</p></>}
+          {selected === 'morphology' && <>
+            <h5 className="mb-3 font-semibold">{morphology.kind === 'none' ? '这个词整体记' : '看看组成和变化'}</h5>
+            {morphology.parts.length > 0 && <div className="mb-4 flex flex-wrap items-center gap-2">{morphology.parts.map((part, index) => <React.Fragment key={index}>
+              {index > 0 && <span aria-hidden="true" className="text-stone-500">＋</span>}
+              <div className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2"><p className="font-mono text-xl font-bold text-emerald-950">{part.text}</p><p className="mt-1 text-xs text-emerald-900">{part.meaning}</p></div>
+            </React.Fragment>)}</div>}
+            <p className="leading-7">{morphology.note}</p>
+          </>}
+          {selected === 'phonics' && <><h5 className="mb-2 font-semibold">读准声音，记准字母</h5><p className="whitespace-pre-line leading-7">{card.hint}</p></>}
+        </div>
+      </section>;
+    };
+
     const matchesSpelling = (input, target) => {
       const answer = input.trim().toLowerCase().replace(/\s+/g, ' ');
       const expected = target.trim().toLowerCase().replace(/\s+/g, ' ');
@@ -614,6 +1038,84 @@
 
     const MAX_STUDY_EVENTS = 5000;
 
+    const getAnswerReward = (streak, isCorrect, retried = false) => {
+      if (!isCorrect) return { points: 0, bonus: 0, streak: 0, kind: 'incorrect', message: '慢慢来，看看线索，再试一次。积分不会减少。' };
+      if (retried) return { points: 5, bonus: 0, streak: 0, kind: 'retry', message: '你找到并改对了！坚持尝试也值得奖励。' };
+      const nextStreak = streak + 1;
+      const bonus = nextStreak % 3 === 0 ? 5 : 0;
+      return { points: 10 + bonus, bonus, streak: nextStreak, kind: bonus ? 'streak' : 'correct', message: bonus ? `连续答对 ${nextStreak} 题！额外奖励 5 分。` : '答对了！你记住了这个词。' };
+    };
+
+    // 独立保留奖励流水：学习事件只留最近 5000 条，累计积分不能随之减少。
+    // 两端按同一个答题事件编号合并，重复同步不会重复加分。
+    const normalizeRewardLedger = (ledger) => Object.fromEntries(
+      Object.entries(ledger && typeof ledger === 'object' && !Array.isArray(ledger) ? ledger : {})
+        .filter(([id, points]) => id && Number.isSafeInteger(points) && points > 0 && points <= 15)
+    );
+    const mergeRewardLedgers = (...ledgers) => {
+      const merged = new Map();
+      ledgers.forEach(ledger => Object.entries(normalizeRewardLedger(ledger)).forEach(([id, points]) => merged.set(id, Math.max(merged.get(id) || 0, points))));
+      return Object.fromEntries(merged);
+    };
+    const getRewardTotal = (ledger) => Object.values(normalizeRewardLedger(ledger)).reduce((sum, points) => sum + points, 0);
+
+    const FEEDBACK_SOUND_KEY = 'vocabmaster_feedback_sound';
+    const createEncouragementPlayer = () => {
+      let context;
+      let nodes = [];
+      let generation = 0;
+      const stop = () => {
+        generation += 1;
+        nodes.forEach(({ oscillator, gain }) => {
+          try { oscillator.stop(); } catch {}
+          oscillator.disconnect();
+          gain.disconnect();
+        });
+        nodes = [];
+      };
+      const play = async (kind) => {
+        stop();
+        const request = generation;
+        try {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (!AudioContext) return false;
+          if (!context || context.state === 'closed') context = new AudioContext();
+          // 在孩子点击或提交答案时解锁声音，兼容移动浏览器的播放限制。
+          if (context.state !== 'running') await context.resume();
+          if (request !== generation || context.state !== 'running') return false;
+          const notes = kind === 'streak' ? [523.25, 659.25, 783.99, 1046.50]
+            : kind === 'incorrect' ? [392, 440]
+            : kind === 'retry' ? [523.25, 783.99] : [659.25, 880];
+          notes.forEach((frequency, index) => {
+            const oscillator = context.createOscillator();
+            const gain = context.createGain();
+            const start = context.currentTime + index * 0.11;
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(frequency, start);
+            gain.gain.setValueAtTime(0, start);
+            gain.gain.linearRampToValueAtTime(kind === 'incorrect' ? 0.035 : 0.06, start + 0.015);
+            gain.gain.exponentialRampToValueAtTime(0.001, start + 0.16);
+            oscillator.connect(gain);
+            gain.connect(context.destination);
+            const node = { oscillator, gain };
+            nodes.push(node);
+            oscillator.onended = () => {
+              oscillator.disconnect();
+              gain.disconnect();
+              nodes = nodes.filter(item => item !== node);
+            };
+            oscillator.start(start);
+            oscillator.stop(start + 0.18);
+          });
+          return true;
+        } catch {
+          stop();
+          return false; // 声音不可用时，文字反馈和答题保存照常继续。
+        }
+      };
+      return { play, stop, close: () => { stop(); if (context) context.close().catch(() => {}); } };
+    };
+
     const normalizeStudyEvents = (events) => (
       Array.isArray(events)
         ? events.filter(event => event && event.id && event.at && event.wordId && (event.result === 'correct' || event.result === 'incorrect')).slice(-MAX_STUDY_EVENTS)
@@ -850,6 +1352,7 @@
         selectedGrade: isHiddenGrade(user.selectedGrade) ? null : user.selectedGrade,
         selectedSections,
         studyEvents,
+        rewardLedger: normalizeRewardLedger(user.rewardLedger),
       };
     };
 
@@ -915,6 +1418,7 @@
           // 删除阅读词是跨设备的墓碑操作，不能被另一台设备的旧副本重新合并回来。
           words: [...words.values()].filter(word => !ignored.has(word.id)),
           studyEvents: mergeStudyEvents(remoteUser.studyEvents, localUser.studyEvents),
+          rewardLedger: mergeRewardLedgers(remoteUser.rewardLedger, localUser.rewardLedger),
           ignoredReadingWordIds,
           updatedAt: remoteIsNewer ? remoteUser.updatedAt : localUser.updatedAt,
         };
@@ -954,6 +1458,7 @@
         words: [...words.values()],
         selectedSections: [...new Set(records.flatMap(user => user.selectedSections || []))],
         studyEvents: records.reduce((events, user) => mergeStudyEvents(events, user.studyEvents), []),
+        rewardLedger: mergeRewardLedgers(...records.map(user => user.rewardLedger)),
         ignoredReadingWordIds,
         updatedAt: records.reduce((latest, user) => (user.updatedAt || '') > latest ? (user.updatedAt || '') : latest, ''),
       };
@@ -1063,6 +1568,7 @@
       words: [],
       vocabSource: '',
       studyEvents: [],
+      rewardLedger: {},
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     });
@@ -1196,6 +1702,19 @@
       // 同一张卡在本次学习中反复尝试，只算作 1 个错词。
       const [sessionStats, setSessionStats] = useState({ correct: 0, incorrect: 0, mistakeWordIds: [] });
       const [studyEvents, setStudyEvents] = useState([]);
+      const [sessionReward, setSessionReward] = useState({ points: 0, streak: 0, bestStreak: 0 });
+      const sessionRewardRef = useRef({ points: 0, streak: 0, bestStreak: 0 });
+      const questionProgressRef = useRef({ attempted: false, solved: false });
+      const advanceTimerRef = useRef(null);
+      const encouragementPlayerRef = useRef(null);
+      const [rewardFeedback, setRewardFeedback] = useState(null);
+      const [feedbackSoundEnabled, setFeedbackSoundEnabled] = useState(() => {
+        try { return localStorage.getItem(FEEDBACK_SOUND_KEY) !== 'off'; } catch { return true; }
+      });
+      useEffect(() => () => {
+        clearTimeout(advanceTimerRef.current);
+        encouragementPlayerRef.current?.close();
+      }, []);
       const [expandedWeekStartKey, setExpandedWeekStartKey] = useState(null);
 
       // AI Features State
@@ -2405,9 +2924,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         const currentWord = studyList[currentIndex];
 
         if (!showHint && feedback !== 'correct') {
-          setShowHint(true);
-          updateGlobalWordStats(currentWord.id, false);
-          setSessionStats(prev => ({ ...prev, incorrect: prev.incorrect + 1 }));
+          handleShowHint();
         }
 
         setIsAILoading(true);
@@ -2710,6 +3227,59 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
           .filter(word => word.source !== 'ket' || !isRecognitionWord(word) || hasAuditedRecognitionChoices(word));
       };
 
+      const playEncouragement = (kind) => {
+        if (!feedbackSoundEnabled) return;
+        if (!encouragementPlayerRef.current) encouragementPlayerRef.current = createEncouragementPlayer();
+        void encouragementPlayerRef.current.play(kind);
+      };
+
+      const resetSessionReward = () => {
+        clearTimeout(advanceTimerRef.current);
+        encouragementPlayerRef.current?.stop();
+        sessionRewardRef.current = { points: 0, streak: 0, bestStreak: 0 };
+        setSessionReward(sessionRewardRef.current);
+        questionProgressRef.current = { attempted: false, solved: false };
+        setRewardFeedback(null);
+      };
+
+      const encourageAnswer = (isCorrect) => {
+        const reward = getAnswerReward(sessionRewardRef.current.streak, isCorrect, questionProgressRef.current.attempted);
+        const next = {
+          points: sessionRewardRef.current.points + reward.points,
+          streak: reward.streak,
+          bestStreak: Math.max(sessionRewardRef.current.bestStreak, reward.streak),
+        };
+        sessionRewardRef.current = next;
+        setSessionReward(next);
+        setRewardFeedback(reward);
+        playEncouragement(reward.kind);
+        return reward.points;
+      };
+
+      const renderRewardPanel = (inSession = false) => (
+        <section aria-label="学习奖励" className="mb-5 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-left">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-amber-950">
+              <span>★ 累计积分 <b data-testid="reward-total">{getRewardTotal(currentUser?.rewardLedger)}</b></span>
+              {inSession && <><span>本次 <b data-testid="reward-session">+{sessionReward.points}</b></span><span>连对 <b data-testid="reward-streak">{sessionReward.streak}</b> 题</span></>}
+            </div>
+            <button type="button" aria-label="鼓励音效" aria-pressed={feedbackSoundEnabled}
+              onClick={() => {
+                const enabled = !feedbackSoundEnabled;
+                setFeedbackSoundEnabled(enabled);
+                try { localStorage.setItem(FEEDBACK_SOUND_KEY, enabled ? 'on' : 'off'); } catch {}
+                if (!enabled) encouragementPlayerRef.current?.stop();
+              }}
+              className="rounded-lg border border-amber-300 bg-white px-3 py-2 text-xs font-medium text-amber-950">
+              鼓励音效：{feedbackSoundEnabled ? '开' : '关'}
+            </button>
+          </div>
+          <details className="mt-2 text-xs leading-6 text-amber-900"><summary className="cursor-pointer">积分怎么得？</summary>
+            首次答对 +10 分；每连续答对 3 题额外 +5 分；答错后改对 +5 分。答错、看提示和跳题不扣分，连对重新计数。助记自查不计分。积分从启用奖励后开始累计。
+          </details>
+        </section>
+      );
+
       const startStudy = () => {
         const filteredWords = getWordsToStudy();
         if (filteredWords.length === 0) {
@@ -2723,6 +3293,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         setStudyList(shuffled);
         setCurrentIndex(0);
         setSessionStats({ correct: 0, incorrect: 0, mistakeWordIds: [] });
+        resetSessionReward();
         setUserInput('');
         setFeedback(null);
         setShowHint(false);
@@ -2747,6 +3318,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         setStudyList(shuffled);
         setCurrentIndex(0);
         setSessionStats({ correct: 0, incorrect: 0, mistakeWordIds: [] });
+        resetSessionReward();
         setUserInput('');
         setFeedback(null);
         setShowHint(false);
@@ -2769,6 +3341,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         setStudyList(plan.words);
         setCurrentIndex(0);
         setSessionStats({ correct: 0, incorrect: 0, mistakeWordIds: [] });
+        resetSessionReward();
         setUserInput('');
         setFeedback(null);
         setShowHint(false);
@@ -2853,6 +3426,8 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
       };
 
       const exitStudy = () => {
+        clearTimeout(advanceTimerRef.current);
+        encouragementPlayerRef.current?.stop();
         if ('speechSynthesis' in window) {
           window.speechSynthesis.cancel();
         }
@@ -2867,7 +3442,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
       };
 
       // 3. Study Logic
-      const recordStudyEvent = (wordId, isCorrect, nextWords, readingQueueCursor) => {
+      const recordStudyEvent = (wordId, isCorrect, nextWords, readingQueueCursor, rewardPoints = 0) => {
         const word = wordsRef.current.find(item => item.id === wordId);
         if (!word) return;
         const at = new Date().toISOString();
@@ -2883,6 +3458,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
           chineseMeaning: word.chinese_meaning,
           section: word.section,
           result: isCorrect ? 'correct' : 'incorrect',
+          rewardPoints,
         }]);
         setStudyEvents(nextEvents);
 
@@ -2894,6 +3470,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
               ...activeUser,
               words: nextWords,
               studyEvents: nextEvents,
+              rewardLedger: rewardPoints > 0 ? { ...normalizeRewardLedger(activeUser.rewardLedger), [id]: rewardPoints } : normalizeRewardLedger(activeUser.rewardLedger),
               ...(readingQueueCursor ? { readingQueueCursor } : {}),
               updatedAt: at,
             },
@@ -2904,7 +3481,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         }
       };
 
-      const updateGlobalWordStats = (wordId, isCorrect) => {
+      const updateGlobalWordStats = (wordId, isCorrect, rewardPoints = 0) => {
         const now = new Date().toISOString();
         const liveWord = wordsRef.current.find(word => word.id === wordId);
         // 游标只在真正完成首次作答后前移；中途退出不会跳过已经选中但尚未作答的词。
@@ -2959,7 +3536,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
           });
         wordsRef.current = nextWords;
         setWords(nextWords);
-        recordStudyEvent(wordId, isCorrect, nextWords, readingQueueCursor);
+        recordStudyEvent(wordId, isCorrect, nextWords, readingQueueCursor, rewardPoints);
       };
 
       const recordSessionMistake = (wordId) => {
@@ -2975,14 +3552,16 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
 
       const handleCheck = (e) => {
         e.preventDefault();
-        if (!userInput.trim() || showHint || feedback === 'correct') return;
+        if (!userInput.trim() || showHint || questionProgressRef.current.solved) return;
 
         const currentWord = studyList[currentIndex];
         const isCorrect = matchesSpelling(userInput, currentWord.english_word);
 
         if (isCorrect) {
+          const rewardPoints = encourageAnswer(true);
+          questionProgressRef.current.solved = true;
           setFeedback('correct');
-          updateGlobalWordStats(currentWord.id, true);
+          updateGlobalWordStats(currentWord.id, true, rewardPoints);
           setSessionStats(prev => ({ ...prev, correct: prev.correct + 1 }));
 
           const willGraduate = isInMistakeBook(currentWord)
@@ -2991,28 +3570,33 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
 
           // 有课文例句时留给孩子阅读，不再自动跳题
           if (!hasExamples) {
-            setTimeout(() => {
+            advanceTimerRef.current = setTimeout(() => {
               handleNext(willGraduate);
-            }, willGraduate ? 1200 : 800);
+            }, (sessionRewardRef.current.streak > 0 && sessionRewardRef.current.streak % 3 === 0) || willGraduate ? 1200 : 900);
           }
-        } else if (feedback !== 'incorrect') {
+        } else {
+          encourageAnswer(false);
           setFeedback('incorrect');
-          updateGlobalWordStats(currentWord.id, false);
-          recordSessionMistake(currentWord.id);
+          if (!questionProgressRef.current.attempted) {
+            questionProgressRef.current.attempted = true;
+            updateGlobalWordStats(currentWord.id, false);
+            recordSessionMistake(currentWord.id);
+          }
           // Let user try again or ask for hint
         }
       };
 
       const handleChoiceSelect = (choice) => {
-        if (showHint || feedback === 'correct') return;
-        if (selectedChoiceKey && feedback === 'incorrect') return;
+        if (showHint || questionProgressRef.current.solved || questionProgressRef.current.attempted) return;
 
         const currentWord = studyList[currentIndex];
         setSelectedChoiceKey(choice.key);
 
         if (choice.isCorrect) {
+          const rewardPoints = encourageAnswer(true);
+          questionProgressRef.current.solved = true;
           setFeedback('correct');
-          updateGlobalWordStats(currentWord.id, true);
+          updateGlobalWordStats(currentWord.id, true, rewardPoints);
           setSessionStats(prev => ({ ...prev, correct: prev.correct + 1 }));
 
           const willGraduate = isInMistakeBook(currentWord)
@@ -3020,11 +3604,13 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
           const hasExamples = findLessonExamples(currentWord, lessonSentences).length > 0;
 
           if (!hasExamples) {
-            setTimeout(() => {
+            advanceTimerRef.current = setTimeout(() => {
               handleNext(willGraduate);
-            }, willGraduate ? 1200 : 900);
+            }, sessionRewardRef.current.streak % 3 === 0 || willGraduate ? 1200 : 900);
           }
         } else {
+          encourageAnswer(false);
+          questionProgressRef.current.attempted = true;
           setFeedback('incorrect');
           updateGlobalWordStats(currentWord.id, false);
           recordSessionMistake(currentWord.id);
@@ -3032,6 +3618,14 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
       };
 
       const handleNext = (graduatedFromMistakeBook = false) => {
+        clearTimeout(advanceTimerRef.current);
+        encouragementPlayerRef.current?.stop();
+        if (!questionProgressRef.current.solved) {
+          sessionRewardRef.current = { ...sessionRewardRef.current, streak: 0 };
+          setSessionReward(sessionRewardRef.current);
+        }
+        questionProgressRef.current = { attempted: false, solved: false };
+        setRewardFeedback(null);
         setFeedback(null);
         setUserInput('');
         setShowHint(false);
@@ -3050,10 +3644,13 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
       };
 
       const handleShowHint = () => {
+        if (questionProgressRef.current.solved) return;
         setShowHint(true);
         const currentWord = studyList[currentIndex];
         // 连续输错后再看提示，仍只记作这张卡的 1 次错词。
-        if (feedback !== 'incorrect') {
+        if (!questionProgressRef.current.attempted) {
+          encourageAnswer(false);
+          questionProgressRef.current.attempted = true;
           updateGlobalWordStats(currentWord.id, false);
           recordSessionMistake(currentWord.id);
         }
@@ -3393,6 +3990,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
 
         const actionButtons = (
           <>
+          {renderRewardPanel()}
           {readingImportReview && (() => {
             const selectedEntries = readingImportReview.filter(entry => readingImportSelectedKeys.includes(normalizeReadingWord(entry.word)));
             return <section className="mb-5 rounded-2xl border-2 border-sky-200 bg-sky-50 p-5 text-left">
@@ -3727,7 +4325,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                 <div className="flex-1 flex flex-col items-center justify-center p-3 bg-gray-50 gap-2">
                   <span className="text-xl font-bold text-gray-800">{w.chinese_meaning}</span>
                   {studyTip && printMode !== 'mistakes' && (
-                    <p className="whitespace-pre-line text-sm leading-relaxed text-amber-900 bg-amber-50 border border-amber-200 rounded-md px-2 py-1.5 w-full text-left">
+                    <p className="print-study-hint whitespace-pre-line text-sm leading-relaxed text-amber-900 bg-amber-50 border border-amber-200 rounded-md px-2 py-1.5 w-full text-left">
                       <span className="font-bold">记法：</span>{studyTip}
                     </p>
                   )}
@@ -3740,6 +4338,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                       <p className="whitespace-pre-line">{mnemonicCards.has(mnemonicKey(w.section, w.english_word)) ? buildLocalHint(w) : (w.printableHint || buildLocalHint(w))}</p>
                     </div>
                   )}
+                  <MnemonicDimensions card={mnemonicCards.get(mnemonicKey(w.section, w.english_word))} compact />
                   <div className="flex items-center gap-2 flex-wrap justify-center">
                     <span className="text-xs font-mono bg-gray-200 text-gray-600 px-2 py-1 rounded">{w.section}</span>
                     <span className="text-xs font-bold bg-blue-100 text-blue-700 px-2 py-1 rounded">{w.learning_requirement}</span>
@@ -3785,25 +4384,22 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
               <div className="bg-amber-500 h-2 rounded-full transition-all duration-300" style={{ width: `${((flashcardIndex + 1) / flashcardList.length) * 100}%` }} />
             </div>
 
-            <button
-              type="button"
-              onClick={() => setFlashcardFlipped(prev => !prev)}
+            <div
               className={`w-full min-h-[340px] sm:min-h-[390px] rounded-3xl p-7 sm:p-10 text-left shadow-xl border-2 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-amber-200 ${
                 flashcardFlipped
                   ? 'bg-amber-50 border-amber-300 text-amber-950'
                   : 'bg-slate-900 border-slate-800 text-white hover:-translate-y-1'
               }`}
-              aria-label={flashcardFlipped ? '显示英文单词' : '显示词义和助记'}
             >
               {!flashcardFlipped ? (
-                <div className="h-full min-h-[280px] flex flex-col items-center justify-center text-center">
+                <button type="button" aria-label="显示词义和助记" onClick={() => setFlashcardFlipped(true)} className="h-full min-h-[280px] w-full flex flex-col items-center justify-center rounded-xl text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-300">
                   <span className="mb-7 rounded-full bg-white/10 px-3 py-1 text-xs font-bold tracking-wider text-amber-300">正 面 · 读一读</span>
                   <h3 className="text-4xl sm:text-6xl font-bold tracking-wide break-words">{card.english_word}</h3>
                   {getWordIPA(card) && <p className="mt-5 text-lg text-slate-300">{getWordIPA(card)}</p>}
                   {card.source === 'reading' && card.sourceArticleTitle && <p className="mt-5 text-xs text-amber-200">来自阅读：{card.sourceArticleTitle}</p>}
                   {card.source === 'reading' && card.sourceContext && <p className="mt-3 max-w-xl text-sm leading-6 italic text-slate-300">“{card.sourceContext}”</p>}
                   <p className="mt-10 flex items-center gap-2 text-sm text-slate-300"><Eye size={17} /> 点击翻面看答案与助记</p>
-                </div>
+                </button>
               ) : (
                 <div className="animate-fade-in">
                   <div className="flex justify-between items-start gap-4 border-b border-amber-200 pb-5">
@@ -3814,10 +4410,10 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                     </div>
                     <EyeOff className="text-amber-600 shrink-0" size={24} />
                   </div>
-                  <div className="mt-6 rounded-2xl bg-white/80 border border-amber-200 p-5">
+                  {mnemonicCards.get(mnemonicKey(card.section, card.english_word))?.dimensions ? <MnemonicDimensions key={`${card.section}-${card.english_word}`} card={mnemonicCards.get(mnemonicKey(card.section, card.english_word))} /> : <div className="mt-6 rounded-2xl bg-white/80 border border-amber-200 p-5">
                     <p className="text-xs font-bold text-amber-700 mb-2">💡 助记线索</p>
                     <p className="whitespace-pre-line leading-relaxed text-gray-700">{studyTip}</p>
-                  </div>
+                  </div>}
                   {card.source === 'reading' && card.exampleSentence && (
                     <div className="mt-4 rounded-2xl bg-indigo-50 border border-indigo-200 p-5">
                       <p className="text-xs font-bold text-indigo-700 mb-2">✨ AI 拓展例句</p>
@@ -3837,10 +4433,10 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                       {examples[0].zh && <p className="mt-1 text-sm text-gray-500">{examples[0].zh}</p>}
                     </div>
                   )}
-                  <p className="mt-6 text-center text-sm text-amber-700">点击卡片可翻回英文</p>
+                  <button type="button" aria-label="显示英文单词" onClick={() => setFlashcardFlipped(false)} className="mt-6 w-full rounded-lg border border-amber-300 bg-white px-4 py-2 text-center text-sm font-semibold text-amber-800">翻回英文</button>
                 </div>
               )}
-            </button>
+            </div>
 
             <div className="mt-5 grid grid-cols-3 gap-3">
               <button onClick={() => moveFlashcard(-1)} disabled={flashcardIndex === 0} className="rounded-xl bg-gray-100 hover:bg-gray-200 disabled:opacity-40 text-gray-700 font-bold py-3 transition-colors">← 上一张</button>
@@ -3905,17 +4501,18 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                 <div className="mt-6">
                   <p className="whitespace-pre-wrap text-center font-mono text-4xl font-bold tracking-wide text-emerald-900">{spellingWord}</p>
                   {card.spellingParts && <p className="mt-3 text-center text-sm text-gray-600">带下划线的字母要特别记住。</p>}
-                  <div className="mt-6 rounded-xl bg-emerald-50 p-5">
+                  {!card.dimensions && <div className="mt-6 rounded-xl bg-emerald-50 p-5">
                     <h3 className="font-semibold text-emerald-900">记住这些字母</h3>
                     <p className="mt-2 whitespace-pre-line leading-7 text-gray-800">{card.spellingCue || card.hint}</p>
                     {card.spellingImage && <p className="mt-3 border-t border-emerald-200 pt-3 leading-7 text-gray-800">{card.spellingImage}</p>}
-                  </div>
+                  </div>}
+                  <MnemonicDimensions key={`${target.section}-${target.english_word}`} card={card} />
                   <button onClick={() => playWordAudio(target.english_word, target.audioUrl)} className="mt-4 w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-700">听读音，指着字母读一遍</button>
                   <button onClick={() => update({ phase: 'recall', input: '' })} className="mt-4 w-full rounded-lg bg-emerald-700 px-4 py-3 font-semibold text-white">收起线索，写完整单词</button>
                 </div>
               )}
               {phase === 'recall' && (
-                <form className="mt-6 text-center" onSubmit={event => { event.preventDefault(); update({ phase: 'feedback' }); }}>
+                <form className="mt-6 text-center" onSubmit={event => { event.preventDefault(); if (!input.trim()) return; playEncouragement(correct ? 'correct' : 'incorrect'); update({ phase: 'feedback' }); }}>
                   <p className="text-gray-600">按记住的字母顺序写，写完再核对。</p>
                   <input autoFocus aria-label="回忆本词拼写" autoComplete="off" autoCorrect="off" spellCheck={false} value={input} onChange={event => update({ input: event.target.value })} className="mt-6 w-full rounded-lg border-2 border-gray-300 p-3 text-center font-mono text-2xl focus:border-emerald-600 focus:outline-none" />
                   <button type="submit" disabled={!input.trim()} className="mt-4 w-full rounded-lg bg-emerald-700 px-4 py-3 font-semibold text-white disabled:opacity-40">写好了，核对字母</button>
@@ -3924,7 +4521,8 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
               )}
               {phase === 'feedback' && (
                 <div aria-live="polite" className="mt-6">
-                  <p className="text-center font-semibold text-emerald-900">{correct ? '这次拼写正确。' : '找到需要改的字母。'}</p>
+                  <p className="text-center font-semibold text-emerald-900">{correct ? '这次拼写正确。' : '找到需要改的字母，再试一次。'}</p>
+                  <p className="mt-2 text-center text-xs text-gray-500">助记自查不计分。</p>
                   {!correct && <p className="mt-4 text-gray-600">你写的是：<span className="font-mono">{input}</span></p>}
                   <p className="mt-4 whitespace-pre-wrap text-center font-mono text-4xl font-bold text-emerald-900">{spellingWord}</p>
                   {!correct && <ul className="mt-4 space-y-1 text-center text-amber-900">{spellingDifferences(input, target.english_word).map((change, changeIndex) => <li key={changeIndex}>{change}</li>)}</ul>}
@@ -3946,6 +4544,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
 
         if (mnemonicRecallMode) {
           const spelling = mnemonicRecallMode === 'spell';
+          const contextual = mnemonicRecallMode === 'context';
           const matches = matchesSpelling(mnemonicRecallInput, currentWord.english_word);
           const changeMode = (mode) => {
             setMnemonicRecallMode(mode);
@@ -3955,24 +4554,27 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
           return (
             <section aria-label="助记回忆练习" className="max-w-xl mx-auto rounded-2xl border-2 border-emerald-200 bg-white p-6 sm:p-10 text-center shadow-sm">
               <h2 className="text-2xl font-bold text-emerald-900">收起线索，试着回忆</h2>
-              <div className="mt-6 flex justify-center gap-3">
+              <div className="mt-6 flex flex-wrap justify-center gap-3">
                 <button aria-pressed={spelling} onClick={() => changeMode('spell')} className={`rounded-lg px-4 py-2 border ${spelling ? 'bg-emerald-700 text-white border-emerald-700' : 'border-gray-300 text-gray-700'}`}>看中文，写英文</button>
-                <button aria-pressed={!spelling} onClick={() => changeMode('read')} className={`rounded-lg px-4 py-2 border ${!spelling ? 'bg-emerald-700 text-white border-emerald-700' : 'border-gray-300 text-gray-700'}`}>看英文，读一读</button>
+                <button aria-pressed={mnemonicRecallMode === 'read'} onClick={() => changeMode('read')} className={`rounded-lg px-4 py-2 border ${mnemonicRecallMode === 'read' ? 'bg-emerald-700 text-white border-emerald-700' : 'border-gray-300 text-gray-700'}`}>看英文，读一读</button>
+                {currentMnemonicCard?.dimensions && <button aria-pressed={contextual} onClick={() => changeMode('context')} className={`rounded-lg px-4 py-2 border ${contextual ? 'bg-emerald-700 text-white border-emerald-700' : 'border-gray-300 text-gray-700'}`}>换个情境用一用</button>}
               </div>
-              <p className="mt-8 text-4xl font-bold text-gray-900">{spelling ? currentWord.chinese_meaning : currentWord.english_word}</p>
+              {contextual ? <p className="mt-8 rounded-xl bg-amber-50 p-5 text-left text-xl leading-8 text-stone-900">{currentMnemonicCard.dimensions.context.question}</p> : <p className="mt-8 text-4xl font-bold text-gray-900">{spelling ? currentWord.chinese_meaning : currentWord.english_word}</p>}
               {spelling && renderWordIPA(currentWord)}
-              <p className="mt-4 text-gray-600">{spelling ? '先自己写，写完再核对。' : '先读出这个词，再说出它的意思。'}</p>
+              <p className="mt-4 text-gray-600">{contextual ? '先回答这个问题，可以说出来或写下来，再看参考。' : spelling ? '先自己写，写完再核对。' : '先读出这个词，再说出它的意思。'}</p>
               {spelling && (
-                <form className="mt-6" onSubmit={(event) => { event.preventDefault(); setMnemonicRecallRevealed(true); }}>
+                <form className="mt-6" onSubmit={(event) => { event.preventDefault(); if (!mnemonicRecallInput.trim() || mnemonicRecallRevealed) return; playEncouragement(matches ? 'correct' : 'incorrect'); setMnemonicRecallRevealed(true); }}>
                   <input autoFocus aria-label="回忆英文拼写" autoComplete="off" autoCorrect="off" spellCheck={false} value={mnemonicRecallInput} onChange={(event) => { setMnemonicRecallInput(event.target.value); setMnemonicRecallRevealed(false); }} className="w-full rounded-lg border-2 border-gray-300 p-3 text-center text-2xl font-mono focus:border-emerald-600 focus:outline-none" />
                   <button type="submit" className="mt-4 rounded-lg bg-emerald-700 px-6 py-3 font-semibold text-white">写好了，核对</button>
                 </form>
               )}
-              {!spelling && !mnemonicRecallRevealed && <button onClick={() => setMnemonicRecallRevealed(true)} className="mt-6 rounded-lg bg-emerald-700 px-6 py-3 font-semibold text-white">读好了，核对</button>}
+              {contextual && <textarea aria-label="情境问题的回答" value={mnemonicRecallInput} onChange={event => { setMnemonicRecallInput(event.target.value); setMnemonicRecallRevealed(false); }} className="mt-6 min-h-24 w-full rounded-lg border-2 border-gray-300 p-3 text-left text-lg focus:border-emerald-600 focus:outline-none" />}
+              {!spelling && !mnemonicRecallRevealed && <button onClick={() => setMnemonicRecallRevealed(true)} className="mt-6 rounded-lg bg-emerald-700 px-6 py-3 font-semibold text-white">{contextual ? '想好了，看参考用法' : '读好了，核对'}</button>}
               {mnemonicRecallRevealed && (
                 <div aria-live="polite" className="mt-6 rounded-lg bg-emerald-50 p-5">
                   <p className="text-xl font-semibold text-emerald-900">{currentWord.english_word} · {currentWord.chinese_meaning}</p>
                   {spelling && <p className="mt-2 text-gray-700">{matches ? '拼写一致。过一会儿再试一次。' : '对照看看：哪些字母要补上或改一改？'}</p>}
+                  {contextual && <><p className="mt-3 text-left leading-7 text-gray-800">{currentMnemonicCard.example}</p><p className="mt-3 text-left text-sm leading-6 text-gray-600">这是用法参考，表达可以不同。检查目标词的意思和句中用法，也请老师或家长帮你核对。</p></>}
                   <button onClick={() => playWordAudio(currentWord.english_word, currentAudioUrl)} className="mt-3 rounded-lg border border-emerald-300 px-4 py-2 text-emerald-900">听读音，跟读核对</button>
                   <button onClick={() => changeMode(mnemonicRecallMode)} className="ml-3 mt-3 rounded-lg border border-emerald-300 px-4 py-2 text-emerald-900">再试一次</button>
                 </div>
@@ -4032,6 +4634,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
               </div>
             </div>
 
+            {renderRewardPanel(true)}
             {/* Word Card */}
             <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8 text-center relative overflow-hidden">
               {/* Requirement Tag */}
@@ -4085,7 +4688,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                   )}
 
                   {feedback === 'incorrect' && !showHint && (
-                    <p className="text-sm text-red-600 mt-4">答错了，绿色为正确含义。可点「不会 / 提示」或「下一个」继续。</p>
+                    <p className="text-sm text-amber-800 mt-4">看看绿色的正确含义，记住后再练一次。可点「不会 / 提示」或「下一个」继续。</p>
                   )}
                 </>
               ) : (
@@ -4124,6 +4727,13 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                     {feedback === 'incorrect' && <X className="absolute right-4 top-1/2 -translate-y-1/2 text-red-500" size={28} />}
                   </form>
                 </>
+              )}
+
+              {rewardFeedback && (
+                <div role="status" aria-live="polite" className={`mt-4 rounded-xl border px-4 py-3 text-sm leading-6 ${rewardFeedback.kind === 'incorrect' ? 'border-amber-200 bg-amber-50 text-amber-950' : 'border-emerald-200 bg-emerald-50 text-emerald-950'}`}>
+                  <p className="font-semibold">{rewardFeedback.message}</p>
+                  {rewardFeedback.points > 0 && <p className="mt-1 font-bold">★ +{rewardFeedback.points} 分</p>}
+                </div>
               )}
 
               {justGraduated && (
@@ -4242,9 +4852,9 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                         <span className="text-xs font-normal px-1.5 py-0.5 rounded bg-gray-200 text-gray-600">本地备用</span>
                       )}
                     </h4>
-                    <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+                    {!isAILoading && aiHintSource === 'library' && currentMnemonicCard?.dimensions ? <MnemonicDimensions key={`${currentWord.section}-${currentWord.english_word}`} card={currentMnemonicCard} /> : <p className="text-gray-700 leading-relaxed whitespace-pre-line">
                       {isAILoading ? '正在生成助记内容...' : aiHintText}
-                    </p>
+                    </p>}
                     {!isAILoading && (
                       <button onClick={() => { setMnemonicRecallMode(recognitionMode ? 'read' : 'spell'); setMnemonicRecallInput(''); setMnemonicRecallRevealed(false); }} className="mt-4 rounded-lg border border-purple-300 bg-white px-4 py-2 font-semibold text-purple-800">收起线索，试着回忆</button>
                     )}
@@ -4300,6 +4910,8 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
             </div>
             <h2 className="text-3xl font-bold text-gray-800 mb-2">学习完成！</h2>
             <p className="text-gray-600 mb-8">你已经完成了本次选择的所有单词。学习记录已自动保存{serverAvailable ? `到 ${DATA_FILE_NAME}` : '到浏览器缓存'}。</p>
+            {renderRewardPanel(true)}
+            <p className="mb-6 text-sm text-amber-900">本次最高连续答对 {sessionReward.bestStreak} 题。每一次认真尝试都在帮你记牢单词。</p>
             
             <div className="grid grid-cols-2 gap-6 mb-10">
               <div className="bg-green-50 rounded-xl p-6 border border-green-100">
@@ -4474,6 +5086,10 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
 
             /* 打印样式优化 */
             @media print {
+              .animate-fade-in {
+                animation: none !important;
+                opacity: 1 !important;
+              }
               @page {
                 margin: 1cm;
                 size: A4 portrait;
@@ -4493,6 +5109,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
               }
               .print-grid {
                 grid-template-columns: repeat(3, 1fr) !important;
+                align-items: start;
                 gap: 1rem !important;
                 padding-bottom: 0 !important;
               }
@@ -4500,6 +5117,14 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                 break-inside: avoid;
                 page-break-inside: avoid;
                 border-color: #000 !important;
+              }
+              .print-card > div:first-child,
+              .print-card > div.bg-gray-50 {
+                padding: .5rem;
+              }
+              .print-study-hint {
+                font-size: .75rem;
+                line-height: 1.5;
               }
               /* 防止阴影和圆角在旧打印机上变黑 */
               .shadow-xl, .shadow-md, .shadow-sm, .shadow {

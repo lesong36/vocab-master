@@ -1,0 +1,15 @@
+const fs = require('node:fs');
+const vm = require('node:vm');
+const assert = require('node:assert/strict');
+const html = fs.readFileSync('vocabulary_app.html', 'utf8');
+const code = html.slice(html.indexOf('const SANXIA_LESSON_TO_UNIT ='), html.indexOf('// 合并词条的旧进度'));
+const api = vm.runInNewContext(code + '\n({ migrateSanxiaWords, migrateSanxiaSelectedSections })');
+const legacy = [1, 5, 9, 15, 19, 23].map(n => ({ id: String(n), section: `三下Unit ${n}`, correctCount: 3 }));
+const migrated = api.migrateSanxiaWords(legacy);
+assert.deepEqual(Array.from(migrated, w => w.section), [1, 2, 3, 5, 6, 7].map(n => `三下Unit ${n}`));
+assert.equal(JSON.stringify(api.migrateSanxiaWords(migrated)), JSON.stringify(migrated), 'Repeated loading/sync must preserve migrated unit assignments');
+assert.deepEqual(Array.from(api.migrateSanxiaSelectedSections(['三下Unit 5'], legacy)), ['三下Unit 2']);
+assert.deepEqual(Array.from(api.migrateSanxiaSelectedSections(['三下Unit 5'], migrated)), ['三下Unit 5'], 'Already migrated selections must remain selected');
+assert.equal(legacy[2].section, '三下Unit 9');
+assert.equal(migrated[2].correctCount, 3);
+console.log('PASS: legacy lesson mapping is applied once; repeated sync preserves units, selections and progress');

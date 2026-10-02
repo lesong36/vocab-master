@@ -1269,15 +1269,24 @@
       return unit ? `三下Unit ${unit}` : section;
     };
 
-    const migrateSanxiaWords = (wordList) => (
-      (wordList || []).map(w => ({
-        ...w,
-        section: normalizeSanxiaSection(w.section),
-      }))
-    );
+    const hasLegacySanxiaLessons = (wordList) => (wordList || []).some(word => {
+      const match = String(word.section || '').match(/^三下Unit (\d+)$/);
+      return match && Number(match[1]) > 8;
+    });
 
-    const migrateSanxiaSelectedSections = (sections) => {
-      const mapped = (sections || []).map(normalizeSanxiaSection);
+    const migrateSanxiaWords = (wordList) => {
+      const needsMigration = hasLegacySanxiaLessons(wordList);
+      return (wordList || []).map(w => ({
+        ...w,
+        // 已转换的 Unit 1–8 不能在每次加载、合并时再次当作 Lesson 转换。
+        section: needsMigration ? normalizeSanxiaSection(w.section) : w.section,
+      }));
+    };
+
+    const migrateSanxiaSelectedSections = (sections, wordList) => {
+      const mapped = hasLegacySanxiaLessons(wordList)
+        ? (sections || []).map(normalizeSanxiaSection)
+        : (sections || []);
       return [...new Set(mapped)];
     };
 
@@ -1344,7 +1353,7 @@
         };
       });
       let selectedSections = migrateSelectedSections(user.selectedSections, words);
-      selectedSections = migrateSanxiaSelectedSections(selectedSections);
+      selectedSections = migrateSanxiaSelectedSections(selectedSections, user.words);
       selectedSections = selectedSections.filter(section => !isHiddenGrade(parseSectionMeta(section).grade));
       return {
         ...user,
@@ -1456,7 +1465,8 @@
         id: accountId,
         name: readerUser.email || newest.name || '阅读器学习档案',
         words: [...words.values()],
-        selectedSections: [...new Set(records.flatMap(user => user.selectedSections || []))],
+        // 选择跟随最新档案；空数组表示已取消，不能用历史选择的并集恢复。
+        selectedSections: newest.selectedSections || [],
         studyEvents: records.reduce((events, user) => mergeStudyEvents(events, user.studyEvents), []),
         rewardLedger: mergeRewardLedgers(...records.map(user => user.rewardLedger)),
         ignoredReadingWordIds,
@@ -1749,7 +1759,6 @@
       const cloudProgressWriteTimerRef = useRef(null);
       const lastCloudProgressSnapshotRef = useRef('');
       const cloudMasterStateAppliedRef = useRef(false);
-      const forceCloudReadRef = useRef(false);
       const encryptedReaderAiKeyRef = useRef(null);
 
       useEffect(() => {
@@ -1839,12 +1848,11 @@
           users,
           savedAt: new Date(Math.max(0, ...Object.values(users).map(user => new Date(user.updatedAt || 0).getTime() || 0))).toISOString()
         };
-        // “强制同步”由用户明确选择云端为准，不能再让旧浏览器缓存参与合并。
+        // 强制同步只触发重新读取；仍须保留本机独有的答题事件和累计进度。
         const mergedState = collapseToReaderAccount(
-          forceCloudReadRef.current && isValidAppData(remote) ? remote : mergeCloudAppState(remote, localState),
+          mergeCloudAppState(remote, localState),
           readerCloudUser
         );
-        forceCloudReadRef.current = false;
         const mergedUsers = Object.fromEntries(Object.entries(mergedState.users).map(([id, user]) => [id, migrateUserRecord(user)]));
         const nextUserId = mergedState.currentUserId && mergedUsers[mergedState.currentUserId]
           ? mergedState.currentUserId
@@ -2193,11 +2201,15 @@
         if (snapshot === lastCloudProgressSnapshotRef.current) return;
         if (cloudProgressWriteTimerRef.current) clearTimeout(cloudProgressWriteTimerRef.current);
         cloudProgressWriteTimerRef.current = setTimeout(async () => {
-          const { data: latestCloud } = await readerSupabase
+          const { data: latestCloud, error: cloudReadError } = await readerSupabase
             .from('reader_sync_state')
             .select('vocab_master_progress')
             .eq('user_id', readerCloudUser.id)
             .maybeSingle();
+          if (cloudReadError) {
+            setCloudReadingStatus('云端记录读取失败，本机记录已保留，未覆盖云端。请稍后重试同步。');
+            return;
+          }
           const remoteMasterState = latestCloud?.vocab_master_progress && typeof latestCloud.vocab_master_progress === 'object'
             ? latestCloud.vocab_master_progress
             : {};
@@ -2310,7 +2322,6 @@
             .maybeSingle();
           if (error) throw error;
           cloudMasterStateAppliedRef.current = false;
-          forceCloudReadRef.current = true;
           const remoteMasterState = data?.vocab_master_progress && typeof data.vocab_master_progress === 'object'
             ? data.vocab_master_progress
             : {};

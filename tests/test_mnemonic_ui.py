@@ -63,7 +63,7 @@ with sync_playwright() as playwright:
     recall.wait_for()
     recall.screenshot(path=str(preview.parent / "recall-preview.png"))
     assert not any(item.is_visible() for item in page.get_by_text("use", exact=True).all()), "Spelling answer leaked"
-    assert not page.get_by_text("/juːz/", exact=False).count(), "Phonics cue leaked"
+    assert page.locator('[aria-label="国际音标"]').inner_text() == "/juːz/", "Spelling recall omits IPA"
     recall.get_by_role("textbox", name="回忆英文拼写").fill("uze")
     recall.get_by_role("textbox", name="回忆英文拼写").press("Enter")
     recall.get_by_text("use · 使用", exact=True).wait_for()

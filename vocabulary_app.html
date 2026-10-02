@@ -58,7 +58,7 @@
     };
     const IS_FILE_PROTOCOL = window.location.protocol === 'file:';
     const GRADE_ORDER = ['三上', '三下', '四上', '四下', '五上', '五下', 'KET', '音乐', 'RFD1', 'RFD2', 'RFD3', 'RFD4', 'RFD5', 'RFD6'];
-    const HIDDEN_GRADES = new Set(['RFD1', 'RFD2', 'RFD3', 'RFD4', 'RFD5', 'RFD6']);
+    const HIDDEN_GRADES = new Set(['KET', '音乐', 'RFD1', 'RFD2', 'RFD3', 'RFD4', 'RFD5', 'RFD6']);
     const isHiddenGrade = (grade) => HIDDEN_GRADES.has(grade);
     const LESSON_TEXT_FILES = ['./四上英语课文.md', './四上英语课文_英文.md'];
     const MNEMONIC_FILES = ['./mnemonics/grade3.json', './mnemonics/grade4.json', './mnemonics/grade5.json'];
@@ -239,8 +239,6 @@
       const expected = target.trim().toLowerCase().replace(/\s+/g, ' ');
       if (answer === expected) return true;
       const groupedForms = {
-        'hello/hi': ['hello', 'hi'],
-        'a/an': ['a', 'an'],
         'life (pl. lives)': ['life', 'lives'],
       };
       if (groupedForms[expected]) return groupedForms[expected].includes(answer);
@@ -583,7 +581,7 @@
     };
 
     const getMistakeWords = (wordList, grade = null) => {
-      let list = (wordList || []).filter(isInMistakeBook);
+      let list = (wordList || []).filter(word => isInMistakeBook(word) && !isHiddenGrade(parseSectionMeta(word.section).grade));
       if (grade) {
         list = list.filter(w => parseSectionMeta(w.section).grade === grade);
       }
@@ -781,10 +779,45 @@
       return [...new Set(mapped)];
     };
 
+    // 合并词条的旧进度留在原编号上，新拆出的词从未练习开始，避免凭空标为已掌握。
+    const splitAlternativeWords = (wordList) => {
+      const alternatives = {
+        'hello/hi': [
+          { english_word: 'hello', chinese_meaning: '你好（问候语）', pos: 'int.' },
+          { english_word: 'hi', chinese_meaning: '你好（问候语）', pos: 'int.' },
+        ],
+        'a/an': [
+          { english_word: 'a', chinese_meaning: '一个（用于辅音音素前）', pos: 'det.' },
+          { english_word: 'an', chinese_meaning: '一个（用于元音音素前）', pos: 'det.' },
+        ],
+      };
+      const existingIds = new Set((wordList || []).map(word => String(word.id)));
+      return (wordList || []).flatMap(word => {
+        const forms = alternatives[String(word.english_word || '').trim().toLowerCase()];
+        if (!forms) return [word];
+        const { pronunciation, audioUrl, phonicsMnemonic, phonicsMnemonicAddedAt, printableHint, printableHintSource, ...original } = word;
+        return forms.flatMap((form, index) => {
+          if (index === 0) return [{ ...original, ...form }];
+          const id = `${word.id}:${form.english_word}`;
+          if (existingIds.has(id)) return [];
+          return [normalizeWordStats({
+            id, section: word.section, learning_requirement: word.learning_requirement,
+            ...(word.source ? { source: word.source } : {}), ...form,
+          })];
+        });
+      });
+    };
+
+    const pronunciationKey = (wordText) => String(wordText || '').trim().toLowerCase().replace(/\s*\(pl\..*\)\s*$/, '');
+    const formatIPA = (value) => {
+      const text = String(value || '').trim().replace(/^[\/\[]+|[\/\]]+$/g, '');
+      return text ? `/${text}/` : '';
+    };
+
     const migrateUserRecord = (user) => {
       if (!user) return user;
       let words = migrateMislabeledWords(user.words);
-      words = migrateSanxiaWords(words).map(normalizeWordStats);
+      words = splitAlternativeWords(migrateSanxiaWords(words)).map(normalizeWordStats);
       const studyEvents = normalizeStudyEvents(user.studyEvents);
       const readingEvents = new Map();
       studyEvents.forEach(event => {
@@ -814,6 +847,7 @@
       return {
         ...user,
         words,
+        selectedGrade: isHiddenGrade(user.selectedGrade) ? null : user.selectedGrade,
         selectedSections,
         studyEvents,
       };
@@ -856,6 +890,9 @@
     const mergeCloudAppState = (remote = null, local = null) => {
       if (!isValidAppData(remote)) return local;
       if (!isValidAppData(local)) return remote;
+      // 先拆分两端的旧词条，避免合并时把组合音标和助记重新带回独立单词。
+      remote = { ...remote, users: Object.fromEntries(Object.entries(remote.users).map(([id, user]) => [id, migrateUserRecord(user)])) };
+      local = { ...local, users: Object.fromEntries(Object.entries(local.users).map(([id, user]) => [id, migrateUserRecord(user)])) };
       const users = { ...remote.users };
       const remoteUserIdByName = new Map(Object.entries(remote.users).map(([id, user]) => [String(user.name || '').trim().toLowerCase(), id]));
         const localUserIdMap = new Map();
@@ -1032,16 +1069,18 @@
 
     const mergeWordStats = (incomingWords, existingWords) => {
       const statsById = new Map(
-        (existingWords || []).map(w => [w.id, {
+        splitAlternativeWords(existingWords).map(w => [w.id, {
+          ...w,
           correctCount: w.correctCount || 0,
           incorrectCount: w.incorrectCount || 0,
           consecutiveCorrect: w.consecutiveCorrect || 0,
           mistakeCleared: w.mistakeCleared || false,
         }])
       );
-      return incomingWords.map(w => {
+      return splitAlternativeWords(incomingWords).map(w => {
         const prev = statsById.get(w.id);
         return normalizeWordStats({
+          ...prev,
           ...w,
           correctCount: prev?.correctCount ?? w.correctCount ?? 0,
           incorrectCount: prev?.incorrectCount ?? w.incorrectCount ?? 0,
@@ -1083,7 +1122,7 @@
           }));
         }
       });
-      return parsedWords;
+      return splitAlternativeWords(parsedWords);
     };
 
     function App() {
@@ -1176,6 +1215,8 @@
       
       // Dictionary / Audio State
       const [currentPhonetic, setCurrentPhonetic] = useState('');
+      const [phoneticWord, setPhoneticWord] = useState('');
+      const [bundledPhonetics, setBundledPhonetics] = useState({});
       const [currentAudioUrl, setCurrentAudioUrl] = useState('');
 
       const inputRef = useRef(null);
@@ -1185,6 +1226,7 @@
       const serverAvailableRef = useRef(false);
       const audioPlayerRef = useRef(null);
       const audioElementRef = useRef(null);
+      const dictionaryRequestRef = useRef(0);
       const cloudProgressWriteTimerRef = useRef(null);
       const lastCloudProgressSnapshotRef = useRef('');
       const cloudMasterStateAppliedRef = useRef(false);
@@ -1324,6 +1366,7 @@
       }, [readingInboxEntries, cloudReadingEntries, cloudReadingProgress, words, ignoredReadingWordIds]);
 
       const applyWordsToState = (parsedWords, sourceLabel = '', nextSelectedSections = null, nextSelectedGrade = null, keepAppState = false) => {
+        parsedWords = splitAlternativeWords(parsedWords);
         const uniqueSections = [...new Set(parsedWords.map(w => w.section))];
         const grades = getGradesFromSections(uniqueSections);
         setWords(parsedWords);
@@ -1909,6 +1952,7 @@
             const hasUpdatedMeta = parsed.some(w => {
               const prev = existingById.get(w.id);
               return prev && (
+                prev.english_word !== w.english_word ||
                 prev.learning_requirement !== w.learning_requirement ||
                 prev.chinese_meaning !== w.chinese_meaning ||
                 prev.section !== w.section ||
@@ -1928,6 +1972,15 @@
           })
           .catch(() => {});
       }, [isHydrated, currentUserId]);
+
+      useEffect(() => {
+        let cancelled = false;
+        fetch('./phonetics.json', { cache: 'no-store' })
+          .then(res => res.ok ? res.json() : null)
+          .then(data => { if (!cancelled && data?.entries) setBundledPhonetics(data.entries); })
+          .catch(() => {});
+        return () => { cancelled = true; };
+      }, []);
 
       useEffect(() => {
         let cancelled = false;
@@ -2157,86 +2210,61 @@
         play(audioUrl || fallbackAudioUrl, Boolean(audioUrl && audioUrl !== fallbackAudioUrl));
       };
 
-      // Fetch real audio and phonetic from Dictionary API
+      const getWordIPA = (word) => formatIPA(
+        word.pronunciation || bundledPhonetics[pronunciationKey(word.english_word)] ||
+        (phoneticWord === pronunciationKey(word.english_word) ? currentPhonetic : '')
+      );
+      const renderWordIPA = (word) => (
+        <p aria-label="国际音标" className="mt-3 mb-4 text-center text-xl text-gray-500 font-medium">
+          {getWordIPA(word) || '音标暂缺，请听标准读音'}
+        </p>
+      );
+
+      // 朗读在点击时立即开始；音标独立加载，慢响应不能覆盖下一词的读音。
       const fetchWordDataAndPlay = async (wordText, shouldPlay = true) => {
-        const cleanWord = wordText.trim().toLowerCase();
-        const isPhrase = cleanWord.includes(' ') || cleanWord.includes('-');
+        const cleanWord = pronunciationKey(wordText);
+        const requestId = ++dictionaryRequestRef.current;
         const fallbackAudioUrl = getFallbackAudioUrl(wordText);
         const useLocalAudio = serverAvailableRef.current;
-
-        // iPad 必须在“开始学习”的同步点击时机使用系统朗读。
-        if (shouldPlay && isIOSDevice() && fallbackTTS(wordText)) {
-          setCurrentAudioUrl(fallbackAudioUrl);
-          return;
-        }
-
-        // 本地服务可用时立即使用 Mac 英语语音，不等待外部词典接口。
-        if (useLocalAudio) {
-          setCurrentPhonetic('');
-          setCurrentAudioUrl(fallbackAudioUrl);
-          if (shouldPlay) playWordAudio(wordText, fallbackAudioUrl);
-          return;
-        }
-
-        // 没有本地服务时，Mac 在点击当下直接加载在线音频；失败才回退系统朗读。
-        if (shouldPlay) {
-          setCurrentPhonetic('');
-          setCurrentAudioUrl(fallbackAudioUrl);
-          playWordAudio(wordText, fallbackAudioUrl);
-          return;
-        }
-
-        // 词典 API 不支持词组，如果是词组直接跳过请求，使用系统高质量 TTS
-        if (!isPhrase) {
-          try {
-            const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(cleanWord)}`);
-            if (res.ok) {
-              const data = await res.json();
-              if (Array.isArray(data) && data.length > 0) {
-                const entry = data[0];
-                let phon = entry.phonetic || '';
-                let aud = '';
-
-                // 寻找带有音频和美式音标的数据
-                if (entry.phonetics && entry.phonetics.length > 0) {
-                  // 优先找美式发音的音频
-                  const usAudioObj = entry.phonetics.find(p => p.audio && p.audio.includes('-us'));
-                  aud = usAudioObj?.audio || entry.phonetics.find(p => p.audio)?.audio || '';
-
-                  // 优先找美式音标文本
-                  const textObjs = entry.phonetics.filter(p => p.text);
-                  if (textObjs.length > 0) {
-                    const usTextObj = textObjs.find(p => p.audio && p.audio.includes('-us'));
-                    phon = usTextObj?.text || textObjs[0].text;
-                  }
-                }
-
-                // 清理音标格式 (去掉自带的斜杠或括号，统一自己渲染)
-                if (phon) {
-                  phon = phon.replace(/[\/\[\]]/g, '');
-                  // 修正维基词典中常见的不规范音标
-                  phon = phon.replace('tʉː', 'tuː'); 
-                }
-
-                setCurrentPhonetic(phon);
-                setCurrentAudioUrl(useLocalAudio ? fallbackAudioUrl : (aud || fallbackAudioUrl));
-
-                if (shouldPlay && !useLocalAudio) {
-                  playWordAudio(wordText, aud || fallbackAudioUrl);
-                }
-                return;
-              }
-            }
-          } catch (error) {
-            console.error("Dictionary API Error:", error);
-          }
-        }
-        
-        // 如果 API 失败、是词组、或找不到单词，保留在线朗读并使用浏览器 TTS 兜底。
-        setCurrentPhonetic('');
+        setPhoneticWord(cleanWord);
+        setCurrentPhonetic(bundledPhonetics[cleanWord] || '');
         setCurrentAudioUrl(fallbackAudioUrl);
-        if (shouldPlay && !useLocalAudio) playWordAudio(wordText, fallbackAudioUrl);
+
+        if (shouldPlay) {
+          const playedOnIOS = isIOSDevice() && fallbackTTS(wordText);
+          if (!playedOnIOS) playWordAudio(wordText, fallbackAudioUrl);
+        }
+        if (bundledPhonetics[cleanWord] || cleanWord.includes(' ')) return;
+
+        try {
+          const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(cleanWord)}`);
+          if (!res.ok) return;
+          const data = await res.json();
+          if (requestId !== dictionaryRequestRef.current || !Array.isArray(data) || !data.length) return;
+          const entry = data[0];
+          const phonetics = entry.phonetics || [];
+          const usEntry = phonetics.find(item => item.text && item.audio?.includes('-us'));
+          const phon = usEntry?.text || phonetics.find(item => item.text)?.text || entry.phonetic || '';
+          setCurrentPhonetic(phon.replace('tʉː', 'tuː'));
+          if (!shouldPlay && !useLocalAudio) {
+            const audio = phonetics.find(item => item.audio?.includes('-us'))?.audio || phonetics.find(item => item.audio)?.audio;
+            if (audio) setCurrentAudioUrl(audio);
+          }
+        } catch {
+          // 查询不可用时仍保留预编音标和可用的朗读。
+        }
       };
+
+      useEffect(() => {
+        if (appState !== 'study') return;
+        const currentWord = studyList[currentIndex];
+        if (!currentWord) return;
+        const unitWords = unitSpellingPractice
+          ? words.filter(word => word.section === currentWord.section && mnemonicCards.has(mnemonicKey(word.section, word.english_word)))
+          : [];
+        const target = unitWords[unitSpellingPractice?.index] || currentWord;
+        fetchWordDataAndPlay(target.english_word, false);
+      }, [appState, currentIndex, studyList, unitSpellingPractice?.index, mnemonicCards, bundledPhonetics]);
 
       // --- AI Hint Logic (local fallback + optional server proxy) ---
       const buildLocalHint = (word) => {
@@ -2248,7 +2276,7 @@
       };
 
       const buildHintPrompt = (word) =>
-        `为三至五年级孩子设计单词“${word.english_word}”（${word.chinese_meaning}，${word.pos || '词性未提供'}）的专属助记。优先用准确的字母与读音对应、真实词根词缀或透明复合词；也可用与词形或声音明确关联的具体小故事。说明孩子如何从线索回想英文读音、拼写及含义。禁止任意把单词切成两半、编造词根词源、把中文谐音当作正确发音，也不能只给词组翻译或例句。创作联想需标明“联想”，词源事实没有可靠来源就不使用。给一个遮住英文后的回忆问题，以及正确简单的英文例句和中文译文。用【记忆线索】【试着回想】【例句】组织，约200字。`;
+        `为三至五年级孩子设计单词“${word.english_word}”（${word.chinese_meaning}，${word.pos || '词性未提供'}）的多维助记。目标是收起答案后能独立取回词义、正确读音和字母顺序，并在新情境中用词。按词选择有效线索，不为凑维度编故事。用【声音与字形】讲实际声形对应和易错字母；【视觉】给具体可画的动作或关系，说明画面连接词义还是哪个字母；【语义】给分类、对比或熟悉词的关系，不只翻译；【情境】给自然英文例句与中文译文，再给一个不透露英文答案的新情境问题；【构词】仅解释真实词根词缀、透明复合或屈折变化，不适用就明确整体记，音节和拼写分块不是词根；【收起再试】要求先独立写完整词，再解释如何用于新情境。禁止硬拆单词、编造词源、把中文谐音当正确发音、用另一个陌生词解释目标词。创作联想需标明“联想”，词源事实无可靠来源不使用。约350字。`;
 
       const fetchAIHintFromServer = async (prompt) => {
         const res = await fetch('/api/ai-hint', {
@@ -2676,6 +2704,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
           });
         });
         return filteredWords
+          .filter(word => !isHiddenGrade(parseSectionMeta(word.section).grade))
           .filter((word, index, list) => list.findIndex(item => item.id === word.id) === index)
           // KET 审核未通过的识义题宁可暂不出题，也不能退回随机干扰项。
           .filter(word => word.source !== 'ket' || !isRecognitionWord(word) || hasAuditedRecognitionChoices(word));
@@ -3770,7 +3799,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                 <div className="h-full min-h-[280px] flex flex-col items-center justify-center text-center">
                   <span className="mb-7 rounded-full bg-white/10 px-3 py-1 text-xs font-bold tracking-wider text-amber-300">正 面 · 读一读</span>
                   <h3 className="text-4xl sm:text-6xl font-bold tracking-wide break-words">{card.english_word}</h3>
-                  {(card.pronunciation || currentPhonetic) && <p className="mt-5 text-lg font-mono text-slate-300">{card.pronunciation || `[${currentPhonetic}]`}</p>}
+                  {getWordIPA(card) && <p className="mt-5 text-lg text-slate-300">{getWordIPA(card)}</p>}
                   {card.source === 'reading' && card.sourceArticleTitle && <p className="mt-5 text-xs text-amber-200">来自阅读：{card.sourceArticleTitle}</p>}
                   {card.source === 'reading' && card.sourceContext && <p className="mt-3 max-w-xl text-sm leading-6 italic text-slate-300">“{card.sourceContext}”</p>}
                   <p className="mt-10 flex items-center gap-2 text-sm text-slate-300"><Eye size={17} /> 点击翻面看答案与助记</p>
@@ -3871,6 +3900,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
               </div>
               <div className="mt-3 h-1.5 rounded-full bg-emerald-50"><div className="h-full rounded-full bg-emerald-600" style={{ width: `${((index + 1) / unitSpellingWords.length) * 100}%` }} /></div>
               <h2 className="mt-8 text-center text-3xl font-bold text-gray-900">{target.chinese_meaning}</h2>
+              {renderWordIPA(target)}
               {phase === 'learn' && (
                 <div className="mt-6">
                   <p className="whitespace-pre-wrap text-center font-mono text-4xl font-bold tracking-wide text-emerald-900">{spellingWord}</p>
@@ -3930,6 +3960,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                 <button aria-pressed={!spelling} onClick={() => changeMode('read')} className={`rounded-lg px-4 py-2 border ${!spelling ? 'bg-emerald-700 text-white border-emerald-700' : 'border-gray-300 text-gray-700'}`}>看英文，读一读</button>
               </div>
               <p className="mt-8 text-4xl font-bold text-gray-900">{spelling ? currentWord.chinese_meaning : currentWord.english_word}</p>
+              {spelling && renderWordIPA(currentWord)}
               <p className="mt-4 text-gray-600">{spelling ? '先自己写，写完再核对。' : '先读出这个词，再说出它的意思。'}</p>
               {spelling && (
                 <form className="mt-6" onSubmit={(event) => { event.preventDefault(); setMnemonicRecallRevealed(true); }}>
@@ -4025,11 +4056,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                   <div className="my-8 flex flex-col items-center">
                     <p className="text-sm text-gray-500 mb-3">请选择正确的中文含义</p>
                     <h3 className="text-4xl font-bold text-gray-800 mb-2 font-mono tracking-wide">{currentWord.english_word}</h3>
-                    {currentPhonetic && (
-                      <div className="text-xl text-gray-500 mb-2 font-mono font-medium tracking-wide">
-                        [{currentPhonetic}]
-                      </div>
-                    )}
+                    {renderWordIPA(currentWord)}
                     {showHint && (
                       <p className="text-sm text-green-600 font-medium mt-2 animate-fade-in">正确答案已高亮</p>
                     )}
@@ -4066,12 +4093,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                   <div className="my-8 flex flex-col items-center">
                     <h3 className="text-4xl font-bold text-gray-800 mb-2">{currentWord.chinese_meaning}</h3>
                     
-                    {/* Display Phonetic */}
-                    {currentPhonetic && (
-                      <div className="text-xl text-gray-500 mb-4 font-mono font-medium tracking-wide">
-                        [{currentPhonetic}]
-                      </div>
-                    )}
+                    {renderWordIPA(currentWord)}
                     
                     {showHint && (
                       <div className="text-2xl font-mono text-green-600 tracking-wider mb-4 animate-fade-in">

@@ -3,7 +3,8 @@ const vm = require('node:vm');
 const assert = require('node:assert/strict');
 
 const html = fs.readFileSync('vocabulary_app.html', 'utf8');
-const source = html.slice(html.indexOf('const buildCardStudyTip ='), html.indexOf('const levenshtein ='));
+const tipStart = html.indexOf('const buildCardStudyTip =');
+const source = html.slice(tipStart, html.indexOf('\n    };', tipStart) + 7);
 const buildCardStudyTip = vm.runInNewContext(source + '\nbuildCardStudyTip', {
   getWordPos: () => 'v', POS_LABEL_ZH: {},
   SPECIAL_STUDY_TIPS: { remember: 're-(再) + member → 再想起来；反义 forget' },
@@ -17,14 +18,16 @@ console.log('PASS: reviewed flashcard/print hints take priority; unknown words g
 
 const matchingSource = html.slice(html.indexOf('const matchesSpelling ='), html.indexOf('const levenshtein ='));
 const matchesSpelling = vm.runInNewContext(matchingSource + '\nmatchesSpelling');
-assert.ok(matchesSpelling('hi', 'hello/hi'));
-assert.ok(matchesSpelling('an', 'a/an'));
+assert.ok(matchesSpelling('hi', 'hi'));
+assert.ok(matchesSpelling('an', 'an'));
+assert.ok(!matchesSpelling('hi', 'hello'));
+assert.ok(!matchesSpelling('an', 'a'));
 assert.ok(matchesSpelling('lives', 'life (pl. lives)'));
 assert.ok(matchesSpelling('take piano lessons', 'take ... lesson'));
 assert.ok(!matchesSpelling('take away lessons', 'take away'));
 assert.ok(!matchesSpelling('live', 'life (pl. lives)'));
 assert.ok(!matchesSpelling('uze', 'use'));
-console.log('PASS: grouped textbook forms accept real words; ordinary spelling errors remain incorrect');
+console.log('PASS: alternatives are tested independently; plural annotations accept real forms; ordinary spelling errors remain incorrect');
 
 const differenceSource = html.slice(html.indexOf('const levenshtein ='), html.indexOf('const getSpellingSimilarity ='));
 const spellingDifferences = vm.runInNewContext(matchingSource + differenceSource + '\nspellingDifferences');
@@ -32,5 +35,5 @@ assert.ok(spellingDifferences('sory', 'sorry').join(' ').includes('漏写 r'));
 assert.ok(spellingDifferences('woud', 'would').join(' ').includes('漏写 l'));
 assert.ok(spellingDifferences('uze', 'use').join(' ').includes('z 改为 s'));
 assert.ok(spellingDifferences('pleasee', 'please').join(' ').includes('多写 e'));
-assert.equal(spellingDifferences('hi', 'hello/hi').length, 0);
+assert.equal(spellingDifferences('hi', 'hi').length, 0);
 console.log('PASS: spelling feedback identifies missing, extra and replaced letters');

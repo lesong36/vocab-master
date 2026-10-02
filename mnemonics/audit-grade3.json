@@ -1706,15 +1706,27 @@
     },
     {
       "section": "三上Unit 1",
-      "word": "hello/hi",
+      "word": "hello",
       "changed": true,
-      "recognitionCue": "hello /həˈləʊ/ 和 hi /haɪ/ 都是问好。",
-      "spellingCue": "hello 的开头 e 弱读 /ə/，o 读 /əʊ/，中间双 l 只读一次；hi 的 i 读 /aɪ/。长问候拼 h–e–ll–o，短问候拼 h–i。",
-      "recallTask": "遮住两词，分别说出两种问好，再写出各自字母；打开核对双 l。",
-      "rationale": "以“你好（问候语）”及例句连接词义；认读线索是hello /həˈləʊ/ 和 hi /haɪ/ 都是问好。拼写线索是hello 的开头 e 弱读 /ə/，o 读 /əʊ/，中间双 l 只读一次；hi 的 i 读 /aɪ/。长问候拼 h–e–ll–o，短问候拼 h–i。遮住后读写能检查该声形联系是否被找回，而不是仅看过场景。",
+      "recognitionCue": "hello /həˈləʊ/ 表示你好，是问候语。",
+      "spellingCue": "开头 e 弱读 /ə/，结尾 o 读 /əʊ/，中间双 l 只读一次；拼 h–e–ll–o，别漏掉第二个 l。",
+      "recallTask": "遮住英文，看“你好”说出读音，再写出 hello；打开核对双 l。",
+      "rationale": "单独练习 hello 的弱读、重音与双 l；用问候例句连接词义，遮住后读写检验声形联系。",
       "status": "pass",
-      "hintSha256": "f99395e41ef502e839d05c3aef078081418412f0691919b32388f2bd54560789",
+      "hintSha256": "de3a9a1ba71ca916074b5afa380c7bfcc31457f4827b788d92e759d04c96dbaa",
       "exampleSha256": "7a6435a0a85d7585451dc815316241539de29e394969345583ca8c3f918592db"
+    },
+    {
+      "section": "三上Unit 1",
+      "word": "hi",
+      "changed": true,
+      "recognitionCue": "hi /haɪ/ 表示你好，是简短的问候语。",
+      "spellingCue": "h 读 /h/，i 在这里读 /aɪ/；两个字母拼 h–i，结尾没有 e。",
+      "recallTask": "遮住英文，看“简短地说你好”说出读音，再写出 hi；打开核对两个字母。",
+      "rationale": "将 hi 独立为一个词，明确 /aɪ/ 对应此处的 i；用两字母提示避免与其他 /aɪ/ 拼法混淆，遮住后读写检验。",
+      "status": "pass",
+      "hintSha256": "a3e800da3aebdccd9207937e428d5fab65442e698ae9577673ff5389b98b8a64",
+      "exampleSha256": "7eb70a6861bd1f538bbc7592b71c9bc1c5bc1ea47e7e712280d2bae3cc10a46b"
     },
     {
       "section": "三上Unit 1",
@@ -2474,15 +2486,27 @@
     },
     {
       "section": "三上Unit 3",
-      "word": "a/an",
+      "word": "a",
       "changed": true,
-      "recognitionCue": "a /ə/ 与 an /ən/ 表示一个；辅音开头用 a，元音开头用 an，依据声音选择。",
-      "spellingCue": "a 只有一个字母；an 比 a 多 n。",
-      "recallTask": "遮住英文，给一个苹果、一个猫分别选词，读写并说明依据，打开核对。",
-      "rationale": "从物品下一词开头的声音选择 a/an；明确 n 的有无，把冠词选择、认读和拼写同时检验。",
+      "recognitionCue": "a 表示一个，强读 /eɪ/、弱读 /ə/，用于辅音音素前，如 a cat。",
+      "spellingCue": "a 只有一个字母，没有 n；选用 a 看下一词开头的声音，不只看字母。",
+      "recallTask": "遮住英文，给“一个猫”选冠词，读出 a cat 并写出 a；打开核对并说出选择依据。",
+      "rationale": "分开练习 a，列出完整的强读和弱读，强调辅音音素条件与单字母拼写；用词组读写核对实际选择。",
       "status": "pass",
-      "hintSha256": "694de54bc8b3be9958487ee78515bc69ce4ca2035fad03fd85a3a77d09783d25",
-      "exampleSha256": "cedb745a1f1ca34b00302d9b2e1d83c6d8d7b9a4b4f1c7a588839f0ce27ea189"
+      "hintSha256": "a9e223d480bcdd24e5cfe9a1781fe9cf2328f64996305888a91697c86b069fb9",
+      "exampleSha256": "eaf924e74ae9bd81e632bcd34252933a1a1676a41a199b9afc829f9a8e169f39"
+    },
+    {
+      "section": "三上Unit 3",
+      "word": "an",
+      "changed": true,
+      "recognitionCue": "an 表示一个，强读 /æn/、弱读 /ən/，用于元音音素前，如 an egg。",
+      "spellingCue": "an 拼 a–n，比 a 多一个 n；选用 an 看下一词开头的声音，不只看字母。",
+      "recallTask": "遮住英文，给“一个苹果”选冠词，读出 an apple 并写出 an；打开核对结尾 n 并说出选择依据。",
+      "rationale": "分开练习 an，列出完整的强读和弱读，明确元音音素条件及结尾 n；用词组读写检验选择与拼写。",
+      "status": "pass",
+      "hintSha256": "d08ec40f5ea895facfb4718c767c50ef16f34fa64ef13305cd7ff5cc8de4dadb",
+      "exampleSha256": "539b652a5ff9372f6d6dd69c7b06863972d6db1a408539bbc5ae8dc3428e0a81"
     },
     {
       "section": "三上Unit 3",
@@ -3674,8 +3698,8 @@
       "recallTask": "读一幕后合上，按发生顺序从中文动作或物品回忆英文，再点击核对。",
       "spellingLimit": "故事帮助词义联系和先后顺序；每个单词的正确认读与拼写仍须用逐词声形线索练习，不能由记住故事推定会拼写。",
       "status": "pass",
-      "storySha256": "f2edaeacacef5bbbb47e08194f0be9f3878cb27620acd0c87f0403ced238446d",
-      "rationale": "新人入班的紧张由问好、介绍朋友、问候老师、扶朋友展开；删除同步英文屏幕标签。"
+      "storySha256": "50ce63901c4ee12c803a99e45e95c235b9a1e904f9ea4440479a84e765f581fb",
+      "rationale": "新人入班的紧张由问好、介绍朋友、问候老师、扶朋友展开；hello 与 hi 分别作为词条和中文回忆提示，故事覆盖两种独立问候。"
     },
     {
       "section": "三上Unit 2",
@@ -3692,8 +3716,8 @@
       "recallTask": "读一幕后合上，按发生顺序从中文动作或物品回忆英文，再点击核对。",
       "spellingLimit": "故事帮助词义联系和先后顺序；每个单词的正确认读与拼写仍须用逐词声形线索练习，不能由记住故事推定会拼写。",
       "status": "pass",
-      "storySha256": "912413f00099a37427cebb0779cf38ebf64c1dd025a6ed17e924d069a74331f2",
-      "rationale": "动物互相惊动、卷回帽子与鸟送别组成行动链；冠词在介绍真实动物的完整句中对比。"
+      "storySha256": "43038b2e871e63d3959c5766c0b6deb8db3102dac629f381e31ab9db6c446497",
+      "rationale": "动物互相惊动、卷回帽子与鸟送别组成行动链；a 和 an 在介绍真实动物的完整句中对比，分别用辅音音素与元音音素提示回忆。"
     },
     {
       "section": "三上Unit 5",

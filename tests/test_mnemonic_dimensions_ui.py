@@ -45,15 +45,17 @@ with sync_playwright() as playwright:
     else:
         raise AssertionError("use was not reached")
     panel = page.get_by_role("region", name="多维助记")
-    assert panel.get_by_role("button", name="看图记", exact=True).get_attribute("aria-pressed") == "true"
+    assert panel.get_by_role("button", name="拼写线索", exact=True).get_attribute("aria-pressed") == "true"
+    assert panel.get_by_text(cards["use"]["hint"], exact=True).is_visible()
+    panel.get_by_role("button", name="词义图", exact=True).click()
     assert panel.get_by_text(cards["use"]["dimensions"]["visual"]["caption"], exact=True).is_visible()
     assert not panel.get_by_text(cards["use"]["hint"], exact=True).count(), "All cues appear at once"
-    for name, expected in (("辨词义", cards["use"]["dimensions"]["semantic"]),
-                           ("放进情境", cards["use"]["example"]),
-                           ("听音拼写", cards["use"]["hint"])):
+    for name, expected in (("词义区别", cards["use"]["dimensions"]["semantic"]),
+                           ("用法与例句", cards["use"]["example"]),
+                           ("拼写线索", cards["use"]["hint"])):
         panel.get_by_role("button", name=name, exact=True).click()
         assert panel.get_by_text(expected, exact=True).is_visible(), name
-    assert not panel.get_by_role("button", name="拆词理解", exact=True).count(), "No useful morphology exists for use"
+    assert not panel.get_by_role("button", name="词形组成", exact=True).count(), "No useful morphology exists for use"
     before = len(writes)
     page.get_by_role("button", name="收起线索，试着回忆", exact=True).click()
     recall = page.get_by_role("region", name="助记回忆练习")
@@ -77,6 +79,7 @@ with sync_playwright() as playwright:
     unit = page.get_by_role("region", name="单元拼写练习")
     assert unit.get_by_role("region", name="多维助记").is_visible()
     unit.get_by_role("button", name="下一词", exact=True).click()
+    unit.get_by_role("button", name="词义图", exact=True).click()
     assert unit.get_by_role("img", name="sorry 的视觉线索", exact=True).is_visible()
     assert unit.locator('mark').inner_text() == "rr"
     unit.screenshot(path=str(OUTPUT / "multidimensional-sorry-desktop.png"))
@@ -89,6 +92,7 @@ with sync_playwright() as playwright:
     unit.get_by_role("textbox", name="回忆本词拼写").fill("sorry")
     unit.get_by_role("button", name="写好了，核对字母", exact=True).click()
     unit.get_by_role("button", name="下一词", exact=True).click()
+    unit.get_by_role("button", name="词义图", exact=True).click()
     assert unit.get_by_role("img", name="would 的视觉线索", exact=True).is_visible()
     assert unit.locator('mark').inner_text() == "l"
     unit.get_by_role("button", name="返回单词学习", exact=True).click()
@@ -100,18 +104,20 @@ with sync_playwright() as playwright:
     visual = cards[english]["dimensions"]["visual"]
     has_picture = "diagram" in visual or english in {"in", "on", "under", "behind", "next to", "sorry", "would", "dessert", "meatball"}
     if has_picture:
+        page.get_by_role("button", name="词义图", exact=True).click()
         assert page.get_by_text(visual["caption"], exact=True).is_visible()
     else:
         assert page.get_by_text(cards[english]["hint"], exact=True).is_visible()
-        assert not page.get_by_role("button", name="看图记", exact=True).count()
-    page.get_by_role("button", name="辨词义", exact=True).click()
+        assert not page.get_by_role("button", name="词义图", exact=True).count()
+    page.get_by_role("button", name="词义区别", exact=True).click()
     assert page.get_by_text(cards[english]["dimensions"]["semantic"], exact=False).is_visible()
     assert not page.get_by_text(cards[english]["dimensions"]["visual"]["caption"], exact=True).count(), "Flashcard shows all cues at once"
     assert not page.locator('button button').count(), "Flashcard contains nested interactive controls"
     page.get_by_role("button", name="返回 Unit 选择", exact=True).click()
     page.get_by_role("button", name="打印卡片 (18 词)", exact=True).click()
     use_print = page.locator('.print-card').filter(has=page.get_by_text("use", exact=True))
-    assert cards["use"]["dimensions"]["semantic"] in use_print.inner_text()
+    assert cards["use"]["hint"] in use_print.inner_text()
+    assert "用法与例句：" not in use_print.inner_text()
     assert cards["use"]["dimensions"]["context"]["question"] in use_print.inner_text()
     page.emulate_media(media="print")
     assert use_print.is_visible()

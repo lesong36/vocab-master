@@ -255,6 +255,8 @@
     const hasMnemonicMorphology = (card) => Boolean(card?.dimensions?.morphology
       && card.dimensions.morphology.kind !== 'none' && card.dimensions.morphology.parts.length);
 
+    const hasMnemonicSemantic = (card) => Boolean(card?.dimensions?.semantic?.trim());
+
     const MnemonicPicture = ({ card, compact = false }) => {
       if (!hasMnemonicPicture(card)) return null;
       const visual = card.dimensions.visual;
@@ -335,15 +337,16 @@
       const svgClass = `mx-auto w-full ${compact ? 'max-w-[190px]' : 'max-w-xs'}`;
       let content;
       if (kind === 'spelling') {
-        content = <div aria-label="读音与字母分段" className="grid grid-cols-3 gap-2">
-          {diagram.segments.map((segment, index) => <div key={index} className={`min-w-0 rounded-lg border px-1 py-2 text-center ${segment.stressed ? 'border-amber-500 bg-amber-100' : 'border-amber-200 bg-white'}`}>
-            <p className={`font-mono font-bold text-stone-800 ${compact ? 'text-base' : 'text-xl sm:text-2xl'}`}>
+        const rows = compact && diagram.segments.some(segment => segment.text.trim().length >= 5 || segment.sound.length >= 7);
+        content = <div aria-label="读音与字母分段" className={`grid gap-2 ${rows ? 'grid-cols-1' : diagram.segments.length === 2 ? 'grid-cols-2' : diagram.segments.length === 4 ? 'grid-cols-2 sm:grid-cols-4' : 'grid-cols-3'}`}>
+          {diagram.segments.map((segment, index) => <div key={index} className={`min-w-0 rounded-lg border ${rows ? 'grid grid-cols-2 gap-x-1 px-2 py-1' : 'px-1 py-2'} text-center ${segment.stressed ? 'border-amber-500 bg-amber-100' : 'border-amber-200 bg-white'}`}>
+            <p className={`font-mono font-bold text-stone-800 ${compact ? rows ? 'text-sm' : 'text-base' : 'text-xl sm:text-2xl'}`}>
               {getMnemonicLetterParts(segment.text, segment.focus || []).map((part, item) => part.focus
                 ? <mark key={item} className="rounded bg-amber-300 text-amber-950 underline decoration-amber-700 underline-offset-4">{part.text}</mark>
                 : <span key={item}>{part.text}</span>)}
             </p>
-            <p className="mt-2 font-mono text-xs text-stone-700">{segment.sound}</p>
-            <p className="mt-1 text-xs leading-5 text-stone-600">{segment.note}</p>
+            <p className={`${rows ? 'self-center break-all' : 'mt-2'} font-mono text-xs text-stone-700`}>{segment.sound}</p>
+            <p className={`${rows ? 'col-span-2' : 'mt-1'} text-xs leading-5 text-stone-600`}>{segment.note}</p>
           </div>)}
         </div>;
       } else if (diagram.panels) {
@@ -494,6 +497,16 @@
           {scene === 'wind' && <><path d="M20 55 H222 M20 105 H256 M20 151 H230 M213 49 L223 55 L213 61 M247 99 L257 105 L247 111 M220 145 L230 151 L220 157" stroke="#468a9a" strokeWidth="3" fill="none" /><path d="M235 162 V103 Q236 68 278 54 M237 111 Q272 94 289 109" stroke="#638346" strokeWidth="4" fill="none" /><ellipse cx="278" cy="55" rx="20" ry="9" transform="rotate(-32 278 55)" fill="#85a963" />{label('空气向右流动，植物向右偏',160,199)}</>}
           {scene === 'balance' && <><path d="M38 103 H282 M160 105 L130 168 H190 Z M65 103 V48 M255 103 V48" stroke={ink} strokeWidth="3" fill={paper} /><rect x="39" y="55" width="52" height="47" fill={paper} stroke={ink} />{label('4 kg',65,81)}{[0,1].map(i => <g key={i}><rect x={225+i*31} y="78" width="28" height="24" fill={paper} stroke={ink} /><text x={239+i*31} y="73" textAnchor="middle" fontSize="11" fill="#784621">2 kg</text></g>)}{label('支点居中：两边总重量相等',160,194)}</>}
           {scene === 'sort' && <>{[0,1,2,3,4,5].map(i => i % 2 ? <rect key={i} x={37+i*44} y="20" width="18" height="18" fill={paper} stroke={ink} /> : <circle key={i} cx={46+i*44} cy="29" r="9" fill={paper} stroke={ink} />)}<path d="M160 50 V75 H82 V95 M160 75 H240 V95 M76 88 L82 95 L88 88 M234 88 L240 95 L246 88" stroke={ink} fill="none" strokeWidth="2" /><rect x="27" y="103" width="111" height="63" rx="8" fill="#fff" stroke={ink} /><rect x="183" y="103" width="111" height="63" rx="8" fill="#fff" stroke={ink} />{[0,1,2].map(i => <g key={i}><circle cx={48+i*34} cy="133" r="10" fill={paper} stroke={ink} /><rect x={200+i*33} y="123" width="20" height="20" fill={paper} stroke={ink} /></g>)}{label('圆形一组',82,191)}{label('正方形一组',240,191)}</>}
+          {scene === 'red-scarf' && <><circle cx="160" cy="40" r="23" fill={paper} stroke={ink} strokeWidth="3" /><path d="M160 64 V157 M160 83 L109 121 M160 83 L211 121 M160 157 L127 186 M160 157 L193 186" fill="none" stroke={ink} strokeWidth="5" /><path data-scarf-triangle="true" d="M139 73 L181 73 L160 112 Z" fill="#c33d36" stroke="#8e2726" strokeWidth="2" /><circle cx="160" cy="76" r="6" fill="#ed6860" /><path d="M157 81 L141 99 L152 101 M163 81 L180 98 L169 102" fill="#c33d36" stroke="#8e2726" />{label('红结与三角布面：本课的红领巾',160,203)}</>}
+          {scene === 'wear' && <><circle cx="160" cy="37" r="20" fill={paper} stroke={ink} strokeWidth="3" /><path d="M160 58 V133 M160 80 L118 123 M160 80 L202 123 M160 133 L138 176 M160 133 L182 176" stroke={ink} strokeWidth="5" fill="none" /><path data-clothing-state="worn" d="M142 69 L124 75 L103 108 L120 119 L140 92 V135 H180 V92 L200 119 L217 108 L196 75 L178 69 Q160 86 142 69 Z" fill="#92c5cf" stroke="#468a9a" strokeWidth="3" />{label('衣服已经覆盖身体：穿着的状态',160,201)}</>}
+          {scene === 'jump' && <><path d="M12 176 H308" stroke={ink} strokeWidth="3" />{[55,160,265].map((x,i) => <g key={x} data-jump-phase={i} data-foot-y={i === 1 ? 116 : 176} transform={`translate(${x},${i === 1 ? 116 : 176})`} opacity={i === 1 ? 1 : 0.45}><circle cx="0" cy="-66" r="12" fill={paper} stroke={ink} strokeWidth="2" /><path d="M0 -53 V-27 M0 -45 L-19 -32 M0 -45 L19 -32 M0 -27 L-14 0 M0 -27 L14 0" stroke={ink} strokeWidth="3" fill="none" /></g>)}<path data-jump-arc="true" d="M61 82 Q159 -14 259 82 M249 79 L259 82 L257 71" fill="none" stroke="#468a9a" strokeWidth="2" strokeDasharray="5 3" />{label('起跳',55,198)}{label('双脚离地',160,152)}{label('落地',265,198)}</>}
+          {scene === 'fall-over' && <><path d="M12 169 H308" stroke={ink} strokeWidth="3" />{[false,true].map((fallen,i) => <g key={i} data-fall-pose={fallen ? 'fallen' : 'standing'} transform={`translate(${fallen ? 204 : 57},${fallen ? 152 : 169}) rotate(${fallen ? 90 : 0})`}><circle cx="0" cy="-68" r="12" fill={paper} stroke={ink} strokeWidth="2" /><path d="M0 -56 V-29 M0 -47 L-17 -33 M0 -47 L17 -33 M0 -29 L-15 0 M0 -29 L15 0" fill="none" stroke={ink} strokeWidth="3" /></g>)}<path d="M101 97 Q155 93 180 140 M170 133 L180 140 L181 128" stroke="#468a9a" strokeWidth="3" fill="none" />{label('原来直立',57,199)}{label('倒在地上',245,199)}</>}
+          {scene === 'landscape' && <><rect x="15" y="8" width="290" height="130" fill={focus === 'sky' ? '#d9eff6' : '#fff'} /><rect x="15" y="143" width="290" height="38" fill={focus === 'ground' ? '#e2c694' : '#f7eddc'} /><path data-ground-boundary="true" d="M15 143 H305" stroke={focus === 'ground' ? '#c35c21' : ink} strokeWidth={focus === 'ground' ? 5 : 2} />{focus === 'hill' ? <><path data-hill-outline="true" d="M28 143 Q55 142 73 96 Q89 50 111 102 Q126 142 151 143" fill={paper} stroke={ink} strokeWidth="3" /><path d="M168 143 L215 41 L237 78 L254 55 L291 143" fill="#e7e4da" stroke={ink} strokeWidth="2" />{label('地表隆起的山丘',88,170)}{label('山地示例',238,170)}</> : <><path d="M242 143 V85 M242 100 L214 79 M242 110 L269 89" stroke="#638346" strokeWidth="5" /><path d="M207 90 Q191 64 219 47 Q244 23 272 53 Q294 81 269 99 Z" fill="#9bbb78" />{[34,45,56,67,78,89,100,111,122].map(x => <path key={x} data-grass-blade="true" d={`M${x} 142 L${x-4} 119 M${x} 142 L${x+6} 115`} fill="none" stroke={focus === 'grass' ? '#3b7d37' : '#9aba82'} strokeWidth={focus === 'grass' ? 3 : 2} />)}<circle cx="163" cy="138" r="5" fill={ink} />{label('草：密集细叶',79,173)}{label('树：树干与分枝',240,173)}{focus === 'sky' && label('物体上方的天空空间',136,32)}{focus === 'ground' && label('种子落在地表边界',155,122)}</>}{label(focus === 'hill' ? '比较地表形态，不规定高度门槛' : focus === 'sky' ? '蓝色范围示意天空，不等于其中的云或鸟' : focus === 'ground' ? 'ground 指地表；下面土层是 soil 材料' : '草和树的形态示例，不是绝对高度分类',160,201)}</>}
+          {scene === 'top' && <><path d="M82 157 V25 H238 V157 Z" fill={paper} stroke={ink} strokeWidth="3" /><path data-top-edge="true" d="M82 25 H238" stroke="#c35c21" strokeWidth="7" /><path d="M82 157 H238" stroke="#468a9a" strokeWidth="5" />{label('top：同一物体的最上部',160,16)}{label('bottom：同一物体的最下部',160,181)}</>}
+          {scene === 'posting' && <><rect x="179" y="17" width="118" height="157" fill="#eee7db" stroke={ink} strokeWidth="2" /><rect x="27" y="58" width="70" height="82" fill="#fff" stroke={ink} strokeWidth="2" /><rect data-posted-paper="true" x="202" y="53" width="71" height="85" fill="#fff" stroke={ink} strokeWidth="2" />{[62,80,98].map(y => <g key={y}><path d={`M36 ${y} H84 M214 ${y} H261`} stroke={ink} strokeWidth="2" /></g>)}{[[206,57],[269,57],[206,134],[269,134]].map(([x,y]) => <circle data-paper-fixing="true" key={`${x}-${y}`} cx={x} cy={y} r="3" fill="#c35c21" />)}<path d="M110 101 H174 M164 94 L174 101 L164 108" stroke="#468a9a" strokeWidth="3" fill="none" />{label('原来手持通知',61,164)}{label('贴到墙上，四角固定',237,195)}</>}
+          {scene === 'stick' && <><path d="M12 160 H307" stroke={ink} strokeWidth="2" />{[42,195].map((x,i) => <g key={i}><path d={`M${x} 82 H${x+39} V114 L${x+73} 123 V139 H${x-5} V115 H${x} Z`} fill={paper} stroke={ink} strokeWidth="3" /><ellipse data-stuck-seed="true" cx={x+34} cy="143" rx="6" ry="4" fill="#638346" /><text x={x+35} y="72" textAnchor="middle" fontSize="12" fill="#784621">{i ? '鞋移动后' : '湿种子粘住'}</text></g>)}<path d="M124 106 H176 M168 100 L176 106 L168 112" fill="none" stroke="#468a9a" strokeWidth="3" />{label('鞋移动，种子仍贴着鞋底一起走',160,195)}</>}
+          {scene === 'step-on' && <><path d="M17 165 H303" stroke={ink} strokeWidth="2" /><path d="M89 164 V107 M89 127 Q59 102 50 122 M89 118 Q119 91 127 114" fill="none" stroke="#638346" strokeWidth="4" /><path d="M238 164 Q250 150 267 148 M256 151 Q274 135 286 143" fill="none" stroke="#638346" strokeWidth="4" /><path data-step-contact="true" d="M196 101 H233 V128 L270 139 V151 H191 V126 H196 Z" fill={paper} stroke={ink} strokeWidth="3" /><path d="M151 87 H187 M181 81 L187 87 L181 93" stroke="#468a9a" fill="none" strokeWidth="2" />{label('原来直立的幼苗',85,193)}{label('鞋底接触，幼苗压弯',244,193)}</>}
+          {scene === 'arrangement' && <>{[false,true].map((neat,i) => <g key={i} data-arrangement={neat ? 'neat' : 'messy'}><rect x={i ? 179 : 15} y="23" width="126" height="135" rx="7" fill="#fff" stroke={ink} />{[0,1,2,3,4,5].map(n => { const x = (i ? 195 : 31) + (neat ? n%2*48 : [1,42,14,68,26,60][n]); const y = neat ? 39+Math.floor(n/2)*35 : [36,61,83,98,116,127][n]; return <rect key={n} data-same-object={n} x={x} y={y} width="20" height="16" transform={`rotate(${neat ? 0 : [18,-22,34,12,-27,21][n]} ${x+10} ${y+8})`} fill={n%2 ? '#92c5cf' : paper} stroke={ink} />; })}{label(neat ? '同六件物品归位' : '同六件物品散乱',i ? 242 : 78,185)}</g>)}</>}
           {scene === 'plaza' && <><rect x="40" y="42" width="240" height="130" rx="28" fill="#e9d8b6" stroke={ink} /><path d="M160 172 V202 M40 107 H9 M280 107 H311" stroke="#e9d8b6" strokeWidth="23" />{[40,225].map(x => <g key={x}><rect x={x} y="7" width="55" height="29" fill={paper} stroke={ink} /><path d={`M${x+10} 12 V30 M${x+25} 12 V30 M${x+40} 12 V30`} stroke={ink} /></g>)}<text x="113" y="115" textAnchor="middle" fontSize="32">🚶</text><text x="200" y="119" textAnchor="middle" fontSize="32">🧒</text>{label('建筑之间可供公众活动的开阔场地',160,158)}</>}
         </svg>;
       } else if (kind === 'shape') {
@@ -638,29 +651,27 @@
     const MnemonicPartsIcon = ({ size = 16, ...props }) => <svg {...props} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 4 H19 M12 4 V10 M5 10 H19 M5 10 V14 M19 10 V14" /><rect x="2" y="14" width="6" height="6" rx="1" /><rect x="16" y="14" width="6" height="6" rx="1" /></svg>;
 
     const MnemonicDimensions = ({ card, compact = false }) => {
-      const [selected, setSelected] = useState('visual');
+      const [selected, setSelected] = useState('phonics');
       if (!card?.dimensions) return null;
       const { semantic, context, morphology } = card.dimensions;
       const hasPicture = hasMnemonicPicture(card);
       const hasMorphology = hasMnemonicMorphology(card);
-      const active = (selected === 'visual' && !hasPicture) || (selected === 'morphology' && !hasMorphology) ? 'phonics' : selected;
+      const hasSemantic = hasMnemonicSemantic(card);
+      const active = (selected === 'visual' && !hasPicture) || (selected === 'morphology' && !hasMorphology) || (selected === 'semantic' && !hasSemantic) ? 'phonics' : selected;
       if (compact) return <div aria-label="多维助记" className="mt-3 space-y-2 text-left text-xs leading-5 text-stone-700">
         <MnemonicPicture card={card} compact />
-        <p><strong>辨词义：</strong>{semantic}</p>
-        <p><strong>放进情境：</strong>{context.scene}</p>
-        <p><strong>换个情境想一想：</strong>{context.question}</p>
-        {hasMorphology && <p><strong>拆词理解：</strong>{morphology.note}</p>}
+        <p><strong>收起后回忆：</strong>{context.question}</p>
       </div>;
-      const options = [['visual', card.dimensions.visual.diagram?.kind === 'spelling' ? '看字形' : '看图记', Eye], ['semantic', '辨词义', Layers], ['context', '放进情境', BookOpen], ['morphology', '拆词理解', MnemonicPartsIcon], ['phonics', '听音拼写', Volume2]]
-        .filter(([value]) => (value !== 'visual' || hasPicture) && (value !== 'morphology' || hasMorphology));
+      const options = [['phonics', '拼写线索', Volume2], ['visual', card.dimensions.visual.diagram?.kind === 'spelling' ? '看字形' : '词义图', Eye], ['morphology', '词形组成', MnemonicPartsIcon], ['semantic', '词义区别', Layers], ['context', '用法与例句', BookOpen]]
+        .filter(([value]) => (value !== 'visual' || hasPicture) && (value !== 'morphology' || hasMorphology) && (value !== 'semantic' || hasSemantic));
       return <section aria-label="多维助记" className="mt-4">
-        <p className="mb-3 text-sm text-stone-600">选一条能帮你记住的线索，再收起试一试。</p>
+        <p className="mb-3 text-sm text-stone-600">先记字母线索，再收起写一遍。词义图和例句帮助理解、使用。</p>
         <div role="group" aria-label="选择助记线索" className="mb-4 flex flex-wrap gap-2">
           {options.map(([value, label, Icon]) => <button key={value} type="button" aria-pressed={active === value} onClick={() => setSelected(value)} className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-2 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700 ${active === value ? 'border-stone-800 bg-stone-800 text-white' : 'border-stone-300 bg-white text-stone-700 hover:border-stone-600'}`}><Icon aria-hidden="true" size={16} />{label}</button>)}
         </div>
         <div className="rounded-xl bg-white p-4 text-stone-800 sm:p-5" aria-live="polite">
           {active === 'visual' && <MnemonicPicture card={card} />}
-          {active === 'semantic' && <><h5 className="mb-2 font-semibold">和熟悉的意思连起来</h5><p className="leading-7">{semantic}</p></>}
+          {active === 'semantic' && <><h5 className="mb-2 font-semibold">分清词义</h5><p className="leading-7">{semantic}</p></>}
           {active === 'context' && <><h5 className="mb-2 font-semibold">什么时候会用到？</h5><p className="leading-7">{context.scene}</p><p className="mt-4 whitespace-pre-line border-t border-stone-200 pt-4 leading-7">{card.example}</p><p className="mt-4 rounded-lg bg-amber-50 p-3 text-sm leading-6"><strong>换个情境想一想：</strong>{context.question}</p></>}
           {active === 'morphology' && <>
             <h5 className="mb-3 font-semibold">看看组成和变化</h5>
@@ -962,7 +973,7 @@
       return word;
     };
 
-    const buildPhonicsBatchPrompt = (entries) => `你是严谨的小学英语自然拼读老师。请为每个词生成一张 80 字以内的拼读规则助记卡。根据词形和给出的词义判断 CVC、Magic E、元音组合、r 控制元音、辅音组合、音节等；不规则或不确定时必须写“例外，以音标和听读为准”，不要硬套。\n\n只返回严格 JSON，不要 Markdown：{"items":[{"id":"原 id","text":"助记卡"}]}。每个输入必须恰好出现一次。\n\n${entries.map(entry => `- id=${entry.id}; word=${entry.english_word}; meaning=${entry.chinese_meaning}`).join('\n')}`;
+    const buildPhonicsBatchPrompt = (entries) => `你是严谨的小学英语自然拼读老师。请为每个词生成一条 80 字以内的具体声音与字母线索。核对本课词义与实际读音，再说明最多两个具体字母难点（双写、不发音字母、弱读字母或实际词尾变化）。不靠词形猜读音，不把拼写分块称作词根或音节数量，不编口形、双物品、字母标签的牵强联想。不确定读音时说明尚无可靠声音线索，改给准确字母顺序核对点；不能只输出“例外，以音标和听读为准”或“整体记”等空提醒。\n\n只返回严格 JSON，不要 Markdown：{"items":[{"id":"原 id","text":"助记卡"}]}。每个输入必须恰好出现一次。\n\n${entries.map(entry => `- id=${entry.id}; word=${entry.english_word}; meaning=${entry.chinese_meaning}`).join('\n')}`;
 
     const getReadingDate = (word) => {
       const value = word.sourceArticleDate || word.addedAt || word.importedAt || word.createdAt || '';
@@ -3027,11 +3038,11 @@
         const cn = word.chinese_meaning.trim();
         const card = mnemonicCards.get(mnemonicKey(word.section, en));
         if (card) return `【${card.method}】\n${card.hint}\n\n【例句】\n${card.example}`;
-        return `【听读与回忆练习】\n先点喇叭听“${en}”，跟读并指着字母拼写。想一个能表现“${cn}”的动作或画面。\n\n遮住英文，只看“${cn}”，试着说出并写出这个词；再打开核对，标出漏写或写错的字母。\n\n这条是通用练习提示，尚无这个词的专属助记。`;
+        return `【听读与回忆练习】\n先点喇叭听“${en}”，跟读并指着字母拼写。\n\n遮住英文，只看“${cn}”，试着说出并写出这个词；再打开核对，标出漏写或写错的字母。\n\n这条是通用练习提示，尚无这个词的专属助记。`;
       };
 
       const buildHintPrompt = (word) =>
-        `为三至五年级孩子设计单词“${word.english_word}”（${word.chinese_meaning}，${word.pos || '词性未提供'}）的多维助记。目标是收起答案后能独立取回词义、正确读音和字母顺序，并在新情境中用词。按词选择有效线索，不为凑维度编故事。用【声音与字形】讲实际声形对应和易错字母；【视觉】给具体可画的动作或关系，说明画面连接词义还是哪个字母；【语义】给分类、对比或熟悉词的关系，不只翻译；【情境】给自然英文例句与中文译文，再给一个不透露英文答案的新情境问题；【构词】仅解释真实词根词缀、透明复合或屈折变化，不适用就明确整体记，音节和拼写分块不是词根；【收起再试】要求先独立写完整词，再解释如何用于新情境。禁止硬拆单词、编造词源、把中文谐音当正确发音、用另一个陌生词解释目标词。创作联想需标明“联想”，词源事实无可靠来源不使用。约350字。`;
+        `为三至五年级孩子写单词“${word.english_word}”（${word.chinese_meaning}，${word.pos || '词性未提供'}）的一条具体拼写线索。先明确本课词义。用【读音与字母】指出可靠的实际声形对应及最多两个易错点，例如双写、不发音字母、弱读处的实际字母或词尾变化；再用【收起再写】要求遮住后写完整词并核对这些位置。核心说明80至140字。只有已熟悉的透明组成或实际字形变化能减少记忆负担时才补充；不适用就省略，不输出“整体记”或否定式空提醒。不要凑满视觉、语义、情境、构词五种维度，不编字母标签故事，不把任意两件物品强配双字母，不把口形或动作当作特定字母的依据，不让孩子靠另一个陌生词记目标词。拼写分块不得说成音节数量或真实词根，音标不得用中文谐音代替，词源没有可靠来源不使用。词义图和用法只能作为理解的补充，不能冒充拼写线索。若附加情境问题，必须只用中文明确要求取回目标词或词组，不能只问是否、区别或让孩子随意造句。无法确认读音对应时不猜，明确没有专属线索，并给出准确的字母顺序核对点。`;
 
       const fetchAIHintFromServer = async (prompt) => {
         const res = await fetch('/api/ai-hint', {

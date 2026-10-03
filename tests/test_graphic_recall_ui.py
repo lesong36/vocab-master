@@ -41,6 +41,9 @@ with sync_playwright() as playwright:
             raise AssertionError(page.locator('body').inner_text()[:2200])
         cue_button.click()
         page.get_by_text('课本词库', exact=True).wait_for()
+        picture = page.get_by_role('button', name='词义图', exact=True)
+        if picture.count():
+            picture.click()
         if page.locator('[data-graphic-kind="change"]').get_by_text('leaves', exact=True).count():
             break
         page.get_by_role('button', name='下一个 (Enter)', exact=True).click()
@@ -62,6 +65,9 @@ with sync_playwright() as playwright:
     page.get_by_role('button', name=re.compile(r'^练本单元拼写')).click()
     unit = page.get_by_role('region', name='单元拼写练习')
     for _ in range(count):
+        picture = unit.get_by_role('button', name='词义图', exact=True)
+        if picture.count():
+            picture.click()
         if unit.locator('[data-graphic-kind="change"]').get_by_text('leaves', exact=True).count():
             break
         unit.get_by_role('button', name='下一词', exact=True).click()

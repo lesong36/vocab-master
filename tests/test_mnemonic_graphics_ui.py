@@ -36,7 +36,9 @@ with sync_playwright() as playwright:
     page.on("pageerror", lambda error: errors.append(str(error)))
     page.on("request", lambda request: writes.append(request.url) if request.method == "POST" else None)
     page.goto("http://127.0.0.1:8766/vocabulary_app.html?graphics-test", wait_until="networkidle")
-    page.locator('[data-word="raincoat"] figure').wait_for(timeout=30000)
+    page.locator('[data-word="raincoat"] button').first.wait_for(timeout=30000)
+    for word in targets:
+        page.locator(f'[data-word="{word}"]').get_by_role('button', name='词义图', exact=True).click()
     for word in targets:
         article = page.locator(f'[data-word="{word}"]')
         for button in article.get_by_role("group", name="选择助记线索").get_by_role("button").all():
@@ -60,7 +62,7 @@ with sync_playwright() as playwright:
     page.locator('[data-word="recyclable"]').screenshot(path=str(OUTPUT / "mnemonic-graphic-recyclable-mobile.png"))
     # Real mode switching removes the picture and exposes the matching authored cue.
     article = page.locator('[data-word="raincoat"]')
-    article.get_by_role("button", name="辨词义", exact=True).click()
+    article.get_by_role("button", name="词义区别", exact=True).click()
     assert not article.locator('figure').count()
     assert article.get_by_text(cards["raincoat"]["dimensions"]["semantic"], exact=True).is_visible()
     compact_source = source.replace('<MnemonicDimensions card={card} />', '<MnemonicDimensions card={card} compact />').replace('sm:grid-cols-2', 'grid-cols-3')

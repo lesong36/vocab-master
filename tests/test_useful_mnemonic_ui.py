@@ -36,8 +36,10 @@ with sync_playwright() as playwright:
     page.goto('http://127.0.0.1:8766/vocabulary_app.html?useful-cues', wait_until='networkidle')
     panel = page.get_by_role('region', name='多维助记')
     panel.get_by_role('button', name='看字形', exact=True).wait_for(timeout=30000)
-    assert panel.get_by_role('button', name='看字形', exact=True).get_attribute('aria-pressed') == 'true'
-    assert not panel.get_by_role('button', name='拆词理解', exact=True).count()
+    assert panel.get_by_role('button', name='拼写线索', exact=True).get_attribute('aria-pressed') == 'true'
+    assert panel.get_by_text(cards[0]['hint'], exact=True).is_visible()
+    panel.get_by_role('button', name='看字形', exact=True).click()
+    assert not panel.get_by_role('button', name='词形组成', exact=True).count()
     assert panel.locator('[data-graphic-kind="spelling"] mark').all_text_contents() == ['m', 'm']
     assert panel.get_by_text('/rɪ/', exact=True).is_visible()
     assert panel.get_by_text('/mem/', exact=True).is_visible()
@@ -45,7 +47,7 @@ with sync_playwright() as playwright:
     assert '整体记' not in panel.inner_text()
     assert not panel.get_by_text('🧠', exact=True).count()
     panel.screenshot(path=str(OUTPUT / 'remember-useful-desktop.png'))
-    panel.get_by_role('button', name='听音拼写', exact=True).click()
+    panel.get_by_role('button', name='拼写线索', exact=True).click()
     assert panel.get_by_text(cards[0]['hint'], exact=True).is_visible()
     assert not panel.locator('figure').count()
     panel.get_by_role('button', name='看字形', exact=True).click()
@@ -56,33 +58,33 @@ with sync_playwright() as playwright:
 
     # Reuse the same mounted component: a removed visual mode must fall back.
     page.evaluate('window.selectCueCard(1)')
-    panel.get_by_role('button', name='听音拼写', exact=True).wait_for()
-    assert panel.get_by_role('button', name='听音拼写', exact=True).get_attribute('aria-pressed') == 'true'
-    assert not panel.get_by_role('button', name='看图记', exact=True).count()
-    assert not panel.get_by_role('button', name='拆词理解', exact=True).count()
+    panel.get_by_role('button', name='拼写线索', exact=True).wait_for()
+    assert panel.get_by_role('button', name='拼写线索', exact=True).get_attribute('aria-pressed') == 'true'
+    assert not panel.get_by_role('button', name='词义图', exact=True).count()
+    assert not panel.get_by_role('button', name='词形组成', exact=True).count()
     assert panel.get_by_text(cards[1]['hint'], exact=True).is_visible()
     assert not panel.locator('figure').count()
 
     # Real composition remains available; removing it on the next word is safe.
     page.evaluate('window.selectCueCard(2)')
-    panel.get_by_role('button', name='拆词理解', exact=True).click()
+    panel.get_by_role('button', name='词形组成', exact=True).click()
     assert panel.get_by_text(cards[2]['dimensions']['morphology']['note'], exact=True).is_visible()
     page.evaluate('window.selectCueCard(0)')
-    assert panel.get_by_role('button', name='听音拼写', exact=True).get_attribute('aria-pressed') == 'true'
+    assert panel.get_by_role('button', name='拼写线索', exact=True).get_attribute('aria-pressed') == 'true'
     assert panel.get_by_text(cards[0]['hint'], exact=True).is_visible()
 
     page.evaluate('window.setCueCompact(true)')
     compact = page.locator('[aria-label="多维助记"]')
     compact.locator('[data-graphic-kind="spelling"]').wait_for()
     assert compact.locator('mark').all_text_contents() == ['m', 'm']
-    assert '拆词理解' not in compact.inner_text()
+    assert '词形组成' not in compact.inner_text()
     page.set_viewport_size({'width': 320, 'height': 1000})
     assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
     assert not compact.evaluate('node => node.scrollWidth > node.clientWidth')
     compact.screenshot(path=str(OUTPUT / 'remember-useful-compact.png'))
     page.evaluate('window.selectCueCard(1)')
     assert not compact.locator('figure').count()
-    assert '拆词理解' not in compact.inner_text()
+    assert '词形组成' not in compact.inner_text()
     assert not errors, errors
     assert not writes, writes
     browser.close()

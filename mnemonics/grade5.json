@@ -12,8 +12,16 @@
             "↔️",
             "🛣️"
           ],
-          "caption": "岔路口左右各一条路，手指在两条路之间选择“哪一条”。",
-          "focus": []
+          "caption": "两个圆点代表已给出的两个选项，圈出其中一项作为回答示例；which 询问这个范围内的哪一个，不是问人物身份。",
+          "focus": [],
+          "diagram": {
+            "kind": "selection",
+            "total": 2,
+            "selected": [
+              1
+            ],
+            "object": "杯"
+          }
         },
         "semantic": "从已给出的选项中询问哪一个；与询问“谁”的 who 区分。",
         "context": {
@@ -119,7 +127,7 @@
         "semantic": "描述完成任务的难度，与 easy 相反；不等于人的心情不好。",
         "context": {
           "scene": "一道数学题试了三次仍未解出。",
-          "question": "要说这道题很难，困难描述的是题目还是做题人的性格？"
+          "question": "这道题很难完成。写出表示“困难的”的英文形容词。"
         },
         "morphology": {
           "kind": "none",
@@ -188,8 +196,27 @@
             "🗺️",
             "🕌"
           ],
-          "caption": "在亚洲地图上找到印度，再连到泰姬陵的轮廓。",
-          "focus": []
+          "caption": "用同一地理链比较印度与新德里：前者是国家，后者是其首都城市。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "India",
+                "meaning": "国家",
+                "symbols": [
+                  "亚洲 → 印度 → 新德里"
+                ]
+              },
+              {
+                "label": "New Delhi",
+                "meaning": "国家中的首都城市",
+                "symbols": [
+                  "印度 → 新德里：首都"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "国家名，属于亚洲；与首都 New Delhi、地标 Taj Mahal 建立地点关系。",
         "context": {
@@ -215,16 +242,45 @@
             "🐷",
             "📖"
           ],
-          "caption": "猪八戒的猪鼻子连到名字中的 Pig，后面还保留 sy。",
+          "caption": "三个字形块对应名字的实际声音；中间 /z/ 要写 s，末尾 /i/ 写 y。这里只是名字的声音与字母，不把 sy 当词缀。",
           "focus": [
             "Pig",
             "sy"
-          ]
+          ],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "Pig",
+                "sound": "/pɪɡ/",
+                "note": "名字的前段；首字母大写",
+                "focus": [
+                  "P"
+                ]
+              },
+              {
+                "text": "s",
+                "sound": "/z/",
+                "note": "名字这里写 s，读 /z/",
+                "focus": [
+                  "s"
+                ]
+              },
+              {
+                "text": "y",
+                "sound": "/i/",
+                "note": "末尾 /i/ 写 y",
+                "focus": [
+                  "y"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "《西游记》角色的英文名字，不是泛指一头猪的普通名词。",
         "context": {
           "scene": "讲西游故事时指着猪八戒人物卡。",
-          "question": "给猪八戒的人物卡写英文名，猪的熟词之后还要补哪两个字母？"
+          "question": "《西游记》中猪八戒的英文人物名是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -245,8 +301,28 @@
             "📚",
             "➗"
           ],
-          "caption": "课表分成数学、音乐、体育三栏，每栏是一门学科。",
-          "focus": []
+          "caption": "外框是学科这个类别，分支列出数学、音乐、体育三门具体学科；类别不是某一门课。",
+          "focus": [],
+          "diagram": {
+            "kind": "category",
+            "items": [
+              {
+                "label": "maths",
+                "meaning": "数学课",
+                "symbol": "2+3=5"
+              },
+              {
+                "label": "music",
+                "meaning": "音乐课",
+                "symbol": "🎵"
+              },
+              {
+                "label": "PE",
+                "meaning": "体育课",
+                "symbol": "⚽"
+              }
+            ]
+          }
         },
         "semantic": "学科是类别，maths、music、PE 是其中的具体成员。",
         "context": {
@@ -318,8 +394,23 @@
             "🎵",
             "🎹"
           ],
-          "caption": "钢琴弹出的音符沿谱线跳动，把声音连到音乐。",
-          "focus": []
+          "caption": "音乐的外框包含歌曲和器乐两种作品；音乐不限于能唱出来的歌曲。",
+          "focus": [],
+          "diagram": {
+            "kind": "category",
+            "items": [
+              {
+                "label": "song",
+                "meaning": "可演唱的歌曲",
+                "symbol": "🎤"
+              },
+              {
+                "label": "instrumental music",
+                "meaning": "器乐作品",
+                "symbol": "🎻"
+              }
+            ]
+          }
         },
         "semantic": "音乐是艺术与声音的类别，song 是一首具体歌曲。",
         "context": {
@@ -345,55 +436,18 @@
             "🖌️",
             "✍️"
           ],
-          "caption": "calli- 联系美、漂亮，-graphy 联系书写；两个真实词源组合形式构成 calligraphy。书法图用汉字和笔表示书写艺术，不是景物绘画。",
-          "focus": [],
-          "diagram": {
-            "kind": "parts",
-            "panels": [
-              {
-                "label": "calli",
-                "meaning": "美、漂亮",
-                "symbols": [
-                  "✨"
-                ],
-                "focus": [
-                  "calli"
-                ]
-              },
-              {
-                "label": "graphy",
-                "meaning": "书写",
-                "symbols": [
-                  "🖌️",
-                  "永"
-                ],
-                "focus": [
-                  "graphy"
-                ]
-              }
-            ],
-            "result": "calligraphy"
-          }
+          "caption": "书法练习的是字的书写艺术；本卡拼写重点是 ll、ph 和末尾 y。",
+          "focus": []
         },
         "semantic": "关注字的书写艺术，与画景物的绘画不同。",
         "context": {
           "scene": "照着字帖练横、竖、撇、捺。",
-          "question": "用毛笔练字而不是画山水，正在练习哪种艺术？"
+          "question": "照着字帖练汉字的书写艺术，英文名称是什么？"
         },
         "morphology": {
-          "kind": "affix",
-          "parts": [
-            {
-              "text": "calli",
-              "meaning": "美、漂亮（源于希腊语的组合形式）"
-            },
-            {
-              "text": "graphy",
-              "meaning": "书写、描绘（组合形式）"
-            }
-          ],
-          "note": "calli- 与 -graphy 是词源组合形式，联系“美的书写”；不是将任意音节当英语单词。可与 photography 的 -graphy 比较。",
-          "sourceUrl": "https://www.merriam-webster.com/dictionary/calligraphy"
+          "kind": "none",
+          "parts": [],
+          "note": "本卡使用声音与具体字母线索，不展示依赖陌生词或历史成分的拆词说明。"
         }
       }
     },
@@ -465,8 +519,36 @@
             "⭐",
             "📋"
           ],
-          "caption": "出门清单上给“带车票”画星号，表示这项事情很重要。",
-          "focus": []
+          "caption": "把发音与三个连续字形块对齐；重读处保留 or，末段弱读仍写 a，不根据弱音猜成 e。这是字形分块，不是词根分析。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "im",
+                "sound": "/ɪm/",
+                "note": "开头两字母",
+                "focus": []
+              },
+              {
+                "text": "por",
+                "sound": "/pɔː/",
+                "note": "重读处，长音写 or",
+                "focus": [
+                  "or"
+                ],
+                "stressed": true
+              },
+              {
+                "text": "tant",
+                "sound": "/tənt/",
+                "note": "弱读 /ə/ 仍写 a",
+                "focus": [
+                  "a"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "强调价值或必要性；与仅仅有趣、漂亮区分。",
         "context": {
@@ -572,8 +654,28 @@
             "📍",
             "🗺️"
           ],
-          "caption": "地图上一枚定位点圈住约定集合的位置。",
-          "focus": []
+          "caption": "同一个地点类别下列出房间、城市、公园，显示地点不只是一种建筑。",
+          "focus": [],
+          "diagram": {
+            "kind": "category",
+            "items": [
+              {
+                "label": "room",
+                "meaning": "房间是地点",
+                "symbol": "🚪"
+              },
+              {
+                "label": "city",
+                "meaning": "城市也是地点",
+                "symbol": "🏙️"
+              },
+              {
+                "label": "park",
+                "meaning": "公园也是地点",
+                "symbol": "🌳"
+              }
+            ]
+          }
         },
         "semantic": "表示地点，范围可以是房间、城市或某个位置。",
         "context": {
@@ -599,8 +701,13 @@
             "⛰️",
             "👣"
           ],
-          "caption": "小山的缓坡上有一排脚印，坡顶比高山低。",
-          "focus": []
+          "caption": "左侧地表平滑隆起成山丘，两端接回周围地面；右侧山地是对照示例，不用固定高度作为山丘定义。",
+          "focus": [],
+          "diagram": {
+            "kind": "feature",
+            "scene": "landscape",
+            "focus": "hill"
+          }
         },
         "semantic": "一种地形，通常指较小的山丘；与高大的 mountain 比较。",
         "context": {
@@ -626,8 +733,15 @@
             "🎒",
             "➡️"
           ],
-          "caption": "手把地图放入背包，箭头指向要去的远处。",
-          "focus": []
+          "caption": "书包从说话者所在处移向别处，是带走；箭头若朝说话者所在处，才是带来。",
+          "focus": [],
+          "diagram": {
+            "kind": "motion",
+            "direction": "away",
+            "object": "🎒",
+            "startLabel": "说话者这里",
+            "endLabel": "别处"
+          }
         },
         "semantic": "这里表示带走，与 bring 的带来按说话地点区分。",
         "context": {
@@ -653,8 +767,18 @@
             "🍪",
             "🔢"
           ],
-          "caption": "盘里有几块饼干，只圈出一部分而不标确切数量。",
-          "focus": []
+          "caption": "六份零食中圈出几份，表示一些；图中三份只是例子，不规定一些必须是三个。",
+          "focus": [],
+          "diagram": {
+            "kind": "selection",
+            "total": 6,
+            "selected": [
+              0,
+              2,
+              4
+            ],
+            "object": "零食"
+          }
         },
         "semantic": "表示一些，不提供精确数目；可修饰可数复数和不可数名词。",
         "context": {
@@ -680,8 +804,36 @@
             "🍜",
             "😋"
           ],
-          "caption": "闻到面条香气后尝一口并露出满足表情，连接味道美味。",
-          "focus": []
+          "caption": "末段 /ʃəs/ 对齐完整 cious 五字母；不只看见 sh 的声音就漏写 c、i、o、u。这是声音和字形对应。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "de",
+                "sound": "/dɪ/",
+                "note": "首段 /ɪ/ 写 e",
+                "focus": [
+                  "e"
+                ]
+              },
+              {
+                "text": "li",
+                "sound": "/lɪ/",
+                "note": "重读音节",
+                "focus": [],
+                "stressed": true
+              },
+              {
+                "text": "cious",
+                "sound": "/ʃəs/",
+                "note": "五个字母对应末段",
+                "focus": [
+                  "cious"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "评价食物味道，与只说外观好看的 beautiful 区分。",
         "context": {
@@ -806,8 +958,21 @@
             "📅",
             "✅"
           ],
-          "caption": "一周七个日历格都打勾，没有遗漏任何一天。",
-          "focus": []
+          "caption": "五个孩子逐个编号并全部圈出，表示范围内每一个都包括；关注逐个，而不是只选部分。",
+          "focus": [],
+          "diagram": {
+            "kind": "selection",
+            "total": 5,
+            "selected": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "individual": true,
+            "object": "孩子"
+          }
         },
         "semantic": "强调范围内每一个；every 后常接单数名词。",
         "context": {
@@ -927,11 +1092,44 @@
             "🌕",
             "🥮"
           ],
-          "caption": "圆月下家人分月饼，Mid、Autumn 连到秋季中间的节日。",
+          "caption": "三个真实词义成分组成中秋节名称；Mid 与 Autumn 之间有连字符，Autumn 的静音 n 仍要写。",
           "focus": [
             "Mid",
             "Autumn"
-          ]
+          ],
+          "diagram": {
+            "kind": "parts",
+            "result": "Mid-Autumn Festival",
+            "panels": [
+              {
+                "label": "Mid-",
+                "meaning": "中的：连字符保留",
+                "symbols": [
+                  "中"
+                ],
+                "focus": [
+                  "-"
+                ]
+              },
+              {
+                "label": "Autumn",
+                "meaning": "秋：末 n 静音",
+                "symbols": [
+                  "秋"
+                ],
+                "focus": [
+                  "n"
+                ]
+              },
+              {
+                "label": "Festival",
+                "meaning": "节日",
+                "symbols": [
+                  "节"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "传统节日名，联系农历八月十五与团圆；不同于只说秋季。",
         "context": {
@@ -984,7 +1182,7 @@
         "semantic": "表示第十五的顺序，与 fifteen 的数量十五区分。",
         "context": {
           "scene": "从月初数到月圆的那一天。",
-          "question": "十五个饼表示数量，而日历第十五天表示什么类型的数？"
+          "question": "活动排在第十五个，写出英文序数词。"
         },
         "morphology": {
           "kind": "affix",
@@ -1028,7 +1226,7 @@
         "semantic": "表示第八的顺序，与 eight 表示八个区分。",
         "context": {
           "scene": "按一月至十二月给月份排序。",
-          "question": "八月位于一年中的第几个月，该回忆哪个序数词？"
+          "question": "八月是一年的第八个月，写出“第八”的英文序数词。"
         },
         "morphology": {
           "kind": "affix",
@@ -1058,8 +1256,28 @@
             "📅",
             "🌙"
           ],
-          "caption": "把日历一整页圈起，里面含许多个日期格。",
-          "focus": []
+          "caption": "时间线上相邻三段是连续的月份，突出中间整个月；一个月包含许多天，不是单独一天。",
+          "focus": [],
+          "diagram": {
+            "kind": "timeline",
+            "points": [
+              {
+                "label": "January",
+                "meaning": "一年中的第一个月",
+                "active": false
+              },
+              {
+                "label": "February",
+                "meaning": "随后一个月",
+                "active": true
+              },
+              {
+                "label": "March",
+                "meaning": "再下一个月",
+                "active": false
+              }
+            ]
+          }
         },
         "semantic": "时间单位，day 小于 month，十二个月组成一年。",
         "context": {
@@ -1143,7 +1361,7 @@
         "semantic": "频率比 always 低、比 sometimes 高，允许少数例外。",
         "context": {
           "scene": "家里大多在六点吃晚饭，周五偶尔晚一些。",
-          "question": "多数时候这样做但偶尔例外，应该用“总是”还是“通常”？"
+          "question": "多数时候六点吃饭，偶尔例外。表示“通常”的英文副词是什么？"
         },
         "morphology": {
           "kind": "affix",
@@ -1301,8 +1519,35 @@
             "❓",
             "🍪"
           ],
-          "caption": "空盘旁画问号，问有没有哪怕一块饼干。",
-          "focus": []
+          "caption": "第一格醒目标出 a 对应 /e/，第三格把 y 对齐 /i/；这两个特殊字母不能只靠听音猜拼写。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "a",
+                "sound": "/e/",
+                "note": "此词特殊：听 /e/ 写 a",
+                "focus": [
+                  "a"
+                ]
+              },
+              {
+                "text": "n",
+                "sound": "/n/",
+                "note": "中间辅音",
+                "focus": []
+              },
+              {
+                "text": "y",
+                "sound": "/i/",
+                "note": "末尾 /i/ 写 y",
+                "focus": [
+                  "y"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "常在疑问和否定中表示一些或任何；与肯定句常见的 some 对照。",
         "context": {
@@ -1329,8 +1574,36 @@
             "9",
             "⛰️"
           ],
-          "caption": "两个九并排，旁边是登高看望长辈的山路。",
-          "focus": []
+          "caption": "农历九月初九是双九；Ninth 由 nine 去 e 加 th，不写 nineth。",
+          "focus": [],
+          "diagram": {
+            "kind": "parts",
+            "result": "Double Ninth Festival",
+            "panels": [
+              {
+                "label": "Double",
+                "meaning": "双；两次九",
+                "symbols": [
+                  "九、九"
+                ]
+              },
+              {
+                "label": "Ninth",
+                "meaning": "第九；去 e 加 th",
+                "symbols": [
+                  "nine → nin ＋ th"
+                ],
+                "focusSuffix": "th"
+              },
+              {
+                "label": "Festival",
+                "meaning": "节日",
+                "symbols": [
+                  "节"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "农历九月初九的传统节日，双九与敬老、登高相联。",
         "context": {
@@ -1380,7 +1653,7 @@
         "semantic": "第九表示位置，与 nine 的九个区分；拼写不保留 nine 末尾 e。",
         "context": {
           "scene": "给九天活动排先后顺序。",
-          "question": "九个活动中的第九个，要用数量词还是序数词？"
+          "question": "九项活动中排在第九个，写出“第九”的英文序数词。"
         },
         "morphology": {
           "kind": "affix",
@@ -1437,8 +1710,14 @@
             "📍",
             "👣"
           ],
-          "caption": "说话人站在定位点上，箭头把同伴引到自己脚边。",
-          "focus": []
+          "caption": "位置点靠近说话者，显示这里随说话者的位置而定；这里不是固定地名。",
+          "focus": [],
+          "diagram": {
+            "kind": "position",
+            "relation": "near",
+            "object": "📍",
+            "reference": "说话者"
+          }
         },
         "semantic": "靠近说话人的“这里”，与远离说话人的 there 相对。",
         "context": {
@@ -1498,7 +1777,7 @@
         "semantic": "life 可表示生命或生活；本词条的 lives 是多个生命的复数。",
         "context": {
           "scene": "观察树荫下的鸟、虫和幼苗。",
-          "question": "说树保护许多个生命时，单词复数怎样变化？"
+          "question": "树保护着许多个生命。写出“生命”的英文复数名词。"
         },
         "morphology": {
           "kind": "inflection",
@@ -1601,7 +1880,7 @@
         "semantic": "关心可表现为问候、帮助和照料；care for 常指照顾。",
         "context": {
           "scene": "主动问爷爷身体如何并帮他倒水。",
-          "question": "关心爷爷时，你能用什么行动体现这个词的含义？"
+          "question": "你在意爷爷的健康，表示“关心”的英文动词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -1622,16 +1901,48 @@
             "🧹",
             "🌼"
           ],
-          "caption": "墓前摆花并用扫帚清理，Tomb 与 sweeping 对应对象和动作。",
+          "caption": "名称组合墓、清扫和日，联系扫墓纪念；墓的静音 b 与连字符保留，sweeping 保留 sweep 的双 e。",
           "focus": [
             "Tomb",
             "sweeping"
-          ]
+          ],
+          "diagram": {
+            "kind": "parts",
+            "result": "Tomb-sweeping Day",
+            "panels": [
+              {
+                "label": "Tomb-",
+                "meaning": "坟墓：尾 b 静音，后接连字符",
+                "symbols": [
+                  "墓"
+                ],
+                "focus": [
+                  "b",
+                  "-"
+                ]
+              },
+              {
+                "label": "sweeping",
+                "meaning": "清扫：sweep 加 ing",
+                "symbols": [
+                  "sweep ＋ ing"
+                ],
+                "focusSuffix": "ing"
+              },
+              {
+                "label": "Day",
+                "meaning": "纪念日名称中的日",
+                "symbols": [
+                  "日"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "传统纪念日，联系清明扫墓与缅怀；不只是一般打扫卫生。",
         "context": {
           "scene": "清明节随家人清扫墓地、献花。",
-          "question": "清扫墓地并缅怀亲人的节日，名称中的动作对应什么？"
+          "question": "家人清扫墓地、献花缅怀亲人的清明节，完整英文名称是什么？"
         },
         "morphology": {
           "kind": "phrase",
@@ -1721,8 +2032,23 @@
             "🟩",
             "🟨"
           ],
-          "caption": "十个方格九个绿色、一个黄色，绿色占大部分。",
-          "focus": []
+          "caption": "十项中八项圈出、两项未圈出，显示大多但有例外；八只是示例，不是固定比例。",
+          "focus": [],
+          "diagram": {
+            "kind": "selection",
+            "total": 10,
+            "selected": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "object": "事项"
+          }
         },
         "semantic": "表示大多、主要，允许一小部分不同；不等于 all。",
         "context": {
@@ -1757,8 +2083,35 @@
             "🪦",
             "🌼"
           ],
-          "caption": "墓碑前的一束花标明这是安放和纪念逝者的地方。",
-          "focus": []
+          "caption": "词尾 b 另占一格并明确不发音，防止听写时漏掉；中间长音写一个 o，不是 oo。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "t",
+                "sound": "/t/",
+                "note": "开头辅音",
+                "focus": []
+              },
+              {
+                "text": "om",
+                "sound": "/uːm/",
+                "note": "长音 /uː/ 这里只写一个 o",
+                "focus": [
+                  "o"
+                ]
+              },
+              {
+                "text": "b",
+                "sound": "不发音",
+                "note": "听不到，写的时候保留",
+                "focus": [
+                  "b"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "与纪念逝者相关的墓地对象，区别于供活人居住的 house。",
         "context": {
@@ -1821,8 +2174,8 @@
     {
       "section": "五上Unit 2",
       "word": "national",
-      "method": "构词",
-      "hint": "【认读】nation=/ˈneɪʃən/，al=/əl/，合读 /ˈnæʃənəl/。\n【拼写】nation 加 al 得 national；拼写保留 nation，但 a 的读音由 /eɪ/ 变 /æ/。\n【回想】遮住后从 nation 写出“国家的”的英文，读短 a 并检查 al。",
+      "method": "拼读",
+      "hint": "【认读】整体读 /ˈnæʃənəl/，a 在本词读 /æ/。\n【拼写】nation 加 al，字形保留 nation；与 nation /ˈneɪʃən/ 的 a 读音不同。\n【回想】遮住后写出“国家的”的英文，检查 al 并读短 a。",
       "example": "We visit the national museum.｜我们参观国家博物馆。",
       "dimensions": {
         "visual": {
@@ -1913,8 +2266,28 @@
             "👥",
             "🌳"
           ],
-          "caption": "许多不同的人都能走入公园，入口没有私人门锁。",
-          "focus": []
+          "caption": "对照两个入口的访问范围：公园在开放时段向公众开放，住宅需要住户许可；不是只看建筑大小。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "public",
+                "meaning": "向公众开放",
+                "symbols": [
+                  "公园入口：向公众开放",
+                  "（开放时段）"
+                ]
+              },
+              {
+                "label": "private",
+                "meaning": "仅限获得许可者",
+                "symbols": [
+                  "住宅入口：需住户许可"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "公众是面向社会的人群；公共场所与私人场所相对。",
         "context": {
@@ -2105,8 +2478,35 @@
             "☀️",
             "🌾"
           ],
-          "caption": "太阳、节气牌和农田相连，提示节气反映季节变化。",
-          "focus": []
+          "caption": "相邻两格对比 solar 的弱音 ar 与 term 的长音 er；声音不同，字母组合也不同，两词之间保留空格。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "so",
+                "sound": "/səʊ/",
+                "note": "solar 前段",
+                "focus": []
+              },
+              {
+                "text": "lar ",
+                "sound": "/lə/",
+                "note": "弱读写 ar，后留空格",
+                "focus": [
+                  "ar"
+                ]
+              },
+              {
+                "text": "term",
+                "sound": "/tɜːm/",
+                "note": "term 长元音写 er",
+                "focus": [
+                  "er"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "节气与太阳周年运动相关，区别于某个农历节日。",
         "context": {
@@ -2396,8 +2796,34 @@
             "📦",
             "🛡️"
           ],
-          "caption": "种子放在干燥盒中并盖好，状态持续不变。",
-          "focus": []
+          "caption": "同一批种子开始干燥、避开水、后来仍干燥，连起保持状态的过程；不是从湿变干。",
+          "focus": [],
+          "diagram": {
+            "kind": "sequence",
+            "panels": [
+              {
+                "label": "dry",
+                "meaning": "开始：种子干燥",
+                "symbols": [
+                  "🫘 ☀️"
+                ]
+              },
+              {
+                "label": "protect",
+                "meaning": "过程：避开水",
+                "symbols": [
+                  "🫘 🚫💧"
+                ]
+              },
+              {
+                "label": "dry",
+                "meaning": "后来：仍然干燥",
+                "symbols": [
+                  "🫘 ☀️"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "表示保持或保留；keep 后可接形容词说明要维持的状态。",
         "context": {
@@ -2562,34 +2988,7 @@
             "🍅"
           ],
           "caption": "把生长、成熟、收获连起来，作物是对象，收获是成熟后的动作。",
-          "focus": [],
-          "diagram": {
-            "kind": "sequence",
-            "panels": [
-              {
-                "symbols": [
-                  "🌱"
-                ],
-                "label": "grow",
-                "meaning": "作物生长"
-              },
-              {
-                "symbols": [
-                  "🌾"
-                ],
-                "label": "ripe crop",
-                "meaning": "作物成熟"
-              },
-              {
-                "symbols": [
-                  "🧑‍🌾",
-                  "🌾"
-                ],
-                "label": "harvest",
-                "meaning": "收获成熟作物"
-              }
-            ]
-          }
+          "focus": []
         },
         "semantic": "这里是采摘；也可表示挑选，需根据宾语判断。",
         "context": {
@@ -2738,7 +3137,7 @@
         "semantic": "ourselves 指我们自己，区别于 myself 的我自己；也可强调亲自动手。",
         "context": {
           "scene": "全组没有请大人代做，一起完成营地晚饭。",
-          "question": "全组亲手做饭要强调“我们自己”，应用单数还是复数反身代词？"
+          "question": "包括你在内，全组亲手完成而没有别人代劳，表示“我们自己”的英文代词是什么？"
         },
         "morphology": {
           "kind": "compound",
@@ -2796,7 +3195,7 @@
         "semantic": "myself 指我自己，可作反身对象或强调自己完成；区别于 myself 之外的多人。",
         "context": {
           "scene": "不用家人帮忙，独自整理自己的帐篷。",
-          "question": "只有我一人亲手完成，要强调“我自己”，回忆哪个代词？"
+          "question": "只有你一人独立完成，表示“我自己”的英文代词是什么？"
         },
         "morphology": {
           "kind": "compound",
@@ -2944,8 +3343,37 @@
             "🗑️",
             "🍌"
           ],
-          "caption": "香蕉皮与脏纸一起放进垃圾桶，连接丢弃物。",
-          "focus": []
+          "caption": "双 b 单独一格，只对应一个 /b/；末段 sh 对齐 /ʃ/，让双写和组合辅音都能被观察。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "ru",
+                "sound": "/rʌ/",
+                "note": "短音 /ʌ/ 写 u",
+                "focus": [
+                  "u"
+                ]
+              },
+              {
+                "text": "bb",
+                "sound": "/b/",
+                "note": "双 b 合读一个 /b/",
+                "focus": [
+                  "bb"
+                ]
+              },
+              {
+                "text": "ish",
+                "sound": "/ɪʃ/",
+                "note": "末尾 /ʃ/ 写 sh",
+                "focus": [
+                  "sh"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "通常作不可数名词；与可再次利用的 recyclable material 有交集但不相同。",
         "context": {
@@ -3042,7 +3470,7 @@
         "semantic": "helper 是提供帮助的人，helpful 则描述乐于帮助的性质。",
         "context": {
           "scene": "做海报时请同学扶着大纸。",
-          "question": "一个人提供帮助，称呼这个人应选人物名词还是形容词？"
+          "question": "你请同学来提供帮助，称呼这位“帮手”的英文名词是什么？"
         },
         "morphology": {
           "kind": "affix",
@@ -3063,8 +3491,8 @@
     {
       "section": "五上Unit 3",
       "word": "poster",
-      "method": "构词",
-      "hint": "【认读】post=/pəʊst/，er=/ə/，合读 /ˈpəʊstə/。\n【拼写】post（张贴）+er 得 poster（海报），保留 st。\n【回想】遮住后从 post 写出“海报”的英文，检查 ster。",
+      "method": "拼读",
+      "hint": "【认读】读 /ˈpəʊstə/，o 在本词读 /əʊ/，er 弱读 /ə/。\n【拼写】字形 post–er，s、t 都保留；分块用于拼写。\n【回想】遮住后写出“海报”的英文，检查 st 和 er。",
       "example": "We made a poster about recycling.｜我们做了一张关于回收的海报。",
       "dimensions": {
         "visual": {
@@ -3072,8 +3500,29 @@
             "🖼️",
             "📢"
           ],
-          "caption": "墙上大纸有醒目的标题和图片，连接供多人看的海报。",
-          "focus": []
+          "caption": "同一类文字消息分别放在墙面与手中；张贴的海报面向来往的人，卡片通常更小、递给个人。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "poster",
+                "meaning": "贴墙供多人看",
+                "symbols": [
+                  "墙面：公告",
+                  "👥"
+                ]
+              },
+              {
+                "label": "card",
+                "meaning": "小卡片递给一人",
+                "symbols": [
+                  "手中：便条",
+                  "👤"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "公开展示图文信息，区别于只递给一个人的 card。",
         "context": {
@@ -3099,8 +3548,27 @@
             "🙋",
             "❓"
           ],
-          "caption": "举手的人旁画问号，连接向别人提出问题。",
-          "focus": []
+          "caption": "前一格给出时间问题，箭头连接回答；先问后答，询问不是已经给出消息。",
+          "focus": [],
+          "diagram": {
+            "kind": "sequence",
+            "panels": [
+              {
+                "label": "question",
+                "meaning": "提出问题",
+                "symbols": [
+                  "What time?"
+                ]
+              },
+              {
+                "label": "answer",
+                "meaning": "收到回应",
+                "symbols": [
+                  "It is two."
+                ]
+              }
+            ]
+          }
         },
         "semantic": "ask 表示询问或请求，answer 表示回应；与直接说出信息的 say 区分。",
         "context": {
@@ -3126,8 +3594,35 @@
             "🤝",
             "🧹"
           ],
-          "caption": "志愿者为社区清扫道路，受益者是大家。",
-          "focus": []
+          "caption": "长元音用 er，末尾 /s/ 用 ce；末格只是本词的字形块，不把 vice 解释成词根。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "s",
+                "sound": "/s/",
+                "note": "开头辅音",
+                "focus": []
+              },
+              {
+                "text": "er",
+                "sound": "/ɜː/",
+                "note": "长元音写 er",
+                "focus": [
+                  "er"
+                ]
+              },
+              {
+                "text": "vice",
+                "sound": "/vɪs/",
+                "note": "末尾 /s/ 写 ce",
+                "focus": [
+                  "ce"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "为别人提供帮助或工作，区别于自己完成的私人 chores。",
         "context": {
@@ -3324,7 +3819,7 @@
         "semantic": "表示可以回收的性质，recycle 表示回收动作；不保证任何地方都接受这种材料。",
         "context": {
           "scene": "查垃圾分类标识后把符合要求的瓶子交回收。",
-          "question": "描述瓶子能被回收而不是说你正在回收它，应使用哪类词？"
+          "question": "瓶子符合回收要求，表示“可回收的”的英文形容词是什么？"
         },
         "morphology": {
           "kind": "affix",
@@ -3611,7 +4106,7 @@
         "semantic": "amazing 描述事物带来的惊叹，amazed 描述感到惊叹的人。",
         "context": {
           "scene": "第一次看见横跨峡谷的大桥。",
-          "question": "桥令人惊叹，形容桥与形容你自己的感受应选同一个词吗？"
+          "question": "大桥令人惊叹，修饰大桥的英文形容词是什么？"
         },
         "morphology": {
           "kind": "affix",
@@ -3641,8 +4136,31 @@
             "⭐",
             "👥"
           ],
-          "caption": "地标照片被许多人认出，连到知名而被广泛知道。",
-          "focus": []
+          "caption": "第一格显示 fame 去尾 e，第二格显示 fam 加 ous；完整字形变化生成 famous，不把发音分块冒充词根。",
+          "focus": [],
+          "diagram": {
+            "kind": "change",
+            "panels": [
+              {
+                "label": "fame",
+                "meaning": "名气；先去掉尾 e",
+                "symbols": [
+                  "fame → fam"
+                ],
+                "focus": [
+                  "e"
+                ]
+              },
+              {
+                "label": "famous",
+                "meaning": "加 ous 成为著名的",
+                "symbols": [
+                  "fam ＋ ous"
+                ],
+                "focusSuffix": "ous"
+              }
+            ]
+          }
         },
         "semantic": "famous 强调有名，popular 强调受欢迎，两者不完全相同。",
         "context": {
@@ -3734,8 +4252,29 @@
             "🏨",
             "📅"
           ],
-          "caption": "行李放在旅馆，日历连续两格圈起，连接停留。",
-          "focus": []
+          "caption": "用两个时刻的位置记录对照：留下的地点保持相同，离开的地点发生改变。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "stay",
+                "meaning": "一段时间仍在原处",
+                "symbols": [
+                  "09:00 学校",
+                  "10:00 学校"
+                ]
+              },
+              {
+                "label": "leave",
+                "meaning": "从原处离开",
+                "symbols": [
+                  "09:00 学校",
+                  "10:00 回家"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "强调一段时间留在某处，与 leave 的离开相对。",
         "context": {
@@ -3844,13 +4383,39 @@
             "🚗",
             "✅"
           ],
-          "caption": "火车和汽车两张卡中一张被勾选，连接作出的选择。",
-          "focus": []
+          "caption": "从三个选项到圈定梨，再到最后的选择结果；动作是选择，结果这个名词是选择。",
+          "focus": [],
+          "diagram": {
+            "kind": "sequence",
+            "panels": [
+              {
+                "label": "options",
+                "meaning": "可选的三个对象",
+                "symbols": [
+                  "🍎 🍐 🍊"
+                ]
+              },
+              {
+                "label": "choose",
+                "meaning": "圈定其中一个",
+                "symbols": [
+                  "🍐 ⭕"
+                ]
+              },
+              {
+                "label": "choice",
+                "meaning": "选择结果是梨",
+                "symbols": [
+                  "🍐"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "choice 是选择的名词，choose 是进行选择的动作。",
         "context": {
           "scene": "比较票价后把火车列为出行方案。",
-          "question": "已经决定的出行方案，是“选择”名词还是“选择”动作词？"
+          "question": "你已经选定一个方案，表示“选择”这个结果的英文名词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -3965,8 +4530,33 @@
             "✅",
             "🔍"
           ],
-          "caption": "核对车票日期后打勾，连接确信有依据。",
-          "focus": []
+          "caption": "同一个开头 /ʃ/，鞋写 sh，确定这个词却只写 s；比较真实字形，防止在 sure 中添 h。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "sure",
+                "meaning": "确定：开头只写 s",
+                "symbols": [
+                  "首音 /ʃ/"
+                ],
+                "focus": [
+                  "s"
+                ]
+              },
+              {
+                "label": "shoe",
+                "meaning": "鞋：开头写 sh",
+                "symbols": [
+                  "首音 /ʃ/"
+                ],
+                "focus": [
+                  "sh"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "表示确定、确信；与只是猜测或不确定的 maybe 区分。",
         "context": {
@@ -4101,7 +4691,7 @@
         "semantic": "高速运行的一类列车，train 是上位类别。",
         "context": {
           "scene": "比较普通列车与更快的高铁班次。",
-          "question": "短语中哪部分说明这类列车的速度特点？"
+          "question": "速度很快的高速列车，完整英文名称是什么？"
         },
         "morphology": {
           "kind": "phrase",
@@ -4135,13 +4725,32 @@
             "🏠",
             "🚉"
           ],
-          "caption": "家旁边就有车站，一条短箭头连到站口，连接便利。",
-          "focus": []
+          "caption": "相同起点和终点比较换车步骤：少换车省麻烦，体现方便；不把方便画成身体舒服。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "convenient",
+                "meaning": "到达只需一次车",
+                "symbols": [
+                  "家 → 一次车 → 学校"
+                ]
+              },
+              {
+                "label": "inconvenient",
+                "meaning": "到达需多次换车",
+                "symbols": [
+                  "家 → 换车 → 换车 → 学校"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "强调省时间、省麻烦，与 comfortable 的身体舒适区分。",
         "context": {
           "scene": "从家步行五分钟就到站台。",
-          "question": "车站离家很近使出行省事，是“便利”还是“坐着舒服”？"
+          "question": "车站很近、出行省事，表示“便利的”的英文形容词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -4211,8 +4820,34 @@
             "📝",
             "📅"
           ],
-          "caption": "行程纸上列出日期、地点与乘车时间，连接提前安排。",
-          "focus": []
+          "caption": "先有明天的目标，再安排出发和野餐次序，最后才执行；计划位于实际行动之前。",
+          "focus": [],
+          "diagram": {
+            "kind": "sequence",
+            "panels": [
+              {
+                "label": "before",
+                "meaning": "事情还没做",
+                "symbols": [
+                  "明天去公园"
+                ]
+              },
+              {
+                "label": "plan",
+                "meaning": "先安排行动",
+                "symbols": [
+                  "上午出发 → 中午野餐"
+                ]
+              },
+              {
+                "label": "after",
+                "meaning": "之后才去执行",
+                "symbols": [
+                  "🚶 🌳"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "plan 可作计划名词或计划动词；区别于事后回忆。",
         "context": {
@@ -4511,8 +5146,28 @@
             "🚲",
             "🧍"
           ],
-          "caption": "人跨在自行车座上，脚踩踏板向前行进。",
-          "focus": []
+          "caption": "人和自行车构成骑乘关系，与只用双脚步行对照；骑车并不等于驾驶汽车。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "ride",
+                "meaning": "借助骑乘移动",
+                "symbols": [
+                  "🚲",
+                  "🚴"
+                ]
+              },
+              {
+                "label": "walk",
+                "meaning": "自己迈步移动",
+                "symbols": [
+                  "🚶"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "表示骑乘，与步行 walk、驾驶汽车 drive 对照。",
         "context": {
@@ -4702,7 +5357,7 @@
       "section": "五上Unit 5",
       "word": "clear",
       "method": "拼读",
-      "hint": "【认读】cl=/kl/，ear=/ɪə/，读 /klɪə/。\n【拼写】cl-ear；ear 在这里不是 pear 的 /eə/。\n【回想】遮住后读写出“清楚的”的英文，检查 ear 并读 /ɪə/。",
+      "hint": "【认读】cl=/kl/，ear=/ɪə/，读 /klɪə/；本例形容天空晴朗。\n【拼写】cl–ear；ear 在这里不是 pear 的 /eə/。\n【回想】遮住后写出“晴朗的”的英文，检查 ear 并读 /ɪə/。",
       "example": "The sky is clear today.｜今天的天空很晴朗。",
       "dimensions": {
         "visual": {
@@ -4710,7 +5365,7 @@
             "☀️",
             "☁️"
           ],
-          "caption": "当clear描述天气时，用清朗天空与云层对照；其他义项另看情境。",
+          "caption": "晴朗天空与多云天空对照；本例 clear 修饰天空。",
           "focus": [],
           "diagram": {
             "kind": "compare",
@@ -4720,7 +5375,7 @@
                   "☀️"
                 ],
                 "label": "clear",
-                "meaning": "清晰、晴朗",
+                "meaning": "天空晴朗",
                 "tag": "本课词义"
               },
               {
@@ -4804,8 +5459,29 @@
             "🗺️",
             "📍"
           ],
-          "caption": "地图用缩小轮廓和定位点表示真实地点。",
-          "focus": []
+          "caption": "地图用地点和连线表达空间关系；景色显示看见的对象，不能把景色照片直接当路线图。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "map",
+                "meaning": "表示地点与路线",
+                "symbols": [
+                  "学校 ─ 公园",
+                  "家 ─ 商店",
+                  "学校 ─ 家"
+                ]
+              },
+              {
+                "label": "view",
+                "meaning": "观察点看到的景象",
+                "symbols": [
+                  "🌳 🏠 ⛰️"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "空间位置的表示工具，与景色照片 picture 不同。",
         "context": {
@@ -4831,8 +5507,27 @@
             "🇨🇳",
             "🗺️"
           ],
-          "caption": "中国地图轮廓旁放中国国旗，地名连到国家位置。",
-          "focus": []
+          "caption": "同一地理链上标出亚洲、中国、北京三个层级；中国是国家，北京是该国的首都城市。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "China",
+                "meaning": "国家",
+                "symbols": [
+                  "亚洲 → 中国 → 北京"
+                ]
+              },
+              {
+                "label": "Beijing",
+                "meaning": "国家中的首都城市",
+                "symbols": [
+                  "中国 → 北京：首都"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "亚洲的国家；首都 Beijing 与国家名属于不同地理层级。",
         "context": {
@@ -4858,8 +5553,23 @@
             "🗺️",
             "🌏"
           ],
-          "caption": "世界地图圈住亚洲大片区域，再在其中标中国和印度。",
-          "focus": []
+          "caption": "亚洲外框下列出中国和印度两个国家成员，显示洲包含国家；没有把亚洲画成单一城市。",
+          "focus": [],
+          "diagram": {
+            "kind": "category",
+            "items": [
+              {
+                "label": "China",
+                "meaning": "亚洲的国家",
+                "symbol": "中国"
+              },
+              {
+                "label": "India",
+                "meaning": "亚洲的国家",
+                "symbol": "印度"
+              }
+            ]
+          }
         },
         "semantic": "洲的名称，包含多个国家；与 China 这种国家名区分。",
         "context": {
@@ -4885,8 +5595,35 @@
             "🐓",
             "🌅"
           ],
-          "caption": "有红冠与翘尾的公鸡昂头，联系公鸡外形。",
-          "focus": []
+          "caption": "中间 oo 对齐一个长 /uː/，末格保留 er；字形对应强调两个 o，不能按听音只写一个。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "r",
+                "sound": "/r/",
+                "note": "开头辅音",
+                "focus": []
+              },
+              {
+                "text": "oo",
+                "sound": "/uː/",
+                "note": "两个 o 合读长音",
+                "focus": [
+                  "oo"
+                ]
+              },
+              {
+                "text": "ster",
+                "sound": "/stə/",
+                "note": "末尾弱音保留 er",
+                "focus": [
+                  "er"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "雄性鸡，与 hen 的母鸡区分；中国轮廓像公鸡只是一种观察联想。",
         "context": {
@@ -4912,8 +5649,27 @@
             "🇨🇦",
             "🍁"
           ],
-          "caption": "北美洲地图中圈出加拿大，旁放枫叶图案。",
-          "focus": []
+          "caption": "加拿大在北美洲之内；旁边的大洲分支含不止一个国家，不用枫叶代替关系。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "Canada",
+                "meaning": "国家",
+                "symbols": [
+                  "北美洲 → 加拿大"
+                ]
+              },
+              {
+                "label": "North America",
+                "meaning": "包含该国的大洲",
+                "symbols": [
+                  "北美洲 → 加拿大、美国"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "国家名，属于 North America；枫叶帮助认国家不解释词根。",
         "context": {
@@ -4939,10 +5695,25 @@
             "⬆️",
             "🗺️"
           ],
-          "caption": "美洲地图北部被圈起，North 标明相对方向。",
+          "caption": "北美洲外框包含加拿大和美国两个国家示例，洲不是一个国家或一座城市。",
           "focus": [
             "North"
-          ]
+          ],
+          "diagram": {
+            "kind": "category",
+            "items": [
+              {
+                "label": "Canada",
+                "meaning": "北美洲的国家",
+                "symbol": "加拿大"
+              },
+              {
+                "label": "USA",
+                "meaning": "北美洲的国家",
+                "symbol": "美国"
+              }
+            ]
+          }
         },
         "semantic": "洲的名称，Canada 是其中一个国家；不能把洲当一座城市。",
         "context": {
@@ -4977,8 +5748,27 @@
             "🇬🇧",
             "🗺️"
           ],
-          "caption": "欧洲西北的群岛位置与英国国旗连到两个大写字母。",
-          "focus": []
+          "caption": "同一国家和首都链比较英国简称与伦敦，两个词所指的地理层级不同。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "UK",
+                "meaning": "国家简称",
+                "symbols": [
+                  "英国 → 伦敦"
+                ]
+              },
+              {
+                "label": "London",
+                "meaning": "该国的首都城市",
+                "symbols": [
+                  "伦敦：英国首都"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "United Kingdom 的缩写；与 London 这个城市地名区分。",
         "context": {
@@ -5004,8 +5794,23 @@
             "🗺️",
             "🏰"
           ],
-          "caption": "地图圈出欧洲区域，法国与意大利卡片放在圈内。",
-          "focus": []
+          "caption": "欧洲外框列出法国和意大利两个国家成员，显示洲与国家的包含关系。",
+          "focus": [],
+          "diagram": {
+            "kind": "category",
+            "items": [
+              {
+                "label": "France",
+                "meaning": "欧洲的国家",
+                "symbol": "法国"
+              },
+              {
+                "label": "Italy",
+                "meaning": "欧洲的国家",
+                "symbol": "意大利"
+              }
+            ]
+          }
         },
         "semantic": "大洲名称，包含多个国家；France、Italy 是其中成员。",
         "context": {
@@ -5031,8 +5836,27 @@
             "🏛️",
             "⭐"
           ],
-          "caption": "一国地图用星号标一座城市，连接首都的国家中心身份。",
-          "focus": []
+          "caption": "巴黎同时是城市和首都；里昂是城市而未标首都，显示首都是城市中的一种地位。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "capital",
+                "meaning": "有首都角色的城市",
+                "symbols": [
+                  "法国 → 巴黎：首都"
+                ]
+              },
+              {
+                "label": "city",
+                "meaning": "一般城市类别",
+                "symbols": [
+                  "法国 → 巴黎、里昂：城市"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "这里指首都，是城市的一种地位；不是所有 city 都是首都。",
         "context": {
@@ -5058,8 +5882,27 @@
             "🏙️",
             "🛣️"
           ],
-          "caption": "密集楼房与道路连成城区，连接城市。",
-          "focus": []
+          "caption": "图中同一国家展开两座城市：城市在国家内部，不与国家画成同一层级。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "city",
+                "meaning": "同一国家中的城市",
+                "symbols": [
+                  "法国 → 巴黎、里昂"
+                ]
+              },
+              {
+                "label": "country",
+                "meaning": "包含这些城市的国家",
+                "symbols": [
+                  "欧洲 → 法国"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "地理聚居地类别，capital 是具有首都地位的 city。",
         "context": {
@@ -5085,8 +5928,27 @@
             "🇫🇷",
             "🗺️"
           ],
-          "caption": "欧洲地图中的法国位置连到蓝白红三色旗。",
-          "focus": []
+          "caption": "欧洲、法国、巴黎形成层级链；法国是国家，巴黎是首都城市。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "France",
+                "meaning": "国家",
+                "symbols": [
+                  "欧洲 → 法国 → 巴黎"
+                ]
+              },
+              {
+                "label": "Paris",
+                "meaning": "该国的首都城市",
+                "symbols": [
+                  "巴黎：法国首都"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "国家名；Paris 是首都，French 是语言或相关形容词。",
         "context": {
@@ -5112,8 +5974,27 @@
             "🗼",
             "🇫🇷"
           ],
-          "caption": "埃菲尔铁塔轮廓连到法国地图上的首都点。",
-          "focus": []
+          "caption": "同一层级链突出巴黎这个城市的位置，区别于国家法国。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "Paris",
+                "meaning": "首都城市",
+                "symbols": [
+                  "法国 → 巴黎：首都"
+                ]
+              },
+              {
+                "label": "France",
+                "meaning": "城市所在的国家",
+                "symbols": [
+                  "欧洲 → 法国"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "城市名，也是法国首都；不等于国家 France。",
         "context": {
@@ -5166,13 +6047,40 @@
             "🇫🇷",
             "💬"
           ],
-          "caption": "法国旗旁的对话气泡连接法语这一语言。",
-          "focus": []
+          "caption": "末段 /ntʃ/ 对齐 n 加 ch，ch 合读一个辅音；同时保留法语名称的大写 F。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "Fr",
+                "sound": "/fr/",
+                "note": "首字母 F 大写",
+                "focus": [
+                  "F"
+                ]
+              },
+              {
+                "text": "e",
+                "sound": "/e/",
+                "note": "中间短元音",
+                "focus": []
+              },
+              {
+                "text": "nch",
+                "sound": "/ntʃ/",
+                "note": "n 后接 ch 两字母",
+                "focus": [
+                  "ch"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "可指法语，也可形容法国的；需根据 language 或人、物判断。",
         "context": {
           "scene": "问来自法国的同学会说什么语言。",
-          "question": "表示法语的词和法国的国家名是否相同？"
+          "question": "法国朋友所说的法语，英文语言名称是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -5220,7 +6128,7 @@
         "semantic": "与 Canada 的国家名相对，Canadian 可指人或相关性质。",
         "context": {
           "scene": "介绍一位来自加拿大的新同学。",
-          "question": "称呼来自加拿大的人，与国家名称相比要用哪个词？"
+          "question": "来自加拿大的人，表示“加拿大人”的英文名词是什么？"
         },
         "morphology": {
           "kind": "affix",
@@ -5250,8 +6158,27 @@
             "🇬🇧",
             "🏙️"
           ],
-          "caption": "英国地图上的城市点连到泰晤士河与钟楼轮廓。",
-          "focus": []
+          "caption": "同一层级链突出伦敦这个城市的位置，区别于英国这个国家。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "London",
+                "meaning": "首都城市",
+                "symbols": [
+                  "英国 → 伦敦：首都"
+                ]
+              },
+              {
+                "label": "UK",
+                "meaning": "城市所在的国家",
+                "symbols": [
+                  "欧洲 → 英国"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "城市名，英国首都；地理层级不同于 UK。",
         "context": {
@@ -5277,8 +6204,36 @@
             "🌊",
             "🌉"
           ],
-          "caption": "伦敦地图上的弯曲河道穿过桥下，River 标明是河流。",
-          "focus": []
+          "caption": "同一个河名中，Th 不是通常的咬舌音，而读 /t/；a 读 /e/，末尾 s 读 /z/。名字不能照普通规则改写。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "River ",
+                "sound": "/ˈrɪvə/",
+                "note": "河这一类别词，后面留空格",
+                "focus": []
+              },
+              {
+                "text": "Th",
+                "sound": "/t/",
+                "note": "专名中特殊读音：Th 读 /t/",
+                "focus": [
+                  "Th"
+                ]
+              },
+              {
+                "text": "ames",
+                "sound": "/emz/",
+                "note": "a 读 /e/；s 读 /z/；e 不单读",
+                "focus": [
+                  "a",
+                  "e"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "伦敦的一条河名；river bank 是岸，不是这条河本身。",
         "context": {
@@ -5313,8 +6268,27 @@
             "🎫",
             "➕"
           ],
-          "caption": "游览清单中已选一个景点，再指向剩下的景点。",
-          "focus": []
+          "caption": "第一格明确标出已提到的①，第二格列出剩余②③④⑤，其他的指这个范围内其余对象。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "this one",
+                "meaning": "已提到这一个",
+                "symbols": [
+                  "①（已提到）"
+                ]
+              },
+              {
+                "label": "other",
+                "meaning": "其余多个对象",
+                "symbols": [
+                  "② ③ ④ ⑤（其余）"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "表示其他的，常放在名词前；another 常指再一个。",
         "context": {
@@ -5378,8 +6352,14 @@
             "🕰️",
             "12"
           ],
-          "caption": "墙上有指针的钟指向十二，连接查看时间的器具。",
-          "focus": []
+          "caption": "钟面上时针、分针都指向十二，显示课文例句的十二点；不是用钟表图标代替可读的钟面。",
+          "focus": [],
+          "diagram": {
+            "kind": "clock",
+            "hour": 12,
+            "minute": 0,
+            "focus": "time"
+          }
         },
         "semantic": "钟表类别，区别于戴在手腕上的 watch。",
         "context": {
@@ -5591,7 +6571,7 @@
         "semantic": "此处是河岸，与办理存取款的银行同形不同义。",
         "context": {
           "scene": "顺河边步道散步。",
-          "question": "在河边走时，这个同形词表示存钱处还是河流旁的陆地？"
+          "question": "河流旁边可以散步的岸，英文名词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -5612,8 +6592,12 @@
             "⬆️",
             "🚩"
           ],
-          "caption": "塔最高处插着旗，箭头指向顶端。",
-          "focus": []
+          "caption": "在同一个实体上高亮最上边缘，与同物体的最下边缘比较；top 指最上部，不表示较远处。",
+          "focus": [],
+          "diagram": {
+            "kind": "feature",
+            "scene": "top"
+          }
         },
         "semantic": "最上部，与 bottom 相反；不是距离远近。",
         "context": {
@@ -5639,8 +6623,27 @@
             "🇮🇳",
             "⭐"
           ],
-          "caption": "印度地图的首都星点连到“新德里”地名卡。",
-          "focus": []
+          "caption": "新德里在印度这个国家中，图中明确首都这一城市角色。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "New Delhi",
+                "meaning": "首都城市",
+                "symbols": [
+                  "印度 → 新德里：首都"
+                ]
+              },
+              {
+                "label": "India",
+                "meaning": "城市所在的国家",
+                "symbols": [
+                  "亚洲 → 印度"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "印度首都的专名，New 是新，但不凭英文表面推测城市历史。",
         "context": {
@@ -5666,8 +6669,37 @@
             "🕌",
             "🇮🇳"
           ],
-          "caption": "白色穹顶建筑旁放印度国旗，连接泰姬陵地标。",
-          "focus": []
+          "caption": "两个 a 分处后面的两格，分别弱读和长读；前段 /dʒ/ 写 j。这是专名的字形声音对应，不猜英语词根。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "Taj ",
+                "sound": "/tɑːdʒ/",
+                "note": "名字前段后留空格；尾音用 j",
+                "focus": [
+                  "j"
+                ]
+              },
+              {
+                "text": "Ma",
+                "sound": "/mə/",
+                "note": "第一个 a 弱读",
+                "focus": [
+                  "a"
+                ]
+              },
+              {
+                "text": "hal",
+                "sound": "/hɑːl/",
+                "note": "第二个 a 长读",
+                "focus": [
+                  "a"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "印度地标专名，不能按英语音节猜词根。",
         "context": {
@@ -5686,25 +6718,50 @@
       "word": "most",
       "method": "拼读",
       "hint": "【认读】m=/m/，o=/əʊ/，st=/st/，读 /məʊst/。\n【拼写】m-o-s-t；长音 /əʊ/ 这里只写一个 o。\n【回想】遮住后写出“最多”的英文，检查末尾 st。",
-      "example": "Most students liked the picture.｜大多数学生喜欢这张照片。",
+      "example": "Ann has the most books.｜安的书最多。",
       "dimensions": {
         "visual": {
           "symbols": [
-            "👥",
-            "✅"
+            "📘",
+            "📘",
+            "📘"
           ],
-          "caption": "十名同学里八名举手，另外两名未举手，连到大多数。",
-          "focus": []
+          "caption": "左侧 Ben 两本、Tom 四本，右侧 Ann 六本，Ann 在三人中拥有最多的书；此处 the most 表示最多，不是大多数人。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "2 / 4 books",
+                "symbols": [
+                  "Ben：📘📘",
+                  "Tom：📘📘📘📘"
+                ],
+                "meaning": "Ben 两本，Tom 四本"
+              },
+              {
+                "label": "the most",
+                "symbols": [
+                  "📘📘📘",
+                  "📘📘📘"
+                ],
+                "meaning": "Ann 六本，在三人中最多",
+                "focus": [
+                  "most"
+                ]
+              }
+            ]
+          }
         },
-        "semantic": "数量占多数，少于全部 all；与 some 的泛指一些区分。",
+        "semantic": "本课表示“最”，可表达最高程度或最多；the most books 是书最多，like it most 是最喜欢。区别 most students 的另一用法“大多数学生”。",
         "context": {
-          "scene": "统计班里谁喜欢这张旅游照片。",
-          "question": "十人有八人喜欢而非十人都喜欢，要用哪个范围词？"
+          "scene": "比较三位同学的书：Ben 两本，Tom 四本，Ann 六本。",
+          "question": "安的书在三人中最多；要表达“她的书最多”，需要回忆哪个表示最高数量的词？"
         },
         "morphology": {
           "kind": "none",
           "parts": [],
-          "note": "本词在“数量占多数，少于全部 all；与 some 的泛指一些区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
+          "note": "most 在本课表示最高程度或最多，整体学习；不把偶然字母片段当作词根词缀。"
         }
       }
     },
@@ -5726,7 +6783,7 @@
         "semantic": "此处是奇观名词；作动词时还可表示想知道，需看句子。",
         "context": {
           "scene": "介绍一处令人惊叹的世界建筑。",
-          "question": "称建筑为一大奇观时，这个词表示事物还是提问动作？"
+          "question": "令人惊叹的宏伟建筑是一大奇观，表示“奇观”的英文名词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -5747,8 +6804,27 @@
             "🇮🇹",
             "👢"
           ],
-          "caption": "欧洲地图中靴子形半岛与意大利三色旗相连。",
-          "focus": []
+          "caption": "意大利是国家，罗马是其中的首都城市；用层级和角色而非单个国旗区分。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "Italy",
+                "meaning": "国家",
+                "symbols": [
+                  "欧洲 → 意大利 → 罗马"
+                ]
+              },
+              {
+                "label": "Rome",
+                "meaning": "该国的首都城市",
+                "symbols": [
+                  "意大利 → 罗马：首都"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "欧洲国家，Rome 是首都，Venice 是其中城市。",
         "context": {
@@ -5774,8 +6850,27 @@
             "🏛️",
             "🇮🇹"
           ],
-          "caption": "意大利地图的首都星点连到古罗马建筑。",
-          "focus": []
+          "caption": "罗马在意大利内，并标出首都角色；不把罗马当国家。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "Rome",
+                "meaning": "首都城市",
+                "symbols": [
+                  "意大利 → 罗马：首都"
+                ]
+              },
+              {
+                "label": "Italy",
+                "meaning": "城市所在的国家",
+                "symbols": [
+                  "欧洲 → 意大利"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "意大利首都的城市专名，与国家 Italy 区分。",
         "context": {
@@ -5801,8 +6896,27 @@
             "🛶",
             "🌊"
           ],
-          "caption": "小船穿过两侧建筑间的水道，连接威尼斯的运河画面。",
-          "focus": []
+          "caption": "同一个国家下对照两座城市，只给罗马标首都，避免把威尼斯误认成首都。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "Venice",
+                "meaning": "意大利的城市",
+                "symbols": [
+                  "意大利 → 威尼斯：城市"
+                ]
+              },
+              {
+                "label": "Rome",
+                "meaning": "意大利的首都城市",
+                "symbols": [
+                  "意大利 → 罗马：首都"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "意大利城市名，以运河线索认地点，不误作意大利首都。",
         "context": {
@@ -5874,13 +6988,43 @@
             "🇺🇸",
             "🏛️"
           ],
-          "caption": "美国地图上的华盛顿城市点连接政府建筑。",
-          "focus": []
+          "caption": "三格还原完整名字的连续字形；末段弱读仍写 ton，首 W 大写。ing 是这里的字形块，不视作进行时词缀。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "Wash",
+                "sound": "/wɒʃ/",
+                "note": "首 W 大写；/ʃ/ 写 sh",
+                "focus": [
+                  "W",
+                  "sh"
+                ]
+              },
+              {
+                "text": "ing",
+                "sound": "/ɪŋ/",
+                "note": "中段保留 ng",
+                "focus": [
+                  "ng"
+                ]
+              },
+              {
+                "text": "ton",
+                "sound": "/tən/",
+                "note": "弱读 /ə/ 写 o，不写 e",
+                "focus": [
+                  "o"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "此处按地理学习语境认识华盛顿，Washington 也可作姓或州名，须看上下文。",
         "context": {
           "scene": "在美国旅行地图上辨认华盛顿地名。",
-          "question": "同一个英文名可能指人或地方，读地图时应依据什么判断？"
+          "question": "美国首都华盛顿这个地名，本课英文词条怎么写？"
         },
         "morphology": {
           "kind": "none",
@@ -5901,8 +7045,35 @@
             "🌐",
             "🤝"
           ],
-          "caption": "多国旗帜围着握手图案，连到两个大写字母的国际组织。",
-          "focus": []
+          "caption": "全称中两词的首字母被标出，再合成 U、N 两个大写字母；两格指同一个组织，不是国家名称。",
+          "focus": [],
+          "diagram": {
+            "kind": "change",
+            "panels": [
+              {
+                "label": "United Nations",
+                "meaning": "两个词的全称",
+                "symbols": [
+                  "联合国"
+                ],
+                "focus": [
+                  "U",
+                  "N"
+                ]
+              },
+              {
+                "label": "UN",
+                "meaning": "取两词首字母形成简称",
+                "symbols": [
+                  "联合国"
+                ],
+                "focus": [
+                  "U",
+                  "N"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "United Nations 的缩写，指联合国组织而非国家或城市。",
         "context": {
@@ -5928,8 +7099,27 @@
             "🇺🇸",
             "🏙️"
           ],
-          "caption": "美国东部城市点连到高楼与自由女神像轮廓。",
-          "focus": []
+          "caption": "同一国家内对照两座城市，纽约属于美国城市，但首都角色标在华盛顿特区。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "New York",
+                "meaning": "美国城市",
+                "symbols": [
+                  "美国 → 纽约：城市"
+                ]
+              },
+              {
+                "label": "Washington, D.C.",
+                "meaning": "美国首都城市",
+                "symbols": [
+                  "美国 → 华盛顿特区：首都"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "美国城市专名；不是美国国家名，也不是首都名称。",
         "context": {
@@ -6008,7 +7198,7 @@
         "semantic": "popular 说明喜爱的人多，famous 说明知道的人多。",
         "context": {
           "scene": "统计课后大家最想玩的运动。",
-          "question": "一项运动很多同学爱玩，强调的是知名还是受欢迎？"
+          "question": "很多同学喜欢这项运动，表示“受欢迎的”的英文形容词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -6174,8 +7364,27 @@
             "🎮",
             "➕"
           ],
-          "caption": "一局游戏结束后又添一局，连接再一个。",
-          "focus": []
+          "caption": "两格都有已提到的①作为参照；再一个只指②，其他的则列出剩余②③④⑤。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "another",
+                "meaning": "再一个对象",
+                "symbols": [
+                  "①已提到 → ②（再一个）"
+                ]
+              },
+              {
+                "label": "other",
+                "meaning": "其余多个对象",
+                "symbols": [
+                  "①已提到 → ②③④⑤（其余）"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "another 常指另外一个，other 后可接复数表示其他的。",
         "context": {
@@ -6207,7 +7416,7 @@
         "semantic": "与国家缩写 UK 对照，British 表示英国的或英国人相关；不只等同英格兰。",
         "context": {
           "scene": "介绍来自英国的客人喜欢什么运动。",
-          "question": "形容一位客人的英国身份，应选国家缩写还是相关形容词？"
+          "question": "修饰来自英国的客人，表示“英国的”的英文形容词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -6396,8 +7605,28 @@
             "👥",
             "🤝"
           ],
-          "caption": "穿相同队服的同学围成圈击掌，连接队伍。",
-          "focus": []
+          "caption": "一个队伍的框把三名队员组织在一起，三人有共同比赛任务；单个队员不是整个队伍。",
+          "focus": [],
+          "diagram": {
+            "kind": "category",
+            "items": [
+              {
+                "label": "player 1",
+                "meaning": "共同完成同一场比赛",
+                "symbol": "👤"
+              },
+              {
+                "label": "player 2",
+                "meaning": "共同完成同一场比赛",
+                "symbol": "👤"
+              },
+              {
+                "label": "player 3",
+                "meaning": "共同完成同一场比赛",
+                "symbol": "👤"
+              }
+            ]
+          }
         },
         "semantic": "共同完成任务或比赛的一组人，区别于单个 player。",
         "context": {
@@ -6423,8 +7652,31 @@
             "✅",
             "🤩"
           ],
-          "caption": "观赛的人先打确认勾再欢呼，连接“确实／真的”这种加强。",
-          "focus": []
+          "caption": "real 的尾 l 保留，再接 ly 的首 l，因此 really 连写两个 l；词形变化用来记字母，不靠泛泛真实图片。",
+          "focus": [],
+          "diagram": {
+            "kind": "change",
+            "panels": [
+              {
+                "label": "real",
+                "meaning": "真实的：原词已有一个 l",
+                "symbols": [
+                  "real"
+                ],
+                "focus": [
+                  "l"
+                ]
+              },
+              {
+                "label": "really",
+                "meaning": "加 ly：两处 l 都保留",
+                "symbols": [
+                  "real ＋ ly"
+                ],
+                "focusSuffix": "ly"
+              }
+            ]
+          }
         },
         "semantic": "real 描述真实，really 修饰程度或说明确实如此。",
         "context": {
@@ -6767,7 +8019,7 @@
         "semantic": "exciting 描述令人激动的事物，excited 描述感到激动的人。",
         "context": {
           "scene": "向家人介绍让人兴奋的决赛。",
-          "question": "形容决赛让人兴奋与形容观众兴奋，要区分哪两种对象？"
+          "question": "决赛令人兴奋，修饰决赛的英文形容词是什么？"
         },
         "morphology": {
           "kind": "affix",
@@ -6893,8 +8145,12 @@
             "🧸",
             "👕"
           ],
-          "caption": "玩具衣服散落地上，没有归位，连接混乱的状态。",
-          "focus": []
+          "caption": "保留同样六件、同样颜色的物品，只改变摆放：散乱与归位对照，mess 是杂乱状态，不等于数量多或单件脏。",
+          "focus": [],
+          "diagram": {
+            "kind": "feature",
+            "scene": "arrangement"
+          }
         },
         "semantic": "杂乱状态，与 tidy 的整齐对比；不是单件物品脏。",
         "context": {
@@ -6958,18 +8214,9 @@
           "question": "今天是周三，周二相对于今天叫什么？"
         },
         "morphology": {
-          "kind": "compound",
-          "parts": [
-            {
-              "text": "yester",
-              "meaning": "昨天、前一日的旧式组成"
-            },
-            {
-              "text": "day",
-              "meaning": "日、天"
-            }
-          ],
-          "note": "yester+day 的整体意义是昨天；yester 是受限的历史组成，不当成常用独立词，更不拆成 yes+ter。"
+          "kind": "none",
+          "parts": [],
+          "note": "本卡使用声音与具体字母线索，不展示依赖陌生词或历史成分的拆词说明。"
         }
       }
     },
@@ -7394,8 +8641,28 @@
             "🪜",
             "🧠"
           ],
-          "caption": "记词任务沿“看图—回想—核对”台阶完成，连接方法。",
-          "focus": []
+          "caption": "同一道题用数步显示方法，旁格只显示最终答案，方法不是答案本身。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "method",
+                "meaning": "通向答案的步骤",
+                "symbols": [
+                  "2+3：先从2数3步",
+                  "2 → 3 → 4 → 5"
+                ]
+              },
+              {
+                "label": "answer",
+                "meaning": "最后得到的结果",
+                "symbols": [
+                  "2+3 = 5"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "完成任务的方式或步骤；与最终 answer 的答案区分。",
         "context": {
@@ -7421,8 +8688,27 @@
             "🔤",
             "📝"
           ],
-          "caption": "几个字母组合成一整个标记，再圈起整体，连接单词。",
-          "focus": []
+          "caption": "完整的词对应猫这个意义，另一格拆出三个字母；一个词并非一个字母。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "word",
+                "meaning": "有意义的一个词",
+                "symbols": [
+                  "cat → 猫"
+                ]
+              },
+              {
+                "label": "letter",
+                "meaning": "组成词的字母",
+                "symbols": [
+                  "c ＋ a ＋ t"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "有意义的语言单位，一词可含多个 letter；与单个字母区分。",
         "context": {
@@ -7475,8 +8761,29 @@
             "💌",
             "✍️"
           ],
-          "caption": "一张小硬纸上写祝福并递给朋友，连接卡片。",
-          "focus": []
+          "caption": "对照相同信息的载体与使用方式：卡片在手里，海报在墙上面向多人。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "card",
+                "meaning": "手持的小型信息载体",
+                "symbols": [
+                  "便条 → 手中卡片",
+                  "👤"
+                ]
+              },
+              {
+                "label": "poster",
+                "meaning": "贴墙展示的信息载体",
+                "symbols": [
+                  "公告 → 墙上海报",
+                  "👥"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "小型载体，可写祝福或信息；与贴墙的大幅 poster 区分。",
         "context": {
@@ -7565,28 +8872,25 @@
             "🎫",
             "0"
           ],
-          "caption": "对照多个待办活动与休息状态，理解忙与空闲。",
+          "caption": "同样是入场门票，左边无需付款，右边需要付款；本课 free 表示免费。",
           "focus": [],
           "diagram": {
             "kind": "compare",
             "panels": [
               {
-                "symbols": [
-                  "🛋️",
-                  "🙂"
-                ],
                 "label": "free",
-                "meaning": "有空闲可休息",
+                "meaning": "本例门票免费，不用付钱",
+                "symbols": [
+                  "门票 ¥0"
+                ],
                 "tag": "本课词义"
               },
               {
+                "label": "paid",
+                "meaning": "对照例子：门票需付钱",
                 "symbols": [
-                  "📚",
-                  "💻",
-                  "⏰"
-                ],
-                "label": "busy",
-                "meaning": "有多项事情要做"
+                  "门票 ¥5"
+                ]
               }
             ]
           }
@@ -7594,7 +8898,7 @@
         "semantic": "此处是免费；free time 指空闲时间，需看所修饰内容。",
         "context": {
           "scene": "博物馆门口告示写门票不用钱。",
-          "question": "门票无需付款时，这个词表示“空闲”还是“免费”？"
+          "question": "博物馆门票不用付钱，表示“免费的”的英文形容词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -7615,8 +8919,29 @@
             "🎤",
             "🎵"
           ],
-          "caption": "歌词与旋律一起从麦克风传出，连接歌曲。",
-          "focus": []
+          "caption": "具体生日歌只是一首作品，音乐还包括器乐作品；不能用同一个音符代替类别差别。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "song",
+                "meaning": "一首具体可演唱作品",
+                "symbols": [
+                  "Happy Birthday",
+                  "🎤"
+                ]
+              },
+              {
+                "label": "music",
+                "meaning": "更大的音乐类别",
+                "symbols": [
+                  "歌曲 ＋ 器乐作品",
+                  "🎻"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "一首可演唱的具体作品，music 是更大的音乐类别。",
         "context": {
@@ -7690,8 +9015,34 @@
             "🧩",
             "✅"
           ],
-          "caption": "拼图最后一块归位，连接问题得到解决的结果。",
-          "focus": []
+          "caption": "从缺失数的问题到计算，再验证等式成立；最后得到解决结果，而不只表示正在处理。",
+          "focus": [],
+          "diagram": {
+            "kind": "sequence",
+            "panels": [
+              {
+                "label": "problem",
+                "meaning": "一个缺失答案的问题",
+                "symbols": [
+                  "2 + ? = 5"
+                ]
+              },
+              {
+                "label": "work out",
+                "meaning": "尝试找到缺失数",
+                "symbols": [
+                  "5 − 2 = 3"
+                ]
+              },
+              {
+                "label": "solve",
+                "meaning": "检验后得到答案",
+                "symbols": [
+                  "2 + 3 = 5"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "强调找到解决办法或结果，deal with 强调处理过程。",
         "context": {
@@ -7750,7 +9101,7 @@
         "semantic": "描述人的恐惧感，与使人害怕的 frightening 不同。",
         "context": {
           "scene": "不敢举手时先练习向老师求助。",
-          "question": "表达自己害怕提问，应该描述人的感受还是题目的难度？"
+          "question": "你担心提问而感到害怕，表示“害怕的”的英文形容词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -7900,8 +9251,12 @@
             "📄",
             "⬆️"
           ],
-          "caption": "手把通知举起贴到墙上，连接张贴。",
-          "focus": []
+          "caption": "同一张通知由未贴墙到与墙面贴合并在四角固定；本课 put up 表示张贴，不仅是向上移动。",
+          "focus": [],
+          "diagram": {
+            "kind": "feature",
+            "scene": "posting"
+          }
         },
         "semantic": "此处指张贴，put up 也可有搭起等义，要看宾语。",
         "context": {
@@ -8089,7 +9444,7 @@
         "semantic": "part 与 whole 构成部分—整体关系；root、stem 是具体部分。",
         "context": {
           "scene": "画植物结构图，给每个部位加标签。",
-          "question": "根和茎相对于整株植物是什么关系？"
+          "question": "根是整株植物的一部分，表示“部分”的英文名词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -8110,8 +9465,13 @@
             "🌿",
             "💧"
           ],
-          "caption": "雨后地面铺满细长绿色叶片，连接草这种植物。",
-          "focus": []
+          "caption": "左侧草从地面生出密集细叶，右侧树具有树干和分枝；只比较本图形态，不把高矮当绝对分类。",
+          "focus": [],
+          "diagram": {
+            "kind": "feature",
+            "scene": "landscape",
+            "focus": "grass"
+          }
         },
         "semantic": "草通常低矮、成片生长，与高大的 tree 对比。",
         "context": {
@@ -8233,8 +9593,13 @@
             "👣",
             "⬇️"
           ],
-          "caption": "双脚踩在地表线上，种子落在线上，连接地面。",
-          "focus": []
+          "caption": "种子落在加粗的地表边界上；ground 强调脚下地表，下方土层帮助区别 soil 这种材料。",
+          "focus": [],
+          "diagram": {
+            "kind": "feature",
+            "scene": "landscape",
+            "focus": "ground"
+          }
         },
         "semantic": "ground 强调脚下地表，soil 强调可供植物生长的土壤材料。",
         "context": {
@@ -8305,34 +9670,7 @@
             "🤲"
           ],
           "caption": "土壤是生长环境，箭头表示种植的先后，不是说种子变成土壤。",
-          "focus": [],
-          "diagram": {
-            "kind": "sequence",
-            "panels": [
-              {
-                "symbols": [
-                  "🫘"
-                ],
-                "label": "seed",
-                "meaning": "种子"
-              },
-              {
-                "symbols": [
-                  "🟤",
-                  "🌱"
-                ],
-                "label": "soil",
-                "meaning": "埋入土中萌芽"
-              },
-              {
-                "symbols": [
-                  "🌿"
-                ],
-                "label": "plant",
-                "meaning": "植株生长"
-              }
-            ]
-          }
+          "focus": []
         },
         "semantic": "为植物提供生长介质的土，与 ground 这个表面位置不同。",
         "context": {
@@ -8431,7 +9769,7 @@
         "semantic": "一只脚是 foot，两只脚用不规则复数 feet。",
         "context": {
           "scene": "检查一只脚踩到什么位置。",
-          "question": "从一只脚变成两只脚时，名词复数只是加字母吗？"
+          "question": "只说一只脚，写出英文单数名词。"
         },
         "morphology": {
           "kind": "inflection",
@@ -8536,8 +9874,12 @@
             "🫘",
             "👟"
           ],
-          "caption": "湿种子附在鞋面上没有掉落，连接粘住。",
-          "focus": []
+          "caption": "湿种子贴住鞋底；鞋向右移动后，种子仍在同一个鞋底位置随鞋移动，这种持续附着表示 stick。",
+          "focus": [],
+          "diagram": {
+            "kind": "feature",
+            "scene": "stick"
+          }
         },
         "semantic": "此处是粘附动词；也可作棍棒名词，需依上下文区分。",
         "context": {
@@ -8641,7 +9983,7 @@
         "semantic": "growth 是生长这个过程或结果名词，grow 是生长动作。",
         "context": {
           "scene": "给豆苗写一份一周生长记录。",
-          "question": "给“豆苗的生长”这个过程起标题，应选动作词还是名词？"
+          "question": "给豆苗的生长过程起标题，表示“生长”的英文名词是什么？"
         },
         "morphology": {
           "kind": "affix",
@@ -8718,33 +10060,7 @@
             "🌱"
           ],
           "caption": "以种子到幼苗再到植株的真实生长次序联系过程；不声称所有植物生长速度相同。",
-          "focus": [],
-          "diagram": {
-            "kind": "sequence",
-            "panels": [
-              {
-                "symbols": [
-                  "🫘"
-                ],
-                "label": "seed",
-                "meaning": "种子"
-              },
-              {
-                "symbols": [
-                  "🌱"
-                ],
-                "label": "seedling",
-                "meaning": "发芽、幼苗"
-              },
-              {
-                "symbols": [
-                  "🌿"
-                ],
-                "label": "plant",
-                "meaning": "逐渐长成植株"
-              }
-            ]
-          }
+          "focus": []
         },
         "semantic": "开始与 end 的结束相对，重点是过程起点。",
         "context": {
@@ -8936,33 +10252,7 @@
             "➡️"
           ],
           "caption": "以种子到幼苗再到植株的真实生长次序联系过程；不声称所有植物生长速度相同。",
-          "focus": [],
-          "diagram": {
-            "kind": "sequence",
-            "panels": [
-              {
-                "symbols": [
-                  "🫘"
-                ],
-                "label": "seed",
-                "meaning": "种子"
-              },
-              {
-                "symbols": [
-                  "🌱"
-                ],
-                "label": "seedling",
-                "meaning": "发芽、幼苗"
-              },
-              {
-                "symbols": [
-                  "🌿"
-                ],
-                "label": "plant",
-                "meaning": "逐渐长成植株"
-              }
-            ]
-          }
+          "focus": []
         },
         "semantic": "这里表示长出来、出现，与留在芽内的状态对比。",
         "context": {
@@ -9152,8 +10442,33 @@
             "🍐",
             "➕"
           ],
-          "caption": "已经列出梨后，清单再添其他水果，连接“还、其他”。",
-          "focus": []
+          "caption": "在完整短语中比较位置：else 在疑问词后，other 在名词前；箭头表示词序，不是对象移动。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "what else",
+                "meaning": "别的什么：else 放在后面",
+                "symbols": [
+                  "what → else"
+                ],
+                "focus": [
+                  "else"
+                ]
+              },
+              {
+                "label": "other things",
+                "meaning": "其他事物：other 放在前面",
+                "symbols": [
+                  "other → things"
+                ],
+                "focus": [
+                  "other"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "常跟在 what、someone 等后面表示别的，不像 other 通常置于名词前。",
         "context": {
@@ -9277,7 +10592,7 @@
         "semantic": "节日名，感谢老师群体；复数所有格与 Mother's 的单数所有格对比。",
         "context": {
           "scene": "班级给几位老师准备感谢卡。",
-          "question": "感谢老师们的节日，名称中的复数所有格怎样标记？"
+          "question": "感谢老师们的教师节，写出完整英文节日名称。"
         },
         "morphology": {
           "kind": "phrase",
@@ -9631,7 +10946,7 @@
         "semantic": "house 强调建筑，home 强调家和归属，两者可关联但不完全等同。",
         "context": {
           "scene": "给树旁的小房子画墙和屋顶。",
-          "question": "只描述供居住的建筑本身，选房子还是归属意义的家？"
+          "question": "只说供人居住的房子建筑，英文名词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -9951,8 +11266,12 @@
             "🦶",
             "🌱"
           ],
-          "caption": "脚落在幼苗上方，on 提示脚与物体表面的接触。",
-          "focus": []
+          "caption": "鞋底接触幼苗并将茎压弯，对照原先直立的同类幼苗；step on 是踩到，不是从旁边走过。",
+          "focus": [],
+          "diagram": {
+            "kind": "feature",
+            "scene": "step-on"
+          }
         },
         "semantic": "踩到对象，区别于从旁边走过或跳过。",
         "context": {
@@ -10357,8 +11676,24 @@
             "📏",
             "👟"
           ],
-          "caption": "鞋旁的尺码表连到脚长，连接合适大小的规格。",
-          "focus": []
+          "caption": "同形同色的两个对象只改变大小，以尺寸而不是颜色或形状区分尺码。",
+          "focus": [],
+          "diagram": {
+            "kind": "measure",
+            "dimension": "size",
+            "labels": [
+              {
+                "label": "small",
+                "meaning": "小号",
+                "value": 1
+              },
+              {
+                "label": "large",
+                "meaning": "大号",
+                "value": 2
+              }
+            ]
+          }
         },
         "semantic": "尺码是规格，shape 是形状，colour 是颜色，三个维度不同。",
         "context": {
@@ -10410,7 +11745,7 @@
         "semantic": "身体感觉舒适，与 convenient 的事情省事区分。",
         "context": {
           "scene": "穿新鞋走几步，检查是否压脚。",
-          "question": "鞋不压脚、穿着感觉舒服，是舒适还是便利？"
+          "question": "鞋子不压脚、穿着舒服，表示“舒适的”的英文形容词是什么？"
         },
         "morphology": {
           "kind": "affix",
@@ -10465,7 +11800,7 @@
         "semantic": "在折扣语境表示从原价扣除；也可表示离开或关闭，须看场景。",
         "context": {
           "scene": "商店告示说明原价减少百分之十。",
-          "question": "价格少了原价的百分之十，这个词在此表示什么变化？"
+          "question": "标价比原价减少百分之十，折扣表达里表示“扣除”的英文小词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -10585,7 +11920,7 @@
         "semantic": "sell 是卖，buy 是买，同一交易中观察角色可区分。",
         "context": {
           "scene": "把自己的旧玩具转让给愿意付钱的人。",
-          "question": "你是旧玩具原主人并收钱，此时在买还是卖？"
+          "question": "你把旧玩具交给买家并收钱，表示“卖”的英文动词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -10666,10 +12001,10 @@
             ]
           }
         },
-        "semantic": "一种颜色，与 black、blue 同类；不是物品形状或尺码。",
+        "semantic": null,
         "context": {
           "scene": "为白色购物袋挑标签。",
-          "question": "白包的“白”描述颜色、形状还是尺码？"
+          "question": "购物袋的颜色是白色，写出这个英文颜色词。"
         },
         "morphology": {
           "kind": "none",
@@ -10749,7 +12084,7 @@
         "semantic": "通过互联网进行，与到实体店的线下活动对照；不指站成一排。",
         "context": {
           "scene": "家人在手机上查询商品价格。",
-          "question": "通过互联网查看价格而没有去实体店，属于哪里进行的活动？"
+          "question": "通过互联网查看价格，表示“在线”的英文词是什么？"
         },
         "morphology": {
           "kind": "compound",
@@ -10780,8 +12115,34 @@
             "👕",
             "✅"
           ],
-          "caption": "两件衣服中一件被手选中打勾，连接选择动作。",
-          "focus": []
+          "caption": "三种选项经过圈定动作成为一个结果；突出中间进行选择，而不是把名词选择当动作。",
+          "focus": [],
+          "diagram": {
+            "kind": "sequence",
+            "panels": [
+              {
+                "label": "options",
+                "meaning": "还可在三个中选择",
+                "symbols": [
+                  "🍎 🍐 🍊"
+                ]
+              },
+              {
+                "label": "choose",
+                "meaning": "进行圈定的动作",
+                "symbols": [
+                  "🍐 ⭕"
+                ]
+              },
+              {
+                "label": "result",
+                "meaning": "已经选好梨",
+                "symbols": [
+                  "🍐"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "choose 是动作，choice 是得到的选择这个名词。",
         "context": {
@@ -10886,7 +12247,7 @@
         "semantic": "货物的复数形式名词，通常按复数理解；不是形容词 good 的“好”。",
         "context": {
           "scene": "拆开商店送来的几件商品。",
-          "question": "商店发来的多件货物，该词指物品还是评价“好”？"
+          "question": "商店配送过来的货物，英文名词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -10907,8 +12268,34 @@
             "🤔",
             "✅"
           ],
-          "caption": "先比较几个方案再给一个打勾，连接作出决定。",
-          "focus": []
+          "caption": "从两个未定选项到确认图书馆，再到行动，表示结束犹豫并确定做法。",
+          "focus": [],
+          "diagram": {
+            "kind": "sequence",
+            "panels": [
+              {
+                "label": "options",
+                "meaning": "还没有确定",
+                "symbols": [
+                  "公园？图书馆？"
+                ]
+              },
+              {
+                "label": "decide",
+                "meaning": "结束犹豫并确定",
+                "symbols": [
+                  "✓ 图书馆"
+                ]
+              },
+              {
+                "label": "action",
+                "meaning": "按决定去做",
+                "symbols": [
+                  "去图书馆"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "决定强调结束犹豫并确定做法；与只列计划 plan 区分。",
         "context": {
@@ -11185,19 +12572,9 @@
           "question": "在太空而非普通飞机驾驶舱工作的人叫什么？"
         },
         "morphology": {
-          "kind": "affix",
-          "parts": [
-            {
-              "text": "astro",
-              "meaning": "星、太空相关的组合形式"
-            },
-            {
-              "text": "naut",
-              "meaning": "航行者（来自希腊语水手词源）"
-            }
-          ],
-          "note": "astro- 与 -naut 是源自希腊语的组合形式，联系在星际、太空航行的人；不是两个普通独立英语词。",
-          "sourceUrl": "https://www.merriam-webster.com/dictionary/astronaut"
+          "kind": "none",
+          "parts": [],
+          "note": "本卡使用声音与具体字母线索，不展示依赖陌生词或历史成分的拆词说明。"
         }
       }
     },
@@ -11219,7 +12596,7 @@
         "semantic": "表示人的兴趣状态，interested 描述人，interesting 描述吸引兴趣的事物。",
         "context": {
           "scene": "看到太空照片后主动寻找更多资料。",
-          "question": "表达自己对太空感兴趣时，是描述人还是事物？"
+          "question": "你对太空感兴趣，写出表示“对……感兴趣”的完整英文短语。"
         },
         "morphology": {
           "kind": "phrase",
@@ -11478,7 +12855,7 @@
         "semantic": "writer 是写作的人，write 是动作；可与 worker、farmer 的人物后缀对照。",
         "context": {
           "scene": "介绍以创作故事为职业的亲人。",
-          "question": "把写作当作职业的人，应该用动作词还是人物名词？"
+          "question": "以创作故事为职业的人，英文名称是什么？"
         },
         "morphology": {
           "kind": "affix",
@@ -11604,13 +12981,33 @@
             "👶",
             "📅"
           ],
-          "caption": "婴儿旁的日历记录来到世界的日期，连接出生。",
-          "focus": []
+          "caption": "时间线把出生定位在出生前与成长之间，突出人生中的起始事件，而不是任何看到婴儿的时刻。",
+          "focus": [],
+          "diagram": {
+            "kind": "timeline",
+            "points": [
+              {
+                "label": "before birth",
+                "meaning": "出生前：还未出生",
+                "active": false
+              },
+              {
+                "label": "be born",
+                "meaning": "出生这一时刻",
+                "active": true
+              },
+              {
+                "label": "grow up",
+                "meaning": "出生之后逐渐长大",
+                "active": false
+              }
+            ]
+          }
         },
         "semantic": "常用 be born 表示出生，是 bear 的过去分词在出生义中的用法。",
         "context": {
           "scene": "查家人出生年份制作时间轴。",
-          "question": "介绍某人哪年出生，要把出生形式与哪类动词搭配？"
+          "question": "“出生”通常和系动词搭配，写出表示“出生”的英文词。"
         },
         "morphology": {
           "kind": "inflection",
@@ -11640,8 +13037,12 @@
             "🚶",
             "↘️"
           ],
-          "caption": "站着的人失去平衡倒向地面，连接跌倒。",
-          "focus": []
+          "caption": "同一人从直立变为身体倒卧在同一地面上；fall over 侧重失去站立姿势，不是整体垂直平移下落。",
+          "focus": [],
+          "diagram": {
+            "kind": "feature",
+            "scene": "fall-over"
+          }
         },
         "semantic": "从直立变为倒下，区别于物品从高处 fall down 的下落。",
         "context": {
@@ -11826,7 +13227,7 @@
         "semantic": "锻炼强调身体活动；休息是恢复体力，观看比赛不等于自己锻炼。",
         "context": {
           "scene": "你每天晚饭前到楼下跑步、做伸展。",
-          "question": "想告诉朋友你每天坚持锻炼，可以怎样说？"
+          "question": "每天跑步、做伸展，表示“锻炼”的英文词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -11859,7 +13260,7 @@
         "semantic": "分钟是计时单位，小于小时；词义为分钟时，读法不同于表示微小的同形词。",
         "context": {
           "scene": "刷牙计时器响起，你还需要等一分钟。",
-          "question": "想请别人再等你一分钟，怎样说？"
+          "question": "你要再等一分钟，表示“分钟”的英文单位名词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -11880,13 +13281,32 @@
             "🏊",
             "👩‍🏫"
           ],
-          "caption": "学生跟老师学习游泳；这是上游泳课，不是独自去玩水。",
-          "focus": []
+          "caption": "保持 take a 和 lesson 两端，只更换中间课程名；两种实例显示参加课程的短语结构，不是把课拿走。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "take a swimming lesson",
+                "meaning": "参加游泳课程",
+                "symbols": [
+                  "take a → swimming → lesson"
+                ]
+              },
+              {
+                "label": "take a piano lesson",
+                "meaning": "参加钢琴课程",
+                "symbols": [
+                  "take a → piano → lesson"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "这里表示参加课程，课程内容可换成游泳、钢琴等；不是把课堂拿走。",
         "context": {
           "scene": "周六你到泳池跟教练上课。",
-          "question": "怎样告诉同学你周末要上游泳课？"
+          "question": "你参加游泳课，写出“上一节游泳课”的完整英文说法。"
         },
         "morphology": {
           "kind": "phrase",
@@ -11916,13 +13336,32 @@
             "🏃",
             "🛑"
           ],
-          "caption": "跑步遇到困难便停下不再继续；从停止努力的变化记住放弃。",
-          "focus": []
+          "caption": "两格都曾尝试、都暂时停下，后续一个不再继续，一个休息后继续；后续选择才区分放弃与休息。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "give up",
+                "meaning": "决定不再继续",
+                "symbols": [
+                  "尝试 → 停止 → 不再尝试"
+                ]
+              },
+              {
+                "label": "take a break",
+                "meaning": "休息后还会继续",
+                "symbols": [
+                  "尝试 → 休息 → 继续尝试"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "放弃是决定不再继续；累了稍作休息后继续，和放弃不同。",
         "context": {
           "scene": "拼模型很难，但你还想坚持试一试。",
-          "question": "想鼓励伙伴遇到困难别放弃，你会怎样说？"
+          "question": "决定不再尝试，表示“放弃”的完整英文短语是什么？"
         },
         "morphology": {
           "kind": "phrase",
@@ -11980,7 +13419,7 @@
         "semantic": "科学家用证据研究问题；科学是知识领域，科学家是从事研究的人。",
         "context": {
           "scene": "班上介绍一位研究水稻的科学家。",
-          "question": "介绍一位你知道的科学家时，可以怎样说一句话？"
+          "question": "研究水稻、用证据回答问题的科学家，英文职业名是什么？"
         },
         "morphology": {
           "kind": "affix",
@@ -12016,7 +13455,7 @@
         "semantic": "它是国家荣誉勋章的专名；勋章是实物，荣誉是它表彰的价值。",
         "context": {
           "scene": "你在新闻里看到杰出人物被授予共和国勋章。",
-          "question": "想介绍一位获得共和国勋章的人，你可以怎样说？"
+          "question": "国家授予杰出人物的共和国勋章，写出完整英文专名。"
         },
         "morphology": {
           "kind": "phrase",
@@ -12050,15 +13489,42 @@
             "🎖️",
             "🔇"
           ],
-          "caption": "授勋代表荣誉；图中静音提醒开头的 h 保留在字形里，但不读出。",
+          "caption": "第一格专门保留静音 h，末格 /ə/ 对齐 our 三字母；按声音直接写容易漏 h、u、r。",
           "focus": [
             "h"
-          ]
+          ],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "h",
+                "sound": "不发音",
+                "note": "词头听不到，也要写",
+                "focus": [
+                  "h"
+                ]
+              },
+              {
+                "text": "on",
+                "sound": "/ɒn/",
+                "note": "中段声音",
+                "focus": []
+              },
+              {
+                "text": "our",
+                "sound": "/ə/",
+                "note": "弱音对应三个字母",
+                "focus": [
+                  "our"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "荣誉是受到认可与尊重；勋章是表达荣誉的一种实物，两者不能完全等同。",
         "context": {
           "scene": "大家为一位作出贡献的科学家鼓掌。",
-          "question": "想说获得国家表彰是一份荣誉，你会怎样说？"
+          "question": "受到国家表彰是一份荣誉，表示“荣誉”的英文名词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -12085,7 +13551,7 @@
         "semantic": "杂交水稻指培育方式和品种，米饭是收获稻谷加工后的食物。",
         "context": {
           "scene": "你在课堂上了解科学家怎样提高水稻产量。",
-          "question": "怎样介绍科学家研究的杂交水稻？"
+          "question": "通过杂交培育的水稻，完整英文名称是什么？"
         },
         "morphology": {
           "kind": "phrase",
@@ -12128,7 +13594,7 @@
         "semantic": "表示次数时是一次，和两次、三次对照；表示时间时是曾经，要结合句子判断。",
         "context": {
           "scene": "你去年去过一次科技馆。",
-          "question": "怎样告诉朋友你曾去过一次科技馆？"
+          "question": "去年去过科技馆一次，表示“一次”的英文副词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -12176,7 +13642,7 @@
         "semantic": "农场是地方，农民是在那里务农的人；卖蔬菜的人不一定亲自种庄稼。",
         "context": {
           "scene": "春天一位农民在田里播种。",
-          "question": "怎样向同学介绍在田里工作的农民？"
+          "question": "在田里务农的人，英文职业名是什么？"
         },
         "morphology": {
           "kind": "affix",
@@ -12212,7 +13678,7 @@
         "semantic": "发明是创造新的东西，发现是找到或认识原来存在的东西。",
         "context": {
           "scene": "你设计了一件新工具，帮家人整理电线。",
-          "question": "想说某人发明了一种新工具，你会怎样介绍？"
+          "question": "创造出以前没有的新工具，表示“发明”的英文动词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -12261,7 +13727,7 @@
         "semantic": "产量表示生产了多少，不是种了多大面积；同样面积也可能有不同产量。",
         "context": {
           "scene": "两块面积相同的田，收获的稻谷数量不同。",
-          "question": "怎样说新水稻品种的产量更高？"
+          "question": "同样面积的田收获更多稻谷，表示“产量”的英文名词是什么？"
         },
         "morphology": {
           "kind": "compound",
@@ -12312,7 +13778,7 @@
         "semantic": "每个强调群体中的一个一个；全部强调合在一起的整体。",
         "context": {
           "scene": "你给桌边每个同学发一张卡片。",
-          "question": "怎样说每个同学都能得到一张卡片？"
+          "question": "你把同学一个一个算在内，表示“每个”的英文词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -12343,7 +13809,7 @@
         "semantic": "同一个词可以表示正方形或广场；形状和地点要靠上下文区分，广场不一定正方形。",
         "context": {
           "scene": "你在纸上画正方形，又在地图上找到城市广场。",
-          "question": "怎样分别说一个正方形和一个城市广场？"
+          "question": "你在城市里一处开阔广场与朋友碰面，表示“广场”的英文名词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -12370,7 +13836,7 @@
         "semantic": "颐和园与故宫都是北京名胜，但园林和宫殿博物院的参观地点不同。",
         "context": {
           "scene": "周末你和家人到颐和园看湖景和长廊。",
-          "question": "怎样告诉朋友你打算参观颐和园？"
+          "question": "你想参观北京的颐和园，写出完整英文专名。"
         },
         "morphology": {
           "kind": "phrase",
@@ -12437,7 +13903,7 @@
         "semantic": "保存完好描述维护后的状态；新建描述年龄，旧建筑也可以保存完好。",
         "context": {
           "scene": "你参观一座维护得很好的古建筑。",
-          "question": "怎样说这座老建筑保存得很好？"
+          "question": "古建筑被维护得很好，表示“保存完好的”的英文形容词是什么？"
         },
         "morphology": {
           "kind": "compound",
@@ -12513,7 +13979,7 @@
         "semantic": "五彩缤纷强调颜色丰富；明亮只说光线或颜色醒目，不一定有很多颜色。",
         "context": {
           "scene": "美术课上，你用多种颜色画花园。",
-          "question": "怎样介绍一幅色彩丰富的画？"
+          "question": "花园图用了多种颜色，表示“五彩缤纷的”的英文形容词是什么？"
         },
         "morphology": {
           "kind": "affix",
@@ -12571,7 +14037,7 @@
         "semantic": "国际涉及不同国家之间；国内指一个国家内部，范围不同。",
         "context": {
           "scene": "学校活动邀请来自多个国家的学生参加。",
-          "question": "怎样说这是一项国际交流活动？"
+          "question": "活动有多个国家参与，表示“国际的”的英文形容词是什么？"
         },
         "morphology": {
           "kind": "affix",
@@ -12642,7 +14108,7 @@
         "semantic": "机场供飞机起降，火车站服务列车；都能出发，但交通方式不同。",
         "context": {
           "scene": "你和家人到机场准备乘飞机。",
-          "question": "怎样告诉朋友你正在去机场？"
+          "question": "你到供飞机起降的场所乘飞机，这个场所英文名称是什么？"
         },
         "morphology": {
           "kind": "compound",
@@ -12699,7 +14165,7 @@
         "semantic": "现代描述所处时代或采用新方式；古老描述经历很长时间。",
         "context": {
           "scene": "你比较古代宫殿和现代城市建筑。",
-          "question": "怎样介绍一座现代建筑？"
+          "question": "建筑采用现代设施，表示“现代的”的英文形容词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -12746,7 +14212,7 @@
         "semantic": "电脑能存储和处理信息；屏幕只是显示部分，不能把屏幕等同整台电脑。",
         "context": {
           "scene": "你用电脑查资料并整理成文档。",
-          "question": "怎样告诉家人你要用电脑完成作业？"
+          "question": "你用能处理信息的电脑查资料，这个设备英文名是什么？"
         },
         "morphology": {
           "kind": "affix",
@@ -12802,7 +14268,7 @@
         "semantic": "地铁是城市轨道交通，公交车在道路上行驶；部分地铁线路也有地面区段。",
         "context": {
           "scene": "你乘地铁去博物馆，先到车站买票。",
-          "question": "怎样说你打算乘地铁去博物馆？"
+          "question": "你准备乘坐城市地铁，英文交通工具名是什么？"
         },
         "morphology": {
           "kind": "affix",
@@ -12833,13 +14299,32 @@
             "➖",
             "📍"
           ],
-          "caption": "把两个地点用线连起来，形成路线；纸上的线、文字的一行也共享线状排列。",
-          "focus": []
+          "caption": "示例二号线路连接三个站点，旁格只显示其中一个站；路线是连接关系，不是一根实体绳子，也不是单个站。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "line 2",
+                "meaning": "示例二号路线的站点顺序",
+                "symbols": [
+                  "家附近站 → 商场站 → 博物馆站"
+                ]
+              },
+              {
+                "label": "station",
+                "meaning": "路线中的单个站点",
+                "symbols": [
+                  "博物馆站"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "线、路线、文字的一行或一排需看语境；地铁线路不是一根实体绳子。",
         "context": {
           "scene": "你在地铁地图上找到经过博物馆的线路。",
-          "question": "怎样询问哪条地铁线路能到博物馆？"
+          "question": "地铁图上连接多个车站的线路，表示“线路”的英文名词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -12885,7 +14370,7 @@
         "semantic": "它的是所属关系；带撇号的缩写表示它是或它已经，意思和写法都不同。",
         "context": {
           "scene": "小狗把它的玩具放在窝里。",
-          "question": "描述小狗和它的玩具时，怎样表达属于它？"
+          "question": "小狗有属于它的玩具，表示“它的”的英文所有格是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -12913,7 +14398,7 @@
         "semantic": "这是北京特色菜；鸭是食材，烤是做法，城市名说明特色来源。",
         "context": {
           "scene": "你向来北京的朋友推荐北京烤鸭。",
-          "question": "怎样向朋友推荐北京烤鸭这道菜？"
+          "question": "北京特色菜烤鸭，完整英文名称是什么？"
         },
         "morphology": {
           "kind": "phrase",
@@ -12981,7 +14466,7 @@
         "semantic": "火锅是一种边煮边吃的用餐方式；一碗已经煮好的汤不一定是火锅。",
         "context": {
           "scene": "冬天家人围着热锅，一起涮蔬菜。",
-          "question": "怎样说你想和家人一起吃火锅？"
+          "question": "在餐桌上边煮边吃的火锅，完整英文名称是什么？"
         },
         "morphology": {
           "kind": "phrase",
@@ -13018,7 +14503,7 @@
         "semantic": "中轴线连接城市中的一组重要地标，和某一座单独建筑不同。",
         "context": {
           "scene": "你在地图上认识北京中轴线上的地标。",
-          "question": "怎样向游客介绍北京的中轴线？"
+          "question": "连接北京重要地标的中轴线，写出本课完整英文专名。"
         },
         "morphology": {
           "kind": "phrase",
@@ -13055,7 +14540,7 @@
         "semantic": "钟发出敲击钟的声音，鼓由击打鼓面发声；钟鼓楼包含两座相邻的楼。",
         "context": {
           "scene": "你参观钟鼓楼，比较钟和鼓怎样报时。",
-          "question": "怎样告诉朋友你想参观钟鼓楼？"
+          "question": "北京的钟鼓楼包含两座楼，写出本课完整英文专名。"
         },
         "morphology": {
           "kind": "phrase",
@@ -13112,7 +14597,7 @@
         "semantic": "北部的是方向或区域属性；北是基本方向，北部的用于描述地点。",
         "context": {
           "scene": "你在地图上找到城市北部的公园。",
-          "question": "怎样介绍位于城市北部的一个公园？"
+          "question": "公园在城市北部，表示“北部的”的英文形容词是什么？"
         },
         "morphology": {
           "kind": "affix",
@@ -13168,7 +14653,7 @@
         "semantic": "末端与开头相对；可以说路的尽头、时间段或故事的结尾。",
         "context": {
           "scene": "你沿着小路走到尽头，看到大门。",
-          "question": "怎样告诉朋友大门在小路的尽头？"
+          "question": "小路的尽头，表示“末端”的英文名词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -13196,7 +14681,7 @@
         "semantic": "鸟瞰是从高处俯视，和站在地面平视不同；不要求真的由鸟来拍照。",
         "context": {
           "scene": "你从高楼向下看城市的街道。",
-          "question": "怎样说你从高处看到了城市的鸟瞰景象？"
+          "question": "从高处向下看到的鸟瞰景象，完整英文短语是什么？"
         },
         "morphology": {
           "kind": "phrase",
@@ -13232,7 +14717,7 @@
         "semantic": "故宫博物院是一处具体博物院；宫殿是建筑类别，博物馆是收藏展示机构。",
         "context": {
           "scene": "你参观故宫博物院里的建筑和文物。",
-          "question": "怎样说你想去参观故宫博物院？"
+          "question": "你参观北京故宫博物院，写出完整英文专名。"
         },
         "morphology": {
           "kind": "phrase",
@@ -13289,7 +14774,7 @@
         "semantic": "木制描述材料；颜色像木头的塑料椅并不一定是木制的。",
         "context": {
           "scene": "你比较木椅和塑料椅的材料。",
-          "question": "怎样介绍一把由木材做成的椅子？"
+          "question": "椅子由木材做成，表示“木制的”的英文形容词是什么？"
         },
         "morphology": {
           "kind": "affix",
@@ -13319,13 +14804,42 @@
             "🏯",
             "👑"
           ],
-          "caption": "王室居住或举行活动的大型建筑；从用途记住宫殿。",
-          "focus": []
+          "caption": "两个 a 分别对齐短音和弱音，最后 /s/ 用 ce；避免因弱读漏掉第二个 a 或尾 e。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "pal",
+                "sound": "/pæl/",
+                "note": "前一个 a 是短音",
+                "focus": [
+                  "a"
+                ]
+              },
+              {
+                "text": "a",
+                "sound": "/ə/",
+                "note": "后一个 a 弱读",
+                "focus": [
+                  "a"
+                ]
+              },
+              {
+                "text": "ce",
+                "sound": "/s/",
+                "note": "词尾 /s/ 写 ce",
+                "focus": [
+                  "ce"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "宫殿是建筑类型；博物馆是机构用途，一座宫殿后来也可能成为博物馆。",
         "context": {
           "scene": "你在历史图片里看到国王居住的宫殿。",
-          "question": "怎样向同学介绍图片中的宫殿？"
+          "question": "国王居住的宏伟宫殿，英文建筑名词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -13372,7 +14886,7 @@
         "semantic": "珍宝强调珍贵；普通物件也可能因历史或个人意义成为被珍惜的宝物。",
         "context": {
           "scene": "博物馆展示一件珍贵的古代器物。",
-          "question": "怎样介绍博物馆里的一件珍宝？"
+          "question": "博物馆展示的珍贵古代器物是一件珍宝，英文名词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -13419,7 +14933,7 @@
         "semantic": "公共汽车通常按路线载客；出租车按乘客需要前往目的地，服务方式不同。",
         "context": {
           "scene": "你在站台等公交车去学校。",
-          "question": "怎样告诉朋友你每天乘公交车上学？"
+          "question": "沿固定路线载客的公共汽车，英文名称是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -13446,7 +14960,7 @@
         "semantic": "大门通常是围墙或场所入口，房间里的门不一定称作大门。",
         "context": {
           "scene": "你在学校大门外等家长。",
-          "question": "怎样告诉家长你在学校大门等候？"
+          "question": "学校围墙的出入口大门，英文名词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -13473,7 +14987,7 @@
         "semantic": "名称指广场及相关建筑群的整体；广场是其中的地点，不等同所有建筑。",
         "context": {
           "scene": "你在导览图上认识天安门广场及建筑群。",
-          "question": "怎样向游客介绍天安门广场及周围建筑群？"
+          "question": "天安门广场及周围建筑群，写出本课完整英文专名。"
         },
         "morphology": {
           "kind": "phrase",
@@ -13534,7 +15048,7 @@
         "semantic": "南部的与北部的对照，描述地点所在区域；不是表示距离远近。",
         "context": {
           "scene": "你查看城市南部一片区域的地图。",
-          "question": "怎样介绍位于城市南部的一个车站？"
+          "question": "车站在城市南部，表示“南部的”的英文形容词是什么？"
         },
         "morphology": {
           "kind": "affix",
@@ -13589,7 +15103,7 @@
         "semantic": "自己的强调归属本人，借来的属于别人；表示拥有时描述所有关系。",
         "context": {
           "scene": "你整理自己的书包，没有拿同桌的。",
-          "question": "怎样告诉同学这是你自己的书包？"
+          "question": "书包属于你本人，“我自己的书包”中加强“自己的”的英文词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -13636,7 +15150,7 @@
         "semantic": "年轻描述年龄或生命阶段，个子小描述大小；年轻的人也可以很高。",
         "context": {
           "scene": "你看到一位年轻的老师和一位年长的老师。",
-          "question": "怎样介绍一位年轻的老师？"
+          "question": "老师年纪轻，表示“年轻的”的英文形容词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -13664,7 +15178,7 @@
         "semantic": "首字母大写时这里指北京国家体育场的昵称；普通鸟巢是鸟搭的巢。",
         "context": {
           "scene": "你在北京看到外形像鸟巢的体育场。",
-          "question": "怎样告诉朋友你参观了北京的鸟巢体育场？"
+          "question": "北京国家体育场的昵称鸟巢，写出本课英文专名。"
         },
         "morphology": {
           "kind": "phrase",
@@ -13731,7 +15245,7 @@
         "semantic": "著名强调广为人知，不自动表示好坏；只被你认识和广为人知不同。",
         "context": {
           "scene": "你介绍一位很多人都知道的科学家。",
-          "question": "怎样说这位科学家很著名？"
+          "question": "科学家被许多人知道，表示“著名的”的英文形容词是什么？"
         },
         "morphology": {
           "kind": "compound",
@@ -13767,7 +15281,7 @@
         "semantic": "举行可以搭配会议或仪式；这个词也能表示握住，本课按活动语境理解。",
         "context": {
           "scene": "学校计划在操场举行一场仪式。",
-          "question": "怎样说学校将在操场举行仪式？"
+          "question": "学校准备举行仪式，表示“举行”的英文动词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -13788,13 +15302,43 @@
             "🎓",
             "👥"
           ],
-          "caption": "大家按规定流程参加正式活动，如毕业典礼；从仪式程序记住典礼。",
-          "focus": []
+          "caption": "中间两个弱音分别落在 e 和 o 上，末音落在 y 上；用字形块观察弱读处，不把分块说成词根。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "cer",
+                "sound": "/ser/",
+                "note": "c 在这里读 /s/",
+                "focus": [
+                  "c"
+                ]
+              },
+              {
+                "text": "emo",
+                "sound": "/əmə/",
+                "note": "两个弱音分别写 e、o",
+                "focus": [
+                  "e",
+                  "o"
+                ]
+              },
+              {
+                "text": "ny",
+                "sound": "/ni/",
+                "note": "末尾 /i/ 写 y",
+                "focus": [
+                  "y"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "典礼强调正式仪式及程序；日常聚会未必有正式程序。",
         "context": {
           "scene": "学期结束，学校举行毕业典礼。",
-          "question": "怎样介绍学校将举行的毕业典礼？"
+          "question": "学校举办有正式程序的毕业典礼，表示“典礼”的英文名词是什么？"
         },
         "morphology": {
           "kind": "none",

@@ -27,6 +27,13 @@ for grade in (3, 4, 5):
             assert isinstance(row.get(field), str) and row[field].strip(), (key(row), field)
         actual_hash = hashlib.sha256(card["hint"].encode("utf-8")).hexdigest()
         assert row["hintSha256"] == actual_hash, f"Stale review: {key(row)}"
+        content = row["contentReview"]
+        assert content["reviewScope"] == ["hint", "visual", "semantic", "context", "morphology"], key(row)
+        assert content["decision"] in {"revised", "retained"}, key(row)
+        digest = hashlib.sha256(json.dumps(card, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
+        assert content["cardSha256"] == digest, f"Stale whole-card content review: {key(row)}"
+        assert content["primaryEvidence"] in card["hint"], f"Spelling evidence absent: {key(row)}"
+        assert content["contextEvidence"] == card["dimensions"]["context"]["question"], key(row)
         if card.get("spellingCue"):
             assert card["spellingCue"] == row["spellingCue"], f"Stale spelling cue: {key(row)}"
             assert card["spellingCue"] in card["hint"], f"Spelling cue absent from reviewed hint: {key(row)}"

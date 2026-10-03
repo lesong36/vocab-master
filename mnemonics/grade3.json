@@ -13,8 +13,29 @@
             "📍",
             "❓"
           ],
-          "caption": "想象帽子可能在盒子里、桌上或椅子下；从位置问号回忆在哪里。",
-          "focus": []
+          "caption": "开头 wh 共同对应 /w/，结尾 ere 对应 /eə/；记住 h 与两个 e。只是声形分段，不是词根拆分。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "wh",
+                "sound": "/w/",
+                "note": "两个字母保留 h",
+                "focus": [
+                  "wh"
+                ]
+              },
+              {
+                "text": "ere",
+                "sound": "/eə/",
+                "note": "本词 ere 的声音",
+                "focus": [
+                  "ere"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "问位置，与问时间的 when 区分。",
         "context": {
@@ -107,7 +128,7 @@
       "section": "三下Unit 1",
       "word": "cap",
       "method": "拼读",
-      "hint": "cap /kæp/：c /k/、a /æ/、p /p/，连成 c–a–p。拍拍头上的帽子，再遮住词按三个声音拼。遮住英文，看“帽子”说出读音，再写出单词；打开核对上面的字母难点。",
+      "hint": "cap /kæp/：c /k/、a /æ/、p /p/，按 c–a–p 对应三个声音。遮住英文，看“帽子”说出读音，再写出单词；打开核对上面的字母难点。",
       "example": "This is my red cap.（这是我的红帽子。）",
       "dimensions": {
         "visual": {
@@ -260,7 +281,7 @@
         "semantic": "上学用途限定包，与普通 bag 区分。",
         "context": {
           "scene": "晚上把课本装进书包。",
-          "question": "这种带去学校的包由哪两个词合成？"
+          "question": "带去学校装课本的包叫什么？写出一个合成词。"
         },
         "morphology": {
           "kind": "compound",
@@ -318,18 +339,9 @@
           "question": "量长度和画直线要拿哪件文具？"
         },
         "morphology": {
-          "kind": "affix",
-          "parts": [
-            {
-              "text": "rule",
-              "meaning": "画直线、划线"
-            },
-            {
-              "text": "-er",
-              "meaning": "工具或执行者"
-            }
-          ],
-          "note": "rule 去末尾不发音 e 加 -er；此处表示划线、测量的工具，不是统治者。"
+          "kind": "none",
+          "parts": [],
+          "note": "本卡使用声音与具体字母线索，不展示依赖陌生词或历史成分的拆词说明。"
         }
       }
     },
@@ -345,8 +357,29 @@
             "👉",
             "🧸"
           ],
-          "caption": "手指指着大家已经看见的那一个娃娃。",
-          "focus": []
+          "caption": "在 the book 这样的弱读例子中，th /ð/、e /ə/ 对应字形；元音开头词前常读 /ðiː/。不把字母 e 漏掉。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "th",
+                "sound": "/ð/",
+                "note": "本词 th 是浊音",
+                "focus": [
+                  "th"
+                ]
+              },
+              {
+                "text": "e",
+                "sound": "/ə/",
+                "note": "辅音开头词前常弱读",
+                "focus": [
+                  "e"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "指双方知道的对象，与首次提及的 a 对照。",
         "context": {
@@ -445,15 +478,36 @@
             "🔤",
             "📖"
           ],
-          "caption": "课本页上排着英语字母，开头 E 大写。",
+          "caption": "两组实际问候表达同样的意思，却使用不同语言；从 Hello 这一组辨认英语。",
           "focus": [
             "E"
-          ]
+          ],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "symbols": [
+                  "Hello!",
+                  "Good morning!"
+                ],
+                "label": "English",
+                "meaning": "英语问候"
+              },
+              {
+                "symbols": [
+                  "你好！",
+                  "早上好！"
+                ],
+                "label": "Chinese",
+                "meaning": "中文问候"
+              }
+            ]
+          }
         },
         "semantic": "语言名称，与 Chinese 同属语言类。",
         "context": {
           "scene": "学校里练习英语对话。",
-          "question": "想介绍正在学的英语，这个词开头怎么写？"
+          "question": "你正在学习的英语，这个语言名称怎么写？"
         },
         "morphology": {
           "kind": "none",
@@ -919,10 +973,38 @@
             "🇨🇳",
             "💬"
           ],
-          "caption": "中国轮廓旁放中文对话气泡，C 开头大写。",
+          "caption": "按声音连接三段；结尾 ese 读 /iːz/，e 不另发音。这里是字形分段，不把片段解释成词根。",
           "focus": [
             "C"
-          ]
+          ],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "Chi",
+                "sound": "/tʃaɪ/",
+                "note": "Ch /tʃ/；C 大写",
+                "focus": [
+                  "Ch"
+                ]
+              },
+              {
+                "text": "n",
+                "sound": "/n/",
+                "note": "连接第二拍",
+                "focus": []
+              },
+              {
+                "text": "ese",
+                "sound": "/iːz/",
+                "note": "第二拍重读；s /z/",
+                "focus": [
+                  "ese"
+                ],
+                "stressed": true
+              }
+            ]
+          }
         },
         "semantic": "语言或相关形容词；此处是中文，与 English 对照。",
         "context": {
@@ -1216,7 +1298,7 @@
       "section": "三下Unit 2",
       "word": "cold",
       "method": "拼读",
-      "hint": "cold /kəʊld/：o 在这里读 /əʊ/，词尾 ld 两音保留。想象冰冻的嘴慢慢拉长 /əʊ/，再按 c–o–l–d 写四字母。遮住英文，看“冷的”说出读音，再写出单词；打开核对上面的字母难点。",
+      "hint": "cold /kəʊld/：本词 o 读长音 /əʊ/，不是短 /ɒ/；按 c–o–l–d 写，结尾 l、d 都保留。遮住英文，看“冷的”说出读音，再写出单词；打开核对上面的字母难点。",
       "example": "My hands are cold.（我的手很冷。）",
       "dimensions": {
         "visual": {
@@ -1835,8 +1917,12 @@
             "👕",
             "🧒"
           ],
-          "caption": "衣服已经穿在孩子身上。",
-          "focus": []
+          "caption": "衣服已经覆盖躯干和手臂，表示穿着的状态；put on 表示把衣服穿上这个动作，不能混同。",
+          "focus": [],
+          "diagram": {
+            "kind": "feature",
+            "scene": "wear"
+          }
         },
         "semantic": "强调穿着状态，put on 强调穿上的动作。",
         "context": {
@@ -2007,7 +2093,7 @@
         "semantic": "穿着挡雨，与手持的 umbrella 区分。",
         "context": {
           "scene": "雨中骑车时穿防水外套。",
-          "question": "挡雨的外套由哪两个词合成？"
+          "question": "穿在身上挡雨的外套，英文名称是什么？"
         },
         "morphology": {
           "kind": "compound",
@@ -2029,7 +2115,7 @@
       "section": "三下Unit 3",
       "word": "spring",
       "method": "拼读",
-      "hint": "spring /sprɪŋ/：spr 三个开头音连读，ng 合读 /ŋ/。春芽冲破泥土：先回忆 spr，再写 ing，不能漏 p。遮住英文，看“春天”说出读音，再写出单词；打开核对上面的字母难点。",
+      "hint": "spring /sprɪŋ/：开头 /spr/ 对应 s、p、r 三个字母，不能漏 p；末尾 /ɪŋ/ 写 ing。遮住英文，看“春天”说出读音，再写出单词；打开核对上面的字母难点。",
       "example": "Flowers grow in spring.（春天花开。）",
       "dimensions": {
         "visual": {
@@ -2663,7 +2749,7 @@
         "semantic": "leaf 的复数，表示多片叶子。",
         "context": {
           "scene": "看到一地黄色落叶。",
-          "question": "多片树叶的复数形式，需要改变哪个字母并添加复数词尾？"
+          "question": "地上有多片树叶，写出树叶的复数形式。"
         },
         "morphology": {
           "kind": "inflection",
@@ -2948,7 +3034,7 @@
         "semantic": "冰面运动，与水里的 swim 区分。",
         "context": {
           "scene": "冬天在冰场滑冰。",
-          "question": "冰加滑行活动组成哪个运动名称？"
+          "question": "穿带刀刃的鞋在冰上滑行，这项运动的英文名称是什么？"
         },
         "morphology": {
           "kind": "compound",
@@ -3164,7 +3250,7 @@
           "caption": "鱼摆尾，用鳍在水里游。",
           "focus": []
         },
-        "semantic": "水生动物，区别陆地 animal。",
+        "semantic": null,
         "context": {
           "scene": "观察鱼缸里的鱼。",
           "question": "用鳍游动的这类动物叫什么？"
@@ -3216,7 +3302,7 @@
         "semantic": "常在 a lot of 中表示许多，不能单凭 lot 替代整组。",
         "context": {
           "scene": "看到一篮很多苹果。",
-          "question": "表达很多苹果，包含这个词的数量词组是什么？"
+          "question": "“许多苹果”的固定数量表达中，紧跟不定冠词、位于介词前面的核心名词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -3229,7 +3315,7 @@
       "section": "三下Unit 3",
       "word": "sleep",
       "method": "拼读",
-      "hint": "sleep /sliːp/：sl–ee–p，ee /iː/。回忆两只闭眼像双 e，末尾 p 留住。遮住英文，看“睡觉”说出读音，再写出单词；打开核对上面的字母难点。",
+      "hint": "sleep /sliːp/：按 sl–ee–p 连接声音，长音 /iː/ 写双 e；开头 s、l 和结尾 p 都保留。遮住英文，看“睡觉”说出读音，再写出单词；打开核对上面的字母难点。",
       "example": "It is time to sleep.（该睡觉了。）",
       "dimensions": {
         "visual": {
@@ -3420,8 +3506,27 @@
           "symbols": [
             "🧒"
           ],
-          "caption": "小孩背着书包站在同班同学中。",
-          "focus": []
+          "caption": "用同为人的两个年龄阶段对照，辨认儿童的日常称呼；不把 kid 解释成身材矮小。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "symbols": [
+                  "🧒"
+                ],
+                "label": "kid",
+                "meaning": "儿童"
+              },
+              {
+                "symbols": [
+                  "🧑"
+                ],
+                "label": "adult",
+                "meaning": "成年人"
+              }
+            ]
+          }
         },
         "semantic": "儿童的日常称呼，与成年人 adult 区分。",
         "context": {
@@ -3513,8 +3618,14 @@
             "🕛",
             "📍"
           ],
-          "caption": "时间轴上用一点标出十二点。",
-          "focus": []
+          "caption": "两根针都指向十二点，把午餐定位到这个具体时刻：Lunch is at twelve。不是整个日期。",
+          "focus": [],
+          "diagram": {
+            "kind": "clock",
+            "hour": 12,
+            "minute": 0,
+            "focus": "time"
+          }
         },
         "semantic": "此处连接具体时刻；日期常用 on。",
         "context": {
@@ -3619,10 +3730,30 @@
           "symbols": [
             "🎨"
           ],
-          "caption": "画笔和画作放在美术课堂桌上。",
-          "focus": []
+          "caption": "把绘画和雕塑放在美术类别下；这些是美术课可能做的活动，不是全部艺术门类。",
+          "focus": [],
+          "diagram": {
+            "kind": "category",
+            "items": [
+              {
+                "symbol": "🖍️",
+                "label": "drawing",
+                "meaning": "用线条画画"
+              },
+              {
+                "symbol": "🎨",
+                "label": "painting",
+                "meaning": "用颜色绘画"
+              },
+              {
+                "symbol": "🗿",
+                "label": "sculpture",
+                "meaning": "立体雕塑"
+              }
+            ]
+          }
         },
-        "semantic": "学习科目，与 English 的语言科目区分。",
+        "semantic": null,
         "context": {
           "scene": "周五带画笔去美术课。",
           "question": "学画画、欣赏作品的这门课叫什么？"
@@ -3656,7 +3787,7 @@
         "semantic": "四十与 fourteen 十四区分。",
         "context": {
           "scene": "四排孩子一起唱歌。",
-          "question": "四十的英文拼写与四相比，哪一个元音字母不保留？"
+          "question": "四组各十本书，共四十本。写出“四十”的英文数词。"
         },
         "morphology": {
           "kind": "none",
@@ -3704,13 +3835,15 @@
             "🍎",
             "½"
           ],
-          "caption": "分钟针走过半圈到6，对应半小时；这里演示half past three的时间用法。",
+          "caption": "一个整体平均分成两份，其中一份就是 half（一半）。",
           "focus": [],
           "diagram": {
-            "kind": "clock",
-            "hour": 3,
-            "minute": 30,
-            "focus": "minute"
+            "kind": "partition",
+            "pieces": 2,
+            "selected": [
+              0
+            ],
+            "separated": false
           }
         },
         "semantic": "整体的一半，强调两等份中的一份。",
@@ -3842,7 +3975,7 @@
         "semantic": "每年纪念出生的日子，与普通 day 区分。",
         "context": {
           "scene": "今天庆祝自己的生日。",
-          "question": "出生和日子由哪两个词组成生日？"
+          "question": "每年纪念出生的日子，英文名称是什么？"
         },
         "morphology": {
           "kind": "compound",
@@ -3872,8 +4005,28 @@
             "🎈",
             "🎂"
           ],
-          "caption": "朋友围着蛋糕，气球挂在墙上。",
-          "focus": []
+          "caption": "分支表现聚会可以有不同原因；生日聚会只是其中一种，不把 party 等同于生日。",
+          "focus": [],
+          "diagram": {
+            "kind": "category",
+            "items": [
+              {
+                "symbol": "🎂",
+                "label": "birthday party",
+                "meaning": "生日聚会"
+              },
+              {
+                "symbol": "👋",
+                "label": "welcome party",
+                "meaning": "欢迎聚会"
+              },
+              {
+                "symbol": "🎉",
+                "label": "holiday party",
+                "meaning": "节日聚会"
+              }
+            ]
+          }
         },
         "semantic": "多人聚会，生日只是聚会的一种原因。",
         "context": {
@@ -4246,7 +4399,7 @@
         "semantic": "女性宇航员，与普通 woman 区分职业场景。",
         "context": {
           "scene": "看女性宇航员的新闻画面。",
-          "question": "太空和女人两个词合成哪个职业名称？"
+          "question": "在太空执行任务的女性宇航员，英文名称是什么？"
         },
         "morphology": {
           "kind": "compound",
@@ -5033,7 +5186,7 @@
         "semantic": "用脚踢的球类运动，与 basketball 区分。",
         "context": {
           "scene": "在操场练习射门。",
-          "question": "脚和球两个词合成什么运动？"
+          "question": "主要用脚踢球的运动，英文名称是什么？"
         },
         "morphology": {
           "kind": "compound",
@@ -5199,8 +5352,37 @@
             "📖",
             "💡"
           ],
-          "caption": "先不会唱，练习后能唱出新歌。",
-          "focus": []
+          "caption": "过程从不会经过练习到能独立唱，辨认学习；只唱一遍歌不一定表示学会。",
+          "focus": [],
+          "diagram": {
+            "kind": "sequence",
+            "panels": [
+              {
+                "symbols": [
+                  "🎵",
+                  "❓"
+                ],
+                "label": "not yet",
+                "meaning": "还不会这首歌"
+              },
+              {
+                "symbols": [
+                  "🎵",
+                  "🔁"
+                ],
+                "label": "practise",
+                "meaning": "反复练习"
+              },
+              {
+                "symbols": [
+                  "🎵",
+                  "✅"
+                ],
+                "label": "can sing",
+                "meaning": "能够独立唱出"
+              }
+            ]
+          }
         },
         "semantic": "从不会到会，与单次表演 sing 区分。",
         "context": {
@@ -5226,8 +5408,27 @@
             "🎨",
             "⚽"
           ],
-          "caption": "喜欢画画的孩子又添一张足球卡。",
-          "focus": []
+          "caption": "第二句新增体育这个同类信息，also 放在 like 前的句中；保留第一件事，不是替换它。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "symbols": [
+                  "I like music."
+                ],
+                "label": "one fact",
+                "meaning": "第一件喜欢的事"
+              },
+              {
+                "symbols": [
+                  "I also like sport."
+                ],
+                "label": "another fact",
+                "meaning": "另加一件喜欢的事"
+              }
+            ]
+          }
         },
         "semantic": "补充同类信息，常放在句中。",
         "context": {
@@ -5252,8 +5453,27 @@
           "symbols": [
             "🚫"
           ],
-          "caption": "疲惫表情被画上一道否定线。",
-          "focus": []
+          "caption": "两句只在 am 后增加 not，原来的肯定状态被否定；不是把 tired 的字母改掉。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "symbols": [
+                  "I am tired."
+                ],
+                "label": "tired",
+                "meaning": "肯定：我累了"
+              },
+              {
+                "symbols": [
+                  "I am not tired."
+                ],
+                "label": "not tired",
+                "meaning": "否定：我不累"
+              }
+            ]
+          }
         },
         "semantic": "否定状态或动作，与肯定描述相对。",
         "context": {
@@ -5950,29 +6170,7 @@
             "👄"
           ],
           "caption": "把可吃的固体食物与可喝的饮品分组比较。",
-          "focus": [],
-          "diagram": {
-            "kind": "compare",
-            "panels": [
-              {
-                "symbols": [
-                  "🥛",
-                  "🧃"
-                ],
-                "label": "drink",
-                "meaning": "喝的饮品",
-                "tag": "本课词义"
-              },
-              {
-                "symbols": [
-                  "🍞",
-                  "🍚"
-                ],
-                "label": "food",
-                "meaning": "吃的食物"
-              }
-            ]
-          }
+          "focus": []
         },
         "semantic": "此处是喝的动作，与 eat 吃对照。",
         "context": {
@@ -5998,8 +6196,37 @@
             "🍎",
             "⭐"
           ],
-          "caption": "多种水果中，苹果被星号单独圈起。",
-          "focus": []
+          "caption": "fav、our、ite 对应声音连成 /ˈfeɪvərɪt/；ou 弱读，r 连接后面元音，末尾 e 保留。这是字形分组，不是三个词根。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "fav",
+                "sound": "/feɪv/",
+                "note": "a 在本词读 /eɪ/",
+                "focus": [
+                  "a"
+                ]
+              },
+              {
+                "text": "our",
+                "sound": "/ər/",
+                "note": "ou 弱读 /ə/；r 接后面元音",
+                "focus": [
+                  "ou"
+                ]
+              },
+              {
+                "text": "ite",
+                "sound": "/ɪt/",
+                "note": "i 短读；e 不发音",
+                "focus": [
+                  "e"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "一组选择中最喜欢的，强于普通 like。",
         "context": {
@@ -6050,7 +6277,7 @@
         "semantic": "固定食物名称，不能照字面理解为热的狗。",
         "context": {
           "scene": "买一个夹香肠的长面包。",
-          "question": "这种食物的两个词怎么组合，能按字面解释吗？"
+          "question": "长面包夹着香肠，这种食物的完整英文名称是什么？"
         },
         "morphology": {
           "kind": "phrase",
@@ -6081,32 +6308,12 @@
             "🍗"
           ],
           "caption": "比较鸡与鸡产下的蛋，区分动物和产物。",
-          "focus": [],
-          "diagram": {
-            "kind": "compare",
-            "panels": [
-              {
-                "symbols": [
-                  "🐔"
-                ],
-                "label": "chicken",
-                "meaning": "鸡",
-                "tag": "本课词义"
-              },
-              {
-                "symbols": [
-                  "🥚"
-                ],
-                "label": "egg",
-                "meaning": "带蛋壳的蛋"
-              }
-            ]
-          }
+          "focus": []
         },
         "semantic": "可指鸡或鸡肉；本例指肉时通常不可数。",
         "context": {
           "scene": "晚餐盘里盛着鸡肉。",
-          "question": "说盘里的鸡肉时，这个词在此表示动物还是肉？"
+          "question": "晚餐吃的是鸡肉，写出这个食物的英文名词。"
         },
         "morphology": {
           "kind": "none",
@@ -6570,8 +6777,35 @@
             "❓",
             "📛"
           ],
-          "caption": "姓名牌被问号遮住，正在问内容。",
-          "focus": []
+          "caption": "wh 两字母对应一个 /w/，中间 a 在本词读 /ɒ/；逐段连起来，不把 h 漏掉。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "wh",
+                "sound": "/w/",
+                "note": "h 写着但不另读",
+                "focus": [
+                  "wh"
+                ]
+              },
+              {
+                "text": "a",
+                "sound": "/ɒ/",
+                "note": "本词 a 的读法",
+                "focus": [
+                  "a"
+                ]
+              },
+              {
+                "text": "t",
+                "sound": "/t/",
+                "note": "末尾 t",
+                "focus": []
+              }
+            ]
+          }
         },
         "semantic": "问事物或内容；who 更直接问人物身份。",
         "context": {
@@ -6688,8 +6922,35 @@
             "🤝",
             "🙂"
           ],
-          "caption": "握手时两人都微笑，表示见面令人愉快。",
-          "focus": []
+          "caption": "不发音 e 同时帮助认 i 的长音和 c 的 /s/ 读法；听到末尾 /s/ 仍写 ce，不写 s。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "n",
+                "sound": "/n/",
+                "note": "开头 n",
+                "focus": []
+              },
+              {
+                "text": "i",
+                "sound": "/aɪ/",
+                "note": "长音 /aɪ/",
+                "focus": [
+                  "i"
+                ]
+              },
+              {
+                "text": "ce",
+                "sound": "/s/",
+                "note": "c 在 e 前读 /s/",
+                "focus": [
+                  "ce"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "此处评价见面感受好，不专指外貌漂亮。",
         "context": {
@@ -6714,8 +6975,28 @@
           "symbols": [
             "🤝"
           ],
-          "caption": "两个原本分开的人面对面握手。",
-          "focus": []
+          "caption": "两个人由各自行走到相遇、互相问候；meet 表示见面或认识，不是单纯看见远处的人。",
+          "focus": [],
+          "diagram": {
+            "kind": "sequence",
+            "panels": [
+              {
+                "label": "before",
+                "symbols": [
+                  "🧒",
+                  "🧑"
+                ],
+                "meaning": "两个人原先各自走路"
+              },
+              {
+                "label": "meet",
+                "symbols": [
+                  "🧒👋🧑"
+                ],
+                "meaning": "相遇后面对面打招呼"
+              }
+            ]
+          }
         },
         "semantic": "见面或认识，与 see 单纯看见区分。",
         "context": {
@@ -6767,7 +7048,7 @@
         "semantic": "主语指说话者，与作宾语的 me 区分。",
         "context": {
           "scene": "自我介绍是新学生。",
-          "question": "在句子开头说我时，用哪个大写词？"
+          "question": "你在句首介绍“我是新学生”，主语“我”的英文是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -7045,8 +7326,27 @@
             "❓",
             "🙂"
           ],
-          "caption": "问号连到身体感受或做事方式。",
-          "focus": []
+          "caption": "双元音 /aʊ/ 在本词写成 ow；把这两个字母一起记，遮住后核对 ow。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "h",
+                "sound": "/h/",
+                "note": "开头的 h",
+                "focus": []
+              },
+              {
+                "text": "ow",
+                "sound": "/aʊ/",
+                "note": "本词 ow 的声音",
+                "focus": [
+                  "ow"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "问状况或方式，与 what 问内容区分。",
         "context": {
@@ -7072,8 +7372,35 @@
             "🙂",
             "✅"
           ],
-          "caption": "身体舒服的孩子竖起拇指。",
-          "focus": []
+          "caption": "i 读字母名称音 /aɪ/，末尾仍保留不发音 e；f、i、ne 连回 fine。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "f",
+                "sound": "/f/",
+                "note": "开头 f",
+                "focus": []
+              },
+              {
+                "text": "i",
+                "sound": "/aɪ/",
+                "note": "长音 /aɪ/",
+                "focus": [
+                  "i"
+                ]
+              },
+              {
+                "text": "ne",
+                "sound": "/n/",
+                "note": "n 发音，e 不发音",
+                "focus": [
+                  "e"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "此处表示状态良好，是对问候的回应。",
         "context": {
@@ -7198,8 +7525,33 @@
             "🧒",
             "🤝"
           ],
-          "caption": "两位孩子一起玩并互相帮助。",
-          "focus": []
+          "caption": "把不规则的 ie /e/ 放在中间，前后辅音夹住它；从读音重建 friend，不按常见 /iː/ 猜写。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "fr",
+                "sound": "/fr/",
+                "note": "两个开头音",
+                "focus": []
+              },
+              {
+                "text": "ie",
+                "sound": "/e/",
+                "note": "这里读 /e/",
+                "focus": [
+                  "ie"
+                ]
+              },
+              {
+                "text": "nd",
+                "sound": "/nd/",
+                "note": "两个结尾音都留下",
+                "focus": []
+              }
+            ]
+          }
         },
         "semantic": "友情关系，与有血缘的 brother 区分。",
         "context": {
@@ -7225,8 +7577,27 @@
             "🤲",
             "📚"
           ],
-          "caption": "一人托住另一人搬不动的一摞书。",
-          "focus": []
+          "caption": "箭头从来帮忙的人指向需要协助的人，两人共同搬书，帮助对方完成任务。",
+          "focus": [],
+          "diagram": {
+            "kind": "reference",
+            "left": {
+              "symbol": "🧑📚",
+              "label": "来帮忙的人"
+            },
+            "right": {
+              "symbol": "🧒📚",
+              "label": "需要协助的人"
+            },
+            "link": "协助搬书",
+            "focus": "both",
+            "relation": "action",
+            "sentence": {
+              "before": "Can you ",
+              "word": "help",
+              "after": " me?"
+            }
+          }
         },
         "semantic": "帮助对方完成任务，与自己独做区分。",
         "context": {
@@ -7373,29 +7744,7 @@
             "✨"
           ],
           "caption": "本课表示物品新旧时，用完整书与修补过的书比较，不套成年龄义项。",
-          "focus": [],
-          "diagram": {
-            "kind": "compare",
-            "panels": [
-              {
-                "symbols": [
-                  "📕",
-                  "✨"
-                ],
-                "label": "new",
-                "meaning": "新书、外观完整",
-                "tag": "本课词义"
-              },
-              {
-                "symbols": [
-                  "📕",
-                  "🩹"
-                ],
-                "label": "old",
-                "meaning": "旧书、已经使用"
-              }
-            ]
-          }
+          "focus": []
         },
         "semantic": "新近拥有或出现，与 old 对照。",
         "context": {
@@ -7673,27 +8022,25 @@
             "👴",
             "📅"
           ],
-          "caption": "本课表示物品新旧时，用完整书与修补过的书比较，不套成年龄义项。",
+          "caption": "比较人的年龄：本例爷爷年纪大，old 与 young 相对。",
           "focus": [],
           "diagram": {
             "kind": "compare",
             "panels": [
               {
-                "symbols": [
-                  "📕",
-                  "🩹"
-                ],
                 "label": "old",
-                "meaning": "旧书、已经使用",
+                "meaning": "年纪大的",
+                "symbols": [
+                  "🧓"
+                ],
                 "tag": "本课词义"
               },
               {
+                "label": "young",
+                "meaning": "年轻的",
                 "symbols": [
-                  "📕",
-                  "✨"
-                ],
-                "label": "new",
-                "meaning": "新书、外观完整"
+                  "🧒"
+                ]
               }
             ]
           }
@@ -7861,8 +8208,27 @@
             "🧒",
             "🪑"
           ],
-          "caption": "孩子弯膝坐到椅子上。",
-          "focus": []
+          "caption": "同为一个人的两种身体姿势：直立与坐下；坐不一定要有椅子。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "symbols": [
+                  "🧍"
+                ],
+                "label": "stand",
+                "meaning": "身体直立站着"
+              },
+              {
+                "symbols": [
+                  "🧘"
+                ],
+                "label": "sit",
+                "meaning": "身体坐着，图中坐在地上"
+              }
+            ]
+          }
         },
         "semantic": "坐下或坐着，与 stand 站立对照。",
         "context": {
@@ -7950,8 +8316,14 @@
             "👉",
             "📍"
           ],
-          "caption": "手指向离说话者较远的放包位置。",
-          "focus": []
+          "caption": "人是说话者，另一侧的点表示那里；这是远离说话者的示例，there 并不要求固定距离。",
+          "focus": [],
+          "diagram": {
+            "kind": "position",
+            "relation": "far",
+            "object": "📍",
+            "reference": "🧒"
+          }
         },
         "semantic": "位置在那里，与这里 here 对照。",
         "context": {
@@ -8186,7 +8558,7 @@
         "semantic": "十三与 thirty 三十对照。",
         "context": {
           "scene": "数飞过的十三只鸟。",
-          "question": "十加三的数量是什么，和三十如何区分？"
+          "question": "十只鸟又来三只，一共有十三只。写出英文数词。"
         },
         "morphology": {
           "kind": "none",
@@ -8247,8 +8619,33 @@
             "⭐",
             "👍"
           ],
-          "caption": "老师给完成得很好的作品画大星。",
-          "focus": []
+          "caption": "中间 ea 在这个词读 /eɪ/，与 bread 的 ea /e/ 区分；两边辅音的位置保持可见。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "gr",
+                "sound": "/ɡr/",
+                "note": "两个开头音",
+                "focus": []
+              },
+              {
+                "text": "ea",
+                "sound": "/eɪ/",
+                "note": "这里读 /eɪ/",
+                "focus": [
+                  "ea"
+                ]
+              },
+              {
+                "text": "t",
+                "sound": "/t/",
+                "note": "末尾 t",
+                "focus": []
+              }
+            ]
+          }
         },
         "semantic": "赞扬很好、很棒，语气强于普通 good。",
         "context": {
@@ -8328,7 +8725,7 @@
             ]
           }
         },
-        "semantic": "动物类别，与 brown bear 的典型外观区分。",
+        "semantic": null,
         "context": {
           "scene": "动物园看熊猫吃竹子。",
           "question": "黑白相间、吃竹子的动物叫什么？"
@@ -8498,7 +8895,7 @@
             ]
           }
         },
-        "semantic": "家畜，与 horse 的典型外形和用途区分。",
+        "semantic": null,
         "context": {
           "scene": "农场看奶牛吃草。",
           "question": "能产奶的这类家畜叫什么？"
@@ -8544,7 +8941,7 @@
             ]
           }
         },
-        "semantic": "家畜，与 cow 的典型身形区分。",
+        "semantic": null,
         "context": {
           "scene": "观察马在草地跑。",
           "question": "有鬃毛、可供骑乘的动物叫什么？"
@@ -8600,7 +8997,7 @@
         "semantic": "羊毛家畜；单复数同形。",
         "context": {
           "scene": "看一只和一群绵羊吃草。",
-          "question": "说多只绵羊时，这个词是否要添加复数词尾？"
+          "question": "草地上有多只绵羊，写出“绵羊”的英文名词。"
         },
         "morphology": {
           "kind": "none",
@@ -8744,7 +9141,7 @@
             ]
           }
         },
-        "semantic": "动物类别，与 lion 的鬃毛特征对照。",
+        "semantic": null,
         "context": {
           "scene": "动物园看长鼻子的大象。",
           "question": "长鼻和大耳朵对应哪个动物名称？"
@@ -8987,7 +9384,7 @@
             ]
           }
         },
-        "semantic": "常见宠物，与野生 lion、tiger 同类但不同。",
+        "semantic": null,
         "context": {
           "scene": "家中小猫坐到身旁。",
           "question": "有胡须、会喵叫的宠物叫什么？"
@@ -9161,8 +9558,37 @@
             "🐈",
             "🤲"
           ],
-          "caption": "孩子喂猫、添水并整理猫窝。",
-          "focus": []
+          "caption": "连续照看饮食和休息需要，表示持续照顾；不把照顾缩成一次帮忙。",
+          "focus": [],
+          "diagram": {
+            "kind": "sequence",
+            "panels": [
+              {
+                "symbols": [
+                  "🐶",
+                  "🥣"
+                ],
+                "label": "give food",
+                "meaning": "按需要喂食"
+              },
+              {
+                "symbols": [
+                  "🐶",
+                  "💧"
+                ],
+                "label": "give water",
+                "meaning": "补充饮水"
+              },
+              {
+                "symbols": [
+                  "🐶",
+                  "🛏️"
+                ],
+                "label": "let it rest",
+                "meaning": "安排休息"
+              }
+            ]
+          }
         },
         "semantic": "照顾包含持续关注需要，区别一次性 help。",
         "context": {
@@ -9281,8 +9707,36 @@
             "🐦",
             "✨"
           ],
-          "caption": "鸟羽颜色和形态赏心悦目。",
-          "focus": []
+          "caption": "开头 beau 四字母对应 /bjuː/，最后 ful 只有一个 l；浅色段对应后面的弱读音节。分段不等于三个词根。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "beau",
+                "sound": "/bjuː/",
+                "note": "第一拍重读；四字母一起记",
+                "focus": [
+                  "eau"
+                ],
+                "stressed": true
+              },
+              {
+                "text": "ti",
+                "sound": "/tɪ/",
+                "note": "中间短音 /ɪ/",
+                "focus": []
+              },
+              {
+                "text": "ful",
+                "sound": "/fəl/",
+                "note": "弱读；只写一个 l",
+                "focus": [
+                  "l"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "强调美观，与 strong 力量维度区分。",
         "context": {
@@ -9532,8 +9986,27 @@
             "🖼️",
             "👉"
           ],
-          "caption": "孩子举起画让对方看清。",
-          "focus": []
+          "caption": "画从持有者指向观看者：主动给别人看是 show；自己看同一幅画是 look。",
+          "focus": [],
+          "diagram": {
+            "kind": "reference",
+            "left": {
+              "symbol": "🧒🖼️",
+              "label": "拿着画的人"
+            },
+            "right": {
+              "symbol": "👀",
+              "label": "观看画的人"
+            },
+            "link": "把画展示给",
+            "focus": "both",
+            "relation": "action",
+            "sentence": {
+              "before": "Please ",
+              "word": "show",
+              "after": " me your drawing."
+            }
+          }
         },
         "semantic": "主动展示，与自己 look 看区分。",
         "context": {
@@ -9559,8 +10032,29 @@
             "💪",
             "✅"
           ],
-          "caption": "技能卡被勾选，表示孩子做得到。",
-          "focus": []
+          "caption": "两句只比较游泳能力：can 接动作原形 swim；can 不表示正在做，不能单凭看见游泳就断言能力。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "I can swim.",
+                "symbols": [
+                  "🏊",
+                  "✅"
+                ],
+                "meaning": "有能力游泳"
+              },
+              {
+                "label": "I cannot swim.",
+                "symbols": [
+                  "🏊",
+                  "🚫"
+                ],
+                "meaning": "还不会游泳"
+              }
+            ]
+          }
         },
         "semantic": "表示能力，后接动词原形。",
         "context": {
@@ -9660,8 +10154,29 @@
             "🧒",
             "⚽"
           ],
-          "caption": "孩子玩耍，再看他参与球类活动。",
-          "focus": []
+          "caption": "运动和乐器两个具体用法对照：play football 与 play the piano，乐器前的 the 保留；play 不只表示玩玩具。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "play football",
+                "symbols": [
+                  "⚽",
+                  "🏃"
+                ],
+                "meaning": "参加足球运动"
+              },
+              {
+                "label": "play the piano",
+                "symbols": [
+                  "🎹",
+                  "🧒"
+                ],
+                "meaning": "演奏钢琴"
+              }
+            ]
+          }
         },
         "semantic": "可说玩、参加运动；乐器前常有 the。",
         "context": {
@@ -9710,7 +10225,7 @@
             ]
           }
         },
-        "semantic": "键盘乐器，与运动器材 rope 区分。",
+        "semantic": null,
         "context": {
           "scene": "练习双手弹琴。",
           "question": "按黑白琴键发声的乐器叫什么？"
@@ -9875,8 +10390,27 @@
             "🤲",
             "✅"
           ],
-          "caption": "一人准备帮助，对方点头允许。",
-          "focus": []
+          "caption": "箭头表示给予许可，让另一个人去做事；let 后的 me 是获准行动的人。",
+          "focus": [],
+          "diagram": {
+            "kind": "reference",
+            "left": {
+              "symbol": "🧑",
+              "label": "决定是否允许"
+            },
+            "right": {
+              "symbol": "🧒",
+              "label": "想帮忙的人"
+            },
+            "link": "允许来帮忙",
+            "focus": "both",
+            "relation": "action",
+            "sentence": {
+              "before": "Please ",
+              "word": "let",
+              "after": " me help you."
+            }
+          }
         },
         "semantic": "表示让或允许，后接人和动词原形。",
         "context": {
@@ -9902,8 +10436,12 @@
             "🧒",
             "⬆️"
           ],
-          "caption": "双脚离地，身体向上跃起。",
-          "focus": []
+          "caption": "淡色人标起跳和落地位置，实色人在空中，双脚都离开同一地面；弧线表示这次跳跃，不是走路交替落脚。",
+          "focus": [],
+          "diagram": {
+            "kind": "feature",
+            "scene": "jump"
+          }
         },
         "semantic": "双脚跃起，与保持交替落地的 walk 区分。",
         "context": {
@@ -10004,8 +10542,37 @@
             "✅",
             "🙂"
           ],
-          "caption": "孩子很快完成一道简单游戏任务。",
-          "focus": []
+          "caption": "两个 /i/ 类声音写法不同：开头长音写 ea，结尾写 y；中间 s 发 /z/。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "ea",
+                "sound": "/iː/",
+                "note": "双字母长音",
+                "focus": [
+                  "ea"
+                ]
+              },
+              {
+                "text": "s",
+                "sound": "/z/",
+                "note": "这里有声",
+                "focus": [
+                  "s"
+                ]
+              },
+              {
+                "text": "y",
+                "sound": "/i/",
+                "note": "尾音写 y",
+                "focus": [
+                  "y"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "难度低，与 difficult 困难对照。",
         "context": {
@@ -10056,7 +10623,7 @@
         "semantic": "单个儿童，复数为 children。",
         "context": {
           "scene": "介绍正在读书的一个孩子。",
-          "question": "单独一个儿童用哪个形式，多个怎样变化？"
+          "question": "只说一个儿童，写出英文单数名词。"
         },
         "morphology": {
           "kind": "none",
@@ -10280,34 +10847,7 @@
             "⬇️"
           ],
           "caption": "以清扫前、扫帚动作和清扫后排列，连到扫地或整洁的词义；图标不是完整房间照片。",
-          "focus": [],
-          "diagram": {
-            "kind": "sequence",
-            "panels": [
-              {
-                "symbols": [
-                  "🟤",
-                  "🟤"
-                ],
-                "label": "dirty floor",
-                "meaning": "地面有杂物"
-              },
-              {
-                "symbols": [
-                  "🧹"
-                ],
-                "label": "sweep",
-                "meaning": "用扫帚清扫"
-              },
-              {
-                "symbols": [
-                  "✨"
-                ],
-                "label": "clean floor",
-                "meaning": "地面整洁"
-              }
-            ]
-          }
+          "focus": []
         },
         "semantic": "室内底部表面，与天花板和墙面区分。",
         "context": {
@@ -10369,7 +10909,7 @@
         "semantic": "教学书写板，与 paper 纸张区分。",
         "context": {
           "scene": "老师在板上写字。",
-          "question": "黑色和板两个词组成哪个教具名称？"
+          "question": "教室里供老师写字的黑板，英文名称是什么？"
         },
         "morphology": {
           "kind": "compound",
@@ -10760,7 +11300,7 @@
             ]
           }
         },
-        "semantic": "颜色词，与白色 white 对照。",
+        "semantic": null,
         "context": {
           "scene": "介绍猫的黑色毛。",
           "question": "与白色相对的这个颜色叫什么？"
@@ -10843,7 +11383,7 @@
             ]
           }
         },
-        "semantic": "颜色类别，与 blue 蓝色对照。",
+        "semantic": null,
         "context": {
           "scene": "给太阳涂黄色。",
           "question": "太阳画成这种亮颜色时，它叫什么？"
@@ -10927,7 +11467,7 @@
             ]
           }
         },
-        "semantic": "颜色类别，与绿色 green 区分。",
+        "semantic": null,
         "context": {
           "scene": "观察晴空的颜色。",
           "question": "晴空常见的这个颜色怎么说？"
@@ -10964,7 +11504,7 @@
             ]
           }
         },
-        "semantic": "颜色类别，可由蓝和黄颜料混合得到。",
+        "semantic": null,
         "context": {
           "scene": "给树叶涂绿色。",
           "question": "蓝黄颜料混合常形成哪个颜色？"
@@ -11001,7 +11541,7 @@
             ]
           }
         },
-        "semantic": "颜色类别，与 yellow、blue 同作基本颜色线索。",
+        "semantic": null,
         "context": {
           "scene": "给红苹果涂色。",
           "question": "这种苹果表皮的颜色叫什么？"
@@ -11252,8 +11792,27 @@
             "🧒",
             "✅"
           ],
-          "caption": "第二个孩子也举起喜欢蓝色的卡。",
-          "focus": []
+          "caption": "第二个人回应同样的喜好，too 在句末；用实际句子显示位置，区别句中的 also。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "symbols": [
+                  "I like blue."
+                ],
+                "label": "first speaker",
+                "meaning": "第一个人喜欢蓝色"
+              },
+              {
+                "symbols": [
+                  "I like blue, too."
+                ],
+                "label": "second speaker",
+                "meaning": "第二个人也喜欢蓝色"
+              }
+            ]
+          }
         },
         "semantic": "表示也，通常放句末；also 常在句中。",
         "context": {
@@ -11279,8 +11838,34 @@
             "🎩",
             "✨"
           ],
-          "caption": "画面忽然出现不寻常的变化和闪光。",
-          "focus": []
+          "caption": "g 在 i 前读 /dʒ/，末尾 c 读 /k/；同一个词里辅音字母的读法不同，不把 g、c 随意写成 j、k。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "m",
+                "sound": "/m/",
+                "note": "开头 m",
+                "focus": []
+              },
+              {
+                "text": "a",
+                "sound": "/æ/",
+                "note": "短音 /æ/",
+                "focus": []
+              },
+              {
+                "text": "gic",
+                "sound": "/dʒɪk/",
+                "note": "g /dʒ/；末 c /k/",
+                "focus": [
+                  "g",
+                  "c"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "魔法或神奇效果，与普通动作不同。",
         "context": {
@@ -11346,7 +11931,7 @@
             ]
           }
         },
-        "semantic": "颜色词，与 black 的更深色区分。",
+        "semantic": null,
         "context": {
           "scene": "描述棕熊的毛色。",
           "question": "这只熊的棕色毛怎么说？"
@@ -11429,7 +12014,7 @@
             ]
           }
         },
-        "semantic": "颜色类别，与 pink 粉色区分。",
+        "semantic": null,
         "context": {
           "scene": "给葡萄涂紫色。",
           "question": "葡萄常见的这个颜色叫什么？"
@@ -11475,7 +12060,7 @@
             ]
           }
         },
-        "semantic": "水果成员，fruit 是上位总类。",
+        "semantic": null,
         "context": {
           "scene": "吃一颗紫葡萄。",
           "question": "一串里的一颗小圆水果叫什么？"
@@ -11499,16 +12084,20 @@
             "🟥",
             "🧣"
           ],
-          "caption": "红色领巾围在颈部，两词分别对应颜色和衣物。",
+          "caption": "头颈下的红结、短尾与三角布面表示本课的红领巾；两个词分写，不用冬季围巾替代。",
           "focus": [
             "red",
             "scarf"
-          ]
+          ],
+          "diagram": {
+            "kind": "feature",
+            "scene": "red-scarf"
+          }
         },
         "semantic": "颜色加衣物的描述组合，不是所有 scarf 都红。",
         "context": {
           "scene": "上学前戴红领巾。",
-          "question": "红色加领巾组成哪个词组？"
+          "question": "少先队员戴的红领巾，完整英文词组是什么？"
         },
         "morphology": {
           "kind": "phrase",
@@ -11598,7 +12187,7 @@
             ]
           }
         },
-        "semantic": "植物开花部分，与 leaf 叶子区分。",
+        "semantic": null,
         "context": {
           "scene": "观察蝴蝶停在哪朵花上。",
           "question": "有花瓣和花心的植物部分叫什么？"
@@ -11671,7 +12260,7 @@
         "semantic": "多色天空现象，与单一 colour 区分。",
         "context": {
           "scene": "阵雨后抬头看彩虹。",
-          "question": "雨加弧形的词组成哪个天气现象名称？"
+          "question": "雨后天空出现的彩色弧形，英文名称是什么？"
         },
         "morphology": {
           "kind": "compound",
@@ -11702,8 +12291,33 @@
             "➕",
             "🧒"
           ],
-          "caption": "加号把哥哥和我连进同一幅画。",
-          "focus": []
+          "caption": "同一活动从我一个参与者扩展为哥哥与我两个并列参与者；and 连接两人，不表示一个人对另一个人施加动作。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "I paint.",
+                "symbols": [
+                  "🧒",
+                  "🎨"
+                ],
+                "meaning": "我一个人画画"
+              },
+              {
+                "label": "My brother and I paint.",
+                "symbols": [
+                  "🧑",
+                  "🧒",
+                  "🎨"
+                ],
+                "meaning": "哥哥与我都参与画画",
+                "focus": [
+                  "and"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "并列连接，连接的人或事物都参与。",
         "context": {
@@ -11842,7 +12456,7 @@
             ]
           }
         },
-        "semantic": "昆虫，与蜂 bee 的体形和翅膀区别。",
+        "semantic": null,
         "context": {
           "scene": "看花间飞舞的蝴蝶。",
           "question": "彩色宽翅的这只昆虫叫什么？"
@@ -11903,8 +12517,35 @@
             "❓",
             "👤"
           ],
-          "caption": "照片中人物的脸旁标着问号。",
-          "focus": []
+          "caption": "用标明不发音的段提醒 w 仍须写；who 的 wh /h/ 与 where 的 wh /w/ 区分。字母分段只服务本词拼写。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "w",
+                "sound": "不发音",
+                "note": "写出来但不另读",
+                "focus": [
+                  "w"
+                ]
+              },
+              {
+                "text": "h",
+                "sound": "/h/",
+                "note": "在这个词里发 /h/",
+                "focus": []
+              },
+              {
+                "text": "o",
+                "sound": "/uː/",
+                "note": "长音仍只写 o",
+                "focus": [
+                  "o"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "询问人物身份，与 where 问位置区分。",
         "context": {
@@ -12224,8 +12865,35 @@
           "symbols": [
             "💪"
           ],
-          "caption": "成年人稳稳举起较重物品。",
-          "focus": []
+          "caption": "开头 /str/ 三个音对应三个字母，特别留下 t；末尾 /ŋ/ 由 ng 两字母表示。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "str",
+                "sound": "/str/",
+                "note": "三个辅音都留下",
+                "focus": [
+                  "t"
+                ]
+              },
+              {
+                "text": "o",
+                "sound": "/ɒ/",
+                "note": "中间短音",
+                "focus": []
+              },
+              {
+                "text": "ng",
+                "sound": "/ŋ/",
+                "note": "鼻音写 ng",
+                "focus": [
+                  "ng"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "力量强，与 tall 高度大属于不同维度。",
         "context": {
@@ -12528,7 +13196,7 @@
         "semantic": "开车职业，与车辆本身 car 区分。",
         "context": {
           "scene": "介绍爸爸是司机。",
-          "question": "驾驶动作变为从业者，要加哪个后缀？"
+          "question": "以驾驶车辆为职业的人，英文名称是什么？"
         },
         "morphology": {
           "kind": "affix",
@@ -12638,7 +13306,7 @@
         "semantic": "从事或擅长唱歌的人，不是 sing 动作本身。",
         "context": {
           "scene": "介绍妈妈的歌手职业。",
-          "question": "唱歌动词加哪个后缀形成歌手？"
+          "question": "以唱歌为职业的人，英文名称是什么？"
         },
         "morphology": {
           "kind": "affix",
@@ -12659,8 +13327,8 @@
     {
       "section": "三上Unit 7",
       "word": "bed",
-      "method": "故事联想",
-      "hint": "bed /bed/：b 像床头、d 像床尾，中间 e 像躺着的人。e 发 /e/。遮住英文，看“床”说出读音，再写出单词；打开核对上面的字母难点。",
+      "method": "拼读",
+      "hint": "bed /bed/：b /b/、e /e/、d /d/，按三个声音写 b–e–d；开头是 b，结尾是 d。遮住英文，看“床”说出读音，再写出单词；打开核对上面的字母难点。",
       "example": "My cat sleeps on the bed.（我的猫睡在床上。）",
       "dimensions": {
         "visual": {
@@ -12825,7 +13493,7 @@
         "semantic": "教课的人，student 是学习的人。",
         "context": {
           "scene": "介绍自己的老师。",
-          "question": "教这个动作加哪个后缀成为老师？"
+          "question": "以教课为职业的人，英文名称是什么？"
         },
         "morphology": {
           "kind": "affix",
@@ -12929,8 +13597,35 @@
             "❤️",
             "👨‍👩‍👧"
           ],
-          "caption": "孩子把家人照片抱在胸前。",
-          "focus": []
+          "caption": "本词中 o 读 /ʌ/，不是由末尾 e 推出 /əʊ/；末尾 e 不另读，写 love 时仍保留。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "l",
+                "sound": "/l/",
+                "note": "开头 l",
+                "focus": []
+              },
+              {
+                "text": "o",
+                "sound": "/ʌ/",
+                "note": "本词 o 的读法",
+                "focus": [
+                  "o"
+                ]
+              },
+              {
+                "text": "ve",
+                "sound": "/v/",
+                "note": "v 发音；保留 e",
+                "focus": [
+                  "e"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "深切喜爱和关心，通常比 like 感情更强。",
         "context": {

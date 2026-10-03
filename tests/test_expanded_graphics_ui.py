@@ -48,6 +48,10 @@ with sync_playwright() as playwright:
             continue
         article = page.locator(f'[data-graphic-index="{index}"]')
         assert article.locator('[aria-label="图与词的对应"]').is_visible(), card["word"]
+        if diagram['kind'] == 'spelling':
+            segments = article.locator('[aria-label="读音与字母分段"] > div > p:first-child')
+            assert segments.count() == len(diagram['segments']), card['word']
+            assert ''.join(segments.all_text_contents()) == card['word'], card['word']
         if diagram["kind"] == "count":
             if diagram.get("ordinal"):
                 ordinal = article.locator('[data-ordinal-target="true"]')
@@ -102,6 +106,22 @@ with sync_playwright() as playwright:
             assert article.locator('[data-partition-piece="selected"]').count() == len(diagram['selected'])
         if diagram['kind'] == 'feature':
             assert article.locator('[data-feature-scene]').get_attribute('data-feature-scene') == diagram['scene']
+            if diagram['scene'] == 'jump':
+                feet = article.locator('[data-jump-phase]').evaluate_all("groups => groups.map(g => new DOMPoint(14, 0).matrixTransform(g.transform.baseVal.consolidate().matrix).y)")
+                assert feet[0] == feet[2] and feet[1] < feet[0], card['word']
+                assert article.locator('[data-jump-arc]').count() == 1
+            elif diagram['scene'] == 'fall-over':
+                bottom = article.locator('[data-fall-pose="fallen"]').evaluate("g => { const b=g.getBBox(), m=g.transform.baseVal.consolidate().matrix; return Math.max(...[[b.x,b.y],[b.x+b.width,b.y],[b.x,b.y+b.height],[b.x+b.width,b.y+b.height]].map(([x,y]) => new DOMPoint(x,y).matrixTransform(m).y)); }")
+                assert bottom <= 169, (card['word'], 'Body crosses the ground', bottom)
+            elif diagram['scene'] == 'stick':
+                contacts = article.locator('[data-stuck-seed]').evaluate_all("seeds => seeds.map(seed => { const shoe=seed.parentElement.querySelector('path').getBBox(), b=seed.getBBox(); return Math.abs(b.y-(shoe.y+shoe.height)); })")
+                assert len(contacts) == 2 and all(gap < 0.01 for gap in contacts), contacts
+            elif diagram['scene'] == 'posting':
+                assert article.locator('[data-paper-fixing]').count() == 4
+                assert article.locator('[data-posted-paper]').count() == 1
+            elif diagram['scene'] == 'arrangement':
+                objects = [article.locator(f'[data-arrangement="{state}"] [data-same-object]').evaluate_all("objects => objects.map(o => [o.dataset.sameObject,o.getAttribute('fill')])") for state in ('messy', 'neat')]
+                assert len(objects[0]) == 6 and objects[0] == objects[1], card['word']
     assert not errors, errors
 
     def check_layout(compact=False):

@@ -3,7 +3,7 @@
     {
       "section": "四上Unit 1",
       "method": "拼读",
-      "hint": "读 /ˈwʌrid/：o 在这里读 /ʌ/，i 读 /i/，末尾 ed 读 /d/。小狗不见了，你担心得皱眉；双 r 可想成皱在一起的两道眉毛。拼写 worry（担心）把 y 换成 i，再加 ed＝worried。遮住词，说“担心的”，写回 worried，核对双 r 和 ied。",
+      "hint": "worried /ˈwʌrid/：worry 的 y 换成 i 再加 ed，得到 worried；双 r 保留，末尾 ed 读 /d/。收起英文，试着读写完整词，再核对上述字母。",
       "example": "I'm worried. Where is my dog? 我很担心。我的小狗在哪里？",
       "word": "worried",
       "dimensions": {
@@ -45,7 +45,7 @@
         },
         "semantic": "描述人此刻的担心状态；worry 是“担心”这个动作。",
         "context": {
-          "scene": "小狗走丢了，你皱着两道眉毛找它。",
+          "scene": "小狗迟迟没回家，你感到担心。",
           "question": "宠物迟迟没回家，你想说“我很担心”，该用哪个表示状态的词？"
         },
         "morphology": {
@@ -115,7 +115,7 @@
     {
       "section": "四上Unit 1",
       "method": "拼读",
-      "hint": "worry 的两个 r 连在一起，词尾 y 读 /i/。把两个 r 想成担心时紧紧皱在一起的眉毛：眉毛挤成一团，真担心！这是拼写联想；读音听 /ˈwʌri/，遮住英文，看中文先读，再回写时记得双 r 和末尾 y。",
+      "hint": "worry /ˈwʌri/：o 在本词读 /ʌ/，末尾 /i/ 写 y；字形 wor–ry，两个 r 相邻。遮住英文，看中文先读，再回写时记得双 r 和末尾 y。",
       "example": "Don't worry about me. 别担心我。",
       "word": "worry",
       "dimensions": {
@@ -156,7 +156,7 @@
         },
         "semantic": "表示担心某人或某事的动作；可与 about 连用说担心的对象。",
         "context": {
-          "scene": "两道眉毛皱在一起，脑中一直想着走丢的小狗。",
+          "scene": "小狗走丢了，你一直担心它。",
           "question": "朋友担心考试，你要说“别担心”，应回忆哪个动作词？"
         },
         "morphology": {
@@ -215,8 +215,8 @@
     },
     {
       "section": "四上Unit 1",
-      "method": "词组",
-      "hint": "把短语拆成 in＋time：in 是“在……里面”，想象你在倒计时结束前跨进门，赶在时间限度以内，就是“及时”。time 的 i-e 读 /aɪ/；先读一遍，再遮住短语，先写 in，再写 time。",
+      "method": "拼读",
+      "hint": "in time 表示及时、赶得上。先写 in，再空一格写 time；time 的 i_e 读 /aɪ/，末尾 e 保留。收起英文，试着读写完整词，再核对上述字母。",
       "example": "We arrived in time. 我们及时赶到了。",
       "word": "in time",
       "dimensions": {
@@ -282,10 +282,39 @@
             "🚪",
             "👋"
           ],
-          "caption": "主人打开门挥手请你进来；熟词 come 可帮助记住后半段拼写。",
+          "caption": "到访者来到、主人迎接、应邀入内的过程帮助理解 welcome 的迎接用途；不把 wel 当成词根。",
           "focus": [
             "come"
-          ]
+          ],
+          "diagram": {
+            "kind": "sequence",
+            "panels": [
+              {
+                "label": "arrive",
+                "symbols": [
+                  "🧳",
+                  "🚶"
+                ],
+                "meaning": "客人来到门口"
+              },
+              {
+                "label": "welcome",
+                "symbols": [
+                  "🏠",
+                  "👋"
+                ],
+                "meaning": "主人招手迎接客人"
+              },
+              {
+                "label": "come in",
+                "symbols": [
+                  "🧒",
+                  "🏠"
+                ],
+                "meaning": "客人应邀进门"
+              }
+            ]
+          }
         },
         "semantic": "用于迎接来访者，让对方知道自己受到欢迎。",
         "context": {
@@ -302,7 +331,7 @@
     {
       "section": "四上Unit 1",
       "method": "拼读",
-      "hint": "feel 的 ee 合起来读 /iː/。把两个 e 想成两根手指，摸一摸毛绒玩具，感觉软软的：feel。先说 /f/—/iː/—/l/，遮住英文，看中文先读，再再写 f-ee-l，别把 ee 写成一个 e。",
+      "hint": "feel /fiːl/：f–ee–l，长音 /iː/ 写双 e；末尾只有一个 l。遮住英文，看中文先读，再再写 f-ee-l，别把 ee 写成一个 e。",
       "example": "I feel happy today. 今天我很开心。",
       "word": "feel",
       "dimensions": {
@@ -311,14 +340,35 @@
             "✋",
             "🧸"
           ],
-          "caption": "两根手指摸毛绒玩具，感觉软软的；两个 e 像伸出的手指。",
+          "caption": "同一天的外部天气与内心状态对照，feel 连接自己感觉到的状态；晴天也可能感到担心。",
           "focus": [
             "ee"
-          ]
+          ],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "outside",
+                "symbols": [
+                  "🧒",
+                  "☀️"
+                ],
+                "meaning": "外面晴天，是天气情况"
+              },
+              {
+                "label": "feel",
+                "symbols": [
+                  "🧒",
+                  "😟"
+                ],
+                "meaning": "孩子内心担心，是自身感受"
+              }
+            ]
+          }
         },
         "semantic": "把内心或身体感觉说出来，后面可以接 happy、sad 等状态。",
         "context": {
-          "scene": "两根手指摸毛绒玩具，感觉软软的。",
+          "scene": "你告诉同学自己今天感觉快乐。",
           "question": "你想说自己感觉快乐，应把哪个词放在“我”和“快乐”之间？"
         },
         "morphology": {
@@ -445,7 +495,7 @@
     {
       "section": "四上Unit 1",
       "method": "拼读",
-      "hint": "so 的 o 读 /əʊ/（美式 /oʊ/）。把嘴张成圆圆的 O，看到大蛋糕惊呼 so big（这么大）！回想那张圆嘴，写 s—o；“这么”用来加强后面的 big。 遮住英文，看中文读出，再写一遍。",
+      "hint": "so /səʊ/：s /s/，o 在本词读 /əʊ/；只有 s、o 两个字母。遮住英文，看中文读出，再写一遍。",
       "example": "She is so happy. 她很开心。",
       "word": "so",
       "dimensions": {
@@ -461,7 +511,7 @@
         },
         "semantic": "放在形容词前加强程度，如很开心、这么大。",
         "context": {
-          "scene": "看见特别大的蛋糕，你张圆嘴惊呼“这么大”。",
+          "scene": "蛋糕特别大，你想加强“大”的程度。",
           "question": "蛋糕比你想象的大，你想在“大”前加“这么”，用哪个词？"
         },
         "morphology": {
@@ -606,10 +656,31 @@
             "🐶",
             "🐾"
           ],
-          "caption": "小狗摇着尾巴，脚边留下爪印。",
-          "focus": []
+          "caption": "比较狗、猫和各自的叫声 woof、meow；不靠食物偏好或口鼻长度判断动物类别。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "dog",
+                "symbols": [
+                  "🐕",
+                  "woof"
+                ],
+                "meaning": "狗的叫声 woof"
+              },
+              {
+                "label": "cat",
+                "symbols": [
+                  "🐈",
+                  "meow"
+                ],
+                "meaning": "猫的叫声 meow"
+              }
+            ]
+          }
         },
-        "semantic": "动物中的一种，能与 cat 猫对比；不是所有动物的统称。",
+        "semantic": null,
         "context": {
           "scene": "小狗摇着尾巴，脚边留下爪印。",
           "question": "门口动物摇尾巴汪汪叫，你用哪个英文名称介绍它？"
@@ -681,8 +752,29 @@
             "👫",
             "🎲"
           ],
-          "caption": "两个朋友围着同一个棋盘一起玩。",
-          "focus": []
+          "caption": "同一个拼图任务中，两个人合作与一个人独自完成对照；together 表示一起，不只是站得近。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "together",
+                "symbols": [
+                  "🧒🧒",
+                  "🧩"
+                ],
+                "meaning": "两个人合作拼同一幅图"
+              },
+              {
+                "label": "alone",
+                "symbols": [
+                  "🧒",
+                  "🧩"
+                ],
+                "meaning": "一个人自己拼图"
+              }
+            ]
+          }
         },
         "semantic": "表示多人参与同一活动；与 alone 独自对照。",
         "context": {
@@ -709,8 +801,14 @@
             "🤝",
             "👦"
           ],
-          "caption": "妈妈牵着孩子，两人一起走向学校。",
-          "focus": []
+          "caption": "在这个一起走的场景中，两人并肩前行：come with me。图示用位置帮助回忆“和、跟”，不表示 with 只能用于站在旁边。",
+          "focus": [],
+          "diagram": {
+            "kind": "position",
+            "relation": "beside",
+            "object": "🧒",
+            "reference": "🧑"
+          }
         },
         "semantic": "连接同行或相伴的人；在“跟我来”中指出和谁一起。",
         "context": {
@@ -727,7 +825,7 @@
     {
       "section": "四上Unit 1",
       "method": "拼读",
-      "hint": "model 按 mod—el 记，英式读 /ˈmɒdəl/。想象桌上的小模型飞机比真飞机小很多；先回想“模型”，遮住英文，看中文先读，再再写 mod＋el，末尾是 el。",
+      "hint": "model /ˈmɒdəl/：按字形 mod–el 写；首拍 /ɒ/ 写 o，末拍弱读 /əl/ 写 el，不能按弱读都写 a。遮住英文，看中文先读，再再写 mod＋el，末尾是 el。",
       "example": "This is my model plane. 这是我的飞机模型。",
       "word": "model",
       "dimensions": {
@@ -763,10 +861,31 @@
             "✈️",
             "☁️"
           ],
-          "caption": "有机翼的飞机载着乘客穿过云层。",
-          "focus": []
+          "caption": "以行进环境区分交通工具：飞机在空中，汽车在路上；不是只用飞机图标认名称。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "plane",
+                "symbols": [
+                  "✈️",
+                  "☁️"
+                ],
+                "meaning": "飞机在空中飞行"
+              },
+              {
+                "label": "car",
+                "symbols": [
+                  "🚗",
+                  "🛣️"
+                ],
+                "meaning": "汽车在道路行驶"
+              }
+            ]
+          }
         },
-        "semantic": "交通工具，主要在空中行进；与在路上走的汽车比较。",
+        "semantic": null,
         "context": {
           "scene": "有机翼的飞机载着乘客穿过云层。",
           "question": "去很远的城市需要坐会飞的交通工具，你回忆哪个词？"
@@ -1150,8 +1269,27 @@
             "👦",
             "🪁"
           ],
-          "caption": "孩子手里握着风筝线，风筝属于他。",
-          "focus": []
+          "caption": "把拥有者与已经属于他的书连接，have 表示拥有；区别只是想要但还没有。",
+          "focus": [],
+          "diagram": {
+            "kind": "reference",
+            "relation": "ownership",
+            "focus": "left",
+            "left": {
+              "symbol": "🧒",
+              "label": "拥有者"
+            },
+            "right": {
+              "symbol": "📘",
+              "label": "他的书"
+            },
+            "link": "拥有",
+            "sentence": {
+              "before": "I ",
+              "word": "have",
+              "after": " a book."
+            }
+          }
         },
         "semantic": "表示拥有，连接人和所属物；与 want 想要但未必拥有对照。",
         "context": {
@@ -1168,7 +1306,7 @@
     {
       "section": "四上Unit 1",
       "method": "拼读",
-      "hint": "idea 可按 i—de—a 三段记，开头 i 读 /aɪ/，重音在中间，读 /aɪˈdɪə/。头上灯泡突然亮了：有主意了！回想亮灯，再按 i＋de＋a 遮住英文，看中文先读，再回写。",
+      "hint": "idea /aɪˈdɪə/：开头 i 读 /aɪ/。字形分成 i–de–a，按顺序写四个字母；末尾 e、a 都保留。分块用于拼写。遮住英文，看中文先读，再回写。",
       "example": "I have an idea! 我有主意了！",
       "word": "idea",
       "dimensions": {
@@ -1251,8 +1389,29 @@
             "🏃",
             "🤒"
           ],
-          "caption": "一边画想出门的人，一边画他生病躺下，两幅图之间转折。",
-          "focus": []
+          "caption": "左右表现愿望与阻碍：原本想去，但是生病了；but 连接转折，不能像 and 那样只把两件事平列。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "symbols": [
+                  "I want to go.",
+                  "🧒➡️"
+                ],
+                "label": "want to go",
+                "meaning": "原本想去"
+              },
+              {
+                "symbols": [
+                  "I am ill.",
+                  "🤒"
+                ],
+                "label": "but I am ill",
+                "meaning": "实际生病，形成转折"
+              }
+            ]
+          }
         },
         "semantic": "连接前后不一致或转折的信息，如想去却生病。",
         "context": {
@@ -1302,7 +1461,7 @@
             ]
           }
         },
-        "semantic": "上位类别，包含狗、兔子等具体动物；不是一种动物的专名。",
+        "semantic": null,
         "context": {
           "scene": "熊猫、狗和兔子一起放进“动物”这一组。",
           "question": "把熊猫、兔子和狗归成一大类，英文类别名称是什么？"
@@ -1327,8 +1486,27 @@
             "🔵",
             "🔴"
           ],
-          "caption": "两个书包一个蓝色一个红色，颜色明显不一样。",
-          "focus": []
+          "caption": "保持圆形不变，只改变其中一个圆的颜色；有一处不同就可以说 different，不要求所有特征都不同。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "same",
+                "symbols": [
+                  "🔴🔴"
+                ],
+                "meaning": "两个圆颜色、形状相同"
+              },
+              {
+                "label": "different",
+                "symbols": [
+                  "🔴🔵"
+                ],
+                "meaning": "仅颜色不同，形状仍相同"
+              }
+            ]
+          }
         },
         "semantic": "比较对象至少有一处不相同；与 same 相同对照。",
         "context": {
@@ -1604,7 +1782,7 @@
     {
       "section": "四上Unit 2",
       "method": "拼读",
-      "hint": "hard 中 ar 读 /ɑː/，美式带 r 音。牙齿咬到硬糖，咬不动：hard。回想那颗硬糖，按 h—ar—d 遮住英文，看中文先读，再写回；把 ar 看成一个发音组。",
+      "hint": "hard /hɑːd/：h–ar–d，ar 读 /ɑː/；本课形容任务困难，与 easy 容易相对。遮住英文、看中文先读再写；把 ar 作为一个发音组。",
       "example": "This poem is hard. 这首诗很难。",
       "word": "hard",
       "dimensions": {
@@ -1613,8 +1791,27 @@
             "📜",
             "😓"
           ],
-          "caption": "诗里的词很陌生，你读了几次仍然觉得困难。",
-          "focus": []
+          "caption": "两个真实任务对照：直接匹配与需要推断的任务；后者对还不会规律题的孩子更难。本课 hard 是难，不是硬糖的硬。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "symbols": [
+                  "○ → ○"
+                ],
+                "label": "same shape",
+                "meaning": "任务一：找相同图形"
+              },
+              {
+                "symbols": [
+                  "2, 4, ?, 8"
+                ],
+                "label": "find a rule",
+                "meaning": "任务二：先推断规律"
+              }
+            ]
+          }
         },
         "semantic": "这里表示困难，和 easy 容易相对；也可描述物体坚硬。",
         "context": {
@@ -1631,7 +1828,7 @@
     {
       "section": "四上Unit 2",
       "method": "拼读",
-      "hint": "may 中 ay 读 /eɪ/。站在门外举手问 May I come in?（我可以进来吗？），等别人允许。回想请求允许的手势，写 m＋ay；结尾是 ay。 遮住英文，看中文读出，再写一遍。",
+      "hint": "may 中 ay 读 /eɪ/。乌云来了，明天可能下雨，也可能不下：It may rain tomorrow。may 表示可能，不是确定。遮住英文，看“可能”先读再写 m＋ay，核对结尾 ay。",
       "example": "It may rain tomorrow. 明天可能下雨。",
       "word": "may",
       "dimensions": {
@@ -1641,8 +1838,29 @@
             "❓",
             "🌧️"
           ],
-          "caption": "乌云来了，但雨还没下，画面上留一个问号。",
-          "focus": []
+          "caption": "同一天保留两种尚未确定的天气；It may rain tomorrow 表示可能下雨，并没有断言一定下雨或请求许可。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "symbols": [
+                  "☀️",
+                  "Tomorrow: sun?"
+                ],
+                "label": "one possibility",
+                "meaning": "明天可能晴"
+              },
+              {
+                "symbols": [
+                  "🌧️",
+                  "Tomorrow: rain?"
+                ],
+                "label": "another possibility",
+                "meaning": "明天也可能下雨"
+              }
+            ]
+          }
         },
         "semantic": "表示可能发生而非确定发生；也可用于礼貌询问许可。",
         "context": {
@@ -1668,8 +1886,37 @@
             "🎯",
             "🔁"
           ],
-          "caption": "第一次投球没中，你拿起球再试一次。",
-          "focus": []
+          "caption": "目标、付出尝试、两种可能结果串联；try 表示尝试，不保证成功，也不等于 win。",
+          "focus": [],
+          "diagram": {
+            "kind": "sequence",
+            "panels": [
+              {
+                "label": "task",
+                "symbols": [
+                  "🏀",
+                  "⛹️"
+                ],
+                "meaning": "想把球投进篮筐"
+              },
+              {
+                "label": "try",
+                "symbols": [
+                  "🏀",
+                  "🙌"
+                ],
+                "meaning": "出手尝试投篮"
+              },
+              {
+                "label": "result",
+                "symbols": [
+                  "✅",
+                  "❌"
+                ],
+                "meaning": "结果可能投中，也可能不中"
+              }
+            ]
+          }
         },
         "semantic": "付出努力或进行尝试，不保证成功；与 win 得到胜利区分。",
         "context": {
@@ -1735,7 +1982,7 @@
     {
       "section": "四上Unit 2",
       "method": "拼读",
-      "hint": "call 的 all 读 /ɔːl/。想象你打电话时一手拿手机，一手捂耳，两个 l 像两条竖起来的手臂；回想打电话，写 c＋all，保留双 l。 遮住英文，看中文读出，再写一遍。",
+      "hint": "call /kɔːl/：c /k/，all 在本词读 /ɔːl/；末尾写双 l，不能按一个 /l/ 只写一个 l。遮住英文，看中文读出，再写一遍。",
       "example": "Please call me. 请给我打电话。",
       "word": "call",
       "dimensions": {
@@ -1894,8 +2141,29 @@
             "🛏️",
             "💬"
           ],
-          "caption": "朋友生病，你轻声建议他躺下休息。",
-          "focus": []
+          "caption": "用建议与强制规则对照：本课 should 给出应当做的建议，must 在红灯场景表示必须；语气区别来自实际情境。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "symbols": [
+                  "🤒",
+                  "You should rest."
+                ],
+                "label": "advice",
+                "meaning": "生病：建议休息"
+              },
+              {
+                "symbols": [
+                  "🔴",
+                  "You must stop."
+                ],
+                "label": "rule",
+                "meaning": "红灯：规则要求停下"
+              }
+            ]
+          }
         },
         "semantic": "表达建议或应该做的事；比 must 必须的强制语气轻。",
         "context": {
@@ -2163,7 +2431,7 @@
     {
       "section": "四上Unit 2",
       "method": "拼读",
-      "hint": "读 /ˈlɪtəl/，i /ɪ/，le /əl/。little 的 i 读 /ɪ/，按 lit—tle 记；两个 t 挨在一起，结尾 le。把两个 t 想成两个小小的孩子并排站；回想“小”，遮住英文，看中文先读，再回写 lit＋tle。",
+      "hint": "little /ˈlɪtəl/：按字形 lit–tle 写；i 读 /ɪ/，le 读 /əl/；中间双 t，末尾 l、e 都保留。遮住英文，看中文先读，再回写 lit＋tle。",
       "example": "The little cat is cute. 小猫很可爱。",
       "word": "little",
       "dimensions": {
@@ -2206,7 +2474,7 @@
     {
       "section": "四上Unit 2",
       "method": "拼读",
-      "hint": "small 中 sm 连读 /sm/，all 读 /ɔːl/。两根高高的 l 旁边放一颗小弹珠，突出它很小；听 /smɔːl/，按 sm＋all 写，别漏双 l。 遮住英文，看中文读出，再写一遍。",
+      "hint": "small /smɔːl/：开头 /sm/ 写 sm，后段 /ɔːl/ 写 all；末尾双 l，与 call 的 all 相同。遮住英文，看中文读出，再写一遍。",
       "example": "This box is small. 这个盒子很小。",
       "word": "small",
       "dimensions": {
@@ -2249,11 +2517,9 @@
     {
       "section": "四上Unit 3",
       "method": "拼读",
-      "hint": "【读音】excuse /ɪkˈskjuːz/，me /miː/。\n【怎么拼】excuse 按字形记成 ex＋c＋use；c 后接完整的 use，不能漏 c 或末尾 e。再空一格写 me。\n【拼写联想】把已学会的 use 放在右边，前面依次接 ex 和 c。这只是拼写分块，不是词根或词源。\n【遮住英文再写】写出“打扰一下”这个短语，检查 excuse 中的 c 和两个 e，再检查 me 与词间空格。",
+      "hint": "excuse /ɪkˈskjuːz/，me /miː/。按字形 ex–c–use 写 excuse，x 后仍有 c，末尾 e 保留；再空一格写 me。遮住英文再写】写出“打扰一下”这个短语，检查 excuse 中的 c 和两个 e，再检查 me 与词间空格。",
       "example": "Excuse me, where is the door? 请问，门在哪里？",
       "word": "excuse me",
-      "spellingCue": "excuse 按字形记成 ex＋c＋use；c 后接完整的 use，不能漏 c 或末尾 e。再空一格写 me。",
-      "spellingImage": "把已学会的 use 放在右边，前面依次接 ex 和 c。这只是拼写分块，不是词根或词源。",
       "spellingParts": [
         {
           "text": "ex",
@@ -2338,8 +2604,35 @@
             "🙏",
             "🪑"
           ],
-          "caption": "你手掌朝向空椅子，礼貌邀请客人坐下。",
-          "focus": []
+          "caption": "中间长音 /iː/ 对应 ea，最后 /z/ 写 se，末尾静音 e 仍要写；从读音核对真实字形。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "pl",
+                "sound": "/pl/",
+                "note": "两辅音都保留",
+                "focus": []
+              },
+              {
+                "text": "ea",
+                "sound": "/iː/",
+                "note": "长音写 ea",
+                "focus": [
+                  "ea"
+                ]
+              },
+              {
+                "text": "se",
+                "sound": "/z/",
+                "note": "s 有声；e 不另读",
+                "focus": [
+                  "e"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "给请求或邀请加上礼貌语气；不是动作本身。",
         "context": {
@@ -2380,8 +2673,27 @@
             "🏓",
             "✋"
           ],
-          "caption": "手握球拍柄，拍面准备击球。",
-          "focus": []
+          "caption": "同一拼写在运动和动物场景中对应不同对象；本课选择球拍，不能看到 bat 就只想蝙蝠。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "bat",
+                "symbols": [
+                  "🏓"
+                ],
+                "meaning": "本课：球拍击球的运动器材"
+              },
+              {
+                "label": "bat",
+                "symbols": [
+                  "🦇"
+                ],
+                "meaning": "另一词义：飞行的蝙蝠"
+              }
+            ]
+          }
         },
         "semantic": "体育器材里的球拍；同形词也可指蝙蝠，需看运动场景。",
         "context": {
@@ -2611,7 +2923,7 @@
     {
       "section": "四上Unit 3",
       "method": "拼读",
-      "hint": "door 的 oor 英式读 /ɔː/，美式带 r 音。把两个 o 想成门上的两颗圆钉；推开这扇门，再遮住英文，看中文先读，再回写 d-oo-r，记住中间双 o。",
+      "hint": "door /dɔː/：d 后写 oor；oo 两个 o 都要有，英式读音中听不到的末尾 r 仍须写。遮住英文，看中文先读，再回写 d-oo-r，记住中间双 o。",
       "example": "The door is open. 门开着。",
       "word": "door",
       "dimensions": {
@@ -2652,8 +2964,28 @@
             "🧩",
             "❓"
           ],
-          "caption": "拼图缺了一块，大家需要想办法补上。",
-          "focus": []
+          "caption": "三个分支都是需要解决的具体问题；问题可以是物品故障、遗失或答案错误，不等同于其中某一个图标。",
+          "focus": [],
+          "diagram": {
+            "kind": "category",
+            "items": [
+              {
+                "symbol": "🔒",
+                "label": "a stuck lock",
+                "meaning": "锁卡住，打不开"
+              },
+              {
+                "symbol": "🎒❓",
+                "label": "a lost bag",
+                "meaning": "书包找不到"
+              },
+              {
+                "symbol": "2+2=5",
+                "label": "a wrong answer",
+                "meaning": "结果错误，待修正"
+              }
+            ]
+          }
         },
         "semantic": "需要解决的困难或问题；与 answer 已找到的答案相对。",
         "context": {
@@ -2679,8 +3011,29 @@
             "🛑",
             "✅"
           ],
-          "caption": "规则牌写着一定要停，旁边只有一个必须执行的勾。",
-          "focus": []
+          "caption": "同一过街情境只改变信号；红灯规则要求停下，must 表示必须遵守，不是普通建议。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "symbols": [
+                  "🔴",
+                  "STOP"
+                ],
+                "label": "red light",
+                "meaning": "红灯：必须停下"
+              },
+              {
+                "symbols": [
+                  "🟢",
+                  "GO"
+                ],
+                "label": "green light",
+                "meaning": "绿灯：可以通行"
+              }
+            ]
+          }
         },
         "semantic": "表示必须，常来自规则或强烈要求；与 may 可能不同。",
         "context": {
@@ -2782,8 +3135,35 @@
             "🙋",
             "🤝"
           ],
-          "caption": "你轻声举手请求同学帮忙，双方还没开始行动。",
-          "focus": []
+          "caption": "从 /kʊd/ 回写三个字形组，重点留下不发音的 l；它与 would、should 共用 ould 字形。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "c",
+                "sound": "/k/",
+                "note": "开头 c",
+                "focus": []
+              },
+              {
+                "text": "ou",
+                "sound": "/ʊ/",
+                "note": "这里读短音",
+                "focus": [
+                  "ou"
+                ]
+              },
+              {
+                "text": "ld",
+                "sound": "/d/",
+                "note": "l 不发音但要写",
+                "focus": [
+                  "l"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "可表示过去的能力，也常用于更委婉的请求；这里是请求帮助。",
         "context": {
@@ -2809,8 +3189,37 @@
             "✋",
             "⚽"
           ],
-          "caption": "球在架子上，你伸手把它拿到手里。",
-          "focus": []
+          "caption": "同一礼物从未拿到、拿到、已拥有的过程，get 强调获得的结果，have 表示已有。",
+          "focus": [],
+          "diagram": {
+            "kind": "sequence",
+            "panels": [
+              {
+                "label": "before",
+                "symbols": [
+                  "🧒",
+                  "🎁"
+                ],
+                "meaning": "礼物还在桌上"
+              },
+              {
+                "label": "get",
+                "symbols": [
+                  "🎁",
+                  "🤲"
+                ],
+                "meaning": "孩子拿到礼物"
+              },
+              {
+                "label": "have",
+                "symbols": [
+                  "🧒",
+                  "🎁"
+                ],
+                "meaning": "此后拥有礼物"
+              }
+            ]
+          }
         },
         "semantic": "强调获得或拿到的结果；与已有 have 相对。",
         "context": {
@@ -2859,7 +3268,7 @@
             ]
           }
         },
-        "semantic": "灵长类动物的一种；与 panda、rabbit 等具体动物并列。",
+        "semantic": null,
         "context": {
           "scene": "长尾巴猴子抓着树枝，另一只手拿香蕉。",
           "question": "树上动物攀爬灵活还有长尾巴，你怎样介绍它？"
@@ -2906,7 +3315,7 @@
             ]
           }
         },
-        "semantic": "水果的一种，长而弯；与圆的 apple 苹果对照。",
+        "semantic": null,
         "context": {
           "scene": "剥开弯弯的黄色外皮，露出香蕉果肉。",
           "question": "你想吃细长弯曲的黄色水果，哪个名称能说明你要什么？"
@@ -2930,8 +3339,28 @@
             "🌷",
             "🏡"
           ],
-          "caption": "房屋旁的小园子种满花草，有人给花浇水。",
-          "focus": []
+          "caption": "园地与大片树林比较：花草种植场景帮助认 garden；园地也可以种树，不用是否有树作唯一判断。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "garden",
+                "symbols": [
+                  "🏡",
+                  "🌷🌻"
+                ],
+                "meaning": "房屋旁种植花草的园地"
+              },
+              {
+                "label": "forest",
+                "symbols": [
+                  "🌲🌲🌲"
+                ],
+                "meaning": "大片树木组成的树林"
+              }
+            ]
+          }
         },
         "semantic": "种植花草的园地；与 forest 大片树林比较。",
         "context": {
@@ -2958,8 +3387,31 @@
             "➡️",
             "⚽"
           ],
-          "caption": "孩子看着球伸出手，表示想去玩但还没得到球。",
-          "focus": []
+          "caption": "想象中的糖对应愿望，手里的糖对应拥有；want 表示想要，是否已经拥有需另看，已有时也可以想要更多。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "want",
+                "symbols": [
+                  "🧒",
+                  "🍬",
+                  "💭"
+                ],
+                "meaning": "此刻想要糖，描述愿望"
+              },
+              {
+                "label": "have",
+                "symbols": [
+                  "🧒",
+                  "🍬",
+                  "🤲"
+                ],
+                "meaning": "手里已经拥有糖"
+              }
+            ]
+          }
         },
         "semantic": "表达愿望或想要；need 是需要，have 是已经拥有。",
         "context": {
@@ -2975,8 +3427,8 @@
     },
     {
       "section": "四上Unit 5",
-      "method": "词源",
-      "hint": "读 /ˈsænwɪtʃ/，d 可不读，a /æ/，i /ɪ/。sandwich 得名于英国桑威治伯爵的称号；记一个以伯爵名字命名的夹心面包。拼写按 sand—wich 记，wich 中 ch 读 /tʃ/；先读一遍，再遮住词，回想伯爵手中的三明治，再写 sand＋wich。这两个小段只是拼写分段。",
+      "method": "拼读",
+      "hint": "sandwich /ˈsænwɪtʃ/：按字形 sand–wich 写；d 可不发音但仍须写，末尾 /tʃ/ 写 ch。分块用于拼写。收起英文，试着读写完整词，再核对上述字母。",
       "example": "I eat a sandwich. 我吃一个三明治。",
       "word": "sandwich",
       "sourceUrl": "https://www.etymonline.com/word/sandwich",
@@ -3145,7 +3597,7 @@
         "semantic": "食物按材料和形状命名；不是一整块 steak 牛排。",
         "context": {
           "scene": "肉被搓成小圆球。",
-          "question": "肉馅搓成圆球煮熟，怎样由两个熟词想到它的名称？"
+          "question": "把肉馅搓成圆球，这种食物的英文名称是什么？"
         },
         "morphology": {
           "kind": "compound",
@@ -3166,7 +3618,7 @@
     {
       "section": "四上Unit 5",
       "method": "拼读",
-      "hint": "eat 的 ea 合读 /iː/，再接 /t/。想象嘴巴张得很长，把食物吃进去；听 /iːt/ 遮住英文，看中文先读，再回写 ea＋t，开头的长音要用两个字母 ea。",
+      "hint": "eat /iːt/：长音 /iː/ 在本词写 ea，再接 t；不是 ee。遮住英文，看中文先读，再回写 ea＋t，开头的长音要用两个字母 ea。",
       "example": "Let's eat lunch. 我们吃午饭吧。",
       "word": "eat",
       "dimensions": {
@@ -3268,7 +3720,7 @@
     {
       "section": "四上Unit 5",
       "method": "拼读",
-      "hint": "soup 的 ou 在这里读 /uː/。热汤吹凉后慢慢喝，嘴收圆发 /uː/；从汤碗回想声音，写 s-ou-p，别按 mouth 的 ou 读。 遮住英文，看中文读出，再写一遍。",
+      "hint": "soup /suːp/：s–ou–p，/uː/ 在本词写 ou；别按 mouth 的 ou /aʊ/ 读。遮住英文，看中文读出，再写一遍。",
       "example": "The soup is hot. 汤很烫。",
       "word": "soup",
       "dimensions": {
@@ -3332,7 +3784,7 @@
         "semantic": "正餐后吃的甜食；与 desert 沙漠在词义和字母数量上都不同。",
         "context": {
           "scene": "晚饭结束后，桌上又端来两份甜食。",
-          "question": "晚饭后想要甜点，拼写时哪一个食品词要保留两个重复的中间字母？"
+          "question": "正餐后吃的甜食，英文名词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -3641,7 +4093,7 @@
     {
       "section": "四上Unit 5",
       "method": "拼读",
-      "hint": "right 中 igh 读 /aɪ/，gh 不发音。把 r 字母写在右手掌，举右手说 right；先读一遍，再遮住词，写 r＋igh＋t，记住长音里藏着不出声的 gh。",
+      "hint": "right /raɪt/：r–igh–t，中间 /aɪ/ 写 igh；g、h 不单独发音但都保留，末尾是 t。收起英文，试着读写完整词，再核对上述字母。",
       "example": "The fork is on the right. 餐叉在右边。",
       "word": "right",
       "dimensions": {
@@ -3767,7 +4219,7 @@
             ]
           }
         },
-        "semantic": "水果的一种；与细长的 banana 香蕉在形状上对照。",
+        "semantic": null,
         "context": {
           "scene": "苹果树上有圆圆红果子，切开能看到中心果核。",
           "question": "你想要树上长的圆红水果，回忆哪个词说出苹果？"
@@ -4067,8 +4519,30 @@
             "🌊",
             "🐦"
           ],
-          "caption": "树林、河流和鸟组成自然环境，没有人工机器。",
-          "focus": []
+          "caption": "自然树木、鸟、山与人造大楼、机器人并列比较；图中例子不是自然的完整清单。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "nature",
+                "symbols": [
+                  "🌳",
+                  "🐦",
+                  "⛰️"
+                ],
+                "meaning": "自然生物和环境的例子"
+              },
+              {
+                "label": "human-made",
+                "symbols": [
+                  "🏢",
+                  "🤖"
+                ],
+                "meaning": "人造建筑和机器的例子"
+              }
+            ]
+          }
         },
         "semantic": "包括自然生物和环境；与人造建筑、机器比较。",
         "context": {
@@ -4284,8 +4758,30 @@
             "🏡",
             "🐦"
           ],
-          "caption": "鸟在树上搭窝，每天都在这里生活。",
-          "focus": []
+          "caption": "固定生活起居地点与一次短暂来访对照；live 表示生活或居住，不要求拥有房屋。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "live",
+                "symbols": [
+                  "🏠",
+                  "🛏️",
+                  "🧒"
+                ],
+                "meaning": "每天在这里睡觉、生活"
+              },
+              {
+                "label": "visit",
+                "symbols": [
+                  "🏡",
+                  "👋"
+                ],
+                "meaning": "到朋友家短暂看望"
+              }
+            ]
+          }
         },
         "semantic": "表示生活或居住；与 visit 短暂来访比较。",
         "context": {
@@ -4301,8 +4797,8 @@
     },
     {
       "section": "四上Unit 6",
-      "method": "构词",
-      "hint": "with /wɪð/，out /aʊt/。without 拼成 with＋out，表示“没有”。把带伞的 with 和把伞拿出去的 out 连成一个动作：伞走了，人没有伞。遮住英文，看中文先读，再回写 with＋out，两个部分连写，out 的 ou 读 /aʊ/。",
+      "method": "拼读",
+      "hint": "without /wɪˈðaʊt/：字形分成 with–out，th 在本词可读 /ð/，ou 读 /aʊ/；保留 h，末尾是 t。分段用于拼写，整词表示没有。遮住英文，看中文先读，再回写 with＋out，两个部分连写，out 的 ou 读 /aʊ/。",
       "example": "We cannot live without water. 没有水我们不能生存。",
       "word": "without",
       "dimensions": {
@@ -4399,7 +4895,7 @@
     {
       "section": "四上Unit 6",
       "method": "拼读",
-      "hint": "feed 的 ee 读 /iː/。两根 e 形小勺轮流给小猪喂食；回想喂食动作，按 f-ee-d 遮住英文，看中文先读，再写回，和 feel 只差最后的 d。",
+      "hint": "feed /fiːd/：f–ee–d，长音 /iː/ 写双 e；与 feel 只换末尾字母，喂食写 d。遮住英文，看中文先读，再写回，和 feel 只差最后的 d。",
       "example": "We feed the pigs. 我们喂猪。",
       "word": "feed",
       "dimensions": {
@@ -4488,7 +4984,7 @@
             ]
           }
         },
-        "semantic": "农场动物的一种；与 dog 宠物狗的典型场景比较。",
+        "semantic": null,
         "context": {
           "scene": "粉色小猪用圆鼻子拱食槽。",
           "question": "农场里圆鼻子的小动物哼哼叫，回忆哪个动物词？"
@@ -4503,7 +4999,7 @@
     {
       "section": "四上Unit 6",
       "method": "拼读",
-      "hint": "smell 的 sm 连读 /sm/，e 读 /e/，结尾双 l。把两个 l 想成香味飘起的两条线，凑鼻子闻；遮住英文，看中文先读，再回写 sm-e-ll，闻香时记住两个 l。",
+      "hint": "smell /smel/：开头 /sm/ 写 sm，中间 /e/ 写 e；末尾双 l，一个 /l/ 对应两个 l。遮住英文，看中文先读，再回写 sm-e-ll，闻香时记住两个 l。",
       "example": "Smell the flower. 闻闻这朵花。",
       "word": "smell",
       "dimensions": {
@@ -4561,8 +5057,35 @@
             "👂",
             "🎵"
           ],
-          "caption": "你主动把耳朵朝向树上的鸟，认真听它唱。",
-          "focus": []
+          "caption": "把不发音的 t 单独留在中间；实际读音是 lis 接 en，拼写仍要经过 t。不是把三段当作词根。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "lis",
+                "sound": "/lɪs/",
+                "note": "第一拍",
+                "focus": []
+              },
+              {
+                "text": "t",
+                "sound": "不另发音",
+                "note": "安静的 t 仍须写",
+                "focus": [
+                  "t"
+                ]
+              },
+              {
+                "text": "en",
+                "sound": "/ən/",
+                "note": "轻读一拍",
+                "focus": [
+                  "e"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "强调主动注意声音；hear 强调声音被听见的结果。",
         "context": {
@@ -4628,7 +5151,7 @@
     {
       "section": "四上Unit 6",
       "method": "拼读",
-      "hint": "glass 中 gl 连读 /ɡl/，a 英式常读 /ɑː/、美式 /æ/，结尾双 s。把两个 s 想成玻璃杯里两道弯曲的水纹；遮住英文，看中文先读，再回写 gl-a-ss，别漏 s。",
+      "hint": "glass /ɡlɑːs/：gl 两个辅音字母都保留；a 英式读 /ɑː/，美式常读 /æ/；末尾双 s。遮住英文，看中文先读，再回写 gl-a-ss，别漏 s。",
       "example": "The window is made of glass. 窗户是玻璃做的。",
       "word": "glass",
       "dimensions": {
@@ -4725,7 +5248,7 @@
     {
       "section": "四上Unit 6",
       "method": "拼读",
-      "hint": "sun 的 u 读 /ʌ/。想象太阳照得很热，张嘴发 /ʌ/；听 /sʌn/，写 s-u-n。它和 son（儿子）同音，太阳要用 u。 遮住英文，看中文读出，再写一遍。",
+      "hint": "sun /sʌn/：s–u–n，中间 /ʌ/ 写 u；同音的 son 是儿子，太阳写 sun。遮住英文，看中文读出，再写一遍。",
       "example": "The sun is bright. 太阳很明亮。",
       "word": "sun",
       "dimensions": {
@@ -5000,8 +5523,29 @@
             "🎆",
             "🌃"
           ],
-          "caption": "夜空中一团烟火炸开，亮光像花一样散开。",
-          "focus": []
+          "caption": "以使用场景比较取暖的火与庆祝的烟花；不能把 work 在此机械译成作业。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "fire",
+                "symbols": [
+                  "🔥",
+                  "🪵"
+                ],
+                "meaning": "燃烧木柴的火"
+              },
+              {
+                "label": "firework",
+                "symbols": [
+                  "🎆",
+                  "🌃"
+                ],
+                "meaning": "节庆时在夜空绽放的烟花"
+              }
+            ]
+          }
         },
         "semantic": "节庆时的烟火装置或效果；与普通用来取暖的火不同。",
         "context": {
@@ -5080,7 +5624,7 @@
     {
       "section": "四上Unit 7",
       "method": "拼读",
-      "hint": "goal 的 oa 读 /əʊ/（美式 /oʊ/）。球飞进球门，守门员张圆嘴喊 goal！从进球画面写 g-oa-l，长音要用 oa，别和 gold 混写。 遮住英文，看中文读出，再写一遍。",
+      "hint": "goal 的 oa 读 /əʊ/（美式 /oʊ/）。你定下多读三本书的目标，目标是想达到的结果。遮住英文，看“目标”读出 goal，再按 g—oa—l 写回；长音写 oa，核对不是 gold。",
       "example": "My goal is to read more. 我的目标是多读书。",
       "word": "goal",
       "dimensions": {
@@ -5089,8 +5633,33 @@
             "🎯",
             "📖"
           ],
-          "caption": "靶心旁写着“多读三本书”，箭头朝靶心前进。",
-          "focus": []
+          "caption": "表达目标的 goal，中间 /əʊ/ 对应 oa 两字母；按 g、oa、l 找回字形，不用进球场景代替本课义项。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "g",
+                "sound": "/ɡ/",
+                "note": "开头 g",
+                "focus": []
+              },
+              {
+                "text": "oa",
+                "sound": "/əʊ/",
+                "note": "两字母对应长音",
+                "focus": [
+                  "oa"
+                ]
+              },
+              {
+                "text": "l",
+                "sound": "/l/",
+                "note": "末尾 l",
+                "focus": []
+              }
+            ]
+          }
         },
         "semantic": "想达到的结果或目标；与已经完成的结果区分。",
         "context": {
@@ -5357,7 +5926,7 @@
     {
       "section": "四上Unit 7",
       "method": "拼读",
-      "hint": "wish 的 i 读 /ɪ/，sh 读 /ʃ/。吹生日蜡烛前许愿，轻轻发出 /ʃ/ 像吹气；回想愿望，按 w-i-sh 遮住英文，看中文先读，再写回。",
+      "hint": "wish /wɪʃ/：w–i–sh，/ʃ/ 写 s、h 两个字母，不能漏 h。遮住英文，看中文先读，再写回。",
       "example": "Make a wish! 许个愿吧！",
       "word": "wish",
       "dimensions": {
@@ -5394,8 +5963,27 @@
             "➡️",
             "💡"
           ],
-          "caption": "陌生单词连到一个解释气泡，气泡让人明白含义。",
-          "focus": []
+          "caption": "用箭头把可见的英文 cat 连到它所表示的猫；mean 问的是词所表达的意义，不是问单词有几个字母。",
+          "focus": [],
+          "diagram": {
+            "kind": "reference",
+            "left": {
+              "symbol": "cat",
+              "label": "英文词"
+            },
+            "right": {
+              "symbol": "🐈",
+              "label": "所指的动物"
+            },
+            "relation": "action",
+            "focus": "both",
+            "link": "表示猫",
+            "sentence": {
+              "before": "What does this word ",
+              "word": "mean",
+              "after": "?"
+            }
+          }
         },
         "semantic": "把符号或话语与它表示的意义连接；这里不是人物性格评价。",
         "context": {
@@ -5563,8 +6151,35 @@
             "🤔",
             "❓"
           ],
-          "caption": "盒子没有打开，你根据声音推测里面的东西。",
-          "focus": []
+          "caption": "两端都是多字母对应一个音：gu /ɡ/ 留下 u，ss /s/ 留下两个 s；不是听到三个音就只写三个字母。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "gu",
+                "sound": "/ɡ/",
+                "note": "u 不发音",
+                "focus": [
+                  "u"
+                ]
+              },
+              {
+                "text": "e",
+                "sound": "/e/",
+                "note": "中间短音",
+                "focus": []
+              },
+              {
+                "text": "ss",
+                "sound": "/s/",
+                "note": "双 s 一个音",
+                "focus": [
+                  "ss"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "信息不完整时作推测；与 know 已知道区分。",
         "context": {
@@ -5591,8 +6206,27 @@
             "➡️",
             "🎵"
           ],
-          "caption": "铃铛和它发出的声音之间画一条连接线。",
-          "focus": []
+          "caption": "箭头从铃指向它发出的声音，连出 sound of the bell：铃的声音；本课 of 连接声音与来源，避免只学杯水例子。",
+          "focus": [],
+          "diagram": {
+            "kind": "reference",
+            "left": {
+              "symbol": "🔔",
+              "label": "发出声音的铃"
+            },
+            "right": {
+              "symbol": "🔊",
+              "label": "铃的声音"
+            },
+            "relation": "action",
+            "focus": "both",
+            "link": "发出声音",
+            "sentence": {
+              "before": "The sound ",
+              "word": "of",
+              "after": " the bell is loud."
+            }
+          }
         },
         "semantic": "连接所属、来源或部分关系；“铃的声音”中把声音连到铃。",
         "context": {
@@ -5757,7 +6391,7 @@
     {
       "section": "四下Unit 1",
       "method": "拼读",
-      "hint": "读 /ˈhɒbi/，o /ɒ/，y /i/。hobby 按 hob—by 记，双 b，词尾 y 读 /i/。把两个 b 想成你爱好的两颗球；每周都去打球。回想爱好，写 ho-bb-y，注意双 b。 遮住英文，看中文读出，再写一遍。",
+      "hint": "hobby /ˈhɒbi/：字形 hob–by，中间双 b；首拍 /ɒ/ 写 o，末尾 /i/ 写 y。遮住英文，看中文读出，再写一遍。",
       "example": "Reading is my hobby. 阅读是我的爱好。",
       "word": "hobby",
       "dimensions": {
@@ -5766,8 +6400,29 @@
             "📖",
             "🎨"
           ],
-          "caption": "课余书架和画笔放在一起，孩子主动选择喜欢的活动。",
-          "focus": []
+          "caption": "用绘画、弹琴的爱好与扫地、洗衣的家务对照；不是所有绘画都属于爱好，要看场景。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "hobby",
+                "symbols": [
+                  "🎨",
+                  "🎸"
+                ],
+                "meaning": "空闲时自愿喜欢做的活动"
+              },
+              {
+                "label": "chore",
+                "symbols": [
+                  "🧹",
+                  "🧺"
+                ],
+                "meaning": "日常需要完成的家务"
+              }
+            ]
+          }
         },
         "semantic": "在空闲时间喜欢做的活动；与必须完成的 chore 家务区分。",
         "context": {
@@ -5793,13 +6448,33 @@
             "🎵",
             "🗂️"
           ],
-          "caption": "音乐卡分放到不同抽屉，每个抽屉代表一种音乐。",
-          "focus": []
+          "caption": "把同属音乐的不同种类分列；问 what kind of music 是选哪一种音乐，本课 kind 是种类，不是和蔼。",
+          "focus": [],
+          "diagram": {
+            "kind": "category",
+            "items": [
+              {
+                "symbol": "🎵",
+                "label": "folk music",
+                "meaning": "民间音乐这一种"
+              },
+              {
+                "symbol": "🎤",
+                "label": "pop music",
+                "meaning": "流行音乐这一种"
+              },
+              {
+                "symbol": "🎻",
+                "label": "classical music",
+                "meaning": "古典音乐这一种"
+              }
+            ]
+          }
         },
         "semantic": "这里表示种类；与描述人善良的形容词含义要根据句子区分。",
         "context": {
           "scene": "音乐卡分放到不同抽屉，每个抽屉代表一种音乐。",
-          "question": "问别人喜欢哪种音乐，要回忆哪个词表示种类？"
+          "question": "你要问别人喜欢哪一种音乐，表示“种类”的英文名词是什么？"
         },
         "morphology": {
           "kind": "none",
@@ -5820,8 +6495,33 @@
             "👵",
             "🎵"
           ],
-          "caption": "长辈唱着代代传下来的乡间歌谣。",
-          "focus": []
+          "caption": "中间 ol 在本词只读 /əʊ/，l 写着却不另发音；按声音找回民间的 folk，不漏 l。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "f",
+                "sound": "/f/",
+                "note": "开头 f",
+                "focus": []
+              },
+              {
+                "text": "ol",
+                "sound": "/əʊ/",
+                "note": "l 在本词不发音",
+                "focus": [
+                  "l"
+                ]
+              },
+              {
+                "text": "k",
+                "sound": "/k/",
+                "note": "末尾 k",
+                "focus": []
+              }
+            ]
+          }
         },
         "semantic": "在民间音乐中表示来自民众传统；与当代流行音乐来源对照。",
         "context": {
@@ -5847,8 +6547,28 @@
             "👫",
             "🎨"
           ],
-          "caption": "几位画画爱好者在固定教室共同活动。",
-          "focus": []
+          "caption": "同一兴趣使成员一起活动；音乐、体育和美术社团是不同实例，不把 club 限定为某一种活动。",
+          "focus": [],
+          "diagram": {
+            "kind": "category",
+            "items": [
+              {
+                "symbol": "🎵",
+                "label": "music club",
+                "meaning": "一起练习音乐"
+              },
+              {
+                "symbol": "⚽",
+                "label": "sports club",
+                "meaning": "一起参加运动"
+              },
+              {
+                "symbol": "🎨",
+                "label": "art club",
+                "meaning": "一起画画创作"
+              }
+            ]
+          }
         },
         "semantic": "有共同兴趣或目标的人组成的组织；与一次偶遇的人群不同。",
         "context": {
@@ -5875,8 +6595,30 @@
             "➡️",
             "👫"
           ],
-          "caption": "原本站在外面的孩子走入社团，成为其中一员。",
-          "focus": []
+          "caption": "过程关注成员关系的变化：从社团之外的新人到一起参加活动；不是只走到人群旁边。",
+          "focus": [],
+          "diagram": {
+            "kind": "sequence",
+            "panels": [
+              {
+                "symbols": [
+                  "👥",
+                  "🧒"
+                ],
+                "label": "not a member",
+                "meaning": "已有社团；新同学尚未加入"
+              },
+              {
+                "symbols": [
+                  "👥",
+                  "🤝",
+                  "🧒"
+                ],
+                "label": "join the club",
+                "meaning": "新同学参加并成为成员"
+              }
+            ]
+          }
         },
         "semantic": "加入已有群体或活动；与独自开始一项活动不同。",
         "context": {
@@ -5903,8 +6645,28 @@
             "⬅️",
             "🎁"
           ],
-          "caption": "收到礼物让你微笑，箭头从原因指向表情。",
-          "focus": []
+          "caption": "先看下雨导致道路湿，再说 The road is wet because it rains。because 后接原因，区别只表示时间先后的 then。",
+          "focus": [],
+          "diagram": {
+            "kind": "sequence",
+            "panels": [
+              {
+                "symbols": [
+                  "🌧️"
+                ],
+                "label": "it rains",
+                "meaning": "原因：下雨"
+              },
+              {
+                "symbols": [
+                  "💧",
+                  "🛣️"
+                ],
+                "label": "the road is wet",
+                "meaning": "结果：道路变湿"
+              }
+            ]
+          }
         },
         "semantic": "引出原因，回答 why 为什么；与表示结果的 so 比较。",
         "context": {
@@ -5970,7 +6732,7 @@
     {
       "section": "四下Unit 1",
       "method": "拼读",
-      "hint": "chess 中 ch 读 /tʃ/，e 读 /e/，结尾双 s。想象棋盘上两个 s 形棋子对弈；从下棋画面遮住英文，看中文先读，再回写 ch-e-ss，检查双 s。",
+      "hint": "chess /tʃes/：ch–e–ss，开头 /tʃ/ 写 ch，末尾 /s/ 写双 s。遮住英文，看中文先读，再回写 ch-e-ss，检查双 s。",
       "example": "Let's play chess. 我们下国际象棋吧。",
       "word": "chess",
       "dimensions": {
@@ -6002,7 +6764,7 @@
             ]
           }
         },
-        "semantic": "棋类游戏之一，有特定棋盘和走法；与球类运动比较。",
+        "semantic": null,
         "context": {
           "scene": "黑白棋盘上有国王和棋子，两人轮流走棋。",
           "question": "在黑白格棋盘上轮流移动国王等棋子，游戏名称是什么？"
@@ -6017,7 +6779,7 @@
     {
       "section": "四下Unit 1",
       "method": "拼读",
-      "hint": "well 中 e 读 /e/，双 l。两根 l 像两根竖起的大拇指，表示做得好：well done！回想点赞，写 w-e-ll，末尾两个 l。 遮住英文，看中文读出，再写一遍。",
+      "hint": "well /wel/：w–e–ll，中间 /e/ 写 e，末尾 /l/ 写双 l。遮住英文，看中文读出，再写一遍。",
       "example": "She sings well. 她唱得好。",
       "word": "well",
       "dimensions": {
@@ -6054,8 +6816,29 @@
             "➡️",
             "💭"
           ],
-          "caption": "你看到同学迟到，头顶问号指向原因气泡。",
-          "focus": []
+          "caption": "箭头展示延误导致迟到；问 Why are you late? 是从迟到这个结果寻找原因，答案是公交延误，不是报告几点钟。",
+          "focus": [],
+          "diagram": {
+            "kind": "sequence",
+            "panels": [
+              {
+                "symbols": [
+                  "🚌",
+                  "⏳"
+                ],
+                "label": "bus delay",
+                "meaning": "原因：公交车延误"
+              },
+              {
+                "symbols": [
+                  "🧒",
+                  "⏰"
+                ],
+                "label": "late for school",
+                "meaning": "结果：上学迟到"
+              }
+            ]
+          }
         },
         "semantic": "询问原因，常由 because 引出回答；与 where 问地点不同。",
         "context": {
@@ -6590,7 +7373,7 @@
     {
       "section": "四下Unit 2",
       "method": "拼读",
-      "hint": "fall 的 all 读 /ɔːl/。把两个 l 想成两条失去平衡的腿，摔倒了；回想跌倒，写 f＋all，双 l 不能漏。 遮住英文，看中文读出，再写一遍。",
+      "hint": "fall /fɔːl/：f–all，后段 /ɔːl/ 写 all；与 call 只换首字母，末尾双 l。遮住英文，看中文读出，再写一遍。",
       "example": "Do not run or you may fall. 不要跑，不然会摔倒。",
       "word": "fall",
       "dimensions": {
@@ -6794,7 +7577,7 @@
     {
       "section": "四下Unit 2",
       "method": "拼读",
-      "hint": "board 的 oar 英式读 /ɔː/。踩稳木板；oar 三个字母合读 /ɔː/，这里不能只写 or；回想板子，写 b-oar-d，别把长音只写成 or。 遮住英文，看中文读出，再写一遍。",
+      "hint": "board 的 oar 英式读 /ɔː/。湖边的告示牌写着安全提醒，先看牌上的文字再行动。按 b—oar—d 认读；oar 三字母合读 /ɔː/。遮住英文，看“告示牌”先读再写，核对 oar，不只写 or。",
       "example": "Read the board. 看看告示牌。",
       "word": "board",
       "dimensions": {
@@ -6803,8 +7586,33 @@
             "📋",
             "⚠️"
           ],
-          "caption": "湖边一块硬质告示牌上写着禁止上冰。",
-          "focus": []
+          "caption": "告示牌的 board 中，/ɔː/ 对应完整 oar 三字母，不能听到长音就只写 or。分组服务字形，不改成本课外的木板义项。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "b",
+                "sound": "/b/",
+                "note": "开头 b",
+                "focus": []
+              },
+              {
+                "text": "oar",
+                "sound": "/ɔː/",
+                "note": "英式读音；三字母",
+                "focus": [
+                  "oar"
+                ]
+              },
+              {
+                "text": "d",
+                "sound": "/d/",
+                "note": "末尾 d",
+                "focus": []
+              }
+            ]
+          }
         },
         "semantic": "这里指板或告示牌；通过所在场景判断用途。",
         "context": {
@@ -6944,7 +7752,7 @@
     {
       "section": "四下Unit 2",
       "method": "拼读",
-      "hint": "crowd 中 cr 连读 /kr/，ow 读 /aʊ/。人群挤在一起，你被挤得张大嘴；回想拥挤人群，写 cr-ow-d，别漏末尾 d。 遮住英文，看中文读出，再写一遍。",
+      "hint": "crowd /kraʊd/：开头 /kr/ 写 cr，/aʊ/ 写 ow；末尾 d 保留，不能写成 ou。遮住英文，看中文读出，再写一遍。",
       "example": "The crowd is large. 人群很大。",
       "word": "crowd",
       "dimensions": {
@@ -6954,8 +7762,28 @@
             "👥",
             "👥"
           ],
-          "caption": "许多人挤在入口处，肩膀靠得很近。",
-          "focus": []
+          "caption": "由单个人与聚集的人群比较范围；六个小人是示例，没有固定人数门槛。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "person",
+                "symbols": [
+                  "🧍"
+                ],
+                "meaning": "单个人"
+              },
+              {
+                "label": "crowd",
+                "symbols": [
+                  "🧍🧍🧍",
+                  "🧍🧍🧍"
+                ],
+                "meaning": "多个人聚集形成一群"
+              }
+            ]
+          }
         },
         "semantic": "聚集的人群，强调一大群人；与单个人 person 比较。",
         "context": {
@@ -7075,7 +7903,7 @@
     {
       "section": "四下Unit 2",
       "method": "拼读",
-      "hint": "street 中 str 连读 /str/，ee 读 /iː/。两根 e 形长线像街道的两条车道；回想街道，写 str-ee-t，开头三个辅音和双 e 都别漏。 遮住英文，看中文读出，再写一遍。",
+      "hint": "street /striːt/：str–ee–t，开头 s、t、r 三个字母；长音 /iː/ 写双 e，末尾还要 t。遮住英文，看中文读出，再写一遍。",
       "example": "Look before you cross the street. 过街前先看一看。",
       "word": "street",
       "dimensions": {
@@ -7084,8 +7912,35 @@
             "🏘️",
             "🚗"
           ],
-          "caption": "两侧是房屋，中间街道上车辆和行人通行。",
-          "focus": []
+          "caption": "看见开头 str 与末尾 t 都有 t，中间 /iː/ 写双 e；把街道名称的真实辅音群与元音组对应。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "str",
+                "sound": "/str/",
+                "note": "三个辅音都要写",
+                "focus": [
+                  "t"
+                ]
+              },
+              {
+                "text": "ee",
+                "sound": "/iː/",
+                "note": "长音双 e",
+                "focus": [
+                  "ee"
+                ]
+              },
+              {
+                "text": "t",
+                "sound": "/t/",
+                "note": "末尾再写 t",
+                "focus": []
+              }
+            ]
+          }
         },
         "semantic": "城镇中供交通通行的街道；与室内 corridor 走廊比较。",
         "context": {
@@ -7196,7 +8051,7 @@
     {
       "section": "四下Unit 3",
       "method": "拼读",
-      "hint": "fun 的 u 读 /ʌ/。游戏让大家笑得张开嘴，真有趣；听 /fʌn/，写 f-u-n，和 run 只差开头的 f。 遮住英文，看中文读出，再写一遍。",
+      "hint": "fun /fʌn/：f–u–n，中间 /ʌ/ 写 u；与 run 只换首字母，乐趣写 f。遮住英文，看中文读出，再写一遍。",
       "example": "The game is fun. 游戏很好玩。",
       "word": "fun",
       "dimensions": {
@@ -7232,8 +8087,28 @@
             "🎲",
             "🏁"
           ],
-          "caption": "大家按同一套规则轮流行动，最后算比分。",
-          "focus": []
+          "caption": "不同分支都有玩法或比赛规则；game 可以是棋类、骰子游戏或球赛，不限于电子游戏。",
+          "focus": [],
+          "diagram": {
+            "kind": "category",
+            "items": [
+              {
+                "symbol": "♟️",
+                "label": "chess",
+                "meaning": "按棋规轮流下棋"
+              },
+              {
+                "symbol": "🎲",
+                "label": "a dice game",
+                "meaning": "按骰子结果与规则玩"
+              },
+              {
+                "symbol": "⚽",
+                "label": "a football game",
+                "meaning": "按规则参加球赛"
+              }
+            ]
+          }
         },
         "semantic": "有规则的游戏或比赛；与任意自由玩耍的活动比较。",
         "context": {
@@ -7260,8 +8135,29 @@
             "✅",
             "♟️"
           ],
-          "caption": "孩子下棋时熟练走子，棋盘旁有一个能力勾。",
-          "focus": []
+          "caption": "喜欢与擅长对照：熟练完成任务是能力线索，爱心表示喜欢；不是用一次成绩断言能力。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "like drawing",
+                "symbols": [
+                  "🎨",
+                  "❤️"
+                ],
+                "meaning": "喜欢绘画，未必已熟练"
+              },
+              {
+                "label": "be good at",
+                "symbols": [
+                  "🎨",
+                  "✅✅✅"
+                ],
+                "meaning": "能熟练完成多次绘画任务"
+              }
+            ]
+          }
         },
         "semantic": "表示擅长某项技能；与只喜欢但未必熟练不同。",
         "context": {
@@ -7629,8 +8525,30 @@
             "🦵",
             "🤕"
           ],
-          "caption": "碰伤的腿旁画红色疼痛线，孩子皱着眉。",
-          "focus": []
+          "caption": "同一个孩子跑步到摔倒后腿疼的变化；hurt 可以表示疼痛或受伤，不要求看到伤口。",
+          "focus": [],
+          "diagram": {
+            "kind": "sequence",
+            "panels": [
+              {
+                "label": "before",
+                "symbols": [
+                  "🧒",
+                  "🏃"
+                ],
+                "meaning": "跑步时没有疼痛"
+              },
+              {
+                "label": "hurt",
+                "symbols": [
+                  "🧒",
+                  "🦵",
+                  "😣"
+                ],
+                "meaning": "摔倒后腿疼"
+              }
+            ]
+          }
         },
         "semantic": "可表示使受伤或感到疼；不一定能看见外伤。",
         "context": {
@@ -7713,8 +8631,29 @@
             "👑",
             "🧍"
           ],
-          "caption": "王冠戴在国王头上，他站在王座旁。",
-          "focus": []
+          "caption": "王冠与城堡表示故事中的国王，奖杯与跑者表示比赛冠军；赢比赛不自动成为 king。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "king",
+                "symbols": [
+                  "🤴",
+                  "🏰"
+                ],
+                "meaning": "王国统治者的称谓"
+              },
+              {
+                "label": "winner",
+                "symbols": [
+                  "🏆",
+                  "🏃"
+                ],
+                "meaning": "比赛获胜者"
+              }
+            ]
+          }
         },
         "semantic": "统治者称谓，与 queen 女王并列；不是普通参赛冠军的称呼。",
         "context": {
@@ -7740,8 +8679,37 @@
             "🏡",
             "👋"
           ],
-          "caption": "带着水果敲奶奶家门，见面后聊天再回家。",
-          "focus": []
+          "caption": "以一次到朋友家后回家的过程表示短暂来访，区别长期住在那里；参观不一定当天返回。",
+          "focus": [],
+          "diagram": {
+            "kind": "sequence",
+            "panels": [
+              {
+                "label": "before",
+                "symbols": [
+                  "🏠",
+                  "🚶"
+                ],
+                "meaning": "从自己的家出发"
+              },
+              {
+                "label": "visit",
+                "symbols": [
+                  "🧒",
+                  "🏡"
+                ],
+                "meaning": "到朋友家短暂看望"
+              },
+              {
+                "label": "after",
+                "symbols": [
+                  "🏠",
+                  "🚶"
+                ],
+                "meaning": "回到自己的家"
+              }
+            ]
+          }
         },
         "semantic": "到某人处或某地短暂看望、参观；与 live 长住区分。",
         "context": {
@@ -7807,8 +8775,27 @@
             "🦸",
             "🤝"
           ],
-          "caption": "勇敢的人在危险时伸手救人，旁边有人向她致敬。",
-          "focus": []
+          "caption": "箭头连接勇敢救助的人和被救对象，以具体行为理解英雄；英雄不一定穿披风，也不由性别决定。",
+          "focus": [],
+          "diagram": {
+            "kind": "reference",
+            "left": {
+              "symbol": "🧑",
+              "label": "冒险救助的人"
+            },
+            "right": {
+              "symbol": "🐈",
+              "label": "被困的小猫"
+            },
+            "relation": "action",
+            "focus": "both",
+            "link": "救出小猫",
+            "sentence": {
+              "before": "She is my ",
+              "word": "hero",
+              "after": "."
+            }
+          }
         },
         "semantic": "令人敬佩的人或英雄；不要求是国王，也可来自生活。",
         "context": {
@@ -7917,8 +8904,29 @@
             "📅",
             "🏖️"
           ],
-          "caption": "日历圈出不用上学的几天，孩子准备休息游玩。",
-          "focus": []
+          "caption": "对照正常上学与放假休息；海边是一个例子，holiday 不要求外出旅行。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "school day",
+                "symbols": [
+                  "🏫",
+                  "📚"
+                ],
+                "meaning": "正常上学的日子"
+              },
+              {
+                "label": "holiday",
+                "symbols": [
+                  "🏖️",
+                  "🎒"
+                ],
+                "meaning": "假期可以安排休息活动"
+              }
+            ]
+          }
         },
         "semantic": "休息日或假期；与需要正常上学的工作日比较。",
         "context": {
@@ -7989,7 +8997,7 @@
     {
       "section": "四下Unit 5",
       "method": "拼读",
-      "hint": "chore 的 ch 读 /tʃ/，ore 英式读 /ɔː/。孩子拿扫帚做家务，ch 像扫帚轻扫的开头声音；听 /tʃɔː/ 后写 ch＋ore，末尾保留 e。 遮住英文，看中文读出，再写一遍。",
+      "hint": "chore /tʃɔː/：ch–ore，/tʃ/ 写 ch；结尾 ore 的 r、e 即使不单独听到也都保留。遮住英文，看中文读出，再写一遍。",
       "example": "I do a chore at home. 我在家做一项家务。",
       "word": "chore",
       "dimensions": {
@@ -7998,8 +9006,29 @@
             "🧹",
             "🏡"
           ],
-          "caption": "孩子在家扫地，做完才能继续玩。",
-          "focus": []
+          "caption": "比较活动的目的：chore 是日常需要完成的事，hobby 是爱好；同一活动也可能因人而异。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "chore",
+                "symbols": [
+                  "🧹",
+                  "🧺"
+                ],
+                "meaning": "需要完成的扫地、洗衣等家务"
+              },
+              {
+                "label": "hobby",
+                "symbols": [
+                  "🎨",
+                  "🎸"
+                ],
+                "meaning": "空闲时喜欢的绘画、弹琴活动"
+              }
+            ]
+          }
         },
         "semantic": "日常需要完成的家务或杂事；与自愿喜欢的 hobby 爱好对比。",
         "context": {
@@ -8031,7 +9060,7 @@
         "semantic": "美国的简称，指国家；与 Canada 加拿大是不同国家。",
         "context": {
           "scene": "地图上标出美国，标签上是三个大写字母。",
-          "question": "介绍朋友住在美国，常用的三个大写字母名称是什么？"
+          "question": "纽约所在国家的常用英文简称词组是什么？保留简称前的冠词。"
         },
         "morphology": {
           "kind": "phrase",
@@ -8222,8 +9251,37 @@
             "🗺️",
             "🇨🇦"
           ],
-          "caption": "世界地图上标出加拿大，旗帜中心是枫叶。",
-          "focus": []
+          "caption": "三拍的元音都写 a，第一拍 /æ/，后两拍 /ə/；按 Ca—na—da 核对三个 a 和大写 C，不把弱读元音随意写成 e。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "Ca",
+                "sound": "/kæ/",
+                "note": "第一拍；C 大写",
+                "focus": [
+                  "C"
+                ]
+              },
+              {
+                "text": "na",
+                "sound": "/nə/",
+                "note": "第二个 a 轻读",
+                "focus": [
+                  "a"
+                ]
+              },
+              {
+                "text": "da",
+                "sound": "/də/",
+                "note": "第三个 a 轻读",
+                "focus": [
+                  "a"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "国家专名，与 the USA 美国区分；旗帜帮助定位，不能代替拼写。",
         "context": {
@@ -8470,7 +9528,7 @@
     {
       "section": "四下Unit 5",
       "method": "拼读",
-      "hint": "flag 的 fl 连读 /fl/，a 读 /æ/。旗帜飘起来，布边像拉长的 fl；从旗子回想 /flæɡ/，写 fl-a-g，末尾是 g。 遮住英文，看中文读出，再写一遍。",
+      "hint": "flag /flæɡ/：fl–a–g，开头 /fl/ 写 f、l 两个字母，末尾 /ɡ/ 写 g。遮住英文，看中文读出，再写一遍。",
       "example": "The flag is red. 旗帜是红色的。",
       "word": "flag",
       "dimensions": {
@@ -8506,8 +9564,35 @@
             "👀",
             "🎬"
           ],
-          "caption": "眼睛朝着屏幕，持续看电影中的动作。",
-          "focus": []
+          "caption": "本课的观看读 /wɒtʃ/，尾音必须对应 tch 三字母，不缩写成 ch；中间 a 在这里读 /ɒ/。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "w",
+                "sound": "/w/",
+                "note": "开头 w",
+                "focus": []
+              },
+              {
+                "text": "a",
+                "sound": "/ɒ/",
+                "note": "本词英式读法",
+                "focus": [
+                  "a"
+                ]
+              },
+              {
+                "text": "tch",
+                "sound": "/tʃ/",
+                "note": "三字母一个音",
+                "focus": [
+                  "tch"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "主动注视一段变化过程；see 更偏看到的结果。",
         "context": {
@@ -8580,8 +9665,27 @@
             "🎂",
             "⭐"
           ],
-          "caption": "日历上普通日期都是白色，生日那天单独画一颗星。",
-          "focus": []
+          "caption": "在明确比较范围内突出一个不同的对象；special 可以是形状等特别之处，不等于更贵。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "ordinary",
+                "symbols": [
+                  "🔵🔵🔵"
+                ],
+                "meaning": "一组同样的蓝圆"
+              },
+              {
+                "label": "special",
+                "symbols": [
+                  "🔵⭐🔵"
+                ],
+                "meaning": "这组中有一个不同的星形"
+              }
+            ]
+          }
         },
         "semantic": "有特别之处或不同于平常；与 ordinary 普通比较。",
         "context": {
@@ -8913,8 +10017,28 @@
             "💌",
             "❤️"
           ],
-          "caption": "写给奶奶的信开头画一颗爱心，表示亲近。",
-          "focus": []
+          "caption": "信件与动物场景对照同音词 dear、deer；本课称呼写 ear，动物写 eer。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "dear",
+                "symbols": [
+                  "✉️",
+                  "❤️"
+                ],
+                "meaning": "信件开头的亲爱称呼"
+              },
+              {
+                "label": "deer",
+                "symbols": [
+                  "🦌"
+                ],
+                "meaning": "同音的动物鹿"
+              }
+            ]
+          }
         },
         "semantic": "这里是亲爱的称呼，常用于信件开头；与 deer 鹿同音但词义不同。",
         "context": {
@@ -9180,8 +10304,28 @@
             "👨",
             "👵"
           ],
-          "caption": "孩子、大人和老人站在一起，是一群人。",
-          "focus": []
+          "caption": "数量对照帮助认 person 与 people；people 是常用复数，拼写不能由 person 加 s 得到。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "person",
+                "symbols": [
+                  "🧍"
+                ],
+                "meaning": "一个人"
+              },
+              {
+                "label": "people",
+                "symbols": [
+                  "🧍🧍",
+                  "🧍🧍"
+                ],
+                "meaning": "多个人"
+              }
+            ]
+          }
         },
         "semantic": "person 人的常用复数，指多个人；不是一个人的称谓。",
         "context": {
@@ -9254,8 +10398,13 @@
             "☁️",
             "🐦"
           ],
-          "caption": "屋顶之上是大片天空，云朵和鸟在其中。",
-          "focus": []
+          "caption": "浅蓝区域示意从地面向上看到的天空；树与草帮助定位地面，不是天空本身。天空也不等于其中某朵云。",
+          "focus": [],
+          "diagram": {
+            "kind": "feature",
+            "scene": "landscape",
+            "focus": "sky"
+          }
         },
         "semantic": "向上看到的天空空间；sun、clouds 是其中的对象。",
         "context": {
@@ -9281,8 +10430,15 @@
             "🐦",
             "⬆️"
           ],
-          "caption": "鸟张开翅膀离开地面，在空中前进。",
-          "focus": []
+          "caption": "淡色鸟标起点，实色鸟标终点，箭头表示在空中移动；fly 不限向右，也不是所有鸟都能飞。",
+          "focus": [],
+          "diagram": {
+            "kind": "motion",
+            "direction": "right",
+            "object": "🐦",
+            "startLabel": "空中起点",
+            "endLabel": "空中另一处"
+          }
         },
         "semantic": "在空中移动的动作；与 run 在地上移动对照。",
         "context": {
@@ -9357,8 +10513,28 @@
             "🎭",
             "👑"
           ],
-          "caption": "同一个孩子戴上王冠，在戏里扮演国王。",
-          "focus": []
+          "caption": "同一个孩子在生活中是自己，在戏里扮演国王；role 是所扮演的角色，不表示戴皇冠就真的成为国王。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "symbols": [
+                  "🧒"
+                ],
+                "label": "a child",
+                "meaning": "演员本人是孩子"
+              },
+              {
+                "symbols": [
+                  "🧒",
+                  "👑"
+                ],
+                "label": "a king in the play",
+                "meaning": "戏里扮演国王"
+              }
+            ]
+          }
         },
         "semantic": "故事或活动中承担的角色；不等于演员本人的身份。",
         "context": {
@@ -9499,8 +10675,29 @@
             "🧍",
             "🛡️"
           ],
-          "caption": "孩子虽然害怕，仍向前一步保护小伙伴。",
-          "focus": []
+          "caption": "先有害怕，再仍愿意行动的过程，说明 brave 不是从不害怕；上台只是本次例子。",
+          "focus": [],
+          "diagram": {
+            "kind": "sequence",
+            "panels": [
+              {
+                "label": "afraid",
+                "symbols": [
+                  "🧒",
+                  "😨"
+                ],
+                "meaning": "上台前觉得害怕"
+              },
+              {
+                "label": "brave",
+                "symbols": [
+                  "🧒",
+                  "🎤"
+                ],
+                "meaning": "仍然上台开口讲述"
+              }
+            ]
+          }
         },
         "semantic": "面对困难或害怕仍愿意行动；不等于从不害怕。",
         "context": {
@@ -9553,8 +10750,35 @@
             "🌍",
             "👫"
           ],
-          "caption": "地球画面上分布着不同地方的人和动植物。",
-          "focus": []
+          "caption": "or 在 world 中读 /ɜː/，与常见 /ɔː/ 不同；末尾 /ld/ 两音都写，不漏 l。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "w",
+                "sound": "/w/",
+                "note": "开头 w",
+                "focus": []
+              },
+              {
+                "text": "or",
+                "sound": "/ɜː/",
+                "note": "本词英式读法",
+                "focus": [
+                  "or"
+                ]
+              },
+              {
+                "text": "ld",
+                "sound": "/ld/",
+                "note": "两尾音都留下",
+                "focus": [
+                  "l"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "指整个世界或人们生活的范围；比 community 社区更广。",
         "context": {
@@ -9665,7 +10889,7 @@
     {
       "section": "四下Unit 6",
       "method": "拼读",
-      "hint": "rabbit 按 rab—bit 记，a 读 /æ/，i 读 /ɪ/，中间双 b。把两个 b 想成兔子的两只长耳朵；回想兔子，写 ra-bb-it，别漏 b。 遮住英文，看中文读出，再写一遍。",
+      "hint": "rabbit /ˈræbɪt/：字形 rab–bit，中间双 b；第一拍 /æ/ 写 a，第二拍 /ɪ/ 写 i。遮住英文，看中文读出，再写一遍。",
       "example": "The rabbit can jump. 兔子会跳。",
       "word": "rabbit",
       "dimensions": {
@@ -9759,7 +10983,7 @@
     {
       "section": "四下Unit 7",
       "method": "拼读",
-      "hint": "need 的 ee 读 /iː/。渴了需要水，两个 e 像两只伸向水杯的手；回想“需要”，写 n-ee-d，与 feed 只换首字母。 遮住英文，看中文读出，再写一遍。",
+      "hint": "need /niːd/：n–ee–d，长音 /iː/ 写双 e；与 feed 只换首字母，需要写 n。遮住英文，看中文读出，再写一遍。",
       "example": "I need a book. 我需要一本书。",
       "word": "need",
       "dimensions": {
@@ -9768,8 +10992,29 @@
             "📖",
             "❗"
           ],
-          "caption": "作业必须查书，但书架上缺了所需那本书。",
-          "focus": []
+          "caption": "以生长必需的水与想吃的糖区分 need 和 want；水量仍需合适，不表示越多越好。",
+          "focus": [],
+          "diagram": {
+            "kind": "compare",
+            "panels": [
+              {
+                "label": "need",
+                "symbols": [
+                  "🌱",
+                  "💧"
+                ],
+                "meaning": "植物生长需要水"
+              },
+              {
+                "label": "want",
+                "symbols": [
+                  "🧒",
+                  "🍬"
+                ],
+                "meaning": "孩子想吃糖，未必必需"
+              }
+            ]
+          }
         },
         "semantic": "某物对当前目的必不可少；want 想要未必必需。",
         "context": {
@@ -9834,7 +11079,7 @@
     {
       "section": "四下Unit 7",
       "method": "拼读",
-      "hint": "tell 的 e 读 /e/，末尾双 l。把两个 l 想成两个靠近听消息的人，你告诉他们；回想告诉的动作，写 t-e-ll，别漏双 l。 遮住英文，看中文读出，再写一遍。",
+      "hint": "tell /tel/：t–e–ll，中间 /e/ 写 e，末尾 /l/ 写双 l；与 well 只换首字母。遮住英文，看中文读出，再写一遍。",
       "example": "Tell me the way. 告诉我怎么走。",
       "word": "tell",
       "dimensions": {
@@ -10170,8 +11415,8 @@
     },
     {
       "section": "四下Unit 7",
-      "method": "词源",
-      "hint": "robot 经一出捷克戏剧传入英语，来自捷克语 robota（劳役）。机器人替人干活，读 /ˈrəʊbɒt/：第一个 o 读 /əʊ/，第二个 o 读 /ɒ/。遮住词，说“机器人”的英文，写 ro＋bot；两个不同元音都用 o。",
+      "method": "拼读",
+      "hint": "robot /ˈrəʊbɒt/：字形 ro–bot，两个不同元音 /əʊ/、/ɒ/ 都写 o；末尾是 t。收起英文，试着读写完整词，再核对上述字母。",
       "example": "The robot can talk. 机器人会说话。",
       "word": "robot",
       "sourceUrl": "https://www.etymonline.com/word/robot",
@@ -10237,8 +11482,35 @@
             "✅",
             "🗺️"
           ],
-          "caption": "看过地图后，你能直接指出去学校的路线。",
-          "focus": []
+          "caption": "读音开头只有 /n/，书写先留下安静的 k，再接 n 和 ow；区别同音的 no，不能漏 k、w。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "k",
+                "sound": "不另发音",
+                "note": "静音仍须写",
+                "focus": [
+                  "k"
+                ]
+              },
+              {
+                "text": "n",
+                "sound": "/n/",
+                "note": "听到的开头",
+                "focus": []
+              },
+              {
+                "text": "ow",
+                "sound": "/əʊ/",
+                "note": "长音写 ow",
+                "focus": [
+                  "w"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "已有知识或知道信息；与 guess 信息不足时猜测比较。",
         "context": {
@@ -10297,8 +11569,35 @@
             "📚",
             "➖"
           ],
-          "caption": "墙上固定一块横板，书放在板上排成一列。",
-          "focus": []
+          "caption": "书架的 shelf 开头 sh 合读，末尾 l、f 两个辅音都保留；三组让声音到字形的顺序可见。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "sh",
+                "sound": "/ʃ/",
+                "note": "两字母一个音",
+                "focus": [
+                  "sh"
+                ]
+              },
+              {
+                "text": "e",
+                "sound": "/e/",
+                "note": "中间短音",
+                "focus": []
+              },
+              {
+                "text": "lf",
+                "sound": "/lf/",
+                "note": "两个尾音都保留",
+                "focus": [
+                  "l"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "承托物品的架子层板；与整座书柜的范围不同。",
         "context": {
@@ -10315,7 +11614,7 @@
     {
       "section": "四下Unit 7",
       "method": "拼读",
-      "hint": "读 /ˈletə/，e /e/、er 轻读 /ə/。letter 按 let—ter 记，e 读 /e/，双 t。信封里有两张 t 形纸条；回想信件，写 le-tt-er，双 t 像两张并排的信纸。 遮住英文，看中文读出，再写一遍。",
+      "hint": "letter /ˈletə/：字形 let–ter，中间双 t；首拍 /e/ 写 e，弱读末尾仍写 er。遮住英文，看中文读出，再写一遍。",
       "example": "I write a letter to Grandma. 我给奶奶写信。",
       "word": "letter",
       "dimensions": {
@@ -10564,8 +11863,37 @@
             "🏘️",
             "👫"
           ],
-          "caption": "相邻住家的人一起照看公共花园，互相打招呼。",
-          "focus": []
+          "caption": "com 与 mu 相接留下双 m，但只发一个 /m/；开头弱音写 o，后面弱音写 i，结尾 ty 保持完整。这是字形分组，不是词根拆解。",
+          "focus": [],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "com",
+                "sound": "/kə/",
+                "note": "o 轻读；双 m 只读一个 /m/",
+                "focus": [
+                  "m"
+                ]
+              },
+              {
+                "text": "mu",
+                "sound": "/mjuː/",
+                "note": "重读拍；前面的 /m/ 从这里连读",
+                "focus": [
+                  "m"
+                ]
+              },
+              {
+                "text": "nity",
+                "sound": "/nəti/",
+                "note": "ni 轻读，ty /ti/",
+                "focus": [
+                  "i"
+                ]
+              }
+            ]
+          }
         },
         "semantic": "共同生活或有联系的人群及其社区；比单栋 building 范围更大。",
         "context": {
@@ -10592,8 +11920,27 @@
             "↩️",
             "✅"
           ],
-          "caption": "几个孩子自己动手完成模型，回转箭头指回他们本人。",
-          "focus": []
+          "caption": "两端指同一群孩子，动作回到本人：他们自己穿衣；themselves 指多人，不写成 themself。",
+          "focus": [],
+          "diagram": {
+            "kind": "reference",
+            "relation": "reflexive",
+            "focus": "both",
+            "left": {
+              "symbol": "🧒🧒",
+              "label": "他们"
+            },
+            "right": {
+              "symbol": "🧒🧒",
+              "label": "同一群人"
+            },
+            "link": "自己穿衣",
+            "sentence": {
+              "before": "They dress ",
+              "word": "themselves",
+              "after": "."
+            }
+          }
         },
         "semantic": "复数反身代词，表示他们自己；强调由本人做而非别人代做。",
         "context": {
@@ -10693,7 +12040,7 @@
     {
       "section": "四下Unit 7",
       "method": "拼读",
-      "hint": "读 /bɪˈtwiːn/，be /bɪ/、tween /twiːn/。between 按 be—tween 记，ee 读 /iː/。两把椅子像两个 e，中间站着一个孩子：在两者之间。回想中间位置，写 be＋tween，注意双 e 与开头 tw。 遮住英文，看中文读出，再写一遍。",
+      "hint": "between /bɪˈtwiːn/：字形 be–tween，前段 /bɪ/ 写 be；后段开头 tw，长音 /iː/ 写双 e，最后 n。遮住英文，看中文读出，再写一遍。",
       "example": "The shop is between two buildings. 商店在两栋楼之间。",
       "word": "between",
       "dimensions": {

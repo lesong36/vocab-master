@@ -47,7 +47,7 @@ for grade in (3, 4, 5):
             assert kind in GRAPHIC_KINDS, key
             if kind == "spelling":
                 segments = diagram["segments"]
-                assert len(segments) == 3, key
+                assert 2 <= len(segments) <= 4, key
                 assert "".join(segment["text"] for segment in segments) == card["word"], key
                 for segment in segments:
                     assert all(isinstance(segment[field], str) and segment[field].strip() for field in ("text", "sound", "note")), key
@@ -106,7 +106,9 @@ for grade in (3, 4, 5):
                 assert len(set(diagram['selected'])) == len(diagram['selected']), key
                 assert all(type(index) is int and 0 <= index < diagram['pieces'] for index in diagram['selected']), key
             elif kind == 'feature':
-                assert diagram['scene'] in {'kite', 'rope', 'room', 'door-window', 'lake-river', 'stair', 'plant-flow', 'protection', 'wind', 'balance', 'sort', 'plaza'}, key
+                assert diagram['scene'] in {'kite', 'rope', 'room', 'door-window', 'lake-river', 'stair', 'plant-flow', 'protection', 'wind', 'balance', 'sort', 'plaza', 'red-scarf', 'wear', 'jump', 'fall-over', 'landscape', 'top', 'posting', 'stick', 'step-on', 'arrangement'}, key
+                if diagram['scene'] == 'landscape':
+                    assert diagram['focus'] in {'hill', 'grass', 'ground', 'sky'}, key
                 if diagram['scene'] == 'room':
                     assert diagram['focus'] in {'school', 'room', 'class'}, key
                 if diagram['scene'] == 'door-window':
@@ -147,7 +149,7 @@ for grade in (3, 4, 5):
                     assert panel["focusSuffix"] and panel["label"].endswith(panel["focusSuffix"]), key
                     assert not panel.get("focus"), key
                 assert panel.get("tag") in (None, "本课词义", "另一词义"), key
-        assert isinstance(dimensions["semantic"], str) and dimensions["semantic"].strip(), key
+        assert dimensions["semantic"] is None or (isinstance(dimensions["semantic"], str) and dimensions["semantic"].strip()), key
         context = dimensions["context"]
         assert all(isinstance(context.get(field), str) and context[field].strip() for field in ("scene", "question")), key
         assert not re.search(r"[A-Za-z]", context["question"]), (key, "English answer can leak during context recall")
@@ -162,6 +164,8 @@ for grade in (3, 4, 5):
             assert all(isinstance(part.get(field), str) and part[field].strip()
                        for part in morphology["parts"] for field in ("text", "meaning")), key
         for field in (visual["caption"], dimensions["semantic"], context["scene"], context["question"], morphology["note"]):
+            if field is None:
+                continue
             assert re.search(r"[\u4e00-\u9fff]", field), (key, "Child-facing explanation must include Chinese")
         digest = hashlib.sha256(json.dumps(dimensions, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
         review = reviews[key]
@@ -203,7 +207,7 @@ if parser.parse_args().report:
     type_names = {"special-svg": "专属位置或字形图", "compare": "对象或语义对照", "combine": "真实组成", "change": "形式或状态变化", "sequence": "过程与次序", "parts": "部分与组成", "position": "空间关系", "count": "数量与序数", "colour": "颜色与混色", "body": "身体与植物部位", "clock": "钟面", "family": "亲属关系", "measure": "长度、高度、大小与厚度"}
     type_names.update({'spelling': '读音与字形分段', 'reference': '人物、动作与所属', 'deixis': '指代距离与单复数', 'motion': '起点与移动方向', 'frequency': '发生次数与频率', 'timeline': '时间定位与范围', 'selection': '数量与选择范围', 'shape': '轮廓形状', 'category': '类别与成员', 'partition': '整体与部分', 'feature': '具体结构与作用'})
     target_names = {"meaning": "认词义", "spelling": "记字形", "both": "词义与字形"}
-    lines = ["# 具体图解覆盖与剩余词卡", "", "统计日期：2026-10-03。按实际可渲染的图解统计，普通图标及文字描述不计入具体图解。", "",
+    lines = ["# 具体图解覆盖与剩余词卡", "", "统计日期：2026-10-03。按实际可渲染的图解统计，普通图标及单独文字描述不计入具体图解。字音字形分段、语法位置对照和带连接的层级链按实际关系图计入。", "",
              f"全部 {len(cards)} 条已记录图解判断；具体图解 **{illustrated} 条（{illustrated / len(cards):.2%}）**，尚无具体图解 {len(pending)} 条。", "",
              "| 年级 | 词卡 | 具体图解 | 覆盖率 |", "|---|---:|---:|---:|"]
     for grade, stats in grade_graphics.items():

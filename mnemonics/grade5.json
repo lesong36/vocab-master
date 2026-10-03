@@ -33,6 +33,17 @@
           "parts": [],
           "note": "本词在“从已给出的选项中询问哪一个；与询问“谁”的 who 区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "which"
+        ],
+        "focus": [
+          "wh",
+          "ch"
+        ],
+        "cue": "“哪个”开头写 wh，结尾写 ch；两个组合都不能漏 h。",
+        "sourceEvidence": "“哪个”开头写 wh，结尾写 ch；两个组合都不能漏 h。"
       }
     },
     {
@@ -88,6 +99,18 @@
           "parts": [],
           "note": "本词在“强调从出发到抵达的过程；trip 常指一次出游。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "jour",
+          "ney"
+        ],
+        "focus": [
+          "our",
+          "ey"
+        ],
+        "cue": "/ɜː/ 在这里写 our，/i/ 写 ey；记 jour+ney，不能仅凭声音确定字母。",
+        "sourceEvidence": "/ɜː/ 在这里写 our，/i/ 写 ey；记 jour+ney，不能仅凭声音确定字母。"
       }
     },
     {
@@ -134,6 +157,19 @@
           "parts": [],
           "note": "本词在“描述完成任务的难度，与 easy 相反；不等于人的心情不好。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "dif",
+          "fi",
+          "cult"
+        ],
+        "focus": [
+          "ff",
+          "u"
+        ],
+        "cue": "中间 ff，末段 cult 的 u 是弱读 /ə/。",
+        "sourceEvidence": "中间 ff，末段 cult 的 u 是弱读 /ə/。"
       }
     },
     {
@@ -182,6 +218,17 @@
           "parts": [],
           "note": "本词在“比一般 old 更强调年代久远，常修饰文明、建筑和故事。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ancient"
+        ],
+        "focus": [
+          "ci",
+          "ent"
+        ],
+        "cue": "/ʃ/ 在这里由 ci 表示，结尾 ent；不能把 c 读 /k/。",
+        "sourceEvidence": "/ʃ/ 在这里由 ci 表示，结尾 ent；不能把 c 读 /k/。"
       }
     },
     {
@@ -228,6 +275,19 @@
           "parts": [],
           "note": "India 是地理专名，按地图、所属国家或地标识别；不根据音节或相似字母虚构词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "In",
+          "di",
+          "a"
+        ],
+        "focus": [
+          "I",
+          "ia"
+        ],
+        "cue": "末尾是 ia，最后 a 弱读 /ə/；国家名 I 大写。",
+        "sourceEvidence": "末尾是 ia，最后 a 弱读 /ə/；国家名 I 大写。"
       }
     },
     {
@@ -287,6 +347,18 @@
           "parts": [],
           "note": "Pig 对应猪，是与人物身份相关的名字线索；sy 是名字的剩余字母，不当作有“八戒”含义的后缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Pig",
+          "s",
+          "y"
+        ],
+        "focus": [
+          "sy"
+        ],
+        "cue": "在熟词 pig 后添 sy；这里 s 发 /z/，不直接写 z。",
+        "sourceEvidence": "在熟词 pig 后添 sy；这里 s 发 /z/，不直接写 z。"
       }
     },
     {
@@ -334,6 +406,19 @@
           "parts": [],
           "note": "本词在“学科是类别，maths、music、PE 是其中的具体成员。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "sub",
+          "ject"
+        ],
+        "focus": [
+          "j",
+          "e",
+          "ct"
+        ],
+        "cue": "记 sub+ject，j 后是 e；末尾 ct 两字母都写。",
+        "sourceEvidence": "记 sub+ject，j 后是 e；末尾 ct 两字母都写。"
       }
     },
     {
@@ -380,6 +465,17 @@
           "parts": [],
           "note": "maths 是 mathematics 的英式简称；末尾 s 属于惯用词形，不等于普通复数。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "maths"
+        ],
+        "focus": [
+          "th",
+          "s"
+        ],
+        "cue": "数学的英式简称保留词尾 s；th 两字母表示一个咬舌音。",
+        "sourceEvidence": "数学的英式简称保留词尾 s；th 两字母表示一个咬舌音。"
       }
     },
     {
@@ -422,6 +518,17 @@
           "parts": [],
           "note": "本词在“音乐是艺术与声音的类别，song 是一首具体歌曲。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "music"
+        ],
+        "focus": [
+          "s",
+          "c"
+        ],
+        "cue": "中间写 s 却读 /z/；末尾写 c 却读 /k/。",
+        "sourceEvidence": "中间写 s 却读 /z/；末尾写 c 却读 /k/。"
       }
     },
     {
@@ -449,6 +556,19 @@
           "parts": [],
           "note": "本卡使用声音与具体字母线索，不展示依赖陌生词或历史成分的拆词说明。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "calli",
+          "graphy"
+        ],
+        "focus": [
+          "ll",
+          "ph",
+          "y"
+        ],
+        "cue": "按 calli+graphy 记字形，双 l，ph，词尾 y；分块只是记拼写。",
+        "sourceEvidence": "按 calli+graphy 记字形，双 l，ph，词尾 y；分块只是记拼写。"
       }
     },
     {
@@ -505,6 +625,17 @@
           "parts": [],
           "note": "PE 是 Physical Education 的首字母缩写，两个字母大写；缩写不是词根词缀拆分。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "PE"
+        ],
+        "focus": [
+          "P",
+          "E"
+        ],
+        "cue": "体育的英文简称用 P、E 两个大写字母。",
+        "sourceEvidence": "体育的英文简称用 P、E 两个大写字母。"
       }
     },
     {
@@ -560,6 +691,19 @@
           "parts": [],
           "note": "本词在“强调价值或必要性；与仅仅有趣、漂亮区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "im",
+          "por",
+          "tant"
+        ],
+        "focus": [
+          "or",
+          "ant"
+        ],
+        "cue": "中间 or，词尾 ant 的 a 弱读 /ə/，不能凭弱音写 e。",
+        "sourceEvidence": "中间 or，词尾 ant 的 a 弱读 /ə/，不能凭弱音写 e。"
       }
     },
     {
@@ -593,6 +737,16 @@
           "parts": [],
           "note": "本词在“表示上方或跨过；与 under 的下方形成空间对比。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "over"
+        ],
+        "focus": [
+          "ver"
+        ],
+        "cue": "后半写 ver，r 在这里英式读音中不单独发音。",
+        "sourceEvidence": "后半写 ver，r 在这里英式读音中不单独发音。"
       }
     },
     {
@@ -640,6 +794,16 @@
           "parts": [],
           "note": "本词在“描述声音少、安静，与 noisy 相反；不等于空无一人。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "quiet"
+        ],
+        "focus": [
+          "et"
+        ],
+        "cue": "quiet 的结尾 et；quite 是另一词，读 /kwaɪt/。",
+        "sourceEvidence": "quiet 的结尾 et；quite 是另一词，读 /kwaɪt/。"
       }
     },
     {
@@ -687,6 +851,16 @@
           "parts": [],
           "note": "本词在“表示地点，范围可以是房间、城市或某个位置。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "place"
+        ],
+        "focus": [
+          "ce"
+        ],
+        "cue": "/s/ 在这里写 c，末尾 e 不发音但不能漏。",
+        "sourceEvidence": "/s/ 在这里写 c，末尾 e 不发音但不能漏。"
       }
     },
     {
@@ -719,6 +893,16 @@
           "parts": [],
           "note": "本词在“一种地形，通常指较小的山丘；与高大的 mountain 比较。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "hill"
+        ],
+        "focus": [
+          "ll"
+        ],
+        "cue": "词尾 ll 两个 l，只发一次 /l/。",
+        "sourceEvidence": "词尾 ll 两个 l，只发一次 /l/。"
       }
     },
     {
@@ -753,6 +937,16 @@
           "parts": [],
           "note": "本词在“这里表示带走，与 bring 的带来按说话地点区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "take"
+        ],
+        "focus": [
+          "e"
+        ],
+        "cue": "末尾 e 不发音，帮助 a 发 /eɪ/。",
+        "sourceEvidence": "末尾 e 不发音，帮助 a 发 /eɪ/。"
       }
     },
     {
@@ -790,6 +984,17 @@
           "parts": [],
           "note": "本词在“表示一些，不提供精确数目；可修饰可数复数和不可数名词。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "some"
+        ],
+        "focus": [
+          "o",
+          "e"
+        ],
+        "cue": "特殊词：写 o、e，不照 /ʌ/ 写 u。",
+        "sourceEvidence": "特殊词：写 o、e，不照 /ʌ/ 写 u。"
       }
     },
     {
@@ -845,6 +1050,18 @@
           "parts": [],
           "note": "本词在“评价食物味道，与只说外观好看的 beautiful 区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "de",
+          "li",
+          "cious"
+        ],
+        "focus": [
+          "cious"
+        ],
+        "cue": "末尾 /ʃəs/ 写 cious；先记 c-i-o-u-s 五字母。",
+        "sourceEvidence": "末尾 /ʃəs/ 写 cious；先记 c-i-o-u-s 五字母。"
       }
     },
     {
@@ -891,6 +1108,17 @@
           "parts": [],
           "note": "本词在“we 作动作发出者，us 常作动作接受者或跟在介词后。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "us"
+        ],
+        "focus": [
+          "u",
+          "s"
+        ],
+        "cue": "“我们”作宾语写 u、s 两字母。",
+        "sourceEvidence": "“我们”作宾语写 u、s 两字母。"
       }
     },
     {
@@ -944,6 +1172,18 @@
           "parts": [],
           "note": "本词在“通过重复行动改善技能，不只是观看别人示范。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "prac",
+          "tice"
+        ],
+        "focus": [
+          "c",
+          "ce"
+        ],
+        "cue": "记 prac+tice，两个 c；第二个 c 后有 e。",
+        "sourceEvidence": "记 prac+tice，两个 c；第二个 c 后有 e。"
       }
     },
     {
@@ -984,6 +1224,20 @@
           "parts": [],
           "note": "本词在“强调范围内每一个；every 后常接单数名词。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "e",
+          "v",
+          "e",
+          "r",
+          "y"
+        ],
+        "focus": [
+          "e"
+        ],
+        "cue": "字形 e-v-e-r-y 中有两个 e，不能按快读漏掉第二个。",
+        "sourceEvidence": "字形 e-v-e-r-y 中有两个 e，不能按快读漏掉第二个。"
       }
     },
     {
@@ -1032,6 +1286,21 @@
           "parts": [],
           "note": "本词在“用文字留下信息，与说话 say 和阅读 read 区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "w",
+          "r",
+          "i",
+          "t",
+          "e"
+        ],
+        "focus": [
+          "w",
+          "e"
+        ],
+        "cue": "字形 w-r-i-t-e，开头静音 w 和词尾静音 e 都保留。",
+        "sourceEvidence": "字形 w-r-i-t-e，开头静音 w 和词尾静音 e 都保留。"
       }
     },
     {
@@ -1078,6 +1347,20 @@
           "parts": [],
           "note": "本词在“此处指文字中的字，与 word 的词区分；一词可由多个字符组成。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "char",
+          "ac",
+          "ter"
+        ],
+        "focus": [
+          "ch",
+          "c",
+          "er"
+        ],
+        "cue": "开头 ch 不是 k，末尾 er；记字形 character 的两个 c。",
+        "sourceEvidence": "开头 ch 不是 k，末尾 er；记字形 character 的两个 c。"
       }
     },
     {
@@ -1154,6 +1437,18 @@
           ],
           "note": "Mid- 修饰 Autumn，表示秋季中间；整体是中秋节专名，保留连字符与大写。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Mid-Autumn ",
+          "Festival"
+        ],
+        "focus": [
+          "Mid-Autumn",
+          "n"
+        ],
+        "cue": "mid（中）+autumn（秋）+festival（节），autumn 末尾 n 不发音；Mid-Autumn 有连字符。",
+        "sourceEvidence": "mid（中）+autumn（秋）+festival（节），autumn 末尾 n 不发音；Mid-Autumn 有连字符。"
       }
     },
     {
@@ -1198,6 +1493,17 @@
           ],
           "note": "fifteen 加 -th 构成 fifteenth，表示第十五；数量与顺序不同。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "fifteenth"
+        ],
+        "focus": [
+          "teen",
+          "th"
+        ],
+        "cue": "fifteen（十五）直接加 th，成为第十五；保留 teen。",
+        "sourceEvidence": "fifteen（十五）直接加 th，成为第十五；保留 teen。"
       }
     },
     {
@@ -1242,6 +1548,16 @@
           ],
           "note": "eight 变成序数 eighth，词干已有 t，与序数 -th 中的 t 不重复，只再写 h；不要拼成 eightth，也不把单独 h 教成序数后缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "eighth"
+        ],
+        "focus": [
+          "th"
+        ],
+        "cue": "eight 已有 t，只添 h 得 eighth，不能再添一个 t。",
+        "sourceEvidence": "eight 已有 t，只添 h 得 eighth，不能再添一个 t。"
       }
     },
     {
@@ -1289,6 +1605,17 @@
           "parts": [],
           "note": "本词在“时间单位，day 小于 month，十二个月组成一年。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "month"
+        ],
+        "focus": [
+          "o",
+          "th"
+        ],
+        "cue": "写 o，不按声音写 u；最后是 th。",
+        "sourceEvidence": "写 o，不按声音写 u；最后是 th。"
       }
     },
     {
@@ -1316,6 +1643,18 @@
           "parts": [],
           "note": "本词在“农历与公历的日期系统不同；不能把“八月十五”直接当公历日期。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "lunar ",
+          "calendar"
+        ],
+        "focus": [
+          "e",
+          "ar"
+        ],
+        "cue": "记 lu-nar / cal-en-dar；calendar 中间写 e、词尾写 ar，弱读不能唯一推拼写。",
+        "sourceEvidence": "记 lu-nar / cal-en-dar；calendar 中间写 e、词尾写 ar，弱读不能唯一推拼写。"
       }
     },
     {
@@ -1377,6 +1716,16 @@
           ],
           "note": "usual 加 -ly 变成 usually，说明动作通常发生；usual 原有的 l 与 ly 的 l 相接，保留双 l。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "usually"
+        ],
+        "focus": [
+          "ll"
+        ],
+        "cue": "usual（通常的）+ly；原词 l 加词尾 l，得到双 l。",
+        "sourceEvidence": "usual（通常的）+ly；原词 l 加词尾 l，得到双 l。"
       }
     },
     {
@@ -1411,6 +1760,18 @@
           "parts": [],
           "note": "本词在“相对两端的中间位置，与 beginning、end 区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "mid",
+          "dle"
+        ],
+        "focus": [
+          "dd",
+          "le"
+        ],
+        "cue": "mid+dle，中间双 d，末尾 le。",
+        "sourceEvidence": "mid+dle，中间双 d，末尾 le。"
       }
     },
     {
@@ -1458,6 +1819,16 @@
           "parts": [],
           "note": "本词在“地球的卫星，与太阳这种恒星不同；月光来自反射太阳光。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "moon"
+        ],
+        "focus": [
+          "oo"
+        ],
+        "cue": "长音 /uː/ 在这里写 oo 两个 o。",
+        "sourceEvidence": "长音 /uː/ 在这里写 oo 两个 o。"
       }
     },
     {
@@ -1505,6 +1876,21 @@
           "parts": [],
           "note": "本词在“食物类别，可联系 birthday cake、mooncake；与普通 bread 区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "c",
+          "a",
+          "k",
+          "e"
+        ],
+        "focus": [
+          "c",
+          "k",
+          "e"
+        ],
+        "cue": "c-a-k-e；末尾 e 不发音，两次 /k/ 分别写 c、k。",
+        "sourceEvidence": "c-a-k-e；末尾 e 不发音，两次 /k/ 分别写 c、k。"
       }
     },
     {
@@ -1559,6 +1945,20 @@
           "parts": [],
           "note": "本词在“常在疑问和否定中表示一些或任何；与肯定句常见的 some 对照。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "a",
+          "n",
+          "y"
+        ],
+        "focus": [
+          "a",
+          "n",
+          "y"
+        ],
+        "cue": "字形 a-n-y，别按 /e/ 写 e。",
+        "sourceEvidence": "字形 a-n-y，别按 /e/ 写 e。"
       }
     },
     {
@@ -1628,6 +2028,19 @@
           ],
           "note": "Double Ninth 把农历九月九日的双九线索连到节日；ninth 由 nine 去 e 再接 -th。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Double ",
+          "Ninth ",
+          "Festival"
+        ],
+        "focus": [
+          "ou",
+          "Ninth"
+        ],
+        "cue": "双九节对应重阳节；double 的 ou=/ʌ/，nine 去 e 加 th 成 ninth。",
+        "sourceEvidence": "双九节对应重阳节；double 的 ou=/ʌ/，nine 去 e 加 th 成 ninth。"
       }
     },
     {
@@ -1669,6 +2082,16 @@
           ],
           "note": "nine 先去末尾 e 再接 -th 得到 ninth；这是词干变化，不把 nin 教成独立有义的词根。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ninth"
+        ],
+        "focus": [
+          "th"
+        ],
+        "cue": "nine 去末尾 e 再加 th，不写 nineth。",
+        "sourceEvidence": "nine 去末尾 e 再加 th，不写 nineth。"
       }
     },
     {
@@ -1696,6 +2119,21 @@
           "parts": [],
           "note": "elder 与 old 有历史年龄比较关系，但不符合本课可直接拼接的透明词根词缀规则；此处按长者这个整体名词，与家庭年龄关系记忆。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "e",
+          "l",
+          "d",
+          "e",
+          "r"
+        ],
+        "focus": [
+          "e",
+          "er"
+        ],
+        "cue": "e-l-d-e-r，两处 e，结尾 er 的 r 要保留。",
+        "sourceEvidence": "e-l-d-e-r，两处 e，结尾 er 的 r 要保留。"
       }
     },
     {
@@ -1729,6 +2167,19 @@
           "parts": [],
           "note": "本词在“靠近说话人的“这里”，与远离说话人的 there 相对。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "h",
+          "e",
+          "r",
+          "e"
+        ],
+        "focus": [
+          "e"
+        ],
+        "cue": "h-e-r-e，两个 e；与同音 hear 不同。",
+        "sourceEvidence": "h-e-r-e，两个 e；与同音 hear 不同。"
       }
     },
     {
@@ -1793,6 +2244,20 @@
           ],
           "note": "life 的复数 lives：词尾 -fe 变 -ves，f 变成 v。不是在 life 后直接添 s。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "life",
+          " (pl. ",
+          "lives",
+          ")"
+        ],
+        "focus": [
+          "fe",
+          "ves"
+        ],
+        "cue": "life 的 fe 变 ves 得复数 lives，f 的音变 /v/。",
+        "sourceEvidence": "life 的 fe 变 ves 得复数 lives，f 的音变 /v/。"
       }
     },
     {
@@ -1860,6 +2325,18 @@
           ],
           "note": "some+thing 构成某个事物；可与 someone 的人、somewhere 的地方对照，成词后不分开写。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "some",
+          "thing"
+        ],
+        "focus": [
+          "e",
+          "ng"
+        ],
+        "cue": "some+thing 合写一个词；保留 some 的 e，thing 结尾 ng。",
+        "sourceEvidence": "some+thing 合写一个词；保留 some 的 e，thing 结尾 ng。"
       }
     },
     {
@@ -1887,6 +2364,19 @@
           "parts": [],
           "note": "本词在“关心可表现为问候、帮助和照料；care for 常指照顾。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "c",
+          "a",
+          "r",
+          "e"
+        ],
+        "focus": [
+          "are"
+        ],
+        "cue": "c-a-r-e，are 一组，最后 e 不单独读但要写。",
+        "sourceEvidence": "c-a-r-e，are 一组，最后 e 不单独读但要写。"
       }
     },
     {
@@ -1962,6 +2452,19 @@
           ],
           "note": "sweep 加 -ing 为 sweeping；Tomb-sweeping 说明扫墓活动，整体是清明节名称，保留连字符。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Tomb-sweeping ",
+          "Day"
+        ],
+        "focus": [
+          "b",
+          "ee",
+          "-"
+        ],
+        "cue": "tomb 的 b 不发音；sweep 加 ing 保留 ee；Tomb-sweeping 有连字符。",
+        "sourceEvidence": "tomb 的 b 不发音；sweep 加 ing 保留 ee；Tomb-sweeping 有连字符。"
       }
     },
     {
@@ -2018,6 +2521,20 @@
           ],
           "note": "tradition 加 -al 变 traditional，表示传统的；不是把 tradi、tion 等读音段当词根。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "tra",
+          "di",
+          "tion",
+          "al"
+        ],
+        "focus": [
+          "tion",
+          "al"
+        ],
+        "cue": "tra-di-tion-al；/ʃən/ 写 tion，末尾写 al；也可由 tradition 加 al 生成。",
+        "sourceEvidence": "tra-di-tion-al；/ʃən/ 写 tion，末尾写 al；也可由 tradition 加 al 生成。"
       }
     },
     {
@@ -2069,6 +2586,18 @@
           ],
           "note": "most 加 -ly 成 mostly，表示主要、大多；不等于 all 的全部。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "most",
+          "ly"
+        ],
+        "focus": [
+          "st",
+          "ly"
+        ],
+        "cue": "most+ly，保留 st 后接 ly。",
+        "sourceEvidence": "most+ly，保留 st 后接 ly。"
       }
     },
     {
@@ -2123,6 +2652,18 @@
           "parts": [],
           "note": "本词在“与纪念逝者相关的墓地对象，区别于供活人居住的 house。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "t",
+          "om",
+          "b"
+        ],
+        "focus": [
+          "b"
+        ],
+        "cue": "t-o-m-b，不能按听音写成 toom；末尾 b 要记住。",
+        "sourceEvidence": "t-o-m-b，不能按听音写成 toom；末尾 b 要记住。"
       }
     },
     {
@@ -2169,6 +2710,18 @@
           "parts": [],
           "note": "本词在“表示“他们的”，后接所属事物；与地点 there 和 they’re 区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "th",
+          "ei",
+          "r"
+        ],
+        "focus": [
+          "ei"
+        ],
+        "cue": "“他们的”写 their，与同音 there 不同；记 ei 的顺序。",
+        "sourceEvidence": "“他们的”写 their，与同音 there 不同；记 ei 的顺序。"
       }
     },
     {
@@ -2225,6 +2778,16 @@
           ],
           "note": "nation 加 -al 构成 national，表示国家的；可向 international 的跨国家范围迁移。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "national"
+        ],
+        "focus": [
+          "al"
+        ],
+        "cue": "nation 加 al，字形保留 nation；与 nation /ˈneɪʃən/ 的 a 读音不同。",
+        "sourceEvidence": "nation 加 al，字形保留 nation；与 nation /ˈneɪʃən/ 的 a 读音不同。"
       }
     },
     {
@@ -2252,6 +2815,19 @@
           "parts": [],
           "note": "本词在“英雄以勇敢、有益的行动为线索，不只指穿披风的虚构人物。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "h",
+          "e",
+          "r",
+          "o"
+        ],
+        "focus": [
+          "o"
+        ],
+        "cue": "h-e-r-o，尾音 /əʊ/ 这里只写 o，不添 w。",
+        "sourceEvidence": "h-e-r-o，尾音 /əʊ/ 这里只写 o，不添 w。"
       }
     },
     {
@@ -2299,6 +2875,17 @@
           "parts": [],
           "note": "本词在“公众是面向社会的人群；公共场所与私人场所相对。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "pub",
+          "lic"
+        ],
+        "focus": [
+          "c"
+        ],
+        "cue": "p-u-b-l-i-c；末尾写 c，不按声音写 k。",
+        "sourceEvidence": "p-u-b-l-i-c；末尾写 c，不按声音写 k。"
       }
     },
     {
@@ -2346,6 +2933,19 @@
           "parts": [],
           "note": "本词在“四方位之一，与 north 相对；地图方向需先确认北向。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "s",
+          "ou",
+          "th"
+        ],
+        "focus": [
+          "ou",
+          "th"
+        ],
+        "cue": "s-ou-th；/aʊ/ 在这里写 ou，咬舌音写 th。",
+        "sourceEvidence": "s-ou-th；/aʊ/ 在这里写 ou，咬舌音写 th。"
       }
     },
     {
@@ -2394,6 +2994,18 @@
           "parts": [],
           "note": "本词在“球的上位类别，football、tennis ball 是具体成员。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "b",
+          "a",
+          "ll"
+        ],
+        "focus": [
+          "ll"
+        ],
+        "cue": "b-a-ll，词尾双 l；不是按长音写 o。",
+        "sourceEvidence": "b-a-ll，词尾双 l；不是按长音写 o。"
       }
     },
     {
@@ -2464,6 +3076,17 @@
           ],
           "note": "e 来自 electronic 的缩写，与 mail 组合表示电子邮件；不是把 e 当万能前缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "e",
+          "mail"
+        ],
+        "focus": [
+          "ai"
+        ],
+        "cue": "电子邮件由 e+mail 组成；mail 的 ai=/eɪ/，此处合写 email。",
+        "sourceEvidence": "电子邮件由 e+mail 组成；mail 的 ai=/eɪ/，此处合写 email。"
       }
     },
     {
@@ -2527,6 +3150,19 @@
           ],
           "note": "两个词组成节气这个名称，整体联系太阳的周年运动，不把 solar 的读音块当词根。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "so",
+          "lar ",
+          "term"
+        ],
+        "focus": [
+          "ar",
+          "er"
+        ],
+        "cue": "记 so-lar / term；solar 词尾 ar，term 的 er=/ɜː/。",
+        "sourceEvidence": "记 so-lar / term；solar 词尾 ar，term 的 er=/ɜː/。"
       }
     },
     {
@@ -2581,6 +3217,20 @@
           "parts": [],
           "note": "本词在“人为栽培、用于收获的作物，与路边野草区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "c",
+          "r",
+          "o",
+          "p"
+        ],
+        "focus": [
+          "cr",
+          "p"
+        ],
+        "cue": "c-r-o-p，cr 两辅音连续，只有一个 p。",
+        "sourceEvidence": "c-r-o-p，cr 两辅音连续，只有一个 p。"
       }
     },
     {
@@ -2628,6 +3278,19 @@
           "parts": [],
           "note": "本词在“与 south 相反的方位，不能仅凭页面上方判断实际方向。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "n",
+          "or",
+          "th"
+        ],
+        "focus": [
+          "or",
+          "th"
+        ],
+        "cue": "n-or-th；长音 /ɔː/ 在这里写 or。",
+        "sourceEvidence": "n-or-th；长音 /ɔː/ 在这里写 or。"
       }
     },
     {
@@ -2681,6 +3344,19 @@
           "parts": [],
           "note": "本词在“表示逐渐变大或生长，growth 是相应过程名词。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "g",
+          "r",
+          "o",
+          "w"
+        ],
+        "focus": [
+          "ow"
+        ],
+        "cue": "字形 g-r-o-w，尾音 /əʊ/ 在这里写 ow。",
+        "sourceEvidence": "字形 g-r-o-w，尾音 /əʊ/ 在这里写 ow。"
       }
     },
     {
@@ -2728,6 +3404,18 @@
           "parts": [],
           "note": "本词在“泛指事物、物品或事情；范围比 toy、book 等具体名词宽。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "th",
+          "i",
+          "ng"
+        ],
+        "focus": [
+          "ng"
+        ],
+        "cue": "th-i-ng，ng 合发一个鼻音，g 不另读 /ɡ/。",
+        "sourceEvidence": "th-i-ng，ng 合发一个鼻音，g 不另读 /ɡ/。"
       }
     },
     {
@@ -2775,13 +3463,24 @@
         "semantic": "与 sow、grow 构成播种—生长—收获顺序。",
         "context": {
           "scene": "秋天帮助家人收成熟豆子。",
-          "question": "种子长成并成熟后，把果实收起来处于哪个阶段？"
+          "question": "种子长成并成熟后，把果实遮住来处于哪个阶段？"
         },
         "morphology": {
           "kind": "none",
           "parts": [],
           "note": "本词在“与 sow、grow 构成播种—生长—收获顺序。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "har",
+          "vest"
+        ],
+        "focus": [
+          "e"
+        ],
+        "cue": "记 har+vest，第二段弱音写 e，不照声音写 i。",
+        "sourceEvidence": "记 har+vest，第二段弱音写 e，不照声音写 i。"
       }
     },
     {
@@ -2835,6 +3534,18 @@
           "parts": [],
           "note": "本词在“表示保持或保留；keep 后可接形容词说明要维持的状态。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "k",
+          "ee",
+          "p"
+        ],
+        "focus": [
+          "ee"
+        ],
+        "cue": "/iː/ 在这里写 ee；k-ee-p。",
+        "sourceEvidence": "/iː/ 在这里写 ee；k-ee-p。"
       }
     },
     {
@@ -2900,6 +3611,18 @@
           ],
           "note": "store up 强调整体储存积累，up 在此不表示物理向上；结合未来备用理解。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "store ",
+          "up"
+        ],
+        "focus": [
+          "ore",
+          "up"
+        ],
+        "cue": "store 的 ore=/ɔː/，e 不单独读；up 是 u+p，两词分开。",
+        "sourceEvidence": "store 的 ore=/ɔː/，e 不单独读；up 是 u+p，两词分开。"
       }
     },
     {
@@ -2946,6 +3669,19 @@
           "parts": [],
           "note": "本词在“作为地点表示营地，也可作动词表示露营；与一次 trip 的行程区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "c",
+          "a",
+          "m",
+          "p"
+        ],
+        "focus": [
+          "mp"
+        ],
+        "cue": "c-a-m-p；末尾 mp 两辅音都保留。",
+        "sourceEvidence": "c-a-m-p；末尾 mp 两辅音都保留。"
       }
     },
     {
@@ -2973,6 +3709,19 @@
           "parts": [],
           "note": "本词在“通常指一次旅行或外出活动，可与关注过程的 journey 对照。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "t",
+          "r",
+          "i",
+          "p"
+        ],
+        "focus": [
+          "tr"
+        ],
+        "cue": "t-r-i-p；tr 中不另添元音。",
+        "sourceEvidence": "t-r-i-p；tr 中不另添元音。"
       }
     },
     {
@@ -3000,6 +3749,16 @@
           "parts": [],
           "note": "本词在“这里是采摘；也可表示挑选，需根据宾语判断。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "pick"
+        ],
+        "focus": [
+          "ck"
+        ],
+        "cue": "末尾 /k/ 写 ck，两字母一个音。",
+        "sourceEvidence": "末尾 /k/ 写 ck，两字母一个音。"
       }
     },
     {
@@ -3049,6 +3808,18 @@
           "parts": [],
           "note": "本词在“食物类别，可联系 cabbage、carrot；与水果分类对照。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "vege",
+          "ta",
+          "ble"
+        ],
+        "focus": [
+          "e"
+        ],
+        "cue": "字形 vege-ta-ble，第二个 e 常不单独发音但要写。",
+        "sourceEvidence": "字形 vege-ta-ble，第二个 e 常不单独发音但要写。"
       }
     },
     {
@@ -3095,6 +3866,20 @@
           "parts": [],
           "note": "本词在“set the table 表示摆餐具，区别于仅把桌子搬到另一个地方。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "s",
+          "e",
+          "t"
+        ],
+        "focus": [
+          "s",
+          "e",
+          "t"
+        ],
+        "cue": "s-e-t 三字母，不添词尾 e。",
+        "sourceEvidence": "s-e-t 三字母，不添词尾 e。"
       }
     },
     {
@@ -3153,6 +3938,18 @@
           ],
           "note": "our+selves 构成复数反身代词 ourselves；self→selves 的 f 变 v，表示我们自己，不写 ourself。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "our",
+          "selves"
+        ],
+        "focus": [
+          "selves",
+          "ves"
+        ],
+        "cue": "our+selves；“我们自己”用复数 selves，尾音 /vz/ 写 ves。",
+        "sourceEvidence": "our+selves；“我们自己”用复数 selves，尾音 /vz/ 写 ves。"
       }
     },
     {
@@ -3211,6 +4008,17 @@
           ],
           "note": "my+self 构成单数反身代词 myself，连写；与 ourselves 的复数 self→selves 对照。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "my",
+          "self"
+        ],
+        "focus": [
+          "y"
+        ],
+        "cue": "my+self 合写；my 的 /aɪ/ 写 y。",
+        "sourceEvidence": "my+self 合写；my 的 /aɪ/ 写 y。"
       }
     },
     {
@@ -3243,6 +4051,21 @@
           "parts": [],
           "note": "本词在“频率为零，与 always 的总是相对；本身带否定意义。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "n",
+          "e",
+          "v",
+          "e",
+          "r"
+        ],
+        "focus": [
+          "e",
+          "er"
+        ],
+        "cue": "n-e-v-e-r，两处 e，末尾 er 的 r 不漏。",
+        "sourceEvidence": "n-e-v-e-r，两处 e，末尾 er 的 r 不漏。"
       }
     },
     {
@@ -3286,6 +4109,18 @@
           "parts": [],
           "note": "本词在“时间顺序在先，与 after 相反；不等于昨天。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "be",
+          "fore"
+        ],
+        "focus": [
+          "e",
+          "ore"
+        ],
+        "cue": "字形 be+fore；前音 /ɪ/ 写 e，后段 ore 不能漏 e。",
+        "sourceEvidence": "字形 be+fore；前音 /ɪ/ 写 e，后段 ore 不能漏 e。"
       }
     },
     {
@@ -3329,6 +4164,18 @@
           ],
           "note": "动词与方向词组合表示拿出去；方向词 out 是真实单词，不是词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "take ",
+          "out"
+        ],
+        "focus": [
+          "e",
+          "ou"
+        ],
+        "cue": "take 保留词尾 e；out 的 /aʊ/ 写 ou。",
+        "sourceEvidence": "take 保留词尾 e；out 的 /aʊ/ 写 ou。"
       }
     },
     {
@@ -3385,6 +4232,19 @@
           "parts": [],
           "note": "本词在“通常作不可数名词；与可再次利用的 recyclable material 有交集但不相同。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ru",
+          "bb",
+          "ish"
+        ],
+        "focus": [
+          "bb",
+          "ish"
+        ],
+        "cue": "中间双 b，末尾 ish；双 b 只读一次 /b/。",
+        "sourceEvidence": "中间双 b，末尾 ish；双 b 只读一次 /b/。"
       }
     },
     {
@@ -3427,6 +4287,17 @@
           "parts": [],
           "note": "本词在“表示整体全部，与 some 的一部分、most 的大多数区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "a",
+          "ll"
+        ],
+        "focus": [
+          "ll"
+        ],
+        "cue": "a-ll，双 l；不是按声音写 o。",
+        "sourceEvidence": "a-ll，双 l；不是按声音写 o。"
       }
     },
     {
@@ -3486,6 +4357,16 @@
           ],
           "note": "help 加 -er 成 helper，表示提供帮助的人；与 helpful 的性质词区分。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "helper"
+        ],
+        "focus": [
+          "er"
+        ],
+        "cue": "help（帮助）+er，得到 helper（帮手）。",
+        "sourceEvidence": "help（帮助）+er，得到 helper（帮手）。"
       }
     },
     {
@@ -3534,6 +4415,18 @@
           "parts": [],
           "note": "本词在“公开展示图文信息，区别于只递给一个人的 card。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "post",
+          "er"
+        ],
+        "focus": [
+          "st",
+          "er"
+        ],
+        "cue": "字形 post–er，s、t 都保留；分块用于拼写。",
+        "sourceEvidence": "字形 post–er，s、t 都保留；分块用于拼写。"
       }
     },
     {
@@ -3580,6 +4473,18 @@
           "parts": [],
           "note": "本词在“ask 表示询问或请求，answer 表示回应；与直接说出信息的 say 区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "a",
+          "s",
+          "k"
+        ],
+        "focus": [
+          "sk"
+        ],
+        "cue": "a-s-k；末尾 sk 两辅音，不添 e。",
+        "sourceEvidence": "a-s-k；末尾 sk 两辅音，不添 e。"
       }
     },
     {
@@ -3634,6 +4539,19 @@
           "parts": [],
           "note": "本词在“为别人提供帮助或工作，区别于自己完成的私人 chores。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "s",
+          "er",
+          "vice"
+        ],
+        "focus": [
+          "er",
+          "ce"
+        ],
+        "cue": "er=/ɜː/，词尾 /s/ 写 ce，不能直接写 s。",
+        "sourceEvidence": "er=/ɜː/，词尾 /s/ 写 ce，不能直接写 s。"
       }
     },
     {
@@ -3666,6 +4584,18 @@
           "parts": [],
           "note": "本词在“依据共同特征分组，不只是把所有物品排成一列。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "s",
+          "or",
+          "t"
+        ],
+        "focus": [
+          "or"
+        ],
+        "cue": "s-or-t；长音 /ɔː/ 在这里写 or。",
+        "sourceEvidence": "s-or-t；长音 /ɔː/ 在这里写 or。"
       }
     },
     {
@@ -3712,6 +4642,18 @@
           "parts": [],
           "note": "本词在“房屋的竖直边界，区别于脚下 floor 和头上 ceiling。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "w",
+          "a",
+          "ll"
+        ],
+        "focus": [
+          "ll"
+        ],
+        "cue": "w-a-ll，末尾双 l；a 不写 o。",
+        "sourceEvidence": "w-a-ll，末尾双 l；a 不写 o。"
       }
     },
     {
@@ -3772,6 +4714,17 @@
           ],
           "note": "help 加 -ful 表示有帮助的、乐于助人的；-ful 只有一个 l，不写成 helpfull。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "help",
+          "ful"
+        ],
+        "focus": [
+          "ful"
+        ],
+        "cue": "help+ful；-ful 表示具有这种性质，词尾只有一个 l。",
+        "sourceEvidence": "help+ful；-ful 表示具有这种性质，词尾只有一个 l。"
       }
     },
     {
@@ -3835,6 +4788,19 @@
           ],
           "note": "recycle 去末尾 e 后加 -able 成 recyclable，表示可被回收；recycle 中 re- 表示再次，cycle 表示循环。不是直接写 recycleable。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "re",
+          "cycl",
+          "able"
+        ],
+        "focus": [
+          "c",
+          "able"
+        ],
+        "cue": "字形 re-cycl-able，第一个 c=/s/，第二个 c=/k/；也可由 recycle 去 e 加 able 生成。",
+        "sourceEvidence": "字形 re-cycl-able，第一个 c=/s/，第二个 c=/k/；也可由 recycle 去 e 加 able 生成。"
       }
     },
     {
@@ -3895,6 +4861,16 @@
           ],
           "note": "harm 加 -ful 成 harmful，表示有害的；-ful 只有一个 l，与 helpful 可成对学习。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "harmful"
+        ],
+        "focus": [
+          "ful"
+        ],
+        "cue": "harm（伤害）+ful；词尾只写一个 l。",
+        "sourceEvidence": "harm（伤害）+ful；词尾只写一个 l。"
       }
     },
     {
@@ -3922,6 +4898,21 @@
           "parts": [],
           "note": "本词在“可作废弃物名词或浪费动词；与可有用的剩余材料区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "w",
+          "a",
+          "s",
+          "t",
+          "e"
+        ],
+        "focus": [
+          "a",
+          "e"
+        ],
+        "cue": "字形 w-a-s-t-e；末尾 e 不发音，长音 /eɪ/ 写 a_e。",
+        "sourceEvidence": "字形 w-a-s-t-e；末尾 e 不发音，长音 /eɪ/ 写 a_e。"
       }
     },
     {
@@ -3969,6 +4960,20 @@
           "parts": [],
           "note": "本词在“容器的一种，区别于硬盒 box 和垃圾桶 bin。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "b",
+          "a",
+          "g"
+        ],
+        "focus": [
+          "b",
+          "a",
+          "g"
+        ],
+        "cue": "b-a-g 三字母，末尾 g。",
+        "sourceEvidence": "b-a-g 三字母，末尾 g。"
       }
     },
     {
@@ -4016,6 +5021,18 @@
           "parts": [],
           "note": "本词在“垃圾或回收物的容器，与可提走的 bag 不同；分类颜色需按本地规则。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "b",
+          "i",
+          "n"
+        ],
+        "focus": [
+          "i"
+        ],
+        "cue": "b-i-n，短音 /ɪ/ 写 i，末尾不添 e。",
+        "sourceEvidence": "b-i-n，短音 /ɪ/ 写 i，末尾不添 e。"
       }
     },
     {
@@ -4063,6 +5080,18 @@
           "parts": [],
           "note": "本词在“情态助动词表示将来或意愿，后接动词原形。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "w",
+          "i",
+          "ll"
+        ],
+        "focus": [
+          "ll"
+        ],
+        "cue": "w-i-ll，末尾双 l，只发一次 /l/。",
+        "sourceEvidence": "w-i-ll，末尾双 l，只发一次 /l/。"
       }
     },
     {
@@ -4122,6 +5151,20 @@
           ],
           "note": "amaze 去末尾 e 再加 -ing 得 amazing，描述令人惊叹的事物；amazed 描述感到惊叹的人。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "a",
+          "maz",
+          "ing"
+        ],
+        "focus": [
+          "a",
+          "z",
+          "ing"
+        ],
+        "cue": "字形 a-maz-ing；中间 a 发长音，/z/ 写 z；来自 amaze 去 e 加 ing。",
+        "sourceEvidence": "字形 a-maz-ing；中间 a 发长音，/z/ 写 z；来自 amaze 去 e 加 ing。"
       }
     },
     {
@@ -4172,6 +5215,17 @@
           "parts": [],
           "note": "本词在“famous 强调有名，popular 强调受欢迎，两者不完全相同。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "fa",
+          "mous"
+        ],
+        "focus": [
+          "ous"
+        ],
+        "cue": "字形 fa-mous，尾音 /əs/ 写 ous；也可由 fame 去 e 加 ous 生成。",
+        "sourceEvidence": "字形 fa-mous，尾音 /əs/ 写 ous；也可由 fame 去 e 加 ous 生成。"
       }
     },
     {
@@ -4238,6 +5292,18 @@
           ],
           "note": "home+town 成 hometown，指个人的家乡，整体连写。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "home",
+          "town"
+        ],
+        "focus": [
+          "e",
+          "ow"
+        ],
+        "cue": "home+town 合写；home 有静音 e，town 的 ow=/aʊ/。",
+        "sourceEvidence": "home+town 合写；home 有静音 e，town 的 ow=/aʊ/。"
       }
     },
     {
@@ -4286,6 +5352,17 @@
           "parts": [],
           "note": "本词在“强调一段时间留在某处，与 leave 的离开相对。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "st",
+          "ay"
+        ],
+        "focus": [
+          "ay"
+        ],
+        "cue": "st-ay，尾音 /eɪ/ 写 ay，末尾不添 e。",
+        "sourceEvidence": "st-ay，尾音 /eɪ/ 写 ay，末尾不添 e。"
       }
     },
     {
@@ -4322,6 +5399,18 @@
           "parts": [],
           "note": "本词在“few 修饰可数复数；a few 表示有少数几个，few 常强调不多。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "f",
+          "e",
+          "w"
+        ],
+        "focus": [
+          "ew"
+        ],
+        "cue": "f-e-w，/juː/ 在这里写 ew，不写 ue。",
+        "sourceEvidence": "f-e-w，/juː/ 在这里写 ew，不写 ue。"
       }
     },
     {
@@ -4368,6 +5457,16 @@
           "parts": [],
           "note": "本词在“by train 表示乘车方式，一般不用冠词；与表示位置的 by 需看上下文。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "by"
+        ],
+        "focus": [
+          "by"
+        ],
+        "cue": "表示“乘”写 by 两字母；不是同音 buy（买）。",
+        "sourceEvidence": "表示“乘”写 by 两字母；不是同音 buy（买）。"
       }
     },
     {
@@ -4422,6 +5521,19 @@
           "parts": [],
           "note": "choice 与 choose 是相关词族，名词表示选择；并非给 choose 直接加一个透明后缀即可拼出。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ch",
+          "oi",
+          "ce"
+        ],
+        "focus": [
+          "oi",
+          "ce"
+        ],
+        "cue": "ch-oi-ce；末尾 /s/ 写 ce，不写 s。",
+        "sourceEvidence": "ch-oi-ce；末尾 /s/ 写 ce，不写 s。"
       }
     },
     {
@@ -4469,6 +5581,18 @@
           "parts": [],
           "note": "本词在“沿轨道行驶的交通工具，与 road 上的 car 区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "tr",
+          "ai",
+          "n"
+        ],
+        "focus": [
+          "ai"
+        ],
+        "cue": "tr-ai-n；长音 /eɪ/ 这里写 ai。",
+        "sourceEvidence": "tr-ai-n；长音 /eɪ/ 这里写 ai。"
       }
     },
     {
@@ -4516,6 +5640,18 @@
           "parts": [],
           "note": "本词在“通常指汽车，可与 bus 的公共载客、train 的轨道交通区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "c",
+          "a",
+          "r"
+        ],
+        "focus": [
+          "ar"
+        ],
+        "cue": "c-a-r；ar 合读，英式 r 不单独发音但要写。",
+        "sourceEvidence": "c-a-r；ar 合读，英式 r 不单独发音但要写。"
       }
     },
     {
@@ -4568,6 +5704,17 @@
           "parts": [],
           "note": "本词在“表示确定、确信；与只是猜测或不确定的 maybe 区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "sure"
+        ],
+        "focus": [
+          "s",
+          "ure"
+        ],
+        "cue": "特殊开头：写一个 s，不写 sh；末尾 ure。",
+        "sourceEvidence": "特殊开头：写一个 s，不写 sh；末尾 ure。"
       }
     },
     {
@@ -4605,6 +5752,19 @@
           "parts": [],
           "note": "本词在“限制范围为只有、仅仅，和 all 的全部方向不同。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "o",
+          "n",
+          "l",
+          "y"
+        ],
+        "focus": [
+          "y"
+        ],
+        "cue": "o-n-l-y，尾音 /i/ 写 y；o 在这里发长音。",
+        "sourceEvidence": "o-n-l-y，尾音 /i/ 写 y；o 在这里发长音。"
       }
     },
     {
@@ -4638,6 +5798,17 @@
           "parts": [],
           "note": "本词在“时间单位，一小时等于六十分钟；与 minute 的较短单位区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "h",
+          "our"
+        ],
+        "focus": [
+          "h"
+        ],
+        "cue": "“小时”是 h+our，与同音 our（我们的）区别在 h。",
+        "sourceEvidence": "“小时”是 h+our，与同音 our（我们的）区别在 h。"
       }
     },
     {
@@ -4711,6 +5882,19 @@
           ],
           "note": "high-speed 用连字符组成复合修饰语，说明列车速度高；不是把 train 的音节继续拆分。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "high-speed ",
+          "train"
+        ],
+        "focus": [
+          "igh",
+          "ee",
+          "ai"
+        ],
+        "cue": "high 的 igh=/aɪ/，speed 用 ee，train 用 ai；high-speed 有连字符。",
+        "sourceEvidence": "high 的 igh=/aɪ/，speed 用 ee，train 用 ai；high-speed 有连字符。"
       }
     },
     {
@@ -4757,6 +5941,20 @@
           "parts": [],
           "note": "本词在“强调省时间、省麻烦，与 comfortable 的身体舒适区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "con",
+          "ve",
+          "ni",
+          "ent"
+        ],
+        "focus": [
+          "e",
+          "ent"
+        ],
+        "cue": "字形 con+venient，venient 中两个 e；末尾 ent 的 e 不漏。",
+        "sourceEvidence": "字形 con+venient，venient 中两个 e；末尾 ent 的 e 不漏。"
       }
     },
     {
@@ -4806,6 +6004,18 @@
           ],
           "note": "两词搭配表示超过某数量，严格大于，不包括等于。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "more ",
+          "than"
+        ],
+        "focus": [
+          "ore",
+          "a"
+        ],
+        "cue": "more 的 ore=/ɔː/，than 用 a，不能写 then（那时）。",
+        "sourceEvidence": "more 的 ore=/ɔː/，than 用 a，不能写 then（那时）。"
       }
     },
     {
@@ -4859,6 +6069,19 @@
           "parts": [],
           "note": "本词在“plan 可作计划名词或计划动词；区别于事后回忆。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "p",
+          "l",
+          "a",
+          "n"
+        ],
+        "focus": [
+          "pl"
+        ],
+        "cue": "p-l-a-n；pl 连读，中间不添元音。",
+        "sourceEvidence": "p-l-a-n；pl 连读，中间不添元音。"
       }
     },
     {
@@ -4906,6 +6129,18 @@
           "parts": [],
           "note": "p.m. 源自拉丁语 post meridiem，表示正午之后；学习时先用上午/下午时间对照，不按英语字母音猜词义。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "p.m."
+        ],
+        "focus": [
+          "p",
+          "m",
+          "."
+        ],
+        "cue": "p 和 m 都小写，各跟一个点；下午开头 p，上午 a.m. 开头 a。",
+        "sourceEvidence": "p 和 m 都小写，各跟一个点；下午开头 p，上午 a.m. 开头 a。"
       }
     },
     {
@@ -4953,6 +6188,19 @@
           "parts": [],
           "note": "本词在“学科及过去经历的记录，与尚未发生的 future 相对。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "his",
+          "to",
+          "ry"
+        ],
+        "focus": [
+          "o",
+          "ry"
+        ],
+        "cue": "中间弱音 /ə/ 写 o，词尾 /ri/ 写 ry。",
+        "sourceEvidence": "中间弱音 /ə/ 写 o，词尾 /ri/ 写 ry。"
       }
     },
     {
@@ -5003,6 +6251,20 @@
           "parts": [],
           "note": "本词在“可形容人任务多或地方活动多，与 quiet 的声音维度不完全相同。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "b",
+          "u",
+          "s",
+          "y"
+        ],
+        "focus": [
+          "u",
+          "s"
+        ],
+        "cue": "写 b-u-s-y，不能照声音把 u 写 i、s 写 z。",
+        "sourceEvidence": "写 b-u-s-y，不能照声音把 u 写 i、s 写 z。"
       }
     },
     {
@@ -5037,6 +6299,20 @@
           "parts": [],
           "note": "本词在“离开一个地点，与 arrive 的到达相对；不等于忘记。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "l",
+          "ea",
+          "v",
+          "e"
+        ],
+        "focus": [
+          "ea",
+          "e"
+        ],
+        "cue": "l-ea-v-e；长音写 ea，v 后还要 e。",
+        "sourceEvidence": "l-ea-v-e；长音写 ea，v 后还要 e。"
       }
     },
     {
@@ -5084,6 +6360,18 @@
           "parts": [],
           "note": "a.m. 源自拉丁语 ante meridiem，表示正午之前；学习时先用上午/下午时间对照，不按英语字母音猜词义。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "a.m."
+        ],
+        "focus": [
+          "a",
+          "m",
+          "."
+        ],
+        "cue": "a、m 小写且各跟一个点；上午是 a.m.，下午是 p.m.。",
+        "sourceEvidence": "a、m 小写且各跟一个点；上午是 a.m.，下午是 p.m.。"
       }
     },
     {
@@ -5132,6 +6420,17 @@
           "parts": [],
           "note": "本词在“say 注重说的内容，speak 常注重说话能力或语言。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "s",
+          "ay"
+        ],
+        "focus": [
+          "ay"
+        ],
+        "cue": "s-ay；尾音 /eɪ/ 写 ay，不添 e。",
+        "sourceEvidence": "s-ay；尾音 /eɪ/ 写 ay，不添 e。"
       }
     },
     {
@@ -5179,6 +6478,20 @@
           "parts": [],
           "note": "本词在“表示骑乘，与步行 walk、驾驶汽车 drive 对照。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "r",
+          "i",
+          "d",
+          "e"
+        ],
+        "focus": [
+          "i",
+          "e"
+        ],
+        "cue": "r-i-d-e，末尾 e 不发音但使 i 读长音。",
+        "sourceEvidence": "r-i-d-e，末尾 e 不发音但使 i 读长音。"
       }
     },
     {
@@ -5226,6 +6539,19 @@
           "parts": [],
           "note": "bike 是 bicycle 的简称，整体表示自行车；不把读音分块当词根。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "b",
+          "i",
+          "k",
+          "e"
+        ],
+        "focus": [
+          "e"
+        ],
+        "cue": "b-i-k-e；词尾 e 沉默，不能漏。",
+        "sourceEvidence": "b-i-k-e；词尾 e 沉默，不能漏。"
       }
     },
     {
@@ -5275,6 +6601,18 @@
           "parts": [],
           "note": "本词在“方位与 west 相对；认东可先参考太阳大致升起的方向。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ea",
+          "s",
+          "t"
+        ],
+        "focus": [
+          "ea"
+        ],
+        "cue": "ea-s-t，开头长音 /iː/ 写 ea。",
+        "sourceEvidence": "ea-s-t，开头长音 /iː/ 写 ea。"
       }
     },
     {
@@ -5324,6 +6662,19 @@
           "parts": [],
           "note": "本词在“与 east 相对的方位，地图标北后才能对应左侧。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "w",
+          "e",
+          "s",
+          "t"
+        ],
+        "focus": [
+          "e"
+        ],
+        "cue": "w-e-s-t，西方是短 e，区别 east 的 ea 长音。",
+        "sourceEvidence": "w-e-s-t，西方是短 e，区别 east 的 ea 长音。"
       }
     },
     {
@@ -5351,6 +6702,16 @@
           "parts": [],
           "note": "本词在“从某个观察点能看见的景象，区别于地图所标的路线。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "view"
+        ],
+        "focus": [
+          "iew"
+        ],
+        "cue": "尾音在这里写 i-e-w，三个字母都保留。",
+        "sourceEvidence": "尾音在这里写 i-e-w，三个字母都保留。"
       }
     },
     {
@@ -5398,6 +6759,17 @@
           "parts": [],
           "note": "本词在“此处形容天气晴朗；也可指水透明、说明清楚，须看对象。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "cl",
+          "ear"
+        ],
+        "focus": [
+          "ear"
+        ],
+        "cue": "cl–ear；ear 在这里不是 pear 的 /eə/。",
+        "sourceEvidence": "cl–ear；ear 在这里不是 pear 的 /eə/。"
       }
     },
     {
@@ -5445,6 +6817,17 @@
           "parts": [],
           "note": "本词在“速度低，与 fast 相反；不等于出发时间晚。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "sl",
+          "ow"
+        ],
+        "focus": [
+          "ow"
+        ],
+        "cue": "sl-ow；尾音写 ow，不写 o。",
+        "sourceEvidence": "sl-ow；尾音写 ow，不写 o。"
       }
     },
     {
@@ -5493,6 +6876,20 @@
           "parts": [],
           "note": "本词在“空间位置的表示工具，与景色照片 picture 不同。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "m",
+          "a",
+          "p"
+        ],
+        "focus": [
+          "m",
+          "a",
+          "p"
+        ],
+        "cue": "m-a-p 三字母，一个 p。",
+        "sourceEvidence": "m-a-p 三字母，一个 p。"
       }
     },
     {
@@ -5539,6 +6936,18 @@
           "parts": [],
           "note": "China 是地理专名，按地图、所属国家或地标识别；不根据音节或相似字母虚构词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Chi",
+          "na"
+        ],
+        "focus": [
+          "C",
+          "a"
+        ],
+        "cue": "Chi-na；尾部弱音写 a，首字母 C 大写。",
+        "sourceEvidence": "Chi-na；尾部弱音写 a，首字母 C 大写。"
       }
     },
     {
@@ -5581,6 +6990,20 @@
           "parts": [],
           "note": "Asia 是地理专名，按地图、所属国家或地标识别；不根据音节或相似字母虚构词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "A",
+          "s",
+          "i",
+          "a"
+        ],
+        "focus": [
+          "s",
+          "ia"
+        ],
+        "cue": "A-s-i-a 四字母；/ʒ/ 在这里写 s，末尾 ia。",
+        "sourceEvidence": "A-s-i-a 四字母；/ʒ/ 在这里写 s，末尾 ia。"
       }
     },
     {
@@ -5635,6 +7058,19 @@
           "parts": [],
           "note": "本词在“雄性鸡，与 hen 的母鸡区分；中国轮廓像公鸡只是一种观察联想。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "r",
+          "oo",
+          "ster"
+        ],
+        "focus": [
+          "oo",
+          "er"
+        ],
+        "cue": "r-oo-s-t-er；/uː/ 写 oo，尾部 er。",
+        "sourceEvidence": "r-oo-s-t-er；/uː/ 写 oo，尾部 er。"
       }
     },
     {
@@ -5681,6 +7117,19 @@
           "parts": [],
           "note": "Canada 是地理专名，按地图、所属国家或地标识别；不根据音节或相似字母虚构词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Ca",
+          "na",
+          "da"
+        ],
+        "focus": [
+          "C",
+          "a"
+        ],
+        "cue": "三个 a，第一个读 /æ/，后两个常弱读 /ə/；C 大写。",
+        "sourceEvidence": "三个 a，第一个读 /æ/，后两个常弱读 /ə/；C 大写。"
       }
     },
     {
@@ -5734,6 +7183,19 @@
           ],
           "note": "North 表明北部，整体是洲名，保留两词首字母大写；不按 America 音节猜来源。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "North ",
+          "America"
+        ],
+        "focus": [
+          "or",
+          "th",
+          "A"
+        ],
+        "cue": "North 用 or、th；America 分 A-mer-i-ca，首尾 a；两词首字母大写。",
+        "sourceEvidence": "North 用 or、th；America 分 A-mer-i-ca，首尾 a；两词首字母大写。"
       }
     },
     {
@@ -5780,6 +7242,17 @@
           "parts": [],
           "note": "UK 是 United Kingdom 的首字母缩写；在学习国家名时记整体，不把字母当词根。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "UK"
+        ],
+        "focus": [
+          "U",
+          "K"
+        ],
+        "cue": "英国简称写大写 U、K；两个字母，不加点。",
+        "sourceEvidence": "英国简称写大写 U、K；两个字母，不加点。"
       }
     },
     {
@@ -5822,6 +7295,21 @@
           "parts": [],
           "note": "Europe 是地理专名，按地图、所属国家或地标识别；不根据音节或相似字母虚构词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "E",
+          "u",
+          "r",
+          "o",
+          "p",
+          "e"
+        ],
+        "focus": [
+          "Eu"
+        ],
+        "cue": "E-u-r-o-p-e；这里 rope 不读英语单词 rope 的 /rəʊp/。",
+        "sourceEvidence": "E-u-r-o-p-e；这里 rope 不读英语单词 rope 的 /rəʊp/。"
       }
     },
     {
@@ -5868,6 +7356,18 @@
           "parts": [],
           "note": "本词在“这里指首都，是城市的一种地位；不是所有 city 都是首都。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "cap",
+          "i",
+          "tal"
+        ],
+        "focus": [
+          "tal"
+        ],
+        "cue": "末尾弱音 /təl/ 写 tal，不写 tle。",
+        "sourceEvidence": "末尾弱音 /təl/ 写 tal，不写 tle。"
       }
     },
     {
@@ -5914,6 +7414,20 @@
           "parts": [],
           "note": "本词在“地理聚居地类别，capital 是具有首都地位的 city。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "c",
+          "i",
+          "t",
+          "y"
+        ],
+        "focus": [
+          "c",
+          "y"
+        ],
+        "cue": "c-i-t-y；开头 /s/ 写 c，词尾 /i/ 写 y。",
+        "sourceEvidence": "c-i-t-y；开头 /s/ 写 c，词尾 /i/ 写 y。"
       }
     },
     {
@@ -5960,6 +7474,22 @@
           "parts": [],
           "note": "France 是地理专名，按地图、所属国家或地标识别；不根据音节或相似字母虚构词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "F",
+          "r",
+          "a",
+          "n",
+          "c",
+          "e"
+        ],
+        "focus": [
+          "F",
+          "ce"
+        ],
+        "cue": "F-r-a-n-c-e；词尾 /s/ 写 ce，F 大写。",
+        "sourceEvidence": "F-r-a-n-c-e；词尾 /s/ 写 ce，F 大写。"
       }
     },
     {
@@ -6006,6 +7536,21 @@
           "parts": [],
           "note": "Paris 是地理专名，按地图、所属国家或地标识别；不根据音节或相似字母虚构词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "P",
+          "a",
+          "r",
+          "i",
+          "s"
+        ],
+        "focus": [
+          "P",
+          "s"
+        ],
+        "cue": "P-a-r-i-s，两音节，末尾一个 s。",
+        "sourceEvidence": "P-a-r-i-s，两音节，末尾一个 s。"
       }
     },
     {
@@ -6033,6 +7578,19 @@
           "parts": [],
           "note": "本词在“speak 常与语言搭配，say 常接具体说出的内容。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "sp",
+          "ea",
+          "k"
+        ],
+        "focus": [
+          "ea",
+          "k"
+        ],
+        "cue": "sp-ea-k；长音写 ea，词尾 k。",
+        "sourceEvidence": "sp-ea-k；长音写 ea，词尾 k。"
       }
     },
     {
@@ -6087,6 +7645,19 @@
           "parts": [],
           "note": "French 与 France 有国名及相关词的关系，但拼写不能通过给 France 直接加常规后缀得到；作为词族整体对照。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Fr",
+          "e",
+          "nch"
+        ],
+        "focus": [
+          "F",
+          "ch"
+        ],
+        "cue": "F-r-e-n-c-h，末尾 ch 两字母，F 大写。",
+        "sourceEvidence": "F-r-e-n-c-h，末尾 ch 两字母，F 大写。"
       }
     },
     {
@@ -6144,6 +7715,19 @@
           ],
           "note": "Canada 去末尾 a 再加 -ian 构成 Canadian，指加拿大人或加拿大的；Canad 是拼写变化后的词干。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Ca",
+          "na",
+          "di",
+          "an"
+        ],
+        "focus": [
+          "ian"
+        ],
+        "cue": "Canada 去最后 a 加 ian 成 Canadian；na 的 a 读 /eɪ/，不照搬 Canada 的音。",
+        "sourceEvidence": "Canada 去最后 a 加 ian 成 Canadian；na 的 a 读 /eɪ/，不照搬 Canada 的音。"
       }
     },
     {
@@ -6190,6 +7774,17 @@
           "parts": [],
           "note": "London 是地理专名，按地图、所属国家或地标识别；不根据音节或相似字母虚构词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "London"
+        ],
+        "focus": [
+          "L",
+          "o"
+        ],
+        "cue": "两个 o：第一个=/ʌ/，第二个弱读 /ə/；L 大写。",
+        "sourceEvidence": "两个 o：第一个=/ʌ/，第二个弱读 /ə/；L 大写。"
       }
     },
     {
@@ -6254,6 +7849,20 @@
           ],
           "note": "River 标明地理类别，Thames 是河的专名，只按真实地理关系记，不给专名编词根。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "River ",
+          "Th",
+          "ames"
+        ],
+        "focus": [
+          "a",
+          "e",
+          "s"
+        ],
+        "cue": "Thames 写 Th-a-m-e-s；a=/e/、s=/z/，e 不单独读。",
+        "sourceEvidence": "Thames 写 Th-a-m-e-s；a=/e/、s=/z/，e 不单独读。"
       }
     },
     {
@@ -6300,6 +7909,19 @@
           "parts": [],
           "note": "本词在“表示其他的，常放在名词前；another 常指再一个。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "o",
+          "th",
+          "er"
+        ],
+        "focus": [
+          "o",
+          "er"
+        ],
+        "cue": "o-th-er；/ʌ/ 写 o，不写 u，尾部 er。",
+        "sourceEvidence": "o-th-er；/ʌ/ 写 o，不写 u，尾部 er。"
       }
     },
     {
@@ -6338,6 +7960,19 @@
           ],
           "note": "Big Ben 是大钟专名；Big 可联系大钟，Ben 保持为专名，不凭名字编造英语词根。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Big ",
+          "Ben"
+        ],
+        "focus": [
+          "B",
+          "i",
+          "e"
+        ],
+        "cue": "Big 的 i 是短 /ɪ/，Ben 的 e 是 /e/；两词首字母大写。",
+        "sourceEvidence": "Big 的 i 是短 /ɪ/，Ben 的 e 是 /e/；两词首字母大写。"
       }
     },
     {
@@ -6371,6 +8006,18 @@
           "parts": [],
           "note": "本词在“钟表类别，区别于戴在手腕上的 watch。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "cl",
+          "o",
+          "ck"
+        ],
+        "focus": [
+          "ck"
+        ],
+        "cue": "cl-o-ck；尾音 /k/ 用 ck。",
+        "sourceEvidence": "cl-o-ck；尾音 /k/ 用 ck。"
       }
     },
     {
@@ -6418,6 +8065,17 @@
           "parts": [],
           "note": "本词在“质量或重量大，与 light 相反；不同于体积大的 big。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "heavy"
+        ],
+        "focus": [
+          "ea",
+          "y"
+        ],
+        "cue": "短音 /e/ 在这里写 ea；尾音 /i/ 写 y。",
+        "sourceEvidence": "短音 /e/ 在这里写 ea；尾音 /i/ 写 y。"
       }
     },
     {
@@ -6465,6 +8123,19 @@
           "parts": [],
           "note": "本词在“一种高耸建筑，clock tower 是带钟的塔；与普通 house 区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "t",
+          "ow",
+          "er"
+        ],
+        "focus": [
+          "ow",
+          "er"
+        ],
+        "cue": "t-ow-er；这里 ow=/aʊ/，不同于 slow 的 /əʊ/。",
+        "sourceEvidence": "t-ow-er；这里 ow=/aʊ/，不同于 slow 的 /əʊ/。"
       }
     },
     {
@@ -6512,6 +8183,19 @@
           "parts": [],
           "note": "本词在“围绕轴旋转的圆形部件，车轮和摩天轮都可联系这个结构。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "wh",
+          "ee",
+          "l"
+        ],
+        "focus": [
+          "wh",
+          "ee"
+        ],
+        "cue": "wh-ee-l，开头保留 h，长音用 ee。",
+        "sourceEvidence": "wh-ee-l，开头保留 h，长音用 ee。"
       }
     },
     {
@@ -6551,6 +8235,19 @@
           ],
           "note": "两词组合指把人带到高处的摩天轮，联系空中与轮形结构，不直接理解为天空里的普通车轮。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "sky ",
+          "wheel"
+        ],
+        "focus": [
+          "y",
+          "wh",
+          "ee"
+        ],
+        "cue": "sky 的 /aɪ/ 写 y；wheel 写 wh+ee+l，两词分开。",
+        "sourceEvidence": "sky 的 /aɪ/ 写 y；wheel 写 wh+ee+l，两词分开。"
       }
     },
     {
@@ -6578,6 +8275,20 @@
           "parts": [],
           "note": "本词在“此处是河岸，与办理存取款的银行同形不同义。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "b",
+          "a",
+          "n",
+          "k"
+        ],
+        "focus": [
+          "n",
+          "k"
+        ],
+        "cue": "b-a-n-k；n 在 k 前读 /ŋ/，但不用 ng 两字母。",
+        "sourceEvidence": "b-a-n-k；n 在 k 前读 /ŋ/，但不用 ng 两字母。"
       }
     },
     {
@@ -6609,6 +8320,20 @@
           "parts": [],
           "note": "本词在“最上部，与 bottom 相反；不是距离远近。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "t",
+          "o",
+          "p"
+        ],
+        "focus": [
+          "t",
+          "o",
+          "p"
+        ],
+        "cue": "t-o-p，只有三个字母。",
+        "sourceEvidence": "t-o-p，只有三个字母。"
       }
     },
     {
@@ -6655,6 +8380,18 @@
           "parts": [],
           "note": "New Delhi 是地理专名，按地图、所属国家或地标识别；不根据音节或相似字母虚构词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "New ",
+          "Delhi"
+        ],
+        "focus": [
+          "ew",
+          "h"
+        ],
+        "cue": "New 的 ew=/juː/；Delhi 分 Del-hi，h 不单独发音但要写。",
+        "sourceEvidence": "New 的 ew=/juː/；Delhi 分 Del-hi，h 不单独发音但要写。"
       }
     },
     {
@@ -6711,6 +8448,19 @@
           "parts": [],
           "note": "Taj Mahal 是地理专名，按地图、所属国家或地标识别；不根据音节或相似字母虚构词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Taj ",
+          "Ma",
+          "hal"
+        ],
+        "focus": [
+          "j",
+          "a"
+        ],
+        "cue": "Taj 的 /dʒ/ 用 j；Mahal 两个 a，前弱读、后长读。",
+        "sourceEvidence": "Taj 的 /dʒ/ 用 j；Mahal 两个 a，前弱读、后长读。"
       }
     },
     {
@@ -6763,6 +8513,19 @@
           "parts": [],
           "note": "most 在本课表示最高程度或最多，整体学习；不把偶然字母片段当作词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "m",
+          "o",
+          "s",
+          "t"
+        ],
+        "focus": [
+          "o"
+        ],
+        "cue": "m-o-s-t；长音 /əʊ/ 这里只写一个 o。",
+        "sourceEvidence": "m-o-s-t；长音 /əʊ/ 这里只写一个 o。"
       }
     },
     {
@@ -6790,6 +8553,22 @@
           "parts": [],
           "note": "本词在“此处是奇观名词；作动词时还可表示想知道，需看句子。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "w",
+          "o",
+          "n",
+          "d",
+          "e",
+          "r"
+        ],
+        "focus": [
+          "o",
+          "er"
+        ],
+        "cue": "/ʌ/ 写 o，词尾 er；w-o-n-d-e-r。",
+        "sourceEvidence": "/ʌ/ 写 o，词尾 er；w-o-n-d-e-r。"
       }
     },
     {
@@ -6836,6 +8615,22 @@
           "parts": [],
           "note": "Italy 是地理专名，按地图、所属国家或地标识别；不根据音节或相似字母虚构词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "I",
+          "t",
+          "a",
+          "l",
+          "y"
+        ],
+        "focus": [
+          "I",
+          "a",
+          "y"
+        ],
+        "cue": "I-t-a-l-y，弱音写 a、尾音写 y，I 大写。",
+        "sourceEvidence": "I-t-a-l-y，弱音写 a、尾音写 y，I 大写。"
       }
     },
     {
@@ -6882,6 +8677,20 @@
           "parts": [],
           "note": "Rome 是地理专名，按地图、所属国家或地标识别；不根据音节或相似字母虚构词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "R",
+          "o",
+          "m",
+          "e"
+        ],
+        "focus": [
+          "R",
+          "e"
+        ],
+        "cue": "R-o-m-e，末尾 e 沉默，R 大写。",
+        "sourceEvidence": "R-o-m-e，末尾 e 沉默，R 大写。"
       }
     },
     {
@@ -6928,6 +8737,21 @@
           "parts": [],
           "note": "Venice 是地理专名，按地图、所属国家或地标识别；不根据音节或相似字母虚构词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "V",
+          "e",
+          "n",
+          "i",
+          "c",
+          "e"
+        ],
+        "focus": [
+          "ce"
+        ],
+        "cue": "V-e-n-i-c-e；尾 ce=/s/，nice 不能按单词 nice 的 /naɪs/ 读。",
+        "sourceEvidence": "V-e-n-i-c-e；尾 ce=/s/，nice 不能按单词 nice 的 /naɪs/ 读。"
       }
     },
     {
@@ -6974,6 +8798,20 @@
           "parts": [],
           "note": "本词在“按服务收费的交通工具，与私人 car 区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "t",
+          "a",
+          "x",
+          "i"
+        ],
+        "focus": [
+          "x",
+          "i"
+        ],
+        "cue": "t-a-x-i，末尾 /i/ 写 i；/ks/ 只写一个 x。",
+        "sourceEvidence": "t-a-x-i，末尾 /i/ 写 i；/ks/ 只写一个 x。"
       }
     },
     {
@@ -7031,6 +8869,19 @@
           "parts": [],
           "note": "Washington 是地理专名，按地图、所属国家或地标识别；不根据音节或相似字母虚构词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Wash",
+          "ing",
+          "ton"
+        ],
+        "focus": [
+          "W",
+          "ton"
+        ],
+        "cue": "字形 Wash-ing-ton；末尾弱音写 ton，不写 ten；W 大写。",
+        "sourceEvidence": "字形 Wash-ing-ton；末尾弱音写 ton，不写 ten；W 大写。"
       }
     },
     {
@@ -7085,6 +8936,17 @@
           "parts": [],
           "note": "UN 是 United Nations 的首字母缩写，表示联合国；不是以 un- 为否定前缀的普通单词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "UN"
+        ],
+        "focus": [
+          "U",
+          "N"
+        ],
+        "cue": "联合国简称写大写 U、N，两字母不加点。",
+        "sourceEvidence": "联合国简称写大写 U、N，两字母不加点。"
       }
     },
     {
@@ -7131,6 +8993,18 @@
           "parts": [],
           "note": "New York 是地理专名，按地图、所属国家或地标识别；不根据音节或相似字母虚构词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "New ",
+          "York"
+        ],
+        "focus": [
+          "ew",
+          "or"
+        ],
+        "cue": "New 用 ew；York 用 Y-or-k，两个词首字母大写。",
+        "sourceEvidence": "New 用 ew；York 用 Y-or-k，两个词首字母大写。"
       }
     },
     {
@@ -7178,6 +9052,18 @@
           "parts": [],
           "note": "本词在“可作工作动作或不可数工作名词；job 常是一份具体工作。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "w",
+          "or",
+          "k"
+        ],
+        "focus": [
+          "or"
+        ],
+        "cue": "w-or-k，不能按 /ɜː/ 改写 er。",
+        "sourceEvidence": "w-or-k，不能按 /ɜː/ 改写 er。"
       }
     },
     {
@@ -7205,6 +9091,18 @@
           "parts": [],
           "note": "本词在“popular 说明喜爱的人多，famous 说明知道的人多。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "popular"
+        ],
+        "focus": [
+          "p",
+          "u",
+          "lar"
+        ],
+        "cue": "前段 pop 两个 p；中间 u 带 /j/ 音，尾 lar 用 a。",
+        "sourceEvidence": "前段 pop 两个 p；中间 u 带 /j/ 音，尾 lar 用 a。"
       }
     },
     {
@@ -7252,6 +9150,19 @@
           "parts": [],
           "note": "本词在“球拍运动之一，与用有弹性小球的 tennis 区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "bad",
+          "min",
+          "ton"
+        ],
+        "focus": [
+          "min",
+          "ton"
+        ],
+        "cue": "中间 min，最后 ton 的 o 弱读 /ə/。",
+        "sourceEvidence": "中间 min，最后 ton 的 o 弱读 /ə/。"
       }
     },
     {
@@ -7301,6 +9212,18 @@
           "parts": [],
           "note": "本词在“hit 表示击中，miss 表示没击中，形成动作结果对比。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "h",
+          "i",
+          "t"
+        ],
+        "focus": [
+          "t"
+        ],
+        "cue": "h-i-t，一个 t，不添 e。",
+        "sourceEvidence": "h-i-t，一个 t，不添 e。"
       }
     },
     {
@@ -7350,6 +9273,18 @@
           "parts": [],
           "note": "本词在“此处与 hit 相反；另可表示想念或错过，需看对象。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "m",
+          "i",
+          "ss"
+        ],
+        "focus": [
+          "ss"
+        ],
+        "cue": "m-i-ss，末尾双 s，只读一次 /s/。",
+        "sourceEvidence": "m-i-ss，末尾双 s，只读一次 /s/。"
       }
     },
     {
@@ -7396,6 +9331,17 @@
           "parts": [],
           "note": "本词在“another 常指另外一个，other 后可接复数表示其他的。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "an",
+          "other"
+        ],
+        "focus": [
+          "other"
+        ],
+        "cue": "an 与 other 合写为一个词；other 保留 o、th、er。",
+        "sourceEvidence": "an 与 other 合写为一个词；other 保留 o、th、er。"
       }
     },
     {
@@ -7423,6 +9369,23 @@
           "parts": [],
           "note": "British 与 Britain 构成国名与相关词族，不把 Brit 当有独立中文义的常用词，也不机械写 Britain+ish。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "B",
+          "r",
+          "i",
+          "t",
+          "i",
+          "sh"
+        ],
+        "focus": [
+          "B",
+          "i",
+          "sh"
+        ],
+        "cue": "B-r-i-t-i-sh，两个 i，末尾 sh，B 大写。",
+        "sourceEvidence": "B-r-i-t-i-sh，两个 i，末尾 sh，B 大写。"
       }
     },
     {
@@ -7450,6 +9413,18 @@
           "parts": [],
           "note": "本词在“可表示程度“很”，也可修饰不可数数量；与 many 的可数数量区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "m",
+          "u",
+          "ch"
+        ],
+        "focus": [
+          "ch"
+        ],
+        "cue": "m-u-ch；末尾咬合辅音写 ch。",
+        "sourceEvidence": "m-u-ch；末尾咬合辅音写 ch。"
       }
     },
     {
@@ -7497,6 +9472,18 @@
           "parts": [],
           "note": "本词在“使用球拍与网球，与 badminton 的羽毛球器材区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ten",
+          "nis"
+        ],
+        "focus": [
+          "nn",
+          "s"
+        ],
+        "cue": "中间双 n，末尾一个 s；两个 n 只读一次 /n/。",
+        "sourceEvidence": "中间双 n，末尾一个 s；两个 n 只读一次 /n/。"
       }
     },
     {
@@ -7544,6 +9531,20 @@
           "parts": [],
           "note": "本词在“团队球类运动，区别于 football 的圆球；不可仅靠球形混同所有橄榄球规则。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "r",
+          "u",
+          "g",
+          "b",
+          "y"
+        ],
+        "focus": [
+          "y"
+        ],
+        "cue": "r-u-g-b-y，末尾 y=/i/；这里 by 不读单词 by 的 /baɪ/。",
+        "sourceEvidence": "r-u-g-b-y，末尾 y=/i/；这里 by 不读单词 by 的 /baɪ/。"
       }
     },
     {
@@ -7591,6 +9592,18 @@
           "parts": [],
           "note": "本词在“一次教学单元，subject 是学科类别，lesson 是具体课堂。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "les",
+          "son"
+        ],
+        "focus": [
+          "ss",
+          "o"
+        ],
+        "cue": "l-e-ss-o-n；双 s，弱音 /ə/ 写 o。",
+        "sourceEvidence": "l-e-ss-o-n；双 s，弱音 /ə/ 写 o。"
       }
     },
     {
@@ -7638,6 +9651,18 @@
           "parts": [],
           "note": "本词在“共同完成任务或比赛的一组人，区别于单个 player。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "t",
+          "ea",
+          "m"
+        ],
+        "focus": [
+          "ea"
+        ],
+        "cue": "t-ea-m；长音 /iː/ 写 ea。",
+        "sourceEvidence": "t-ea-m；长音 /iː/ 写 ea。"
       }
     },
     {
@@ -7697,6 +9722,17 @@
           ],
           "note": "real 加 -ly 成 really，表示确实、真的；real 末尾 l 与 ly 的 l 相接，保留双 l。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "real",
+          "ly"
+        ],
+        "focus": [
+          "ll"
+        ],
+        "cue": "real+ly；原词 l 再接 l，成为 really，双 l。",
+        "sourceEvidence": "real+ly；原词 l 再接 l，成为 really，双 l。"
       }
     },
     {
@@ -7724,6 +9760,16 @@
           "parts": [],
           "note": "news 的末尾 s 属于惯用词形，通常作不可数信息名词，不教成多个 new 的普通复数。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "news"
+        ],
+        "focus": [
+          "s"
+        ],
+        "cue": "熟词 new 后加 s 是字形抓手；新闻 news 通常作不可数名词，s 不表示这里的复数。",
+        "sourceEvidence": "熟词 new 后加 s 是字形抓手；新闻 news 通常作不可数名词，s 不表示这里的复数。"
       }
     },
     {
@@ -7785,6 +9831,16 @@
           ],
           "note": "ski 加 -ing 为 skiing，保留 ski 原有的 i，再接 ing 的 i，连着两个 i；此处作为滑雪活动名。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "skiing"
+        ],
+        "focus": [
+          "ii"
+        ],
+        "cue": "ski 末尾 i 保留，再加 ing 的 i，因此相邻两个 i。",
+        "sourceEvidence": "ski 末尾 i 保留，再加 ing 的 i，因此相邻两个 i。"
       }
     },
     {
@@ -7848,6 +9904,19 @@
           ],
           "note": "ice 指明运动在冰上进行，组合后是冰球的名称，保留空格。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ice ",
+          "hockey"
+        ],
+        "focus": [
+          "e",
+          "ck",
+          "ey"
+        ],
+        "cue": "ice 的 i_e=/aɪ/，hockey 用 h-o-ck-ey，尾 /i/ 写 ey。",
+        "sourceEvidence": "ice 的 i_e=/aɪ/，hockey 用 h-o-ck-ey，尾 /i/ 写 ey。"
       }
     },
     {
@@ -7901,6 +9970,18 @@
           "parts": [],
           "note": "本词在“表示从出生起经过的年数；与 birth date 的出生日期区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "a",
+          "g",
+          "e"
+        ],
+        "focus": [
+          "e"
+        ],
+        "cue": "a-g-e，最后 e 沉默并影响前面元音与 g。",
+        "sourceEvidence": "a-g-e，最后 e 沉默并影响前面元音与 g。"
       }
     },
     {
@@ -7947,6 +10028,21 @@
           "parts": [],
           "note": "本词在“奖章是表彰物的一种，不同于杯形 trophy。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "m",
+          "e",
+          "d",
+          "a",
+          "l"
+        ],
+        "focus": [
+          "d",
+          "al"
+        ],
+        "cue": "m-e-d-a-l，中间 d；末尾弱音 /əl/ 写 al。",
+        "sourceEvidence": "m-e-d-a-l，中间 d；末尾弱音 /əl/ 写 al。"
       }
     },
     {
@@ -7974,6 +10070,20 @@
           "parts": [],
           "note": "Olympics 是奥林匹克运动会的惯用专名，首字母大写；不按普通名词加复数或任意读音片段分析。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "O",
+          "lym",
+          "pics"
+        ],
+        "focus": [
+          "O",
+          "y",
+          "pics"
+        ],
+        "cue": "中间 /ɪ/ 写 y；最后 pics 有 c、s，O 大写。",
+        "sourceEvidence": "中间 /ɪ/ 写 y；最后 pics 有 c、s，O 大写。"
       }
     },
     {
@@ -8035,6 +10145,20 @@
           ],
           "note": "excite 去末尾 e 加 -ing 成 exciting，描述令人兴奋的事物；excited 描述感到兴奋的人。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ex",
+          "cit",
+          "ing"
+        ],
+        "focus": [
+          "c",
+          "i",
+          "ing"
+        ],
+        "cue": "字形 ex-cit-ing；c 在 i 前=/s/，i=/aɪ/；来自 excite 去 e 加 ing。",
+        "sourceEvidence": "字形 ex-cit-ing；c 在 i 前=/s/，i=/aɪ/；来自 excite 去 e 加 ing。"
       }
     },
     {
@@ -8083,6 +10207,22 @@
           "parts": [],
           "note": "本词在“表示单一、一个，与 double 的双份或两个对照。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "s",
+          "i",
+          "n",
+          "g",
+          "l",
+          "e"
+        ],
+        "focus": [
+          "n",
+          "g"
+        ],
+        "cue": "s-i-n-g-l-e；n 在 g 前=/ŋ/，不另外添 g。",
+        "sourceEvidence": "s-i-n-g-l-e；n 在 g 前=/ŋ/，不另外添 g。"
       }
     },
     {
@@ -8131,6 +10271,17 @@
           "parts": [],
           "note": "本词在“表示双份、双倍或双人的，与 single 对照；具体意义依名词而定。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "double"
+        ],
+        "focus": [
+          "ou",
+          "ble"
+        ],
+        "cue": "/ʌ/ 在这里写 ou；词尾 ble，有静音 e。",
+        "sourceEvidence": "/ʌ/ 在这里写 ou；词尾 ble，有静音 e。"
       }
     },
     {
@@ -8162,6 +10313,18 @@
           "parts": [],
           "note": "本词在“杂乱状态，与 tidy 的整齐对比；不是单件物品脏。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "m",
+          "e",
+          "ss"
+        ],
+        "focus": [
+          "ss"
+        ],
+        "cue": "m-e-ss；双 s，只读一次 /s/。",
+        "sourceEvidence": "m-e-ss；双 s，只读一次 /s/。"
       }
     },
     {
@@ -8218,6 +10381,18 @@
           "parts": [],
           "note": "本卡使用声音与具体字母线索，不展示依赖陌生词或历史成分的拆词说明。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "yester",
+          "day"
+        ],
+        "focus": [
+          "er",
+          "day"
+        ],
+        "cue": "末段用熟词 day，前段记 yester，保留 er 的 r。",
+        "sourceEvidence": "末段用熟词 day，前段记 yester，保留 er 的 r。"
       }
     },
     {
@@ -8264,6 +10439,16 @@
           "parts": [],
           "note": "本词在“询问所有者，与 who 询问人的身份、which 询问选择区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "whose"
+        ],
+        "focus": [
+          "se"
+        ],
+        "cue": "“谁的”写 whose，没有撇号；who's 是 who is 或 who has。",
+        "sourceEvidence": "“谁的”写 whose，没有撇号；who's 是 who is 或 who has。"
       }
     },
     {
@@ -8327,6 +10512,18 @@
           ],
           "note": "live 去末尾 e 加 -ing 成 living，再与 room 组成客厅名称；不是卧室，也不按音节拆成词根。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "living ",
+          "room"
+        ],
+        "focus": [
+          "ing",
+          "oo"
+        ],
+        "cue": "live 去 e 加 ing 得 living；room 用 oo；两词分开。",
+        "sourceEvidence": "live 去 e 加 ing 得 living；room 用 oo；两词分开。"
       }
     },
     {
@@ -8354,6 +10551,18 @@
           "parts": [],
           "note": "本词在“描述事情出现或发生；通常以事件作主体，不是“处理”的动作。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "hap",
+          "pen"
+        ],
+        "focus": [
+          "pp",
+          "en"
+        ],
+        "cue": "中间 pp，最后 en；双 p 只读一次 /p/。",
+        "sourceEvidence": "中间 pp，最后 en；双 p 只读一次 /p/。"
       }
     },
     {
@@ -8403,6 +10612,18 @@
           "parts": [],
           "note": "本词在“含水或被水弄湿，与 dry 相反；不一定很脏。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "w",
+          "e",
+          "t"
+        ],
+        "focus": [
+          "t"
+        ],
+        "cue": "w-e-t，一个 t，不添 e。",
+        "sourceEvidence": "w-e-t，一个 t，不添 e。"
       }
     },
     {
@@ -8452,6 +10673,18 @@
           "parts": [],
           "note": "本词在“与 remember 相反；leave 可表示物品留在某处，侧重点不同。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "for",
+          "get"
+        ],
+        "focus": [
+          "for",
+          "e"
+        ],
+        "cue": "第一段弱音写 for，末段 get 的 e=/e/。",
+        "sourceEvidence": "第一段弱音写 for，末段 get 的 e=/e/。"
       }
     },
     {
@@ -8488,6 +10721,18 @@
           ],
           "note": "两词搭配表示处理、应对，对整体记义，不推断成两个词的所有常见义相加。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "deal ",
+          "with"
+        ],
+        "focus": [
+          "ea",
+          "th"
+        ],
+        "cue": "deal 的 /iː/ 写 ea；with 末尾 th，不写 d。",
+        "sourceEvidence": "deal 的 /iː/ 写 ea；with 末尾 th，不写 d。"
       }
     },
     {
@@ -8532,6 +10777,18 @@
           ],
           "note": "bring 与 back 组合表示带回；结合说话人或目的地判断“回”的方向。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "bring ",
+          "back"
+        ],
+        "focus": [
+          "ng",
+          "ck"
+        ],
+        "cue": "bring 的 ng=/ŋ/，back 的 ck=/k/；两词分开。",
+        "sourceEvidence": "bring 的 ng=/ŋ/，back 的 ck=/k/；两词分开。"
       }
     },
     {
@@ -8580,6 +10837,19 @@
           "parts": [],
           "note": "本词在“有顺序或逐项罗列的信息，与完整叙事 story 区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "l",
+          "i",
+          "s",
+          "t"
+        ],
+        "focus": [
+          "st"
+        ],
+        "cue": "l-i-s-t；末尾 st 都写，不添元音。",
+        "sourceEvidence": "l-i-s-t；末尾 st 都写，不添元音。"
       }
     },
     {
@@ -8627,6 +10897,19 @@
           "parts": [],
           "note": "本词在“通过查看确认情况，区别于只是路过看见。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ch",
+          "e",
+          "ck"
+        ],
+        "focus": [
+          "ch",
+          "ck"
+        ],
+        "cue": "ch-e-ck，首尾都是两字母一个音。",
+        "sourceEvidence": "ch-e-ck，首尾都是两字母一个音。"
       }
     },
     {
@@ -8674,6 +10957,17 @@
           "parts": [],
           "note": "本词在“完成任务的方式或步骤；与最终 answer 的答案区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "method"
+        ],
+        "focus": [
+          "th",
+          "o"
+        ],
+        "cue": "th=/θ/；末段弱音写 o，不能写 e。",
+        "sourceEvidence": "th=/θ/；末段弱音写 o，不能写 e。"
       }
     },
     {
@@ -8720,6 +11014,18 @@
           "parts": [],
           "note": "本词在“有意义的语言单位，一词可含多个 letter；与单个字母区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "w",
+          "or",
+          "d"
+        ],
+        "focus": [
+          "or"
+        ],
+        "cue": "w-or-d，长音写 or；与 work 相同开头字形读音。",
+        "sourceEvidence": "w-or-d，长音写 or；与 work 相同开头字形读音。"
       }
     },
     {
@@ -8747,6 +11053,18 @@
           "parts": [],
           "note": "Ms 是女性称谓形式，不指定婚姻状况；不当成两个有独立意义的字母组合来拆。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "M",
+          "s"
+        ],
+        "focus": [
+          "M",
+          "s"
+        ],
+        "cue": "女士称谓写 M+s，只有 M 大写。",
+        "sourceEvidence": "女士称谓写 M+s，只有 M 大写。"
       }
     },
     {
@@ -8795,6 +11113,18 @@
           "parts": [],
           "note": "本词在“小型载体，可写祝福或信息；与贴墙的大幅 poster 区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "c",
+          "ar",
+          "d"
+        ],
+        "focus": [
+          "ar"
+        ],
+        "cue": "c-ar-d；英式 r 不单独读但要写。",
+        "sourceEvidence": "c-ar-d；英式 r 不单独读但要写。"
       }
     },
     {
@@ -8834,7 +11164,7 @@
                   "🧠"
                 ],
                 "label": "recall",
-                "meaning": "收起后尝试回想"
+                "meaning": "遮住后尝试回想"
               }
             ]
           }
@@ -8858,6 +11188,18 @@
           ],
           "note": "go over 在学习语境表示复习、仔细检查，不能逐字推成走到上方。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "go ",
+          "over"
+        ],
+        "focus": [
+          "o",
+          "er"
+        ],
+        "cue": "go 的长 /əʊ/ 只写 o；over 写 o-v-e-r，尾 r 保留。",
+        "sourceEvidence": "go 的长 /əʊ/ 只写 o；over 写 o-v-e-r，尾 r 保留。"
       }
     },
     {
@@ -8905,6 +11247,17 @@
           "parts": [],
           "note": "本词在“此处是免费；free time 指空闲时间，需看所修饰内容。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "fr",
+          "ee"
+        ],
+        "focus": [
+          "ee"
+        ],
+        "cue": "fr-ee，长 /iː/ 用双 e，末尾无其他字母。",
+        "sourceEvidence": "fr-ee，长 /iː/ 用双 e，末尾无其他字母。"
       }
     },
     {
@@ -8953,6 +11306,18 @@
           "parts": [],
           "note": "本词在“一首可演唱的具体作品，music 是更大的音乐类别。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "s",
+          "o",
+          "ng"
+        ],
+        "focus": [
+          "ng"
+        ],
+        "cue": "s-o-ng；ng 两字母合一个鼻音。",
+        "sourceEvidence": "s-o-ng；ng 两字母合一个鼻音。"
       }
     },
     {
@@ -9001,6 +11366,17 @@
           "parts": [],
           "note": "本词在“表示声音能听见，与默读 silently 相对；不要求大喊。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "aloud"
+        ],
+        "focus": [
+          "a",
+          "ou"
+        ],
+        "cue": "熟词 loud 前添 a，是字形抓手；loud 的 ou=/aʊ/。",
+        "sourceEvidence": "熟词 loud 前添 a，是字形抓手；loud 的 ou=/aʊ/。"
       }
     },
     {
@@ -9054,6 +11430,21 @@
           "parts": [],
           "note": "本词在“强调找到解决办法或结果，deal with 强调处理过程。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "s",
+          "o",
+          "l",
+          "v",
+          "e"
+        ],
+        "focus": [
+          "o",
+          "e"
+        ],
+        "cue": "s-o-l-v-e，v 后的 e 要写，o 保持短音。",
+        "sourceEvidence": "s-o-l-v-e，v 后的 e 要写，o 保持短音。"
       }
     },
     {
@@ -9081,6 +11472,18 @@
           "parts": [],
           "note": "本词在“物体由完整变损坏的动作，过去形式 broke 不规则；也可指休息名词。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "br",
+          "ea",
+          "k"
+        ],
+        "focus": [
+          "ea"
+        ],
+        "cue": "br-ea-k；长音 /eɪ/ 在这里写 ea，不按常见写法猜 ay。",
+        "sourceEvidence": "br-ea-k；长音 /eɪ/ 在这里写 ea，不按常见写法猜 ay。"
       }
     },
     {
@@ -9108,6 +11511,20 @@
           "parts": [],
           "note": "本词在“描述人的恐惧感，与使人害怕的 frightening 不同。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "a",
+          "fr",
+          "ai",
+          "d"
+        ],
+        "focus": [
+          "a",
+          "ai"
+        ],
+        "cue": "a-fr-ai-d；重读长音写 ai，开头还要 a。",
+        "sourceEvidence": "a-fr-ai-d；重读长音写 ai，开头还要 a。"
       }
     },
     {
@@ -9157,6 +11574,21 @@
           "parts": [],
           "note": "本词在“此处是关闭动词，与 open 相反；形容“近”的 close 读音和词性不同。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "c",
+          "l",
+          "o",
+          "s",
+          "e"
+        ],
+        "focus": [
+          "s",
+          "e"
+        ],
+        "cue": "c-l-o-s-e；/z/ 写 s，末尾 e 沉默。",
+        "sourceEvidence": "c-l-o-s-e；/z/ 写 s，末尾 e 沉默。"
       }
     },
     {
@@ -9204,6 +11636,22 @@
           "parts": [],
           "note": "本词在“建筑上采光通风的开口，与用于进出的 door 区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "w",
+          "i",
+          "n",
+          "d",
+          "o",
+          "w"
+        ],
+        "focus": [
+          "w",
+          "ow"
+        ],
+        "cue": "w-i-n-d-o-w；词头词尾都有 w，末尾 ow=/əʊ/。",
+        "sourceEvidence": "w-i-n-d-o-w；词头词尾都有 w，末尾 ow=/əʊ/。"
       }
     },
     {
@@ -9237,6 +11685,19 @@
           "parts": [],
           "note": "本词在“表示离开、在别处，与 here 的此处形成位置关系。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "a",
+          "w",
+          "ay"
+        ],
+        "focus": [
+          "a",
+          "ay"
+        ],
+        "cue": "a-w-ay；/eɪ/ 用 ay，开头轻音还要 a。",
+        "sourceEvidence": "a-w-ay；/eɪ/ 用 ay，开头轻音还要 a。"
       }
     },
     {
@@ -9277,6 +11738,18 @@
           ],
           "note": "此处 put up 表示张贴通知；up 不是所有语境都能机械译为向上。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "put ",
+          "up"
+        ],
+        "focus": [
+          "u",
+          " "
+        ],
+        "cue": "put 的 u=/ʊ/，up 的 u=/ʌ/；两个词分开。",
+        "sourceEvidence": "put 的 u=/ʊ/，up 的 u=/ʌ/；两个词分开。"
       }
     },
     {
@@ -9323,6 +11796,22 @@
           "parts": [],
           "note": "本词在“此处是通知名词；也可作“注意到”的动词，依句中位置判断。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "n",
+          "o",
+          "t",
+          "i",
+          "c",
+          "e"
+        ],
+        "focus": [
+          "ce",
+          "i"
+        ],
+        "cue": "n-o-t-i-c-e，词尾 /s/ 写 ce；i 这里短读。",
+        "sourceEvidence": "n-o-t-i-c-e，词尾 /s/ 写 ce；i 这里短读。"
       }
     },
     {
@@ -9369,6 +11858,17 @@
           "parts": [],
           "note": "本词在“视觉图像的通称，可包括画与照片；不同于文字清单 list。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "pic",
+          "ture"
+        ],
+        "focus": [
+          "ture"
+        ],
+        "cue": "pic-ture；/tʃə/ 写 ture，不直接写 ch。",
+        "sourceEvidence": "pic-ture；/tʃə/ 写 ture，不直接写 ch。"
       }
     },
     {
@@ -9416,6 +11916,20 @@
           "parts": [],
           "note": "本词在“可指电话设备或打电话动作；此处与面对面交谈方式区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ph",
+          "o",
+          "n",
+          "e"
+        ],
+        "focus": [
+          "ph",
+          "e"
+        ],
+        "cue": "ph-o-n-e；/f/ 写 ph，末尾 e 沉默。",
+        "sourceEvidence": "ph-o-n-e；/f/ 写 ph，末尾 e 沉默。"
       }
     },
     {
@@ -9451,6 +11965,18 @@
           "parts": [],
           "note": "本词在“part 与 whole 构成部分—整体关系；root、stem 是具体部分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "p",
+          "ar",
+          "t"
+        ],
+        "focus": [
+          "ar"
+        ],
+        "cue": "p-ar-t；英式 r 不单独发音但保留。",
+        "sourceEvidence": "p-ar-t；英式 r 不单独发音但保留。"
       }
     },
     {
@@ -9483,6 +12009,19 @@
           "parts": [],
           "note": "本词在“草通常低矮、成片生长，与高大的 tree 对比。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "g",
+          "r",
+          "a",
+          "ss"
+        ],
+        "focus": [
+          "ss"
+        ],
+        "cue": "g-r-a-ss；长音这里写 a，末尾双 s。",
+        "sourceEvidence": "g-r-a-ss；长音这里写 a，末尾双 s。"
       }
     },
     {
@@ -9515,6 +12054,18 @@
           "parts": [],
           "note": "本词在“植物地下部分，区别于土上支撑的 stem；可引申到根源。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "r",
+          "oo",
+          "t"
+        ],
+        "focus": [
+          "oo"
+        ],
+        "cue": "r-oo-t；长音 /uː/ 写双 o。",
+        "sourceEvidence": "r-oo-t；长音 /uː/ 写双 o。"
       }
     },
     {
@@ -9547,6 +12098,19 @@
           "parts": [],
           "note": "本词在“植物连接根叶的轴状部分，与 root、leaf 的位置和作用不同。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "s",
+          "t",
+          "e",
+          "m"
+        ],
+        "focus": [
+          "st"
+        ],
+        "cue": "s-t-e-m；开头 st 不添元音。",
+        "sourceEvidence": "s-t-e-m；开头 st 不添元音。"
       }
     },
     {
@@ -9579,6 +12143,18 @@
           "parts": [],
           "note": "本词在“可在合适条件下萌发，与已经长出的 seedling 区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "s",
+          "ee",
+          "d"
+        ],
+        "focus": [
+          "ee"
+        ],
+        "cue": "s-ee-d；长 /iː/ 写双 e。",
+        "sourceEvidence": "s-ee-d；长 /iː/ 写双 e。"
       }
     },
     {
@@ -9611,6 +12187,19 @@
           "parts": [],
           "note": "本词在“ground 强调脚下地表，soil 强调可供植物生长的土壤材料。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "gr",
+          "ou",
+          "nd"
+        ],
+        "focus": [
+          "ou",
+          "nd"
+        ],
+        "cue": "gr-ou-nd；中间 ou，词尾 n、d 都写。",
+        "sourceEvidence": "gr-ou-nd；中间 ou，词尾 n、d 都写。"
       }
     },
     {
@@ -9655,6 +12244,18 @@
           ],
           "note": "take in 在植物吸水语境表示吸收，结合由外向内的箭头理解。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "take ",
+          "in"
+        ],
+        "focus": [
+          "e",
+          " "
+        ],
+        "cue": "take 的 a_e=/eɪ/，in 的 i=/ɪ/；两个词分开。",
+        "sourceEvidence": "take 的 a_e=/eɪ/，in 的 i=/ɪ/；两个词分开。"
       }
     },
     {
@@ -9682,6 +12283,18 @@
           "parts": [],
           "note": "本词在“为植物提供生长介质的土，与 ground 这个表面位置不同。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "s",
+          "oi",
+          "l"
+        ],
+        "focus": [
+          "oi"
+        ],
+        "cue": "s-oi-l；/ɔɪ/ 这里写 oi，不写 oy。",
+        "sourceEvidence": "s-oi-l；/ɔɪ/ 这里写 oi，不写 oy。"
       }
     },
     {
@@ -9713,6 +12326,20 @@
           "parts": [],
           "note": "本词在“携带或输送，不局限于用手拿；与保持原地 keep 对比。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "c",
+          "a",
+          "rr",
+          "y"
+        ],
+        "focus": [
+          "rr",
+          "y"
+        ],
+        "cue": "c-a-rr-y；双 r 只读一次，词尾 /i/ 写 y。",
+        "sourceEvidence": "c-a-rr-y；双 r 只读一次，词尾 /i/ 写 y。"
       }
     },
     {
@@ -9744,6 +12371,18 @@
           "parts": [],
           "note": "本词在“保护对象免受伤害，区别于单纯拿走或藏起来。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "pro",
+          "tect"
+        ],
+        "focus": [
+          "o",
+          "ct"
+        ],
+        "cue": "pro-tect，首段弱音写 o，末尾 ct。",
+        "sourceEvidence": "pro-tect，首段弱音写 o，末尾 ct。"
       }
     },
     {
@@ -9785,6 +12424,18 @@
           ],
           "note": "foot 的复数 feet 通过中间 oo→ee 变化，不是在 foot 后直接加 s；此处词条仍为单数。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "f",
+          "oo",
+          "t"
+        ],
+        "focus": [
+          "oo"
+        ],
+        "cue": "f-oo-t；短音 /ʊ/ 也写双 o，与 root 的长 /uː/ 不同。",
+        "sourceEvidence": "f-oo-t；短音 /ʊ/ 也写双 o，与 root 的长 /uː/ 不同。"
       }
     },
     {
@@ -9816,6 +12467,19 @@
           "parts": [],
           "note": "本词在“此处是空气流动的名词；风本身不可见，可通过物体运动观察。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "w",
+          "i",
+          "n",
+          "d"
+        ],
+        "focus": [
+          "i"
+        ],
+        "cue": "w-i-n-d；本课 i 是短音，不读 /aɪ/。",
+        "sourceEvidence": "w-i-n-d；本课 i 是短音，不读 /aɪ/。"
       }
     },
     {
@@ -9860,6 +12524,18 @@
           ],
           "note": "两词组合表示带走，结合风携带种子离开原处理解；不是词根词缀关系。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "take ",
+          "away"
+        ],
+        "focus": [
+          "e",
+          "a"
+        ],
+        "cue": "take 有尾 e；away 写 a-w-a-y，有两个 a。",
+        "sourceEvidence": "take 有尾 e；away 写 a-w-a-y，有两个 a。"
       }
     },
     {
@@ -9891,6 +12567,18 @@
           "parts": [],
           "note": "本词在“此处是粘附动词；也可作棍棒名词，需依上下文区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "st",
+          "i",
+          "ck"
+        ],
+        "focus": [
+          "ck"
+        ],
+        "cue": "st-i-ck，尾音 /k/ 写 ck 两字母。",
+        "sourceEvidence": "st-i-ck，尾音 /k/ 写 ck 两字母。"
       }
     },
     {
@@ -9934,6 +12622,19 @@
           "parts": [],
           "note": "本词在“表示厚度或粗细，与 thin 相反；不等于高度 high。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "th",
+          "i",
+          "ck"
+        ],
+        "focus": [
+          "th",
+          "ck"
+        ],
+        "cue": "th-i-ck，首尾都是两字母一音。",
+        "sourceEvidence": "th-i-ck，首尾都是两字母一音。"
       }
     },
     {
@@ -9999,6 +12700,17 @@
           ],
           "note": "grow 加 -th 成 growth，表示生长；这是特定词族变化，不是任何动词都能加 -th。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "growth"
+        ],
+        "focus": [
+          "ow",
+          "th"
+        ],
+        "cue": "grow 后加 th 得 growth（生长）；ow 保留。",
+        "sourceEvidence": "grow 后加 th 得 growth（生长）；ow 保留。"
       }
     },
     {
@@ -10045,6 +12757,18 @@
           "parts": [],
           "note": "本词在“bean 是豆，pod 是包着豆的豆荚；whole 与 part 不同。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "b",
+          "ea",
+          "n"
+        ],
+        "focus": [
+          "ea"
+        ],
+        "cue": "b-ea-n；长 /iː/ 用 ea，不仅凭声音猜 ee。",
+        "sourceEvidence": "b-ea-n；长 /iː/ 用 ea，不仅凭声音猜 ee。"
       }
     },
     {
@@ -10072,6 +12796,17 @@
           "parts": [],
           "note": "本词在“开始与 end 的结束相对，重点是过程起点。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "begin"
+        ],
+        "focus": [
+          "e",
+          "i"
+        ],
+        "cue": "两个 /ɪ/ 分别写 e、i；g 在这里仍读 /ɡ/。",
+        "sourceEvidence": "两个 /ɪ/ 分别写 e、i；g 在这里仍读 /ɡ/。"
       }
     },
     {
@@ -10138,6 +12873,17 @@
           ],
           "note": "sun+light 构成 sunlight，指太阳光，整体连写；与灯光的来源不同。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "sun",
+          "light"
+        ],
+        "focus": [
+          "igh"
+        ],
+        "cue": "sun+light 合写；light 的 igh=/aɪ/，g、h 不单独读。",
+        "sourceEvidence": "sun+light 合写；light 的 igh=/aɪ/，g、h 不单独读。"
       }
     },
     {
@@ -10205,6 +12951,20 @@
           ],
           "note": "little 重复并由 by 连接，整体表示一点一点、渐渐变化，不按字面译为小靠小。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "little ",
+          "by ",
+          "little"
+        ],
+        "focus": [
+          "tt",
+          "le",
+          "by"
+        ],
+        "cue": "little 的 tt、le；同一词写两遍，中间 by，用三个词。",
+        "sourceEvidence": "little 的 tt、le；同一词写两遍，中间 by，用三个词。"
       }
     },
     {
@@ -10237,6 +12997,18 @@
           "parts": [],
           "note": "本词在“豆荚是包着豆的果实外部结构，bean 是里面的豆。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "p",
+          "o",
+          "d"
+        ],
+        "focus": [
+          "d"
+        ],
+        "cue": "p-o-d 三字母，一个 d。",
+        "sourceEvidence": "p-o-d 三字母，一个 d。"
       }
     },
     {
@@ -10273,6 +13045,19 @@
           ],
           "note": "此处组合表示新叶长出来、出现，out 的内外方向可用于理解。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "come ",
+          "out"
+        ],
+        "focus": [
+          "o",
+          "e",
+          "ou"
+        ],
+        "cue": "come 的 o=/ʌ/、尾 e 沉默；out 的 /aʊ/ 写 ou。",
+        "sourceEvidence": "come 的 o=/ʌ/、尾 e 沉默；out 的 /aʊ/ 写 ou。"
       }
     },
     {
@@ -10300,6 +13085,19 @@
           "parts": [],
           "note": "本词在“一份工作或作用的可数名词；work 常指工作活动或总量。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "j",
+          "o",
+          "b"
+        ],
+        "focus": [
+          "j",
+          "b"
+        ],
+        "cue": "j-o-b；开头 /dʒ/ 只写 j，末尾 b。",
+        "sourceEvidence": "j-o-b；开头 /dʒ/ 只写 j，末尾 b。"
       }
     },
     {
@@ -10327,6 +13125,18 @@
           "parts": [],
           "note": "本词在“蔬菜的一种，叶片包成球状，区别于长叶或根类蔬菜。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "cab",
+          "bage"
+        ],
+        "focus": [
+          "bb",
+          "age"
+        ],
+        "cue": "字形 cab-bage，中间双 b，末尾 a-g-e。",
+        "sourceEvidence": "字形 cab-bage，中间双 b，末尾 a-g-e。"
       }
     },
     {
@@ -10372,6 +13182,18 @@
           ],
           "note": "两词搭配指来源，from 引出原先地点或来源对象；与 go to 的去向对照。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "come ",
+          "from"
+        ],
+        "focus": [
+          "o",
+          "e"
+        ],
+        "cue": "come 的 o=/ʌ/、e 静音；from 即使弱读 /ə/ 也写 o。",
+        "sourceEvidence": "come 的 o=/ʌ/、e 静音；from 即使弱读 /ə/ 也写 o。"
       }
     },
     {
@@ -10428,6 +13250,20 @@
           "parts": [],
           "note": "本词在“give 是交给，take 是拿取，观察动作方向可区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "g",
+          "i",
+          "v",
+          "e"
+        ],
+        "focus": [
+          "i",
+          "e"
+        ],
+        "cue": "g-i-v-e；有末尾 e，i 仍读短音，不能套长音规则。",
+        "sourceEvidence": "g-i-v-e；有末尾 e，i 仍读短音，不能套长音规则。"
       }
     },
     {
@@ -10480,6 +13316,19 @@
           "parts": [],
           "note": "本词在“常跟在 what、someone 等后面表示别的，不像 other 通常置于名词前。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "e",
+          "l",
+          "s",
+          "e"
+        ],
+        "focus": [
+          "e"
+        ],
+        "cue": "e-l-s-e，两处 e；末尾 e 不出声。",
+        "sourceEvidence": "e-l-s-e，两处 e；末尾 e 不出声。"
       }
     },
     {
@@ -10546,6 +13395,19 @@
           ],
           "note": "Mother 后加 's 表示母亲的，整体为母亲节；保留撇号和首字母大写。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Mother's ",
+          "Day"
+        ],
+        "focus": [
+          "'s",
+          "o",
+          "ay"
+        ],
+        "cue": "Mother+'s，撇号在 s 前；mother 的 o=/ʌ/，day 的 ay=/eɪ/。",
+        "sourceEvidence": "Mother+'s，撇号在 s 前；mother 的 o=/ʌ/，day 的 ay=/eɪ/。"
       }
     },
     {
@@ -10612,6 +13474,19 @@
           ],
           "note": "teacher 加 s 成复数 Teachers，再在 s 后加撇号表示老师们的；不写成 Teachers's。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Teachers' ",
+          "Day"
+        ],
+        "focus": [
+          "s'",
+          "ea",
+          "ch"
+        ],
+        "cue": "Teacher 加 s 再加撇号，撇号在 s 后；teach 的 ea=/iː/、ch=/tʃ/。",
+        "sourceEvidence": "Teacher 加 s 再加撇号，撇号在 s 后；teach 的 ea=/iː/、ch=/tʃ/。"
       }
     },
     {
@@ -10659,6 +13534,17 @@
           "parts": [],
           "note": "本词在“水果之一，可与桃 peach 的外形和内部果核对照。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "p",
+          "ear"
+        ],
+        "focus": [
+          "ea"
+        ],
+        "cue": "p-ear；与同音 pair（双）区别：梨写 ea，双写 ai。",
+        "sourceEvidence": "p-ear；与同音 pair（双）区别：梨写 ea，双写 ai。"
       }
     },
     {
@@ -10706,6 +13592,19 @@
           "parts": [],
           "note": "本词在“水果之一，联系表面细毛与果核，区别于 pear。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "p",
+          "ea",
+          "ch"
+        ],
+        "focus": [
+          "ea",
+          "ch"
+        ],
+        "cue": "p-ea-ch；ea=/iː/，不同于 pear 的 /eə/。",
+        "sourceEvidence": "p-ea-ch；ea=/iː/，不同于 pear 的 /eə/。"
       }
     },
     {
@@ -10759,6 +13658,18 @@
           "parts": [],
           "note": "本词在“wood 是木材，tree 是活的树，wooden 是木制的性质。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "w",
+          "oo",
+          "d"
+        ],
+        "focus": [
+          "oo"
+        ],
+        "cue": "w-oo-d；短 /ʊ/ 仍写双 o，和 foot 同一组。",
+        "sourceEvidence": "w-oo-d；短 /ʊ/ 仍写双 o，和 foot 同一组。"
       }
     },
     {
@@ -10812,6 +13723,21 @@
           "parts": [],
           "note": "本词在“通常作材料不可数名词，一张纸需说一张；与一本 book 区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "p",
+          "a",
+          "p",
+          "e",
+          "r"
+        ],
+        "focus": [
+          "p",
+          "er"
+        ],
+        "cue": "p-a-p-e-r；两个 p 分别在词头、中间，尾 er。",
+        "sourceEvidence": "p-a-p-e-r；两个 p 分别在词头、中间，尾 er。"
       }
     },
     {
@@ -10859,6 +13785,20 @@
           "parts": [],
           "note": "本词在“桌面供放物和使用，与供人坐的 chair 对照。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "t",
+          "a",
+          "b",
+          "l",
+          "e"
+        ],
+        "focus": [
+          "ble"
+        ],
+        "cue": "t-a-b-l-e；a 在这里长读，尾 ble。",
+        "sourceEvidence": "t-a-b-l-e；a 在这里长读，尾 ble。"
       }
     },
     {
@@ -10906,6 +13846,17 @@
           "parts": [],
           "note": "本词在“供单人坐的家具，区别于 table 的放物平面。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ch",
+          "air"
+        ],
+        "focus": [
+          "air"
+        ],
+        "cue": "ch-air；/eə/ 在这里写 air，开头 ch。",
+        "sourceEvidence": "ch-air；/eə/ 在这里写 air，开头 ch。"
       }
     },
     {
@@ -10953,6 +13904,20 @@
           "parts": [],
           "note": "本词在“house 强调建筑，home 强调家和归属，两者可关联但不完全等同。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "h",
+          "ou",
+          "s",
+          "e"
+        ],
+        "focus": [
+          "ou",
+          "e"
+        ],
+        "cue": "h-ou-s-e；词尾 e 沉默，名词 s=/s/。",
+        "sourceEvidence": "h-ou-s-e；词尾 e 沉默，名词 s=/s/。"
       }
     },
     {
@@ -10996,6 +13961,18 @@
           ],
           "note": "组合表示被水冲走，wash 指方式，away 指离开；与拿走的方式区分。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "wash ",
+          "away"
+        ],
+        "focus": [
+          "sh",
+          "a"
+        ],
+        "cue": "wash 中 a 在 w 后=/ɒ/，sh=/ʃ/；away 两个 a。",
+        "sourceEvidence": "wash 中 a 在 w 后=/ɒ/，sh=/ʃ/；away 两个 a。"
       }
     },
     {
@@ -11054,6 +14031,18 @@
           ],
           "note": "整体表示简而言之，用来引出概括，不能逐字推成空间位置。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "in ",
+          "short"
+        ],
+        "focus": [
+          "sh",
+          "or"
+        ],
+        "cue": "short 用 sh-or-t；长音 /ɔː/ 写 or。",
+        "sourceEvidence": "short 用 sh-or-t；长音 /ɔː/ 写 or。"
       }
     },
     {
@@ -11101,6 +14090,19 @@
           "parts": [],
           "note": "本词在“用于治疗或预防疾病的物品，与普通 food 不同；不是所有植物都可作药。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "med",
+          "i",
+          "cine"
+        ],
+        "focus": [
+          "i",
+          "c"
+        ],
+        "cue": "字形 med-i-cine；省音 i 仍要写，末尾 cine 的 c=/s/。",
+        "sourceEvidence": "字形 med-i-cine；省音 i 仍要写，末尾 cine 的 c=/s/。"
       }
     },
     {
@@ -11132,6 +14134,23 @@
           "parts": [],
           "note": "本词在“力量或数量相互协调的关系，不是所有项目数量完全相同。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "b",
+          "a",
+          "l",
+          "a",
+          "n",
+          "c",
+          "e"
+        ],
+        "focus": [
+          "a",
+          "ce"
+        ],
+        "cue": "b-a-l-a-n-c-e，两个 a，第二个弱读；词尾 ce=/s/。",
+        "sourceEvidence": "b-a-l-a-n-c-e，两个 a，第二个弱读；词尾 ce=/s/。"
       }
     },
     {
@@ -11198,6 +14217,20 @@
           ],
           "note": "re- 与 cycle 组合表示重新进入材料循环；区别于直接再用原物品的 reuse。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "re",
+          "cy",
+          "cle"
+        ],
+        "focus": [
+          "c",
+          "y",
+          "e"
+        ],
+        "cue": "re-cy-cle；两个 c 分别=/s/、/k/，/aɪ/ 写 y，尾 e 沉默。",
+        "sourceEvidence": "re-cy-cle；两个 c 分别=/s/、/k/，/aɪ/ 写 y，尾 e 沉默。"
       }
     },
     {
@@ -11252,6 +14285,18 @@
           "parts": [],
           "note": "本词在“把图文输出到纸面，与用笔 write 的方式不同。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "pr",
+          "i",
+          "nt"
+        ],
+        "focus": [
+          "nt"
+        ],
+        "cue": "pr-i-nt；末尾 n、t 都写，不添元音。",
+        "sourceEvidence": "pr-i-nt；末尾 n、t 都写，不添元音。"
       }
     },
     {
@@ -11292,6 +14337,19 @@
           ],
           "note": "两词搭配表示踩到，on 引出脚落下接触的对象。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "step ",
+          "on"
+        ],
+        "focus": [
+          "e",
+          "o",
+          " "
+        ],
+        "cue": "step 的 e=/e/，on 的 o=/ɒ/；两词分开。",
+        "sourceEvidence": "step 的 e=/e/，on 的 o=/ɒ/；两词分开。"
       }
     },
     {
@@ -11354,6 +14412,18 @@
           ],
           "note": "go 加活动的 -ing 形式表示参加活动；shop 加 -ing 时双写 p 成 shopping。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "go ",
+          "shopping"
+        ],
+        "focus": [
+          "pp",
+          "ing"
+        ],
+        "cue": "shop 双写 p 再加 ing，得 shopping；go 的长音只写 o。",
+        "sourceEvidence": "shop 双写 p 再加 ing，得 shopping；go 的长音只写 o。"
       }
     },
     {
@@ -11400,6 +14470,17 @@
           "parts": [],
           "note": "本词在“供玩耍的物品上位类别，与学习用具的用途区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "t",
+          "oy"
+        ],
+        "focus": [
+          "oy"
+        ],
+        "cue": "t-oy；/ɔɪ/ 在词尾这里用 oy，不能照 soil 写 oi。",
+        "sourceEvidence": "t-oy；/ɔɪ/ 在词尾这里用 oy，不能照 soil 写 oi。"
       }
     },
     {
@@ -11462,6 +14543,19 @@
           ],
           "note": "quite a few 是表示相当多、不少的固定数量表达，不能根据 few 单词就理解成很少。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "quite ",
+          "a ",
+          "few"
+        ],
+        "focus": [
+          "te",
+          "ew"
+        ],
+        "cue": "quite 尾 te，只有一音节；quiet 尾 et，两音节；few 用 ew。",
+        "sourceEvidence": "quite 尾 te，只有一音节；quiet 尾 et，两音节；few 用 ew。"
       }
     },
     {
@@ -11503,6 +14597,20 @@
           ],
           "note": "整体表示与某物很相配，不按移动动作解释 go；well 说明搭配效果。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "go ",
+          "well ",
+          "with"
+        ],
+        "focus": [
+          "ll",
+          "th",
+          " "
+        ],
+        "cue": "well 用 e、双 l；with 末尾 th；三个词分开。",
+        "sourceEvidence": "well 用 e、双 l；with 末尾 th；三个词分开。"
       }
     },
     {
@@ -11567,6 +14675,19 @@
           ],
           "note": "整体表示试穿，on 联系穿在身上，区别于单纯试做某个动作。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "try ",
+          "on"
+        ],
+        "focus": [
+          "y",
+          "o",
+          " "
+        ],
+        "cue": "try 的长 /aɪ/ 写 y，on 用 o；两词分开。",
+        "sourceEvidence": "try 的长 /aɪ/ 写 y，on 用 o；两词分开。"
       }
     },
     {
@@ -11615,6 +14736,16 @@
           "parts": [],
           "note": "本词在“两个成套物品构成一双，区别于任意两个不配套物品。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "pair"
+        ],
+        "focus": [
+          "ai"
+        ],
+        "cue": "“一双”写 pair 中的 ai；同音 pear（梨）写 ea。",
+        "sourceEvidence": "“一双”写 pair 中的 ai；同音 pear（梨）写 ea。"
       }
     },
     {
@@ -11662,6 +14793,17 @@
           "parts": [],
           "note": "本词在“一只鞋是单数，一双含两只；与 sock 的贴脚软布物品区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "sh",
+          "oe"
+        ],
+        "focus": [
+          "oe"
+        ],
+        "cue": "sh-oe；长 /uː/ 写 oe，不写 oo。",
+        "sourceEvidence": "sh-oe；长 /uː/ 写 oe，不写 oo。"
       }
     },
     {
@@ -11705,6 +14847,20 @@
           "parts": [],
           "note": "本词在“尺码是规格，shape 是形状，colour 是颜色，三个维度不同。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "s",
+          "i",
+          "z",
+          "e"
+        ],
+        "focus": [
+          "z",
+          "e"
+        ],
+        "cue": "s-i-z-e；这里 /z/ 真的写 z，末尾 e 沉默。",
+        "sourceEvidence": "s-i-z-e；这里 /z/ 真的写 z，末尾 e 沉默。"
       }
     },
     {
@@ -11761,6 +14917,19 @@
           ],
           "note": "comfort 加 -able 成 comfortable，表示让人感到舒适的；此词不机械译成“能够舒适”。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "com",
+          "fort",
+          "able"
+        ],
+        "focus": [
+          "o",
+          "r"
+        ],
+        "cue": "字形 com-fort-able，省音的第二个 o 仍写；英式 r 通常不单独发音但也保留。",
+        "sourceEvidence": "字形 com-fort-able，省音的第二个 o 仍写；英式 r 通常不单独发音但也保留。"
       }
     },
     {
@@ -11807,6 +14976,17 @@
           "parts": [],
           "note": "本词在“在折扣语境表示从原价扣除；也可表示离开或关闭，须看场景。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "o",
+          "ff"
+        ],
+        "focus": [
+          "ff"
+        ],
+        "cue": "o-ff，双 f 只读一次；减价、关闭均这个字形。",
+        "sourceEvidence": "o-ff，双 f 只读一次；减价、关闭均这个字形。"
       }
     },
     {
@@ -11872,6 +15052,18 @@
           ],
           "note": "两词整体约定表示二手集市；flea 是名称中的真实单词，但这里不是交易跳蚤。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "flea ",
+          "market"
+        ],
+        "focus": [
+          "ea",
+          "e"
+        ],
+        "cue": "flea 的 /iː/ 写 ea；market 分 mar-ket，末段 /ɪ/ 写 e。",
+        "sourceEvidence": "flea 的 /iː/ 写 ea；market 分 mar-ket，末段 /ɪ/ 写 e。"
       }
     },
     {
@@ -11927,6 +15119,18 @@
           "parts": [],
           "note": "本词在“sell 是卖，buy 是买，同一交易中观察角色可区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "s",
+          "e",
+          "ll"
+        ],
+        "focus": [
+          "ll"
+        ],
+        "cue": "s-e-ll，末尾双 l 只读一次。",
+        "sourceEvidence": "s-e-ll，末尾双 l 只读一次。"
       }
     },
     {
@@ -11974,6 +15178,19 @@
           "parts": [],
           "note": "本词在“时间长度加 ago 表示距今以前，before 可建立两个时点的先后。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "a",
+          "g",
+          "o"
+        ],
+        "focus": [
+          "a",
+          "o"
+        ],
+        "cue": "a-g-o，首音写 a、尾长音只写 o。",
+        "sourceEvidence": "a-g-o，首音写 a、尾长音只写 o。"
       }
     },
     {
@@ -12011,6 +15228,20 @@
           "parts": [],
           "note": "本词在“一种颜色，与 black、blue 同类；不是物品形状或尺码。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "wh",
+          "i",
+          "t",
+          "e"
+        ],
+        "focus": [
+          "h",
+          "e"
+        ],
+        "cue": "wh-i-t-e；开头有静音 h，词尾有静音 e。",
+        "sourceEvidence": "wh-i-t-e；开头有静音 h，词尾有静音 e。"
       }
     },
     {
@@ -12042,6 +15273,20 @@
           "parts": [],
           "note": "本词在“轮廓形状维度，区别于 size 的大小、colour 的颜色。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "sh",
+          "a",
+          "p",
+          "e"
+        ],
+        "focus": [
+          "sh",
+          "e"
+        ],
+        "cue": "sh-a-p-e；sh 一组，末尾 e 不发音。",
+        "sourceEvidence": "sh-a-p-e；sh 一组，末尾 e 不发音。"
       }
     },
     {
@@ -12100,6 +15345,17 @@
           ],
           "note": "on+line 连写成 online，联系通过网络连接进行活动，不理解为站在排队的一行上。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "on",
+          "line"
+        ],
+        "focus": [
+          "e"
+        ],
+        "cue": "on+line 合写；line 的 i_e=/aɪ/，末尾 e 要保留。",
+        "sourceEvidence": "on+line 合写；line 的 i_e=/aɪ/，末尾 e 要保留。"
       }
     },
     {
@@ -12154,6 +15410,18 @@
           "parts": [],
           "note": "本词在“choose 是动作，choice 是得到的选择这个名词。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ch",
+          "oo",
+          "se"
+        ],
+        "focus": [
+          "oo"
+        ],
+        "cue": "ch-oo-se；动词“选择”用 oo，与名词 choice 的 oi 不同。",
+        "sourceEvidence": "ch-oo-se；动词“选择”用 oo，与名词 choice 的 oi 不同。"
       }
     },
     {
@@ -12206,6 +15474,17 @@
           "parts": [],
           "note": "app 是 application 的简称，表示应用程序；app 的各字母不另拆成词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "a",
+          "pp"
+        ],
+        "focus": [
+          "pp"
+        ],
+        "cue": "应用程序简称写 a-pp，双 p 只读一次。",
+        "sourceEvidence": "应用程序简称写 a-pp，双 p 只读一次。"
       }
     },
     {
@@ -12254,6 +15533,16 @@
           "parts": [],
           "note": "goods 是表示货物、商品的惯用复数名词；不把形容词 good 加 s 作为可生产的造词规则，也不将其理解为多个好。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "goods"
+        ],
+        "focus": [
+          "s"
+        ],
+        "cue": "熟词 good 后添 s 是字形抓手；词尾 s 发 /z/。",
+        "sourceEvidence": "熟词 good 后添 s 是字形抓手；词尾 s 发 /z/。"
       }
     },
     {
@@ -12307,6 +15596,22 @@
           "parts": [],
           "note": "本词在“决定强调结束犹豫并确定做法；与只列计划 plan 区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "de",
+          "c",
+          "i",
+          "d",
+          "e"
+        ],
+        "focus": [
+          "e",
+          "c",
+          "i"
+        ],
+        "cue": "de-c-i-d-e；c 在 i 前=/s/，i_e=/aɪ/；开头轻音写 e。",
+        "sourceEvidence": "de-c-i-d-e；c 在 i 前=/s/，i_e=/aɪ/；开头轻音写 e。"
       }
     },
     {
@@ -12361,6 +15666,19 @@
           "parts": [],
           "note": "本词在“具体收寄位置的信息，与泛指某 place 不同。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ad",
+          "dress"
+        ],
+        "focus": [
+          "dd",
+          "ss",
+          "a"
+        ],
+        "cue": "双 d、双 s；首音 /ə/ 写 a，不能写 e。",
+        "sourceEvidence": "双 d、双 s；首音 /ə/ 写 a，不能写 e。"
       }
     },
     {
@@ -12416,6 +15734,17 @@
           "parts": [],
           "note": "本词在“pay 侧重付钱，buy 侧重买到物品；同次交易的动作侧面不同。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "p",
+          "ay"
+        ],
+        "focus": [
+          "ay"
+        ],
+        "cue": "p-ay；尾长音写 ay，不添 e。",
+        "sourceEvidence": "p-ay；尾长音写 ay，不添 e。"
       }
     },
     {
@@ -12475,6 +15804,18 @@
           ],
           "note": "work 加 -er 成 worker，表示工作的人、工人；-er 不是随意可加在任何名词后。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "work",
+          "er"
+        ],
+        "focus": [
+          "or",
+          "er"
+        ],
+        "cue": "work+er（做工作的人）；work 的 or 保留，不写 er 来代替。",
+        "sourceEvidence": "work+er（做工作的人）；work 的 or 保留，不写 er 来代替。"
       }
     },
     {
@@ -12524,6 +15865,21 @@
           "parts": [],
           "note": "本词在“驾驶飞机的人，与乘客 passenger 和宇航员 astronaut 区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "p",
+          "i",
+          "l",
+          "o",
+          "t"
+        ],
+        "focus": [
+          "i",
+          "ot"
+        ],
+        "cue": "p-i-l-o-t；i 发长音，词尾弱音写 ot，不写 et。",
+        "sourceEvidence": "p-i-l-o-t；i 发长音，词尾弱音写 ot，不写 et。"
       }
     },
     {
@@ -12576,6 +15932,19 @@
           "parts": [],
           "note": "本卡使用声音与具体字母线索，不展示依赖陌生词或历史成分的拆词说明。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "as",
+          "tro",
+          "naut"
+        ],
+        "focus": [
+          "o",
+          "au"
+        ],
+        "cue": "as-tro-naut；tro 的弱音写 o，naut 的 /ɔː/ 写 au。",
+        "sourceEvidence": "as-tro-naut；tro 的弱音写 o，naut 的 /ɔː/ 写 au。"
       }
     },
     {
@@ -12616,6 +15985,20 @@
           ],
           "note": "interest 加 -ed 得 interested，此处描述人的兴趣状态；与 interesting 描述事物吸引兴趣对照。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "be ",
+          "interested ",
+          "in"
+        ],
+        "focus": [
+          "e",
+          "ed",
+          "in"
+        ],
+        "cue": "interested 字形 interest+ed，中间 e 常省音；前后 be、in 均保留。",
+        "sourceEvidence": "interested 字形 interest+ed，中间 e 常省音；前后 be、in 均保留。"
       }
     },
     {
@@ -12643,6 +16026,18 @@
           "parts": [],
           "note": "本词在“可用于推进和运送载荷，spaceship 是执行太空任务的飞船；两者角色不同。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "rock",
+          "et"
+        ],
+        "focus": [
+          "ck",
+          "e"
+        ],
+        "cue": "rock-et；/k/ 写 ck，末段短 /ɪ/ 写 e。",
+        "sourceEvidence": "rock-et；/k/ 写 ck，末段短 /ɪ/ 写 e。"
       }
     },
     {
@@ -12697,6 +16092,21 @@
           "parts": [],
           "note": "本词在“让火箭等出发的动作，与已在空中 fly 的状态区分。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "l",
+          "au",
+          "n",
+          "ch"
+        ],
+        "focus": [
+          "au",
+          "n",
+          "ch"
+        ],
+        "cue": "l-au-n-ch；长音写 au，尾 ch 前有 n。",
+        "sourceEvidence": "l-au-n-ch；长音写 au，尾 ch 前有 n。"
       }
     },
     {
@@ -12756,6 +16166,18 @@
           ],
           "note": "space+ship 连写成 spaceship，借船的航行载运概念表示太空飞船。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "space",
+          "ship"
+        ],
+        "focus": [
+          "ce",
+          "sh"
+        ],
+        "cue": "space+ship 合写；space 的 ce=/s/，ship 的 sh=/ʃ/。",
+        "sourceEvidence": "space+ship 合写；space 的 ce=/s/，ship 的 sh=/ʃ/。"
       }
     },
     {
@@ -12810,6 +16232,18 @@
           "parts": [],
           "note": "本词在“为回答问题收集和分析证据，不只是随意看看；research 常不可数。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "re",
+          "search"
+        ],
+        "focus": [
+          "ear",
+          "ch"
+        ],
+        "cue": "re-search；/ɜː/ 写 ear，末尾 ch。",
+        "sourceEvidence": "re-search；/ɜː/ 写 ear，末尾 ch。"
       }
     },
     {
@@ -12871,6 +16305,18 @@
           ],
           "note": "write 与表示人的 -er 构成 writer，末尾 e 不重复，只再写 r；描述写作的人，不将单独 r 教成后缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "writer"
+        ],
+        "focus": [
+          "w",
+          "t",
+          "er"
+        ],
+        "cue": "write 去 e 加 er 得 writer；开头 w 静音，中间只有一个 t。",
+        "sourceEvidence": "write 去 e 加 er 得 writer；开头 w 静音，中间只有一个 t。"
       }
     },
     {
@@ -12918,6 +16364,22 @@
           "parts": [],
           "note": "本词在“尚未发生的时间，与 past 的过去和 present 的现在对比。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "f",
+          "u",
+          "t",
+          "u",
+          "r",
+          "e"
+        ],
+        "focus": [
+          "u",
+          "ture"
+        ],
+        "cue": "f-u-t-u-r-e，两个 u；/tʃə/ 写 ture，不写 ch。",
+        "sourceEvidence": "f-u-t-u-r-e，两个 u；/tʃə/ 写 ture，不写 ch。"
       }
     },
     {
@@ -12967,6 +16429,18 @@
           "parts": [],
           "note": "本词在“人的健康状态，与 healthy 相反；不是单纯情绪难过。”这一用法中整体记忆；不把音节或相似字母当作能迁移的词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "s",
+          "i",
+          "ck"
+        ],
+        "focus": [
+          "ck"
+        ],
+        "cue": "s-i-ck；尾音用 ck 两字母。",
+        "sourceEvidence": "s-i-ck；尾音用 ck 两字母。"
       }
     },
     {
@@ -13023,6 +16497,18 @@
           ],
           "note": "born 是 bear 的不规则过去分词在出生义中的形式，常用 be born；不是在 bor 后添加词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "b",
+          "or",
+          "n"
+        ],
+        "focus": [
+          "or"
+        ],
+        "cue": "b-or-n；长 /ɔː/ 这里写 or。",
+        "sourceEvidence": "b-or-n；长 /ɔː/ 这里写 or。"
       }
     },
     {
@@ -13063,6 +16549,18 @@
           ],
           "note": "组合表示跌倒、倒下，over 在此不译为越过；结合从直立到倒地理解。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "fall ",
+          "over"
+        ],
+        "focus": [
+          "ll",
+          "er"
+        ],
+        "cue": "fall 用 a、双 l；over 尾部 er 保留。",
+        "sourceEvidence": "fall 用 a、双 l；over 尾部 er 保留。"
       }
     },
     {
@@ -13129,6 +16627,19 @@
           ],
           "note": "整体表示从那时起，on 联系从那个时点往后持续，不是物体表面位置。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "from ",
+          "then ",
+          "on"
+        ],
+        "focus": [
+          "e",
+          "o"
+        ],
+        "cue": "then 用 e，不是 than 的 a；from 和 on 用 o。",
+        "sourceEvidence": "then 用 e，不是 than 的 a；from 和 on 用 o。"
       }
     },
     {
@@ -13186,6 +16697,19 @@
           ],
           "note": "愿望或梦想与 come true 搭配表示实现，整体记作变成现实，不按走来动作理解。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "come ",
+          "true"
+        ],
+        "focus": [
+          "o",
+          "e",
+          "ue"
+        ],
+        "cue": "come 的 o=/ʌ/、e 静音；true 的 /uː/ 写 ue。",
+        "sourceEvidence": "come 的 o=/ʌ/、e 静音；true 的 /uː/ 写 ue。"
       }
     },
     {
@@ -13234,6 +16758,20 @@
           "parts": [],
           "note": "这个词按完整字形和本课意义记，不把拼写分段当词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ex",
+          "er",
+          "cise"
+        ],
+        "focus": [
+          "c",
+          "s",
+          "er"
+        ],
+        "cue": "ex-er-cise；x=/ks/，c=/s/，末尾 s=/z/；保留 er。",
+        "sourceEvidence": "ex-er-cise；x=/ks/，c=/s/，末尾 s=/z/；保留 er。"
       }
     },
     {
@@ -13267,6 +16805,22 @@
           "parts": [],
           "note": "这个词按完整字形和本课意义记，不把拼写分段当词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "m",
+          "i",
+          "n",
+          "u",
+          "t",
+          "e"
+        ],
+        "focus": [
+          "u",
+          "e"
+        ],
+        "cue": "m-i-n-u-t-e；第二个 /ɪ/ 写 u，末尾 e 不读。",
+        "sourceEvidence": "m-i-n-u-t-e；第二个 /ɪ/ 写 u，末尾 e 不读。"
       }
     },
     {
@@ -13322,6 +16876,20 @@
           ],
           "note": "这是可替换课程内容的词组，不是词根。实际说法可为 take a swimming lesson；不要把省略号当英文拼写。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "take ",
+          "... ",
+          "lesson"
+        ],
+        "focus": [
+          "e",
+          "ss",
+          "o"
+        ],
+        "cue": "单数课程写 take+a+课程名+lesson；take 有尾 e，lesson 双 s、弱音 o。",
+        "sourceEvidence": "单数课程写 take+a+课程名+lesson；take 有尾 e，lesson 双 s、弱音 o。"
       }
     },
     {
@@ -13377,6 +16945,19 @@
           ],
           "note": "这是短语动词，整体意思是放弃；不能逐字翻成向上给。两词分写。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "give ",
+          "up"
+        ],
+        "focus": [
+          "i",
+          "e",
+          "u"
+        ],
+        "cue": "give 的 i 是短音、尾 e 沉默；up 用 u。",
+        "sourceEvidence": "give 的 i 是短音、尾 e 沉默；up 用 u。"
       }
     },
     {
@@ -13435,6 +17016,21 @@
           ],
           "note": "这是 science（科学）的词族词；构成 scientist 时 science 末尾 ce 变为 t，再接 -ist（从事者）。不是把完整 science 原样加 ist。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "sci",
+          "en",
+          "t",
+          "ist"
+        ],
+        "focus": [
+          "sc",
+          "e",
+          "ist"
+        ],
+        "cue": "sci-en-t-ist；/s/ 写 sc，中间弱音写 e，末尾 ist；也可由 science 的字形变化记忆。",
+        "sourceEvidence": "sci-en-t-ist；/s/ 写 sc，中间弱音写 e，末尾 ist；也可由 science 的字形变化记忆。"
       }
     },
     {
@@ -13475,6 +17071,22 @@
           ],
           "note": "名称按词组理解为共和国的勋章；开头 the 和词间空格保留，Medal、Republic 首字母大写，不拆 Republic 编词源。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "the ",
+          "Medal ",
+          "of ",
+          "the ",
+          "Republic"
+        ],
+        "focus": [
+          "the",
+          "al",
+          "c"
+        ],
+        "cue": "Medal 用 al；Republic 分 Re-pub-lic，末尾 /k/ 写 c；名词前两处 the 不漏。",
+        "sourceEvidence": "Medal 用 al；Republic 分 Re-pub-lic，末尾 /k/ 写 c；名词前两处 the 不漏。"
       }
     },
     {
@@ -13531,6 +17143,20 @@
           "parts": [],
           "note": "这个词按完整字形和本课意义记，不把拼写分段当词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "h",
+          "on",
+          "our"
+        ],
+        "focus": [
+          "h",
+          "u",
+          "r"
+        ],
+        "cue": "h-o-n-o-u-r；词头 h、词尾 u 和 r 都不能按听音漏掉。",
+        "sourceEvidence": "h-o-n-o-u-r；词头 h、词尾 u 和 r 都不能按听音漏掉。"
       }
     },
     {
@@ -13567,6 +17193,19 @@
           ],
           "note": "前词说明水稻的培育类型；这是两词组成的名词短语，不是一个合写的复合词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "hybrid ",
+          "rice"
+        ],
+        "focus": [
+          "y",
+          "i",
+          "ce"
+        ],
+        "cue": "hy-brid：/aɪ/ 写 y，第二段短音写 i；rice 的 i_e=/aɪ/，c=/s/。",
+        "sourceEvidence": "hy-brid：/aɪ/ 写 y，第二段短音写 i；rice 的 i_e=/aɪ/，c=/s/。"
       }
     },
     {
@@ -13601,6 +17240,19 @@
           "parts": [],
           "note": "这个词按完整字形和本课意义记，不把拼写分段当词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "o",
+          "n",
+          "c",
+          "e"
+        ],
+        "focus": [
+          "ce"
+        ],
+        "cue": "o-n-c-e；听到 /w/ 不另添 w，尾 /s/ 写 ce。",
+        "sourceEvidence": "o-n-c-e；听到 /w/ 不另添 w，尾 /s/ 写 ce。"
       }
     },
     {
@@ -13658,6 +17310,18 @@
           ],
           "note": "farm 加 -er 构成 farmer，表示务农的人；保留完整 farm，不能漏掉 r。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "farm",
+          "er"
+        ],
+        "focus": [
+          "ar",
+          "er"
+        ],
+        "cue": "farm+er 得 farmer；ar=/ɑː/，尾 er 保留 r。",
+        "sourceEvidence": "farm+er 得 farmer；ar=/ɑː/，尾 er 保留 r。"
       }
     },
     {
@@ -13685,6 +17349,21 @@
           "parts": [],
           "note": "这个词按完整字形和本课意义记，不把拼写分段当词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "i",
+          "n",
+          "v",
+          "e",
+          "n",
+          "t"
+        ],
+        "focus": [
+          "n"
+        ],
+        "cue": "i-n-v-e-n-t；两个 n 分别在第二和第五位置。",
+        "sourceEvidence": "i-n-v-e-n-t；两个 n 分别在第二和第五位置。"
       }
     },
     {
@@ -13743,6 +17422,18 @@
           ],
           "note": "out 与 put 合写为 output；借生产出的结果理解产量，但不要把产量逐字解释成往外放的动作。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "out",
+          "put"
+        ],
+        "focus": [
+          "ou",
+          "u"
+        ],
+        "cue": "out+put 合写；out 的 ou=/aʊ/，put 的 u=/ʊ/。",
+        "sourceEvidence": "out+put 合写；out 的 ou=/aʊ/，put 的 u=/ʊ/。"
       }
     },
     {
@@ -13785,6 +17476,18 @@
           "parts": [],
           "note": "这个词按完整字形和本课意义记，不把拼写分段当词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ea",
+          "ch"
+        ],
+        "focus": [
+          "ea",
+          "ch"
+        ],
+        "cue": "ea-ch，四字母分两组，各发一个音。",
+        "sourceEvidence": "ea-ch，四字母分两组，各发一个音。"
       }
     },
     {
@@ -13816,6 +17519,22 @@
           "parts": [],
           "note": "这个词按完整字形和本课意义记，不把拼写分段当词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "s",
+          "q",
+          "u",
+          "a",
+          "r",
+          "e"
+        ],
+        "focus": [
+          "qu",
+          "are"
+        ],
+        "cue": "s-q-u-a-r-e，q 后要 u，词尾 are。",
+        "sourceEvidence": "s-q-u-a-r-e，q 后要 u，词尾 are。"
       }
     },
     {
@@ -13852,6 +17571,20 @@
           ],
           "note": "这是专名词组，写 the Summer Palace；可以理解组成词，但不把它替代颐和园的具体地理身份。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "the ",
+          "Summer ",
+          "Palace"
+        ],
+        "focus": [
+          "the",
+          "mm",
+          "ace"
+        ],
+        "cue": "summer 双 m；palace 末尾 ace 弱读 /əs/，a 和 e 都保留；前面有 the。",
+        "sourceEvidence": "summer 双 m；palace 末尾 ace 弱读 /əs/，a 和 e 都保留；前面有 the。"
       }
     },
     {
@@ -13919,6 +17652,18 @@
           ],
           "note": "well 与 kept 连接，表示被保持得很好；kept 是 keep 的变化形式。写连字符，两部分均整体保留。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "well-kept"
+        ],
+        "focus": [
+          "ll",
+          "kept",
+          "-"
+        ],
+        "cue": "well 双 l；keep 的过去分词是 kept，ee 变 e；中间连字符。",
+        "sourceEvidence": "well 双 l；keep 的过去分词是 kept，ee 变 e；中间连字符。"
       }
     },
     {
@@ -13995,6 +17740,18 @@
           ],
           "note": "colour 加 -ful 表示色彩丰富；保留英式 colour 的 ou，后缀 -ful 只有一个 l，不能照 full 写两个 l。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "colour",
+          "ful"
+        ],
+        "focus": [
+          "ou",
+          "ful"
+        ],
+        "cue": "colour+ful；英式 colour 用 ou，词尾 ful 只有一个 l。",
+        "sourceEvidence": "colour+ful；英式 colour 用 ou，词尾 ful 只有一个 l。"
       }
     },
     {
@@ -14057,6 +17814,18 @@
           ],
           "note": "inter- 表示之间，nation 表示国家，-al 构成形容词：international 指国家之间的、国际的。不是所有 inter 开头的词都能照此硬拆。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "inter",
+          "national"
+        ],
+        "focus": [
+          "tion",
+          "al"
+        ],
+        "cue": "inter-national；tion 写 t-i-o-n，末尾 al；inter 表示之间作补充。",
+        "sourceEvidence": "inter-national；tion 写 t-i-o-n，末尾 al；inter 表示之间作补充。"
       }
     },
     {
@@ -14124,6 +17893,18 @@
           ],
           "note": "air 与 port 合写；由空中交通的港口联想到机场，先保留完整 air，再写 port。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "air",
+          "port"
+        ],
+        "focus": [
+          "ai",
+          "or"
+        ],
+        "cue": "air+port（空中港口）；air 用 ai，port 用 or，合写一个词。",
+        "sourceEvidence": "air+port（空中港口）；air 用 ai，port 用 or，合写一个词。"
       }
     },
     {
@@ -14172,6 +17953,21 @@
           "parts": [],
           "note": "这个词按完整字形和本课意义记，不把拼写分段当词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "m",
+          "o",
+          "d",
+          "e",
+          "r",
+          "n"
+        ],
+        "focus": [
+          "r"
+        ],
+        "cue": "m-o-d-e-r-n，尾 ern 的 r 在英式音中不单独读但保留。",
+        "sourceEvidence": "m-o-d-e-r-n，尾 ern 的 r 在英式音中不单独读但保留。"
       }
     },
     {
@@ -14228,6 +18024,20 @@
           ],
           "note": "compute 表示计算，加 -er 构成 computer；词尾已有 e，只接 r，不写成 computeer。这里表示计算设备。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "com",
+          "pu",
+          "ter"
+        ],
+        "focus": [
+          "o",
+          "u",
+          "er"
+        ],
+        "cue": "com-pu-ter；首段弱音写 o，中间 u 带 /j/ 音，尾 er 的 r 保留。",
+        "sourceEvidence": "com-pu-ter；首段弱音写 o，中间 u 带 /j/ 音，尾 er 的 r 保留。"
       }
     },
     {
@@ -14284,6 +18094,18 @@
           ],
           "note": "sub- 表示在下面，way 表示道路，组成 subway；用地下通道连接地铁意义，不把 sub 当独立英语词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "sub",
+          "way"
+        ],
+        "focus": [
+          "sub",
+          "ay"
+        ],
+        "cue": "sub+way 合写；sub 表示下面，way（路）的 ay=/eɪ/。",
+        "sourceEvidence": "sub+way 合写；sub 表示下面，way（路）的 ay=/eɪ/。"
       }
     },
     {
@@ -14331,6 +18153,19 @@
           "parts": [],
           "note": "这个词按完整字形和本课意义记，不把拼写分段当词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "l",
+          "i",
+          "n",
+          "e"
+        ],
+        "focus": [
+          "e"
+        ],
+        "cue": "l-i-n-e，末尾 e 沉默，帮助 i 读长音。",
+        "sourceEvidence": "l-i-n-e，末尾 e 沉默，帮助 i 读长音。"
       }
     },
     {
@@ -14377,6 +18212,18 @@
           "parts": [],
           "note": "它的写 its，不加撇号；这是代词的所属形式，不能当 it’s（it is 或 it has）的缩写，也不拆成词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "i",
+          "t",
+          "s"
+        ],
+        "focus": [
+          "its"
+        ],
+        "cue": "“它的”写 i-t-s，没有撇号；it's 是 it is 或 it has。",
+        "sourceEvidence": "“它的”写 i-t-s，没有撇号；it's 是 it is 或 it has。"
       }
     },
     {
@@ -14418,6 +18265,19 @@
           ],
           "note": "按城市、烹调方式和食材理解名词短语；三词分写，Beijing 首字母大写，不把它当词根。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Beijing ",
+          "roast ",
+          "duck"
+        ],
+        "focus": [
+          "oa",
+          "ck"
+        ],
+        "cue": "Beijing 拼 Bei-jing；roast 的 oa=/əʊ/，duck 的 ck=/k/。",
+        "sourceEvidence": "Beijing 拼 Bei-jing；roast 的 oa=/əʊ/，duck 的 ck=/k/。"
       }
     },
     {
@@ -14482,6 +18342,17 @@
           ],
           "note": "两个组成词相连表示火锅；本词条写 hot pot，中间留空格，两个词都以 ot 结尾。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "hot ",
+          "pot"
+        ],
+        "focus": [
+          "ot"
+        ],
+        "cue": "hot 与 pot 都用 ot，只换首字母 h、p；两词分开。",
+        "sourceEvidence": "hot 与 pot 都用 ot，只换首字母 h、p；两词分开。"
       }
     },
     {
@@ -14519,6 +18390,19 @@
           ],
           "note": "名称由两个词组成，Central、Axis 首字母大写；这里只理解词组，不将专名强拆为历史词根。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Central ",
+          "Axis"
+        ],
+        "focus": [
+          "tral",
+          "x",
+          "is"
+        ],
+        "cue": "central 的 c=/s/，尾 tral；axis 的 x=/ks/，末尾 is；两词首字母大写。",
+        "sourceEvidence": "central 的 c=/s/，尾 tral；axis 的 x=/ks/，末尾 is；两词首字母大写。"
       }
     },
     {
@@ -14556,6 +18440,21 @@
           ],
           "note": "Bell 与 Drum 用 and 并列，Towers 的 -s 表示不止一座楼；词间空格和专名首字母保留。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Bell ",
+          "and ",
+          "Drum ",
+          "Towers"
+        ],
+        "focus": [
+          "ll",
+          "ow",
+          "d"
+        ],
+        "cue": "Bell 双 l；Drum 用 u；Towers 的 ow=/aʊ/，尾 s=/z/；and 的 d 即使省音仍写。",
+        "sourceEvidence": "Bell 双 l；Drum 用 u；Towers 的 ow=/aʊ/，尾 s=/z/；and 的 d 即使省音仍写。"
       }
     },
     {
@@ -14613,6 +18512,18 @@
           ],
           "note": "north 加 -ern 得 northern，表示北部的；完整保留 north，再接 ern，th 在这个词里读浊音。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "north",
+          "ern"
+        ],
+        "focus": [
+          "th",
+          "ern"
+        ],
+        "cue": "north+ern 成 northern；拼写保留 north，th 的音由 /θ/ 变 /ð/。",
+        "sourceEvidence": "north+ern 成 northern；拼写保留 north，th 的音由 /θ/ 变 /ð/。"
       }
     },
     {
@@ -14660,6 +18571,18 @@
           "parts": [],
           "note": "这个词按完整字形和本课意义记，不把拼写分段当词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "e",
+          "n",
+          "d"
+        ],
+        "focus": [
+          "nd"
+        ],
+        "cue": "e-n-d 三字母，末尾 nd 两辅音都写。",
+        "sourceEvidence": "e-n-d 三字母，末尾 nd 两辅音都写。"
       }
     },
     {
@@ -14697,6 +18620,19 @@
           ],
           "note": "bird’s 表示鸟的，eye 是眼，view 是景象，合起来指鸟瞰。写 bird's-eye view，撇号、连字符与空格各有位置。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "bird's-eye ",
+          "view"
+        ],
+        "focus": [
+          "ir",
+          "'s",
+          "-"
+        ],
+        "cue": "bird 的 ir=/ɜː/；'s 撇号在 s 前；eye 三字母发一个音；bird's-eye 有连字符。",
+        "sourceEvidence": "bird 的 ir=/ɜː/；'s 撇号在 s 前；eye 三字母发一个音；bird's-eye 有连字符。"
       }
     },
     {
@@ -14733,6 +18669,20 @@
           ],
           "note": "组成词说明宫殿与博物馆的联系，但这里是故宫博物院专名。写 the Palace Museum，两主要词首字母大写。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "the ",
+          "Palace ",
+          "Museum"
+        ],
+        "focus": [
+          "ace",
+          "s",
+          "u"
+        ],
+        "cue": "Palace 末尾 ace=/əs/；Museum 分 Mu-se-um，s=/z/，两个 u；前面 the。",
+        "sourceEvidence": "Palace 末尾 ace=/əs/；Museum 分 Mu-se-um，s=/z/，两个 u；前面 the。"
       }
     },
     {
@@ -14790,6 +18740,18 @@
           ],
           "note": "wood 加 -en 得 wooden，表示木制的；wood 保留双 o，再接 en。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "wood",
+          "en"
+        ],
+        "focus": [
+          "oo",
+          "en"
+        ],
+        "cue": "wood+en 得 wooden；保留 oo，末尾弱音写 en。",
+        "sourceEvidence": "wood+en 得 wooden；保留 oo，末尾弱音写 en。"
       }
     },
     {
@@ -14846,6 +18808,19 @@
           "parts": [],
           "note": "这个词按完整字形和本课意义记，不把拼写分段当词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "pal",
+          "a",
+          "ce"
+        ],
+        "focus": [
+          "a",
+          "ce"
+        ],
+        "cue": "p-a-l-a-c-e，两个 a；尾 /s/ 写 ce，第二个 a 弱读。",
+        "sourceEvidence": "p-a-l-a-c-e，两个 a；尾 /s/ 写 ce，第二个 a 弱读。"
       }
     },
     {
@@ -14893,6 +18868,21 @@
           "parts": [],
           "note": "这个词按完整字形和本课意义记，不把拼写分段当词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "tr",
+          "ea",
+          "s",
+          "ure"
+        ],
+        "focus": [
+          "ea",
+          "s",
+          "ure"
+        ],
+        "cue": "tr-ea-s-ure；s 在这里=/ʒ/，ure=/ə/，不能按单词 sure 的音读。",
+        "sourceEvidence": "tr-ea-s-ure；s 在这里=/ʒ/，ure=/ə/，不能按单词 sure 的音读。"
       }
     },
     {
@@ -14940,6 +18930,20 @@
           "parts": [],
           "note": "这个词按完整字形和本课意义记，不把拼写分段当词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "b",
+          "u",
+          "s"
+        ],
+        "focus": [
+          "b",
+          "u",
+          "s"
+        ],
+        "cue": "b-u-s 三字母，只有一个 s。",
+        "sourceEvidence": "b-u-s 三字母，只有一个 s。"
       }
     },
     {
@@ -14967,6 +18971,19 @@
           "parts": [],
           "note": "这个词按完整字形和本课意义记，不把拼写分段当词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "g",
+          "a",
+          "t",
+          "e"
+        ],
+        "focus": [
+          "e"
+        ],
+        "cue": "g-a-t-e，末尾 e 不读，帮助 a 发长音。",
+        "sourceEvidence": "g-a-t-e，末尾 e 不读，帮助 a 发长音。"
       }
     },
     {
@@ -15007,6 +19024,20 @@
           ],
           "note": "按地名、广场和建筑群理解专名词组；保留 Tian’anmen 的撇号与各词空格，不给地名编造英语词根。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Tian'anmen ",
+          "Square ",
+          "Complex"
+        ],
+        "focus": [
+          "'",
+          "qu",
+          "x"
+        ],
+        "cue": "Tian 后有撇号；Square 用 qu、are；Complex 尾 x=/ks/。",
+        "sourceEvidence": "Tian 后有撇号；Square 用 qu、are；Complex 尾 x=/ks/。"
       }
     },
     {
@@ -15064,6 +19095,18 @@
           ],
           "note": "south 加 -ern 得 southern，表示南部的；字形保留 south，本词 south 部分的读音与单独的 south 不同，要听整词标准音。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "south",
+          "ern"
+        ],
+        "focus": [
+          "ou",
+          "th"
+        ],
+        "cue": "south+ern 成 southern；字形保留 ou、th，但音从 /aʊθ/ 变 /ʌð/。",
+        "sourceEvidence": "south+ern 成 southern；字形保留 ou、th，但音从 /aʊθ/ 变 /ʌð/。"
       }
     },
     {
@@ -15110,6 +19153,18 @@
           "parts": [],
           "note": "这个词按完整字形和本课意义记，不把拼写分段当词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "o",
+          "w",
+          "n"
+        ],
+        "focus": [
+          "ow"
+        ],
+        "cue": "o-w-n；长音这里写 ow，不能只写 o。",
+        "sourceEvidence": "o-w-n；长音这里写 ow，不能只写 o。"
       }
     },
     {
@@ -15157,6 +19212,19 @@
           "parts": [],
           "note": "这个词按完整字形和本课意义记，不把拼写分段当词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "y",
+          "ou",
+          "ng"
+        ],
+        "focus": [
+          "ou",
+          "ng"
+        ],
+        "cue": "y-ou-ng；/ʌ/ 在这里写 ou，结尾 ng。",
+        "sourceEvidence": "y-ou-ng；/ʌ/ 在这里写 ou，结尾 ng。"
       }
     },
     {
@@ -15194,6 +19262,19 @@
           ],
           "note": "Bird’s 是 bird 的所有格，Nest 是巢；这里用作体育场的专名昵称。保留撇号、空格和首字母大写。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Bird's ",
+          "Nest"
+        ],
+        "focus": [
+          "ir",
+          "'s",
+          "e"
+        ],
+        "cue": "bird 用 ir；所有格 's；nest 用 e；两词首字母大写。",
+        "sourceEvidence": "bird 用 ir；所有格 's；nest 用 e；两词首字母大写。"
       }
     },
     {
@@ -15261,6 +19342,18 @@
           ],
           "note": "well 与 known 用连字符连接，表示广为人知；known 由 know 变化而来，开头 k 不发音也要写。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "well-known"
+        ],
+        "focus": [
+          "ll",
+          "k",
+          "-"
+        ],
+        "cue": "well 双 l；known 字形 k-n-o-w-n，两个 n，ow=/əʊ/；中间连字符。",
+        "sourceEvidence": "well 双 l；known 字形 k-n-o-w-n，两个 n，ow=/əʊ/；中间连字符。"
       }
     },
     {
@@ -15288,6 +19381,20 @@
           "parts": [],
           "note": "这个词按完整字形和本课意义记，不把拼写分段当词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "h",
+          "o",
+          "l",
+          "d"
+        ],
+        "focus": [
+          "o",
+          "ld"
+        ],
+        "cue": "h-o-l-d；长音 /əʊ/ 这里只有一个 o，末尾 ld。",
+        "sourceEvidence": "h-o-l-d；长音 /əʊ/ 这里只有一个 o，末尾 ld。"
       }
     },
     {
@@ -15345,6 +19452,20 @@
           "parts": [],
           "note": "这个词按完整字形和本课意义记，不把拼写分段当词根词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "cer",
+          "emo",
+          "ny"
+        ],
+        "focus": [
+          "e",
+          "o",
+          "y"
+        ],
+        "cue": "c 在 e 前=/s/；弱音分别写 e、o，尾 /i/ 写 y。",
+        "sourceEvidence": "c 在 e 前=/s/；弱音分别写 e、o，尾 /i/ 写 y。"
       }
     }
   ],
@@ -15434,7 +19555,7 @@
       "section": "五上Unit 2",
       "chapters": [
         {
-          "text": "小安提前一天摆好月饼，奶奶轻轻收起盘子，指着农历说：\"Mid-Autumn Festival is on the fifteenth day of the eighth month in the lunar calendar.\"（中秋节是农历八月十五。）小安重新数到第十五格，才明白这个月份要看阴历，不能照平时的日历算。",
+          "text": "小安提前一天摆好月饼，奶奶轻轻遮住盘子，指着农历说：\"Mid-Autumn Festival is on the fifteenth day of the eighth month in the lunar calendar.\"（中秋节是农历八月十五。）小安重新数到第十五格，才明白这个月份要看阴历，不能照平时的日历算。",
           "words": [
             "Mid-Autumn Festival",
             "fifteenth",

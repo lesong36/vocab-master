@@ -54,7 +54,7 @@ with sync_playwright() as playwright:
     # on the selection screen. Let that pending save finish before isolating recall.
     page.wait_for_timeout(700)
     before = len(writes)
-    page.get_by_role('button', name='收起线索，试着回忆', exact=True).click()
+    page.get_by_role('button', name='不看提示，试着回忆', exact=True).click()
     recall = page.get_by_role('region', name='助记回忆练习')
     assert not page.locator('[data-graphic-kind]').count()
     assert not page.locator('figure').count()
@@ -73,7 +73,7 @@ with sync_playwright() as playwright:
         unit.get_by_role('button', name='下一词', exact=True).click()
     else:
         raise AssertionError('Unit leaves not reached')
-    unit.get_by_role('button', name='收起线索，写完整单词', exact=True).click()
+    unit.get_by_role('button', name='隐藏提示，写出完整单词', exact=True).click()
     assert not unit.locator('figure').count()
     assert not unit.locator('mark').count()
     assert not unit.get_by_text('leaves', exact=True).count()

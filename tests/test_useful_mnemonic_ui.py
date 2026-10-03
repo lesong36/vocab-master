@@ -64,8 +64,9 @@ with sync_playwright() as playwright:
     assert panel.get_by_role('button', name='拼写线索', exact=True).get_attribute('aria-pressed') == 'true'
     assert not panel.get_by_role('button', name='词义图', exact=True).count()
     assert not panel.get_by_role('button', name='词形组成', exact=True).count()
+    assert panel.get_by_role('figure', name='拼写字形路径').is_visible()
+    panel.get_by_text('完整读写提示', exact=True).click()
     assert panel.get_by_text(cards[1]['hint'], exact=True).is_visible()
-    assert not panel.locator('figure').count()
 
     # Real composition remains available; removing it on the next word is safe.
     page.evaluate('window.selectCueCard(2)')
@@ -81,6 +82,7 @@ with sync_playwright() as playwright:
     page.evaluate('window.selectCueCard(3)')
     assert not panel.get_by_role('button', name='词义区别', exact=True).count()
     assert panel.get_by_role('button', name='拼写线索', exact=True).get_attribute('aria-pressed') == 'true'
+    panel.get_by_text('完整读写提示', exact=True).click()
     assert panel.get_by_text(cards[3]['hint'], exact=True).is_visible()
     page.evaluate('window.selectCueCard(0)')
 
@@ -94,7 +96,7 @@ with sync_playwright() as playwright:
     assert not compact.evaluate('node => node.scrollWidth > node.clientWidth')
     compact.screenshot(path=str(OUTPUT / 'remember-useful-compact.png'))
     page.evaluate('window.selectCueCard(1)')
-    assert not compact.locator('figure').count()
+    assert compact.get_by_role('figure', name='拼写字形路径').is_visible()
     assert '词形组成' not in compact.inner_text()
     assert not errors, errors
     assert not writes, writes

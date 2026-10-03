@@ -49,7 +49,7 @@ with sync_playwright() as p:
     page.wait_for_timeout(700)
     before = len(writes)
     progress = page.evaluate('localStorage.getItem("vocabmaster_app_data")')
-    page.get_by_role('button', name='收起提示，写完整词', exact=True).click()
+    page.get_by_role('button', name='隐藏提示，自己写一遍', exact=True).click()
     recall = page.get_by_role('region', name='助记回忆练习')
 
     def hidden(region, field, submit):
@@ -81,7 +81,7 @@ with sync_playwright() as p:
         unit.get_by_role('button', name='下一词', exact=True).click()
     else:
         raise AssertionError('unit purple not reached')
-    unit.get_by_role('button', name='收起提示，写完整词', exact=True).click()
+    unit.get_by_role('button', name='隐藏提示，自己写一遍', exact=True).click()
     for answer, expected in [('perple', 'e 改为 u'), ('purpl', '漏写 e'), ('purpel', 'e 改为 l'), ('purple', '这次拼写正确')]:
         field = unit.get_by_role('textbox', name='回忆本词拼写')
         submit = unit.get_by_role('button', name='写好了，核对字母')
@@ -90,7 +90,7 @@ with sync_playwright() as p:
         submit.click()
         assert expected in unit.inner_text()
         assert unit.get_by_role('figure', name='拼写字形路径').locator('mark').all_text_contents() == ['ur', 'le']
-        unit.get_by_role('button', name='收起答案，再写一次').click()
+        unit.get_by_role('button', name='隐藏答案，再写一次').click()
     page.wait_for_timeout(700)
     assert len(writes) == before, 'Self-check wrote learning progress'
     assert page.evaluate('localStorage.getItem("vocabmaster_app_data")') == progress

@@ -4,6 +4,7 @@ Run against a static server on port 8766 using the installed Playwright runtime.
 """
 
 import json
+import re
 from pathlib import Path
 
 from playwright.sync_api import sync_playwright
@@ -24,6 +25,8 @@ state = {
         "updatedAt": "2026-09-30T00:00:00.000Z",
     }},
 }
+
+use_cue = next(card["spellingPractice"]["cue"] for card in json.loads((Path(__file__).resolve().parents[1] / "mnemonics/grade4.json").read_text())["cards"] if card["word"] == "use")
 
 with sync_playwright() as playwright:
     browser = playwright.chromium.launch(headless=True)
@@ -46,7 +49,7 @@ with sync_playwright() as playwright:
     for _ in range(18):
         page.get_by_role("button", name="点击查看课本单词助记").click(timeout=15000)
         page.get_by_text("课本词库", exact=True).wait_for(timeout=10000)
-        if any(item.is_visible() for item in page.get_by_text("use", exact=True).all()):
+        if page.get_by_role("figure", name="拼写字形路径").get_by_text(use_cue, exact=True).count():
             break
         page.get_by_role("button", name="下一个 (Enter)").click()
     else:
@@ -58,7 +61,7 @@ with sync_playwright() as playwright:
     preview.parent.mkdir(parents=True, exist_ok=True)
     page.locator("div.bg-purple-50").screenshot(path=str(preview))
     before_recall = len(writes)
-    page.get_by_role("button", name="收起线索，试着回忆", exact=True).click()
+    page.get_by_role("button", name="不看提示，试着回忆", exact=True).click()
     recall = page.get_by_role("region", name="助记回忆练习")
     recall.wait_for()
     recall.screenshot(path=str(preview.parent / "recall-preview.png"))
@@ -85,14 +88,14 @@ with sync_playwright() as playwright:
     unit = page.get_by_role("region", name="单元拼写练习")
     assert unit.get_by_text("use", exact=True).first.is_visible()
     unit.screenshot(path=str(preview.parent / "unit-spelling-learn.png"))
-    unit.get_by_role("button", name="收起线索，写完整单词", exact=True).click()
+    unit.get_by_role("button", name="隐藏提示，写出完整单词", exact=True).click()
     assert not any(item.is_visible() for item in page.get_by_text("use", exact=True).all()), "Unit spelling answer leaked"
     assert not unit.get_by_text("记住这些字母", exact=True).count(), "Letter cue leaked during recall"
     unit.screenshot(path=str(preview.parent / "unit-spelling-recall.png"))
     unit.get_by_role("textbox", name="回忆本词拼写").fill("uze")
     unit.get_by_role("textbox", name="回忆本词拼写").press("Enter")
     assert unit.get_by_text("z 改为 s", exact=True).is_visible()
-    unit.get_by_role("button", name="收起答案，再写一次", exact=True).click()
+    unit.get_by_role("button", name="隐藏答案，再写一次", exact=True).click()
     unit.get_by_role("textbox", name="回忆本词拼写").fill("use")
     unit.get_by_role("textbox", name="回忆本词拼写").press("Enter")
     assert unit.get_by_text("这次拼写正确。", exact=True).is_visible()
@@ -101,14 +104,14 @@ with sync_playwright() as playwright:
     if unit.get_by_role("button", name="拼写线索", exact=True).count():
         unit.get_by_role("button", name="拼写线索", exact=True).click()
     assert unit.get_by_text("so－rr－y", exact=False).count(), "Double-r spelling cue missing"
-    unit.get_by_role("button", name="收起线索，写完整单词", exact=True).click()
+    unit.get_by_role("button", name="隐藏提示，写出完整单词", exact=True).click()
     unit.get_by_role("textbox", name="回忆本词拼写").fill("sory")
     unit.get_by_role("textbox", name="回忆本词拼写").press("Enter")
     assert unit.get_by_text("漏写 r", exact=True).is_visible()
     unit.screenshot(path=str(preview.parent / "unit-spelling-feedback.png"))
     unit.get_by_role("button", name="下一词", exact=True).click()
     assert unit.get_by_text("would", exact=True).first.is_visible()
-    unit.get_by_role("button", name="收起线索，写完整单词", exact=True).click()
+    unit.get_by_role("button", name="隐藏提示，写出完整单词", exact=True).click()
     unit.get_by_role("textbox", name="回忆本词拼写").fill("woud")
     unit.get_by_role("textbox", name="回忆本词拼写").press("Enter")
     assert unit.get_by_text("漏写 l", exact=True).is_visible()
@@ -125,10 +128,11 @@ with sync_playwright() as playwright:
     page.get_by_role("button", name="显示词义和助记", exact=True).click()
     if page.get_by_role("button", name="拼写线索", exact=True).count():
         page.get_by_role("button", name="拼写线索", exact=True).click()
+    page.get_by_text("完整读写提示", exact=True).click()
     assert page.get_by_text(expected_hint, exact=True).is_visible(), "Flashcard omits authored cue"
     page.get_by_role("button", name="返回 Unit 选择", exact=True).click()
     page.get_by_role("button", name="打印卡片 (18 词)", exact=True).click()
-    use_print = page.locator(".print-card").filter(has=page.get_by_text("use", exact=True))
+    use_print = page.locator(".print-card").filter(has=page.locator("span.text-3xl").filter(has_text=re.compile(r"^use$")))
     assert use_print.count() == 1
     assert "/juːz/" in use_print.inner_text(), "Print does not use the same pronunciation cue"
     assert "use a bat 是使用球拍" not in use_print.inner_text()

@@ -1,5 +1,5 @@
 {
-  "sourceNote": "英式国际音标：优先采用 mnemonics/grade3.json、grade4.json、grade5.json 中明确标注的完整单词读音；补充 open-dict-data/ipa-dict 的 en_UK（Received Pronunciation）词表，并统一常见教学音标写法。短语由已核对的完整单词读音组合，显示清晰分读形式，不模拟所有连读与弱读。已按本词库词义核对 use、live、read、close、subject、minute、wind 等多音词。Tiananmen Square 的读音参照 Cambridge Dictionary；缺乏可靠英语读音的专名列入 unavailable，使用教材录音。open-dict-data/ipa-dict 使用 MIT 许可证。来源：https://github.com/open-dict-data/ipa-dict；https://dictionary.cambridge.org/pronunciation/english/tiananmen-square。",
+  "sourceNote": "英式国际音标：优先采用 mnemonics/grade3.json、grade4.json、grade5.json 中明确标注的完整单词读音；补充 open-dict-data/ipa-dict 的 en_UK（Received Pronunciation）词表，并统一常见教学音标写法。短语由已核对的完整单词读音组合，显示清晰分读形式，不模拟所有连读与弱读。已按本词库词义核对 use、live、read、close、subject、minute、wind 等多音词。Tiananmen Square 的读音参照 Cambridge Dictionary；缺乏可靠英语读音的专名列入 unavailable，使用教材录音。open-dict-data/ipa-dict 使用 MIT 许可证。来源：https://github.com/open-dict-data/ipa-dict；https://dictionary.cambridge.org/pronunciation/english/tiananmen-square。 为具体短语拼写练习补充 swimming 的读音，参照 https://dictionary.cambridge.org/pronunciation/english/swimming；短语继续按已核对单词分读，不模拟所有连读与弱读。",
   "sourceLicense": "The MIT License (MIT)\n\nCopyright (c) 2016 dohliam\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.",
   "entries": {
     "a": "/ə/",
@@ -883,7 +883,8 @@
     "you": "/juː/",
     "young": "/jʌŋ/",
     "your": "/jɔː/",
-    "zoo": "/zuː/"
+    "zoo": "/zuː/",
+    "swimming": "/ˈswɪmɪŋ/"
   },
   "unavailable": {
     "naadam": "专名暂无可靠的英语国际音标，请听课本录音。"

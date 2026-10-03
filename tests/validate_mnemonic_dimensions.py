@@ -33,6 +33,14 @@ for grade in (3, 4, 5):
     for card in pack["cards"]:
         key = card["section"], card["word"]
         cards[key] = card
+        practice = card["spellingPractice"]
+        assert isinstance(practice["chunks"], list) and 1 <= len(practice["chunks"]) <= 8, key
+        assert all(isinstance(chunk, str) and chunk for chunk in practice["chunks"]), key
+        assert "".join(practice["chunks"]) == card["word"], (key, "Spelling chunks must preserve exact letters and separators")
+        assert isinstance(practice["focus"], list) and 1 <= len(practice["focus"]) <= 3, key
+        assert all(isinstance(cue, str) and cue and cue in card["word"] for cue in practice["focus"]), key
+        assert isinstance(practice["cue"], str) and practice["cue"].strip(), key
+        assert practice["sourceEvidence"] and practice["sourceEvidence"] in card["hint"], (key, "Spelling checkpoint must have reviewed evidence")
         if "spellingGuide" in card:
             guide = card["spellingGuide"]
             assert isinstance(guide["cue"], str) and guide["cue"].strip(), key

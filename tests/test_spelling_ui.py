@@ -63,20 +63,20 @@ with sync_playwright() as playwright:
         assert not any(item.is_visible() for item in page.get_by_text("use", exact=True).all()), "Main spelling answer leaked"
         page.screenshot(path=str(PREVIEWS / ("after-local.png" if local_audio else "after-online.png")), animations="disabled")
         page.get_by_role("button", name="点击查看课本单词助记").click()
-        page.get_by_role("button", name="收起线索，试着回忆", exact=True).click()
+        page.get_by_role("button", name="不看提示，试着回忆", exact=True).click()
         expect(ipa).to_have_text("/juːz/")
         assert not any(item.is_visible() for item in page.get_by_text("use", exact=True).all()), "Recall spelling answer leaked"
         page.get_by_role("button", name="返回助记线索", exact=True).click()
         page.get_by_role("button", name="练本单元拼写（2 词）", exact=True).click()
         expect(ipa).to_have_text("/juːz/")
-        page.get_by_role("button", name="收起线索，写完整单词", exact=True).click()
+        page.get_by_role("button", name="隐藏提示，写出完整单词", exact=True).click()
         expect(ipa).to_have_text("/juːz/")
         assert not any(item.is_visible() for item in page.get_by_text("use", exact=True).all()), "Unit spelling answer leaked"
         page.get_by_role("textbox", name="回忆本词拼写").fill("use")
         page.get_by_role("button", name="写好了，核对字母", exact=True).click()
         page.get_by_role("button", name="下一词", exact=True).click()
         expect(ipa).to_have_text("/ˈsɒri/")
-        page.get_by_role("button", name="收起线索，写完整单词", exact=True).click()
+        page.get_by_role("button", name="隐藏提示，写出完整单词", exact=True).click()
         expect(ipa).to_have_text("/ˈsɒri/")
         page.screenshot(path=str(PREVIEWS / "unit-recall.png"), animations="disabled")
         assert not errors, errors

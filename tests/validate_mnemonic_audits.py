@@ -34,6 +34,12 @@ for grade in (3, 4, 5):
         assert content["cardSha256"] == digest, f"Stale whole-card content review: {key(row)}"
         assert content["primaryEvidence"] in card["hint"], f"Spelling evidence absent: {key(row)}"
         assert content["contextEvidence"] == card["dimensions"]["context"]["question"], key(row)
+        practice = card["spellingPractice"]
+        practice_review = row["spellingPracticeReview"]
+        practice_hash = hashlib.sha256(json.dumps(practice, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
+        assert practice_review["practiceSha256"] == practice_hash, (key(row), "Stale spelling practice review")
+        assert practice_review["sourceEvidence"] == practice["sourceEvidence"], key(row)
+        assert practice_review["rationale"].strip(), key(row)
         if card.get("spellingCue"):
             assert card["spellingCue"] == row["spellingCue"], f"Stale spelling cue: {key(row)}"
             assert card["spellingCue"] in card["hint"], f"Spelling cue absent from reviewed hint: {key(row)}"

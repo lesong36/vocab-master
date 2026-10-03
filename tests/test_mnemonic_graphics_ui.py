@@ -73,7 +73,7 @@ with sync_playwright() as playwright:
     for word in targets:
         card = page.locator(f'[data-word="{word}"]')
         assert card.evaluate("node => node.getBoundingClientRect().height < 1000"), "Printed card exceeds a page"
-        assert card.locator('[aria-label="图与词的对应"]').is_visible()
+        assert card.get_by_role('figure', name='拼写字形路径').is_visible()
         for label in card.locator('figure p.font-mono').all():
             assert label.evaluate("node => node.scrollWidth <= node.clientWidth"), "Printed spelling is clipped"
     page.screenshot(path=str(OUTPUT / "mnemonic-graphic-compact.png"), full_page=True)

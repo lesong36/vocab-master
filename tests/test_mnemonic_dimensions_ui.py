@@ -4,6 +4,7 @@ Run against the isolated static server on port 8766. Progress APIs are mocked.
 """
 
 import json
+import re
 from pathlib import Path
 
 from playwright.sync_api import sync_playwright
@@ -39,13 +40,14 @@ with sync_playwright() as playwright:
     for _ in range(18):
         page.get_by_role("button", name="点击查看课本单词助记").click(timeout=15000)
         page.get_by_text("课本词库", exact=True).wait_for()
-        if any(item.is_visible() for item in page.get_by_text("use", exact=True).all()):
+        if page.get_by_role("figure", name="拼写字形路径").get_by_text(cards["use"]["spellingPractice"]["cue"], exact=True).count():
             break
         page.get_by_role("button", name="下一个 (Enter)").click()
     else:
         raise AssertionError("use was not reached")
     panel = page.get_by_role("region", name="多维助记")
     assert panel.get_by_role("button", name="拼写线索", exact=True).get_attribute("aria-pressed") == "true"
+    panel.get_by_text("完整读写提示", exact=True).click()
     assert panel.get_by_text(cards["use"]["hint"], exact=True).is_visible()
     panel.get_by_role("button", name="词义图", exact=True).click()
     assert panel.get_by_text(cards["use"]["dimensions"]["visual"]["caption"], exact=True).is_visible()
@@ -54,10 +56,12 @@ with sync_playwright() as playwright:
                            ("用法与例句", cards["use"]["example"]),
                            ("拼写线索", cards["use"]["hint"])):
         panel.get_by_role("button", name=name, exact=True).click()
+        if name == "拼写线索":
+            panel.get_by_text("完整读写提示", exact=True).click()
         assert panel.get_by_text(expected, exact=True).is_visible(), name
     assert not panel.get_by_role("button", name="词形组成", exact=True).count(), "No useful morphology exists for use"
     before = len(writes)
-    page.get_by_role("button", name="收起线索，试着回忆", exact=True).click()
+    page.get_by_role("button", name="不看提示，试着回忆", exact=True).click()
     recall = page.get_by_role("region", name="助记回忆练习")
     assert not page.get_by_role("region", name="多维助记").count(), "Cue panel leaked during spelling recall"
     recall.get_by_role("button", name="换个情境用一用", exact=True).click()
@@ -86,7 +90,7 @@ with sync_playwright() as playwright:
     page.set_viewport_size({"width": 375, "height": 900})
     unit.screenshot(path=str(OUTPUT / "multidimensional-sorry-mobile.png"))
     assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth"), "Narrow screen overflows"
-    unit.get_by_role("button", name="收起线索，写完整单词", exact=True).click()
+    unit.get_by_role("button", name="隐藏提示，写出完整单词", exact=True).click()
     assert not unit.get_by_role("img", name="sorry 的视觉线索", exact=True).count()
     assert not unit.locator('mark').count(), "Highlighted letters leaked during recall"
     unit.get_by_role("textbox", name="回忆本词拼写").fill("sorry")
@@ -108,6 +112,7 @@ with sync_playwright() as playwright:
         page.get_by_role("button", name=label, exact=True).click()
         assert page.get_by_text(visual["caption"], exact=True).is_visible()
     else:
+        page.get_by_text("完整读写提示", exact=True).click()
         assert page.get_by_text(cards[english]["hint"], exact=True).is_visible()
         assert not page.get_by_role("button", name="词义图", exact=True).count()
     if cards[english]["dimensions"]["semantic"]:
@@ -116,12 +121,13 @@ with sync_playwright() as playwright:
     else:
         assert not page.get_by_role("button", name="词义区别", exact=True).count()
         page.get_by_role("button", name="拼写线索", exact=True).click()
+        page.get_by_text("完整读写提示", exact=True).click()
         assert page.get_by_text(cards[english]["hint"], exact=True).is_visible()
     assert not page.get_by_text(cards[english]["dimensions"]["visual"]["caption"], exact=True).count(), "Flashcard shows all cues at once"
     assert not page.locator('button button').count(), "Flashcard contains nested interactive controls"
     page.get_by_role("button", name="返回 Unit 选择", exact=True).click()
     page.get_by_role("button", name="打印卡片 (18 词)", exact=True).click()
-    use_print = page.locator('.print-card').filter(has=page.get_by_text("use", exact=True))
+    use_print = page.locator('.print-card').filter(has=page.locator('span.text-3xl').filter(has_text=re.compile(r'^use$')))
     assert cards["use"]["hint"] in use_print.inner_text()
     assert "用法与例句：" not in use_print.inner_text()
     assert cards["use"]["dimensions"]["context"]["question"] in use_print.inner_text()

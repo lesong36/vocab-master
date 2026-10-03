@@ -3,7 +3,7 @@
     {
       "section": "四上Unit 1",
       "method": "拼读",
-      "hint": "worried /ˈwʌrid/：worry 的 y 换成 i 再加 ed，得到 worried；双 r 保留，末尾 ed 读 /d/。收起英文，试着读写完整词，再核对上述字母。",
+      "hint": "worried /ˈwʌrid/：worry 的 y 换成 i 再加 ed，得到 worried；双 r 保留，末尾 ed 读 /d/。遮住英文，试着读写完整词，再核对上述字母。",
       "example": "I'm worried. Where is my dog? 我很担心。我的小狗在哪里？",
       "word": "worried",
       "dimensions": {
@@ -62,6 +62,18 @@
           ],
           "note": "worry 的末尾 y 换成 i 再加 ed，得到 worried；本句用作表示担心状态的形容词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "worr",
+          "ied"
+        ],
+        "focus": [
+          "rr",
+          "ied"
+        ],
+        "cue": "双 r 保留；worry 的 y 换成 i，再加 ed。",
+        "sourceEvidence": "worried /ˈwʌrid/：worry 的 y 换成 i 再加 ed，得到 worried；双 r 保留，末尾 ed 读 /d/。"
       }
     },
     {
@@ -110,6 +122,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "late"
+        ],
+        "focus": [
+          "a",
+          "e"
+        ],
+        "cue": "a 后隔着 t 接 e，结尾 e 不发音也要写。",
+        "sourceEvidence": "late 中 a-e 读 /eɪ/，结尾 e 不单独发音。想象你跑到校门口，钟已经响了：迟到了！先说 /l/—/eɪ/—/t/，遮住英文，看中文先读，再再写 l-a-t-e，别漏掉帮助 a 发长音的 e。"
       }
     },
     {
@@ -164,6 +187,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "wor",
+          "ry"
+        ],
+        "focus": [
+          "rr",
+          "y"
+        ],
+        "cue": "两个 r 相邻；末尾 /i/ 写 y。",
+        "sourceEvidence": "worry /ˈwʌri/：o 在本词读 /ʌ/，末尾 /i/ 写 y；字形 wor–ry，两个 r 相邻。遮住英文，看中文先读，再回写时记得双 r 和末尾 y。"
       }
     },
     {
@@ -211,12 +246,24 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "j",
+          "u",
+          "st"
+        ],
+        "focus": [
+          "st"
+        ],
+        "cue": "按 j—u—st 写；最后 s、t 都要有。",
+        "sourceEvidence": "just 按 j /dʒ/、u /ʌ/、st /st/ 连读 /dʒʌst/。秒针刚越过整点，你“刚刚”到达：just now。回想秒针的那一下，按 j—u—st 拼回单词。"
       }
     },
     {
       "section": "四上Unit 1",
       "method": "拼读",
-      "hint": "in time 表示及时、赶得上。先写 in，再空一格写 time；time 的 i_e 读 /aɪ/，末尾 e 保留。收起英文，试着读写完整词，再核对上述字母。",
+      "hint": "in time 表示及时、赶得上。先写 in，再空一格写 time；time 的 i_e 读 /aɪ/，末尾 e 保留。遮住英文，试着读写完整词，再核对上述字母。",
       "example": "We arrived in time. 我们及时赶到了。",
       "word": "in time",
       "dimensions": {
@@ -268,6 +315,18 @@
           ],
           "note": "由介词 in 和名词 time 组成的固定短语，表示及时、赶得上；不能仅按逐字翻译推导所有介词短语。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "in ",
+          "time"
+        ],
+        "focus": [
+          " ",
+          "e"
+        ],
+        "cue": "in 与 time 分开写；time 末尾保留 e。",
+        "sourceEvidence": "in time 表示及时、赶得上。先写 in，再空一格写 time；time 的 i_e 读 /aɪ/，末尾 e 保留。"
       }
     },
     {
@@ -326,6 +385,18 @@
           "parts": [],
           "note": "这里整体学习 welcome；熟词 come 只作后半段的拼写联想，不声称现代英语中 welcome 是透明的 wel 加 come 构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "wel",
+          "come"
+        ],
+        "focus": [
+          "l",
+          "come"
+        ],
+        "cue": "先写 wel，再接完整的 come，两个部分连写。",
+        "sourceEvidence": "读 /ˈwelkəm/，后半 come 在这里轻读 /kəm/。用熟悉的 come（来）抓住 welcome 后半段：门口的人挥手请你“来”，欢迎你进屋。拼写先记 wel，再接完整的 come；这是拼写联想。先读一遍，再遮住 welcome，回想迎你进门的动作，写出“欢迎”的英文，再核对 wel 和完整的 come。"
       }
     },
     {
@@ -376,6 +447,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "f",
+          "ee",
+          "l"
+        ],
+        "focus": [
+          "ee",
+          "l"
+        ],
+        "cue": "长音写双 e；末尾只有一个 l。",
+        "sourceEvidence": "feel /fiːl/：f–ee–l，长音 /iː/ 写双 e；末尾只有一个 l。遮住英文，看中文先读，再再写 f-ee-l，别把 ee 写成一个 e。"
       }
     },
     {
@@ -432,6 +516,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "to",
+          "day"
+        ],
+        "focus": [
+          "to",
+          "ay"
+        ],
+        "cue": "to 与 day 连写；day 末尾用 ay。",
+        "sourceEvidence": "today（今天）读 /təˈdeɪ/：to 轻读 /tə/，day 的 ay 读 /eɪ/。指着日历今天这一格。遮住英文，看“今天”先读，再写 to＋day，两个部分连写。"
       }
     },
     {
@@ -490,6 +586,19 @@
           ],
           "note": "excite 已以 e 结尾，只加 d 得到 excited；这里是过去分词作形容词，描述人的兴奋状态。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ex",
+          "ci",
+          "ted"
+        ],
+        "focus": [
+          "ci",
+          "ted"
+        ],
+        "cue": "中间是 ci；末尾一拍写 t-e-d。",
+        "sourceEvidence": "读 /ɪkˈsaɪtɪd/：ex 在这里读 /ɪk/，c 在 i 前读 /s/，i 读 /aɪ/，末尾 ted 读 /tɪd/。收到盼了很久的礼物，你兴奋得跳起来。拼写 ex｜ci｜ted，最后一拍是 t-e-d。遮住词，说“兴奋的”，写回 excited，核对中间 ci 和结尾 ted。"
       }
     },
     {
@@ -519,6 +628,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "so"
+        ],
+        "focus": [
+          "s",
+          "o"
+        ],
+        "cue": "依次写 s、o，两个字母连写。",
+        "sourceEvidence": "so /səʊ/：s /s/，o 在本词读 /əʊ/；只有 s、o 两个字母。遮住英文，看中文读出，再写一遍。"
       }
     },
     {
@@ -546,6 +666,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ma",
+          "tt",
+          "er"
+        ],
+        "focus": [
+          "tt",
+          "er"
+        ],
+        "cue": "中间双 t；末尾轻音写 er。",
+        "sourceEvidence": "matter 读 /ˈmætə/：a 读 /æ/，末尾 er 轻读 /ə/。朋友捂着膝盖，你问 What’s the matter?（怎么了？）。遮住单词，先说出再写 ma＋tt＋er；双 t 和轻音中的 er 要保留。"
       }
     },
     {
@@ -593,6 +726,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "sad"
+        ],
+        "focus": [
+          "a",
+          "d"
+        ],
+        "cue": "中间 /æ/ 写 a；末尾 /d/ 写 d。",
+        "sourceEvidence": "sad 中 a 读 /æ/，按 /s/—/æ/—/d/ 合成。冰激凌掉在地上，笑脸变成难过的脸：sad。先读一遍，再遮住单词，从那张难过的脸回想三个音，再写 s-a-d。"
       }
     },
     {
@@ -642,6 +786,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "find"
+        ],
+        "focus": [
+          "i",
+          "nd"
+        ],
+        "cue": "/aɪ/ 在这里写 i，后面 n、d 都保留。",
+        "sourceEvidence": "find 中 i 在这个词里读 /aɪ/，nd 读 /nd/。想象你翻开书终于“找到”夹在里面的钥匙；喊出 /f/—/aɪ/—/nd/，遮住英文，看中文先读，再回写 f-i-n-d。"
       }
     },
     {
@@ -690,6 +845,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "dog"
+        ],
+        "focus": [
+          "o",
+          "g"
+        ],
+        "cue": "中间写 o；最后 /g/ 写 g。",
+        "sourceEvidence": "dog 按 d /d/、o /ɒ/（美式常读 /ɔː/ 或 /ɑː/）、g /g/ 连读。小狗追着你的脚跑；先读一遍，再遮住单词，回想狗叫声和追来的小狗，再写 d-o-g。"
       }
     },
     {
@@ -738,6 +904,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "cr",
+          "y"
+        ],
+        "focus": [
+          "y"
+        ],
+        "cue": "开头 c、r 连写；词尾 /aɪ/ 写 y。",
+        "sourceEvidence": "cry 中 cr 连读 /kr/，词尾 y 在这里读 /aɪ/。冰激凌掉了，孩子开始哭；回想哭泣的脸，按 cr＋y 写，表示哭的词只有三个字母。"
       }
     },
     {
@@ -786,6 +963,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "to",
+          "ge",
+          "ther"
+        ],
+        "focus": [
+          "th",
+          "er"
+        ],
+        "cue": "后段 ther 的 th 两字母都写；末尾保留 er。",
+        "sourceEvidence": "together（一起）读 /təˈɡeðə/：to 轻读 /tə/，ge 读 /ɡe/，ther 读 /ðə/。大家一起拉一条绳子。遮住英文，看“一起”先读，再写 to＋ge＋ther；th 两字母、末尾 er 都保留。"
       }
     },
     {
@@ -820,6 +1010,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "w",
+          "i",
+          "th"
+        ],
+        "focus": [
+          "th"
+        ],
+        "cue": "末尾用 th，t、h 两字母都要写。",
+        "sourceEvidence": "with 中 i 读 /ɪ/，th 可读 /ð/ 或 /θ/。想象你和朋友并肩走：with my friend。回想“与朋友一起”的位置关系，拼 w-i-th，把最后两个字母当一组。"
       }
     },
     {
@@ -847,6 +1049,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "mod",
+          "el"
+        ],
+        "focus": [
+          "o",
+          "el"
+        ],
+        "cue": "前段写 o；弱读词尾仍写 el，不改成 al。",
+        "sourceEvidence": "model /ˈmɒdəl/：按字形 mod–el 写；首拍 /ɒ/ 写 o，末拍弱读 /əl/ 写 el，不能按弱读都写 a。遮住英文，看中文先读，再再写 mod＋el，末尾是 el。"
       }
     },
     {
@@ -895,6 +1109,20 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "pl",
+          "a",
+          "n",
+          "e"
+        ],
+        "focus": [
+          "pl",
+          "e"
+        ],
+        "cue": "开头 p、l 都写；a 后的词尾 e 不能漏。",
+        "sourceEvidence": "plane 中 pl 连读 /pl/，a-e 读 /eɪ/。模型飞机从书桌滑翔起飞！按 pl＋a＋n＋e 拼写，记住结尾 e 帮助 a 发长音。"
       }
     },
     {
@@ -942,6 +1170,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ang",
+          "ry"
+        ],
+        "focus": [
+          "ng",
+          "ry"
+        ],
+        "cue": "先写 ang，再写 ry；ng 后面接 r，不另加 g。",
+        "sourceEvidence": "angry 按 ang—ry 记，ng 在这里后面仍有 /g/，读 /ˈæŋɡri/。有人弄坏模型，你气得脸发红；先读一遍，再遮住单词，回想生气的脸，先写 ang，再写 ry。"
       }
     },
     {
@@ -1003,6 +1243,18 @@
           ],
           "note": "good 和 well 的比较级是不规则的 better；整体记形，不能写成 gooder，也不是 bet 加后缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "bet",
+          "ter"
+        ],
+        "focus": [
+          "tt",
+          "er"
+        ],
+        "cue": "两段交界处是双 t；结尾写 er，不能写 gooder。",
+        "sourceEvidence": "读 /ˈbetə/，e /e/。better 是 good（好的）或 well（好地）的比较级，表示“更好”，它的拼写要单独记。想象修过的模型比刚才好：better。按 bet—ter 写，两个 t 挨在一起，别写成 gooder。"
       }
     },
     {
@@ -1066,6 +1318,19 @@
           ],
           "note": "calm 与 down 组成动词短语，表示冷静下来；down 在这里不是要求人走到楼下。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "calm ",
+          "down"
+        ],
+        "focus": [
+          "l",
+          "ow",
+          " "
+        ],
+        "cue": "calm 保留不发音的 l；再空一格写 down。",
+        "sourceEvidence": "calm down 是“平静下来”：把高高举起的手慢慢放 down（向下），同时深呼吸。calm 中 l 通常不发音，读 /kɑːm/。回想手放下的动作，先写 calm（保留 l），遮住英文，看中文先读，再再写 down。"
       }
     },
     {
@@ -1122,6 +1387,16 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "fix"
+        ],
+        "focus": [
+          "x"
+        ],
+        "cue": "最后 /ks/ 用一个字母 x 写。",
+        "sourceEvidence": "fix 按 f /f/、i /ɪ/、x /ks/ 拼读 /fɪks/。拿螺丝刀把松掉的模型机翼修好；最后 /ks/ 用一个 x 写。回想修机翼的动作，写 f-i-x。"
       }
     },
     {
@@ -1168,6 +1443,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "his"
+        ],
+        "focus": [
+          "i",
+          "s"
+        ],
+        "cue": "中间 /ɪ/ 写 i；最后虽然读 /z/，仍写 s。",
+        "sourceEvidence": "his 中 i 读 /ɪ/，s 读 /z/。一个男孩抱着他自己的模型，说 his plane（他的飞机）；按 /h/—/ɪ/—/z/ 回想，遮住英文，看中文先读，再再写 h-i-s，结尾仍是 s。"
       }
     },
     {
@@ -1221,6 +1507,19 @@
           "parts": [],
           "note": "单数 mouse 是基础动物名，当前不拆词根；如需复数，mouse 不规则变为 mice，不是简单加 s。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "m",
+          "ou",
+          "se"
+        ],
+        "focus": [
+          "ou",
+          "se"
+        ],
+        "cue": "中间 /aʊ/ 写 ou，不写 ow；末尾写 se。",
+        "sourceEvidence": "mouse 的 ou 读 /aʊ/，结尾 se 在这里读 /s/。小老鼠钻进圆洞，只留尾巴；按 m—ou—se 遮住英文，看中文先读，再回写，别把 ou 的声音写成 ow。"
       }
     },
     {
@@ -1255,6 +1554,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "come"
+        ],
+        "focus": [
+          "o",
+          "e"
+        ],
+        "cue": "中间 /ʌ/ 写 o；末尾不发音的 e 保留。",
+        "sourceEvidence": "come 是需单独记的例外：o 读 /ʌ/，不是 o-e 长音，末尾 e 不发音。招手叫朋友“来”，说 /kʌm/；先读一遍，再遮住单词，写 c-o-m-e，保留不发音的 e。"
       }
     },
     {
@@ -1301,6 +1611,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "have"
+        ],
+        "focus": [
+          "a",
+          "e"
+        ],
+        "cue": "这里写 a；结尾 e 不发音也不能漏。",
+        "sourceEvidence": "have 的 a 读 /æ/，属于 a-e 不读长音的例外，末尾 e 不发音。双手抱着自己拥有的模型说 I have a plane。听 /hæv/ 遮住英文，看中文先读，再回写 h-a-v-e，别漏 e。"
       }
     },
     {
@@ -1328,6 +1649,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "i",
+          "de",
+          "a"
+        ],
+        "focus": [
+          "ea"
+        ],
+        "cue": "按 i—de—a 写，最后 e、a 顺序都保留。",
+        "sourceEvidence": "idea /aɪˈdɪə/：开头 i 读 /aɪ/。字形分成 i–de–a，按顺序写四个字母；末尾 e、a 都保留。分块用于拼写。遮住英文，看中文先读，再回写。"
       }
     },
     {
@@ -1375,6 +1708,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "st",
+          "o",
+          "p"
+        ],
+        "focus": [
+          "st"
+        ],
+        "cue": "先写 st，中间 o，末尾 p。",
+        "sourceEvidence": "stop 的 st 连读 /st/，o 英式读 /ɒ/。红灯亮了，你把脚停住；按 /st/—/ɒ/—/p/ 说出，遮住英文，看中文先读，再再写 st-o-p，末尾 p 像把话截住。"
       }
     },
     {
@@ -1423,6 +1768,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "but"
+        ],
+        "focus": [
+          "u",
+          "t"
+        ],
+        "cue": "中间 /ʌ/ 写 u，最后接 t。",
+        "sourceEvidence": "but 的 u 读 /ʌ/，按 b—u—t 连读。想出去玩，“但是”下雨了：I want to play, but it is raining。回想转折时突然停住的脚步，遮住英文，看中文先读，再再写 b-u-t。"
       }
     },
     {
@@ -1471,6 +1827,20 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "an",
+          "i",
+          "mal"
+        ],
+        "focus": [
+          "a",
+          "i",
+          "mal"
+        ],
+        "cue": "写 an—i—mal；最后轻音仍写 a。",
+        "sourceEvidence": "animal 按 an—i—mal 记，重音在 an，读 /ˈænɪməl/。猫、狗和大象都是动物。遮住词，说“动物”的英文，再按 an｜i｜mal 写回；最后一拍虽然轻读，仍用 a。"
       }
     },
     {
@@ -1527,6 +1897,20 @@
           ],
           "note": "differ 加 ent 构成 different；-ent 在这个词中构成形容词，但不能把所有 ent 结尾词都按同样方式拆。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "di",
+          "ff",
+          "er",
+          "ent"
+        ],
+        "focus": [
+          "ff",
+          "e"
+        ],
+        "cue": "中间双 f；后面的 er、ent 都用 e。",
+        "sourceEvidence": "读 /ˈdɪfərənt/：i 读 /ɪ/，后面的元音轻读。两只袜子一红一蓝，颜色不同。拼写 di｜ff｜er｜ent，双 f 要单独记，后面的轻音都用 e。遮住词，说“不同的”，写回 different，再核对双 f 和 er-ent。"
       }
     },
     {
@@ -1585,6 +1969,18 @@
           ],
           "note": "interest 加 ing 构成 interesting，表示事物使人产生兴趣；与描述人感兴趣的 interested 区分，不把词尾当成正在发生的必然标志。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "interest",
+          "ing"
+        ],
+        "focus": [
+          "est",
+          "ing"
+        ],
+        "cue": "interest 的 est 不能因快读而漏字母；再接 ing。",
+        "sourceEvidence": "读 /ˈɪntrəstɪŋ/，也可读 /ˈɪntərəstɪŋ/：开头 in 读 /ɪn/，末尾 ing 读 /ɪŋ/。有趣的故事让你一页接一页读。拼写 interest＋ing；读得快时中间一个 e 可能听不清，仍要保留 interest 的完整字母，尤其 est。遮住词，说“有趣的”，写回 interesting，再核对 est 和 ing。"
       }
     },
     {
@@ -1641,6 +2037,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "stor",
+          "y"
+        ],
+        "focus": [
+          "or",
+          "y"
+        ],
+        "cue": "写 stor，再接 y；词尾 /i/ 不写 i。",
+        "sourceEvidence": "story 按 stor—y 记，or 英式读 /ɔː/，y 读 /i/。翻开故事书，一只龙从书页里探出头；回想书里的故事，按 stor＋y 遮住英文，看中文先读，再回写，末尾用 y。"
       }
     },
     {
@@ -1696,12 +2104,25 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "br",
+          "u",
+          "sh"
+        ],
+        "focus": [
+          "br",
+          "sh"
+        ],
+        "cue": "开头 br、末尾 sh 各写两个字母。",
+        "sourceEvidence": "brush 中 br 连读 /br/，u 读 /ʌ/，sh 读 /ʃ/。刷子在牙齿上沙沙刷；按 br—u—sh 读，遮住英文，看中文先读，再再写 b-r-u-s-h，最后的“沙沙音”用 sh。"
       }
     },
     {
       "section": "四上Unit 2",
       "method": "拼读",
-      "hint": "【读音】先听标准读音，跟读 re /rɪ/ · mem /mem/ · ber /bə/，中间 mem 读重一些。\n【怎么拼】按读音分成 re · mem · ber。中间 mem 是 m-e-m，两个 m 分站在 e 两边；开头 re，结尾 ber。\n【收起再写】看到“记住”，先读出单词，再写完整单词。核对两个 m 是否分别在中间 e 的两边，结尾是否写成 ber；收起答案重新写。",
+      "hint": "【读音】先听标准读音，跟读 re /rɪ/ · mem /mem/ · ber /bə/，中间 mem 读重一些。\n【怎么拼】按读音分成 re · mem · ber。中间 mem 是 m-e-m，两个 m 分站在 e 两边；开头 re，结尾 ber。\n【遮住再写】看到“记住”，先读出单词，再写完整单词。核对两个 m 是否分别在中间 e 的两边，结尾是否写成 ber；遮住答案重新写。",
       "example": "Remember my name. 记住我的名字。",
       "word": "remember",
       "dimensions": {
@@ -1710,7 +2131,7 @@
             "🧠",
             "📛"
           ],
-          "caption": "先跟读三个分段，再看中间：m 和 m 夹着 e。收起字形，写出“记住”；检查两个 m、开头 re 和结尾 ber。",
+          "caption": "先跟读三个分段，再看中间：m 和 m 夹着 e。遮住字形，写出“记住”；检查两个 m、开头 re 和结尾 ber。",
           "focus": [
             "m"
           ],
@@ -1750,7 +2171,20 @@
           "note": "现代学习中整体记 remember；不能把外形相似的 re 和 member 当作能推出记住含义的真实词根组合。"
         }
       },
-      "spellingCue": "按读音分成 re · mem · ber。中间 mem 是 m-e-m，两个 m 分站在 e 两边；开头 re，结尾 ber。"
+      "spellingCue": "按读音分成 re · mem · ber。中间 mem 是 m-e-m，两个 m 分站在 e 两边；开头 re，结尾 ber。",
+      "spellingPractice": {
+        "chunks": [
+          "re",
+          "mem",
+          "ber"
+        ],
+        "focus": [
+          "m",
+          "ber"
+        ],
+        "cue": "中间 mem 是 m-e-m；结尾写 ber。",
+        "sourceEvidence": "【读音】先听标准读音，跟读 re /rɪ/ · mem /mem/ · ber /bə/，中间 mem 读重一些。\n【怎么拼】按读音分成 re · mem · ber。中间 mem 是 m-e-m，两个 m 分站在 e 两边；开头 re，结尾 ber。\n【遮住再写】看到“记住”，先读出单词，再写完整单词。核对两个 m 是否分别在中间 e 的两边，结尾是否写成 ber；遮住答案重新写。"
+      }
     },
     {
       "section": "四上Unit 2",
@@ -1777,6 +2211,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "po",
+          "em"
+        ],
+        "focus": [
+          "oe"
+        ],
+        "cue": "先 po 再 em，中间 o、e 都写且顺序不换。",
+        "sourceEvidence": "poem 英式常读 /ˈpəʊɪm/，分成 po—em 两个音节。读一首两行小诗，用两拍跟读 /ˈpəʊɪm/；先读一遍，再遮住单词按 po＋em 写回，中间 o、e 都要写。"
       }
     },
     {
@@ -1823,6 +2268,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "h",
+          "ar",
+          "d"
+        ],
+        "focus": [
+          "ar"
+        ],
+        "cue": "中间 /ɑː/ 用 ar 两字母写。",
+        "sourceEvidence": "hard /hɑːd/：h–ar–d，ar 读 /ɑː/；本课形容任务困难，与 easy 容易相对。遮住英文、看中文先读再写；把 ar 作为一个发音组。"
       }
     },
     {
@@ -1872,6 +2329,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "m",
+          "ay"
+        ],
+        "focus": [
+          "ay"
+        ],
+        "cue": "末尾 /eɪ/ 用 ay 写。",
+        "sourceEvidence": "may 中 ay 读 /eɪ/。乌云来了，明天可能下雨，也可能不下：It may rain tomorrow。may 表示可能，不是确定。遮住英文，看“可能”先读再写 m＋ay，核对结尾 ay。"
       }
     },
     {
@@ -1928,6 +2396,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "tr",
+          "y"
+        ],
+        "focus": [
+          "y"
+        ],
+        "cue": "开头写 tr；末尾 /aɪ/ 写 y，不写 i。",
+        "sourceEvidence": "try 的 tr 连读 /tr/，词尾 y 读 /aɪ/，和 cry 的 y 一样。第一次没跳过去，再试一次：try！回想重试的动作，写 tr＋y，别把 /aɪ/ 写成 i。"
       }
     },
     {
@@ -1977,6 +2456,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "i",
+          "ll"
+        ],
+        "focus": [
+          "ll"
+        ],
+        "cue": "末尾 /l/ 要写两个 l。",
+        "sourceEvidence": "ill 的 i 读 /ɪ/，末尾写两个 l。把双 l 想成病床边的两根栏杆：生病的人躺在里面。听 /ɪl/ 遮住英文，看中文先读，再回写 i-ll，双 l 是拼写联想。"
       }
     },
     {
@@ -2032,6 +2522,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "c",
+          "all"
+        ],
+        "focus": [
+          "ll"
+        ],
+        "cue": "后段写 all，末尾双 l 不能少。",
+        "sourceEvidence": "call /kɔːl/：c /k/，all 在本词读 /ɔːl/；末尾写双 l，不能按一个 /l/ 只写一个 l。遮住英文，看中文读出，再写一遍。"
       }
     },
     {
@@ -2078,6 +2579,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "h",
+          "er"
+        ],
+        "focus": [
+          "er"
+        ],
+        "cue": "h 后接 er；结尾没有 s。",
+        "sourceEvidence": "her 的 er 在重读时读 /ɜː/（美式 /ɝː/）。女孩拿着她自己的书：her book（她的书）。先读一遍，再遮住单词，回想女孩的书，再写 h＋er，结尾没有 s。"
       }
     },
     {
@@ -2126,6 +2638,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "to",
+          "mor",
+          "row"
+        ],
+        "focus": [
+          "rr",
+          "ow"
+        ],
+        "cue": "mor 与 row 交界有双 r；末尾写 ow。",
+        "sourceEvidence": "tomorrow（明天）读 /təˈmɒrəʊ/：第一拍 to 轻读 /tə/，第二个 o 读 /ɒ/，最后 ow 读 /əʊ/。今天睡一觉，醒来就是明天。遮住英文，先读再写 to＋mor＋row，核对两个相邻的 r 和结尾 ow。"
       }
     },
     {
@@ -2175,6 +2700,18 @@
           "parts": [],
           "note": "should 是表示建议等用途的情态动词，整体学习，保留不发音的 l；不通过臆造词根推导含义。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "sh",
+          "ould"
+        ],
+        "focus": [
+          "ou",
+          "l"
+        ],
+        "cue": "中间 /ʊ/ 写 ou；不发音的 l 在 d 前保留。",
+        "sourceEvidence": "should 的 sh 读 /ʃ/，ou 在这里读 /ʊ/，l 不发音，读 /ʃʊd/。看到朋友生病，你建议他“应该”休息；遮住英文，看中文先读，再回写 sh＋ould，记住看得见但不读的 l。"
       }
     },
     {
@@ -2222,6 +2759,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "r",
+          "e",
+          "st"
+        ],
+        "focus": [
+          "e",
+          "st"
+        ],
+        "cue": "中间写 e；结尾 s、t 都保留。",
+        "sourceEvidence": "rest 的 e 读 /e/，st 连读 /st/。跑累了坐下休息，脚不再动；回想坐下的一刻，按 r—e—st 拼回 rest。"
       }
     },
     {
@@ -2270,6 +2820,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "w",
+          "ai",
+          "t"
+        ],
+        "focus": [
+          "ai"
+        ],
+        "cue": "中间 /eɪ/ 在这里用 ai 写。",
+        "sourceEvidence": "wait 的 ai 读 /eɪ/。在车站等待车来；中间 ai 对应 /eɪ/。听 /weɪt/，遮住英文，看中文先读，再回写 w-ai-t，中间用 ai。"
       }
     },
     {
@@ -2302,6 +2864,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "m",
+          "ou",
+          "th"
+        ],
+        "focus": [
+          "ou",
+          "th"
+        ],
+        "cue": "中间写 ou，最后写 th，两组字母都完整。",
+        "sourceEvidence": "mouth 中 ou 读 /aʊ/，th 读 /θ/。张大嘴说 /aʊ/，再轻轻把舌尖放在齿间说 /θ/；动作就是嘴巴的动作。遮住英文，看中文先读，再回写 m-ou-th，两个字母组别拆散。"
       }
     },
     {
@@ -2370,6 +2945,18 @@
           ],
           "note": "good 和 well 的最高级是不规则的 best；整体记形，不能写成 goodest。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "b",
+          "e",
+          "st"
+        ],
+        "focus": [
+          "st"
+        ],
+        "cue": "按 b—e—st 写，最后 s、t 都要有；不写 goodest。",
+        "sourceEvidence": "best 是 good 或 well 的最高级，表示“最好的”，需要单独记。把第一名奖牌别在胸前：the best。按 b-e-st 写，末尾 st 连读 /st/；别拼成 goodest。"
       }
     },
     {
@@ -2426,6 +3013,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "sh",
+          "are"
+        ],
+        "focus": [
+          "sh",
+          "e"
+        ],
+        "cue": "开头写 sh；are 的最后 e 不漏。",
+        "sourceEvidence": "share 中 sh 读 /ʃ/，are 英式读 /eə/（美式 /er/）。把一块蛋糕分给朋友，两个小手一起拿：share。回想分享的动作，按 sh＋are 写，别漏 e。"
       }
     },
     {
@@ -2469,6 +3068,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "lit",
+          "tle"
+        ],
+        "focus": [
+          "tt",
+          "le"
+        ],
+        "cue": "两段交界双 t；末尾写 le，不只写 l。",
+        "sourceEvidence": "little /ˈlɪtəl/：按字形 lit–tle 写；i 读 /ɪ/，le 读 /əl/；中间双 t，末尾 l、e 都保留。遮住英文，看中文先读，再回写 lit＋tle。"
       }
     },
     {
@@ -2512,6 +3123,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "sm",
+          "all"
+        ],
+        "focus": [
+          "sm",
+          "ll"
+        ],
+        "cue": "开头写 sm；后段 all 以双 l 结尾。",
+        "sourceEvidence": "small /smɔːl/：开头 /sm/ 写 sm，后段 /ɔːl/ 写 all；末尾双 l，与 call 的 all 相同。遮住英文，看中文读出，再写一遍。"
       }
     },
     {
@@ -2571,6 +3194,21 @@
           ],
           "note": "动词 excuse 加宾语 me 组成礼貌表达，通常用于引起注意或打断；两词分写。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ex",
+          "c",
+          "use ",
+          "me"
+        ],
+        "focus": [
+          "c",
+          "e",
+          " "
+        ],
+        "cue": "x 后仍有 c；excuse 的两个 e 保留，再空一格写 me。",
+        "sourceEvidence": "excuse /ɪkˈskjuːz/，me /miː/。按字形 ex–c–use 写 excuse，x 后仍有 c，末尾 e 保留；再空一格写 me。遮住英文再写】写出“打扰一下”这个短语，检查 excuse 中的 c 和两个 e，再检查 me 与词间空格。"
       }
     },
     {
@@ -2644,6 +3282,21 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "pl",
+          "ea",
+          "s",
+          "e"
+        ],
+        "focus": [
+          "ea",
+          "s",
+          "e"
+        ],
+        "cue": "长音写 ea，/z/ 写 s；最后不发音的 e 保留。",
+        "sourceEvidence": "【读音】读 /pliːz/：pl /pl/，ea /iː/，s /z/。\n【怎么拼】先拼 pl，再写表示 /iː/ 的 ea，最后接 s＋e：pl－ea－s－e。这里 /z/ 写 s；末尾 e 不发音也要写。\n【遮住英文再写】写出“请”，圈出 ea，检查最后一个字母是否为 e。"
       }
     },
     {
@@ -2705,6 +3358,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "bat"
+        ],
+        "focus": [
+          "a",
+          "t"
+        ],
+        "cue": "中间 /æ/ 写 a；最后 /t/ 写 t。",
+        "sourceEvidence": "【读音】读 /bæt/：/b/－/æ/－/t/。\n【怎么拼】按三个声音依次选 b－a－t。中间 /æ/ 写 a；最后 /t/ 写 t。\n【遮住英文再写】先慢读三个声音，再写出“球拍”，检查末尾 t。"
       }
     },
     {
@@ -2774,6 +3438,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "u",
+          "s",
+          "e"
+        ],
+        "focus": [
+          "s",
+          "e"
+        ],
+        "cue": "中间 /z/ 写 s；末尾不发音的 e 必须保留。",
+        "sourceEvidence": "【读音】作动词读 /juːz/。\n【怎么拼】u 和末尾不发音的 e 一起提示 /juː/；中间 /z/ 写 s。按 u－s－e 写，不能写成 uz 或 us。\n【遮住英文再写】写出“使用”，检查 /z/ 是否写成 s、末尾是否保留 e。"
       }
     },
     {
@@ -2819,6 +3496,19 @@
           "parts": [],
           "note": "sorry 当前按道歉表达整体学；双 r 是字形联想，不能把末尾 y 强行当作能从基础词推出意义的后缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "so",
+          "rr",
+          "y"
+        ],
+        "focus": [
+          "rr",
+          "y"
+        ],
+        "cue": "中间两个 r 连写；末尾 /i/ 写 y。",
+        "sourceEvidence": "【读音】读 /ˈsɒri/；末尾 /i/ 写 y。\n【怎么拼】先写 so，再写连在一起的 rr，最后写 y：so－rr－y。/r/ 虽只听到一次，也要写两个 r。\n【拼写联想】两个 r 一起弯腰道歉：把两个人都写上，rr 不能少一个。\n【遮住英文再写】写出“对不起”，数一数 r 是否有两个，检查末尾 y。"
       }
     },
     {
@@ -2869,6 +3559,20 @@
           "parts": [],
           "note": "would 当前是表示委婉请求等用途的情态动词，整体学习并保留不发音的 l，不当作可自由组合的词根后缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "w",
+          "ou",
+          "l",
+          "d"
+        ],
+        "focus": [
+          "ou",
+          "l"
+        ],
+        "cue": "/ʊ/ 写 ou；ou 与 d 之间保留不发音的 l。",
+        "sourceEvidence": "【读音】读 /wʊd/。\n【怎么拼】先写 w，再写表示 /ʊ/ 的 ou，接上不发音的 l，最后写 d：w－ou－l－d。听不到 l，拼写仍要保留。\n【拼写联想】l 静静站在 ou 和 d 中间：不出声，也不能漏写。\n【遮住英文再写】写出“愿意”，检查 ou 后、d 前有没有不发音的 l。"
       }
     },
     {
@@ -2918,6 +3622,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "o",
+          "pen"
+        ],
+        "focus": [
+          "o",
+          "e"
+        ],
+        "cue": "先写 o，再接 pen；pen 中的 e 保留。",
+        "sourceEvidence": "open 按 o—pen 两段读 /ˈəʊpən/，开头 o 是长音。把门推开时嘴也张成 O：open！回想开门动作，先写 o，遮住英文，看中文先读，再再写 pen；这里只用 pen 作拼写小段。"
       }
     },
     {
@@ -2950,6 +3666,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "d",
+          "oo",
+          "r"
+        ],
+        "focus": [
+          "oo",
+          "r"
+        ],
+        "cue": "中间有两个 o；末尾 r 听不见也要写。",
+        "sourceEvidence": "door /dɔː/：d 后写 oor；oo 两个 o 都要有，英式读音中听不到的末尾 r 仍须写。遮住英文，看中文先读，再回写 d-oo-r，记住中间双 o。"
       }
     },
     {
@@ -2997,6 +3726,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "prob",
+          "lem"
+        ],
+        "focus": [
+          "o",
+          "e"
+        ],
+        "cue": "前段写 o；后段轻音写 e，不改成 a。",
+        "sourceEvidence": "problem（问题）读 /ˈprɒbləm/：前半 prob 读 /prɒb/，后半 lem 轻读 /ləm/。门锁卡住，出现问题。遮住英文，看“问题”先读，再写 prob＋lem；轻音 /ə/ 用 e，不能凭声音改成 a。"
       }
     },
     {
@@ -3045,6 +3786,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "m",
+          "u",
+          "st"
+        ],
+        "focus": [
+          "u",
+          "st"
+        ],
+        "cue": "中间 /ʌ/ 写 u，结尾 s、t 都写。",
+        "sourceEvidence": "must 的 u 读 /ʌ/，st 连读 /st/。交通灯变红，你必须停下，脚像被按住；回想“必须”的动作，按 m-u-st 遮住英文，看中文先读，再写回。"
       }
     },
     {
@@ -3094,6 +3848,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "st",
+          "an",
+          "d"
+        ],
+        "focus": [
+          "st",
+          "d"
+        ],
+        "cue": "开头 s、t 都写，末尾 d 不能漏。",
+        "sourceEvidence": "stand 按 st—an—d 记，a 读 /æ/。两脚站稳，身体直直立着；按 /st/—/æ/—/nd/ 说出“站”，遮住英文，看中文先读，再回写 s-t-a-n-d，别漏末尾 d。"
       }
     },
     {
@@ -3121,6 +3888,18 @@
           "parts": [],
           "note": "polite 是基础礼貌评价词，当前不拆假词根；今后可联系 impolite 的否定前缀，但不把 polite 自身硬拆。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "po",
+          "lite"
+        ],
+        "focus": [
+          "o",
+          "e"
+        ],
+        "cue": "第一段写 po；lite 最后保留 e。",
+        "sourceEvidence": "读 /pəˈlaɪt/，o 轻读 /ə/，i-e /aɪ/。polite 按 po—lite 记，重音在 lite，i-e 读 /aɪ/。孩子把门扶住让别人先走，真有礼貌；回想让路的动作，按 po＋lite 遮住英文，看中文先读，再回写，lite 末尾要有 e。"
       }
     },
     {
@@ -3175,6 +3954,18 @@
           "parts": [],
           "note": "could 是情态动词，可表达过去能力或委婉请求；整体学习并保留不发音的 l，不声称有可直接拆出的词缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "c",
+          "ould"
+        ],
+        "focus": [
+          "ou",
+          "l"
+        ],
+        "cue": "写 c 加 ould；ou 后的不发音 l 保留。",
+        "sourceEvidence": "could 读 /kʊd/，ou 读 /ʊ/，l 不发音；把 would 的 w 换成 c 就得到 could。想象举手礼貌问 Could you open the door? 遮住英文，看中文先读，再回写 c＋ould，保留不发音的 l。"
       }
     },
     {
@@ -3231,6 +4022,16 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "get"
+        ],
+        "focus": [
+          "e"
+        ],
+        "cue": "中间短音 /e/ 用 e 写。",
+        "sourceEvidence": "get（得到、拿到）读 /ɡet/：g /ɡ/、e /e/、t /t/。伸手拿到传来的钥匙。遮住英文，看“拿到”先读，再按 g-e-t 写；中间短音 /e/ 用 e。"
       }
     },
     {
@@ -3278,6 +4079,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "mon",
+          "key"
+        ],
+        "focus": [
+          "o",
+          "ey"
+        ],
+        "cue": "先 mon 再 key；末尾 /i/ 用 ey 两字母写。",
+        "sourceEvidence": "读 /ˈmʌŋki/，o /ʌ/，n 在 k 前 /ŋ/，ey /i/。monkey 按 mon—key 记，读 /ˈmʌŋki/，末尾 ey 读 /i/。用熟悉的 key（钥匙）帮记尾巴：猴子把钥匙藏在香蕉旁。先写 mon，再接 key；这是拼写联想。"
       }
     },
     {
@@ -3325,6 +4138,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ba",
+          "na",
+          "na"
+        ],
+        "focus": [
+          "a",
+          "na"
+        ],
+        "cue": "三拍元音都写 a；ba 后把 na 连写两遍。",
+        "sourceEvidence": "读 /bəˈnɑːnə/，首尾 a 轻读 /ə/，中间 a /ɑː/。banana 按 ba—na—na 三拍记，重音在中间。跟读 /bə/—/ˈnɑː/—/nə/，三拍元音都写 a，后两段都写 na；先读一遍，再遮住词，从一根香蕉回想三拍，写 ba 后把 na 写两遍。"
       }
     },
     {
@@ -3372,6 +4198,20 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "g",
+          "ar",
+          "d",
+          "en"
+        ],
+        "focus": [
+          "ar",
+          "en"
+        ],
+        "cue": "中间 /ɑː/ 写 ar；最后轻音写 en，不写 in。",
+        "sourceEvidence": "【声音帮记拼写】先听 garden（花园），英式读 /ˈɡɑːdən/，前一拍重、后一拍轻。跟读时指着 g｜ar｜d｜en：g 对应 /ɡ/，ar 对应 /ɑː/，d 对应 /d/；末尾 en 在这个词里轻读 /ən/，要特别记住 e。\n【先读一遍，再遮住试一试】听读音，写出“花园”的英文；再核对中间是否有 ar、末尾是否是 den。"
       }
     },
     {
@@ -3423,12 +4263,23 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "want"
+        ],
+        "focus": [
+          "a",
+          "nt"
+        ],
+        "cue": "中间写 a；末尾 n、t 连写。",
+        "sourceEvidence": "want 中 a 英式读 /ɒ/，不能照通常的 /æ/ 读。伸手指向想要的球拍：want。听 /wɒnt/，遮住英文，看中文先读，再回写 w-a-n-t，最后 nt 连在一起。"
       }
     },
     {
       "section": "四上Unit 5",
       "method": "拼读",
-      "hint": "sandwich /ˈsænwɪtʃ/：按字形 sand–wich 写；d 可不发音但仍须写，末尾 /tʃ/ 写 ch。分块用于拼写。收起英文，试着读写完整词，再核对上述字母。",
+      "hint": "sandwich /ˈsænwɪtʃ/：按字形 sand–wich 写；d 可不发音但仍须写，末尾 /tʃ/ 写 ch。分块用于拼写。遮住英文，试着读写完整词，再核对上述字母。",
       "example": "I eat a sandwich. 我吃一个三明治。",
       "word": "sandwich",
       "sourceUrl": "https://www.etymonline.com/word/sandwich",
@@ -3480,6 +4331,18 @@
           "parts": [],
           "note": "整体学习食品名 sandwich；sand 虽像沙子，wich 也不是这里的透明词根，不用虚构拆分解释三明治。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "sand",
+          "wich"
+        ],
+        "focus": [
+          "d",
+          "ch"
+        ],
+        "cue": "sand 里的 d 即使不发音也保留；最后 /tʃ/ 写 ch。",
+        "sourceEvidence": "sandwich /ˈsænwɪtʃ/：按字形 sand–wich 写；d 可不发音但仍须写，末尾 /tʃ/ 写 ch。"
       }
     },
     {
@@ -3527,6 +4390,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "to",
+          "ma",
+          "to"
+        ],
+        "focus": [
+          "to",
+          "a"
+        ],
+        "cue": "首尾两段都是 to；中间写 ma。",
+        "sourceEvidence": "tomato（番茄）读 /təˈmɑːtəʊ/：第一个 o 轻读 /ə/，a 读 /ɑː/，最后 o 读 /əʊ/。拼写 to＋ma＋to，首尾都是 to。遮住英文，看“番茄”先读，再按三段写回，核对首尾 to。"
       }
     },
     {
@@ -3574,6 +4450,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "po",
+          "ta",
+          "to"
+        ],
+        "focus": [
+          "po",
+          "ta"
+        ],
+        "cue": "土豆开头写 po；中段写 ta，再接 to。",
+        "sourceEvidence": "读 /pəˈteɪtəʊ/，开头 o 轻读 /ə/，a /eɪ/，末尾 o /əʊ/。potato 按 po—ta—to 记，中间 ta 读 /teɪ/。把土豆和番茄拼写对照：potato 开头是 po，tomato 开头是 to；回想土豆，写 po＋ta＋to。"
       }
     },
     {
@@ -3613,6 +4502,18 @@
           ],
           "note": "meat 加 ball 合成 meatball，材料为肉、形状像球，所以是肉丸；两部分连写。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "meat",
+          "ball"
+        ],
+        "focus": [
+          "ea",
+          "ll"
+        ],
+        "cue": "meat 用 ea；ball 保留双 l，两部分连写。",
+        "sourceEvidence": "meat（肉）＋ball（球）＝meatball（肉丸）。想象肉被搓成一个圆球；从肉和球两幅画面写 meat＋ball，ea 读 /iː/，ball 要双 l。"
       }
     },
     {
@@ -3668,6 +4569,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ea",
+          "t"
+        ],
+        "focus": [
+          "ea"
+        ],
+        "cue": "开头长音用 ea，不写 ee；后面接 t。",
+        "sourceEvidence": "eat /iːt/：长音 /iː/ 在本词写 ea，再接 t；不是 ee。遮住英文，看中文先读，再回写 ea＋t，开头的长音要用两个字母 ea。"
       }
     },
     {
@@ -3715,6 +4627,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "st",
+          "ea",
+          "k"
+        ],
+        "focus": [
+          "ea"
+        ],
+        "cue": "这里 /eɪ/ 固定写 ea；前面 st，后面 k。",
+        "sourceEvidence": "steak（牛排）读 /steɪk/：st 连读 /st/，ea 在这个词里读 /eɪ/，不是 eat 中的 /iː/。遮住英文，看“牛排”先读，再写 st＋ea＋k；长音在这里固定用 ea。"
       }
     },
     {
@@ -3762,6 +4686,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "s",
+          "ou",
+          "p"
+        ],
+        "focus": [
+          "ou"
+        ],
+        "cue": "这里 /uː/ 用 ou 两字母写。",
+        "sourceEvidence": "soup /suːp/：s–ou–p，/uː/ 在本词写 ou；别按 mouth 的 ou /aʊ/ 读。遮住英文，看中文读出，再写一遍。"
       }
     },
     {
@@ -3791,6 +4727,18 @@
           "parts": [],
           "note": "dessert 是基础食物名，整体学习双 s；不能拆成假前缀或把 desert 加一个 s 当作词缀变化。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "de",
+          "ss",
+          "ert"
+        ],
+        "focus": [
+          "ss"
+        ],
+        "cue": "甜点 dessert 中间写双 s，不写成单 s 的 desert。",
+        "sourceEvidence": "dessert（甜点）中有两个 s，想象餐后端来两份甜点，一份对应一个 s；desert（沙漠）只有一个 s。这是拼写联想；dessert 重音在后，读 /dɪˈzɜːt/，遮住英文，看中文先读，再回写 de-ss-ert。"
       }
     },
     {
@@ -3855,6 +4803,19 @@
           ],
           "note": "由 ice 与 cream 组成的固定食品名，属于分写的复合名词；表示冰淇淋而不是临时把两件物品并列。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ice ",
+          "cream"
+        ],
+        "focus": [
+          " ",
+          "e",
+          "ea"
+        ],
+        "cue": "两个词之间留空格；ice 保留 e，cream 中间写 ea。",
+        "sourceEvidence": "ice（冰）＋cream（奶油）组成 ice cream（冰激凌）。奶油被冻成冰凉的一球；先写 ice，遮住英文，看中文先读，再再写 cream，中间留空格。ice 的 i-e 读 /aɪ/，cream 的 ea 读 /iː/。"
       }
     },
     {
@@ -3911,6 +4872,20 @@
           ],
           "note": "chopstick 加 -s 为复数 chopsticks；筷子通常成对使用，所以经常见复数形式。此处不把 chop 机械译成切来解释夹取动作。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "chop",
+          "stick",
+          "s"
+        ],
+        "focus": [
+          "ch",
+          "ck",
+          "s"
+        ],
+        "cue": "写 chop 加 stick；ck 都保留，最后复数 s 不漏。",
+        "sourceEvidence": "ch /tʃ/，o /ɒ/，stick 的 i /ɪ/，ck /k/。chopstick 是筷子，成双的筷子常用复数 chopsticks。用 stick（小棍）抓住后半段：两根小棍夹菜。遮住英文，看中文先读，再回写 chop＋stick＋s；ch 读 /tʃ/，最后别漏表示复数的 s。"
       }
     },
     {
@@ -3958,6 +4933,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "th",
+          "e",
+          "m"
+        ],
+        "focus": [
+          "th",
+          "e"
+        ],
+        "cue": "开头用 th，中间 e；最后接 m。",
+        "sourceEvidence": "them 的 th 读 /ð/，e 读 /e/。有人把东西递给“他们”，你用手朝几个人一指：Give it to them。回想接东西的一群人，按 th＋e＋m 遮住英文，看中文先读，再写回。"
       }
     },
     {
@@ -3994,6 +4982,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "cut"
+        ],
+        "focus": [
+          "u",
+          "t"
+        ],
+        "cue": "中间 /ʌ/ 写 u，最后 /t/ 写 t。",
+        "sourceEvidence": "cut 按 c /k/、u /ʌ/、t /t/ 连读。剪刀咔嚓剪断纸条；回想剪断那一下，写 c-u-t，短短三个字母像利落的一刀。"
       }
     },
     {
@@ -4041,6 +5040,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "knife"
+        ],
+        "focus": [
+          "k",
+          "e"
+        ],
+        "cue": "n 前保留不发音的 k；词尾也保留 e。",
+        "sourceEvidence": "knife 的 k 不发音，i-e 读 /aɪ/。k 像一位安静的守卫站在 n 前面，不发音也不离开；听 /naɪf/，拼写仍要把 k 放在 n 前面：k-n-i-f-e，别漏 k 和 e。"
       }
     },
     {
@@ -4088,12 +5098,24 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "f",
+          "or",
+          "k"
+        ],
+        "focus": [
+          "or"
+        ],
+        "cue": "中间用 or 两字母写，不省 r。",
+        "sourceEvidence": "fork 的 or 英式读 /ɔː/，美式带 r 音。叉子叉起肉块；先说 /f/—/ɔː/—/k/，遮住英文，看中文先读，再再写 f-or-k，中间的 or 当一组记。"
       }
     },
     {
       "section": "四上Unit 5",
       "method": "拼读",
-      "hint": "right /raɪt/：r–igh–t，中间 /aɪ/ 写 igh；g、h 不单独发音但都保留，末尾是 t。收起英文，试着读写完整词，再核对上述字母。",
+      "hint": "right /raɪt/：r–igh–t，中间 /aɪ/ 写 igh；g、h 不单独发音但都保留，末尾是 t。遮住英文，试着读写完整词，再核对上述字母。",
       "example": "The fork is on the right. 餐叉在右边。",
       "word": "right",
       "dimensions": {
@@ -4135,6 +5157,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "r",
+          "igh",
+          "t"
+        ],
+        "focus": [
+          "igh",
+          "t"
+        ],
+        "cue": "中间 /aɪ/ 写 igh，g、h 都保留；末尾写 t。",
+        "sourceEvidence": "right /raɪt/：r–igh–t，中间 /aɪ/ 写 igh；g、h 不单独发音但都保留，末尾是 t。"
       }
     },
     {
@@ -4182,6 +5217,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "left"
+        ],
+        "focus": [
+          "e",
+          "ft"
+        ],
+        "cue": "中间写 e；最后 f、t 两字母都写。",
+        "sourceEvidence": "left 中 e 读 /e/，ft 连读 /ft/。左手拇指和食指摆成 L，L 就是 left 的首字母；回想左手的 L，遮住英文，看中文先读，再再写 l-e-f-t。"
       }
     },
     {
@@ -4229,6 +5275,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ap",
+          "ple"
+        ],
+        "focus": [
+          "pp",
+          "le"
+        ],
+        "cue": "两段交界是双 p；词尾写 le。",
+        "sourceEvidence": "apple 按 ap—ple 记，a 读 /æ/，双 p，词尾 le。把两个 p 想成树上并排的两个苹果；从苹果画面遮住英文，看中文先读，再回写 a-pp-le，别漏一个 p。"
       }
     },
     {
@@ -4276,6 +5334,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "sal",
+          "ad"
+        ],
+        "focus": [
+          "a"
+        ],
+        "cue": "两个音节声音不同，元音都写 a。",
+        "sourceEvidence": "salad 按 sal—ad 记，读 /ˈsæləd/；两个音节都用字母 a，声音不同。沙拉里拌入蔬菜；第二拍轻读 /əd/ 仍写 ad；遮住英文，看中文先读，再回写 s-a-l-a-d，检查两个 a。"
       }
     },
     {
@@ -4333,6 +5402,19 @@
           "parts": [],
           "note": "one 对应的序数词是 first，表示第一；作步骤连接时可表示首先，不能机械给 one 加 th。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "f",
+          "ir",
+          "st"
+        ],
+        "focus": [
+          "ir",
+          "st"
+        ],
+        "cue": "中间用 ir，r 不漏；最后写 st。",
+        "sourceEvidence": "first 中 ir 英式读 /ɜː/，st 连读 /st/。第一名举着 1 号牌；回想“第一”，按 f-ir-st 写，别漏 r。"
       }
     },
     {
@@ -4391,6 +5473,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "next"
+        ],
+        "focus": [
+          "x",
+          "t"
+        ],
+        "cue": "/ks/ 用一个 x 写；x 后还要 t。",
+        "sourceEvidence": "next 中 e 读 /e/，x 读 /ks/。排队时前面的人走了，轮到下一个；说 /nekst/，遮住英文，看中文先读，再回写 n-e-x-t，其中 /ks/ 用一个 x。"
       }
     },
     {
@@ -4446,6 +5539,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "th",
+          "e",
+          "n"
+        ],
+        "focus": [
+          "th",
+          "e"
+        ],
+        "cue": "开头用 th 两字母；中间写 e。",
+        "sourceEvidence": "then 的 th 读 /ð/，e 读 /e/。先洗苹果，然后切开；画一支箭头从洗指向切，箭头上写 then。回想“然后”的顺序，写 th-e-n。"
       }
     },
     {
@@ -4504,6 +5610,19 @@
           "parts": [],
           "note": "last 在这里表示最后，整体学习；不能把字母片段看作有规律的序数词后缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "l",
+          "a",
+          "st"
+        ],
+        "focus": [
+          "a",
+          "st"
+        ],
+        "cue": "中间写 a，不写 lost 的 o；末尾 s、t 都写。",
+        "sourceEvidence": "last 英式 a 常读 /ɑː/，美式 /æ/，st 连读。最后一个孩子把队尾牌举起；回想队伍末尾，按 l-a-st 遮住英文，看中文先读，再写回，别和 lost 混淆。"
       }
     },
     {
@@ -4554,6 +5673,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "na",
+          "ture"
+        ],
+        "focus": [
+          "ture",
+          "e"
+        ],
+        "cue": "前段 na 后接 ture；最后 e 不能漏。",
+        "sourceEvidence": "nature 的 na 读 /neɪ/，ture 在这里读 /tʃə/（美式带 r）。在树林里看山、水和植物，这些属于大自然；跟读 /ˈneɪtʃə/，按 na＋ture 遮住英文，看中文先读，再回写，结尾有 e。"
       }
     },
     {
@@ -4611,6 +5742,19 @@
           "parts": [],
           "note": "Internet 与互联网络概念有关，但当前教学不把 inter 与 net 硬拆为需背诵的基础词根；整体记专名拼写。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "In",
+          "ter",
+          "net"
+        ],
+        "focus": [
+          "I",
+          "er"
+        ],
+        "cue": "课本首字母 I 大写；中间写 ter，末尾接 net。",
+        "sourceEvidence": "读 /ˈɪntənet/，首 i /ɪ/，最后 e /e/。Internet 按 In—ter—net 记，用熟悉的 net（网）抓住最后一段。想象一张网连起很多电脑，就是互联网；先读一遍，再遮住词，依次写 In＋ter＋net，注意课本首字母大写。"
       }
     },
     {
@@ -4663,6 +5807,19 @@
           ],
           "note": "every 和 thing 合成 everything，表示所有事物；两部分连写，不是分开的短语。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "every",
+          "thing"
+        ],
+        "focus": [
+          "y",
+          "th",
+          "ng"
+        ],
+        "cue": "every 的 y 保留，再连写 thing；th、ng 都完整。",
+        "sourceEvidence": "every /ˈevri/，thing /θɪŋ/。every（每一个）＋thing（东西）＝everything（所有东西）。把桌上每一样东西全装进箱子，一件也不落；遮住英文，看中文先读，再回写 every＋thing，连写，every 的 y 要保留。"
       }
     },
     {
@@ -4710,6 +5867,16 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "air"
+        ],
+        "focus": [
+          "air"
+        ],
+        "cue": "依次写 a-i-r，三个字母，不多加 e。",
+        "sourceEvidence": "air 的 air 英式读 /eə/，美式 /er/。对着脸扇风，感觉空气经过；听这个音，遮住英文，看中文先读，再回写 a-i-r，只有三个字母，别多加 e。"
       }
     },
     {
@@ -4744,6 +5911,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "a",
+          "round"
+        ],
+        "focus": [
+          "a",
+          "ou"
+        ],
+        "cue": "round 前加 a，连写；中间 /aʊ/ 用 ou。",
+        "sourceEvidence": "用 round（圆的、绕圈）帮助记 around：前面加字母 a，想象绕着圆桌走一圈。around 中 ou 读 /aʊ/；回想“围绕”的路线，写 a＋round，连在一起。"
       }
     },
     {
@@ -4793,6 +5972,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "live"
+        ],
+        "focus": [
+          "i",
+          "e"
+        ],
+        "cue": "中间短音写 i；词尾不发音的 e 保留。",
+        "sourceEvidence": "live 作“居住、生活”时读 /lɪv/，i 是短音，结尾 e 不发音。指着自己住的房子说 I live here；听 /lɪv/，写 l-i-v-e，保留 e。"
       }
     },
     {
@@ -4840,6 +6030,19 @@
           "parts": [],
           "note": "现代介词 without 的没有含义整体学习；不能把 with 的伴随含义与 out 的向外含义简单相加得到当前意思。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "with",
+          "out"
+        ],
+        "focus": [
+          "th",
+          "ou",
+          "t"
+        ],
+        "cue": "with 的 th 完整；连写 out，ou 后保留 t。",
+        "sourceEvidence": "without /wɪˈðaʊt/：字形分成 with–out，th 在本词可读 /ð/，ou 读 /aʊ/；保留 h，末尾是 t。分段用于拼写，整词表示没有。遮住英文，看中文先读，再回写 with＋out，两个部分连写，out 的 ou 读 /aʊ/。"
       }
     },
     {
@@ -4890,6 +6093,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "f",
+          "ar",
+          "m"
+        ],
+        "focus": [
+          "ar"
+        ],
+        "cue": "中间 /ɑː/ 写 ar 两字母。",
+        "sourceEvidence": "farm 中 ar 英式读 /ɑː/。农场里饲养小猪；中间 ar 对应 /ɑː/。回想农场，写 f-ar-m。"
       }
     },
     {
@@ -4947,6 +6162,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "f",
+          "ee",
+          "d"
+        ],
+        "focus": [
+          "ee",
+          "d"
+        ],
+        "cue": "长音写双 e；喂食词尾是 d，不是 feel 的 l。",
+        "sourceEvidence": "feed /fiːd/：f–ee–d，长音 /iː/ 写双 e；与 feel 只换末尾字母，喂食写 d。遮住英文，看中文先读，再写回，和 feel 只差最后的 d。"
       }
     },
     {
@@ -4994,6 +6222,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "pig"
+        ],
+        "focus": [
+          "i",
+          "g"
+        ],
+        "cue": "中间写 i；最后 /g/ 写 g，不写 k。",
+        "sourceEvidence": "pig 按 p /p/、i /ɪ/、g /g/ 连读。小猪顶着食盆要吃；听 /pɪg/，写 p-i-g，别把末尾有声的 /g/ 写成 k。"
       }
     },
     {
@@ -5043,6 +6282,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "sm",
+          "e",
+          "ll"
+        ],
+        "focus": [
+          "sm",
+          "ll"
+        ],
+        "cue": "开头 s、m 都写；末尾 /l/ 写双 l。",
+        "sourceEvidence": "smell /smel/：开头 /sm/ 写 sm，中间 /e/ 写 e；末尾双 l，一个 /l/ 对应两个 l。遮住英文，看中文先读，再回写 sm-e-ll，闻香时记住两个 l。"
       }
     },
     {
@@ -5097,6 +6349,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "lis",
+          "ten"
+        ],
+        "focus": [
+          "t",
+          "en"
+        ],
+        "cue": "第二段 ten 的 t 不发音也写；后面是 en。",
+        "sourceEvidence": "listen 的 t 不发音，读 /ˈlɪsən/，拼写按 lis—ten 记。大家安静听，连字母 t 也安静不出声；回想认真听的耳朵，写 lis＋ten，仍要保留 t。"
       }
     },
     {
@@ -5146,6 +6410,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "h",
+          "ear"
+        ],
+        "focus": [
+          "ear"
+        ],
+        "cue": "先 h，再写完整 ear，不省 a 或 r。",
+        "sourceEvidence": "hear 的 ear 英式读 /ɪə/，美式 /ɪr/。先写熟悉的 ear（耳朵），在前面加 h：耳朵听见声音。回想听见鸟叫的耳朵，遮住英文，看中文先读，再回写 h＋ear。"
       }
     },
     {
@@ -5173,6 +6448,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "gl",
+          "a",
+          "ss"
+        ],
+        "focus": [
+          "gl",
+          "ss"
+        ],
+        "cue": "开头 g、l 都保留；末尾写双 s。",
+        "sourceEvidence": "glass /ɡlɑːs/：gl 两个辅音字母都保留；a 英式读 /ɑː/，美式常读 /æ/；末尾双 s。遮住英文，看中文先读，再回写 gl-a-ss，别漏 s。"
       }
     },
     {
@@ -5200,6 +6488,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "t",
+          "ur",
+          "n"
+        ],
+        "focus": [
+          "ur"
+        ],
+        "cue": "中间用 ur 两字母写。",
+        "sourceEvidence": "turn 中 ur 英式读 /ɜː/，美式 /ɝː/。沿路走到转角，身体转过去；回想转弯的动作，按 t-ur-n 写，把 ur 当一个发音组。"
       }
     },
     {
@@ -5243,6 +6543,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "af",
+          "ter"
+        ],
+        "focus": [
+          "ft",
+          "er"
+        ],
+        "cue": "两段交界的 f、t 都要有；末尾写 er。",
+        "sourceEvidence": "读 /ˈɑːftə/，a 英式 /ɑː/，er 轻读 /ə/。after 按 af—ter 记，重音在 af。先吃饭，饭后把盘子收走；用这个先后画面记“在……之后”。遮住英文，看中文先读，再回写 af＋ter，中间 ft 两个字母都要有。"
       }
     },
     {
@@ -5290,6 +6602,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "s",
+          "u",
+          "n"
+        ],
+        "focus": [
+          "u"
+        ],
+        "cue": "太阳的 /ʌ/ 写 u，不写 son 的 o。",
+        "sourceEvidence": "sun /sʌn/：s–u–n，中间 /ʌ/ 写 u；同音的 son 是儿子，太阳写 sun。遮住英文，看中文读出，再写一遍。"
       }
     },
     {
@@ -5317,6 +6641,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "bad"
+        ],
+        "focus": [
+          "a",
+          "d"
+        ],
+        "cue": "中间写 a；最后写 d，别写成 bat 的 t。",
+        "sourceEvidence": "bad 的 a 读 /æ/。苹果坏了，露出一个黑洞；回想坏苹果，听 /bæd/ 后写 b-a-d，与 bat 的区别在最后 d。"
       }
     },
     {
@@ -5364,6 +6699,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "st",
+          "ar",
+          "t"
+        ],
+        "focus": [
+          "t",
+          "ar"
+        ],
+        "cue": "开头 st 已有 t；ar 后还要再写一个 t。",
+        "sourceEvidence": "start 按 st—ar—t 记，ar 英式读 /ɑː/。发令枪响，大家开始跑；回想起跑动作，先写 st，遮住英文，看中文先读，再再写 ar，最后补 t，别漏开头或结尾的 t。"
       }
     },
     {
@@ -5414,6 +6762,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "for",
+          "est"
+        ],
+        "focus": [
+          "o",
+          "e"
+        ],
+        "cue": "前段用 o；后段听到 /ɪ/ 仍写 e。",
+        "sourceEvidence": "forest 按 for—est 记，英式读 /ˈfɒrɪst/。一大片树组成森林；o 读 /ɒ/，后面 e 读 /ɪ/，不是听到 /ɪ/ 就写 i；遮住英文，看中文先读，再回写 for＋est。"
       }
     },
     {
@@ -5462,6 +6822,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "cr",
+          "o",
+          "ss"
+        ],
+        "focus": [
+          "cr",
+          "ss"
+        ],
+        "cue": "开头 cr 完整；末尾是双 s。",
+        "sourceEvidence": "cross 中 cr 连读 /kr/，o 英式读 /ɒ/，结尾双 s。画两条交叉的线表示交叉；拼写结尾双 s 要单独记；回想穿过马路，写 cr-o-ss。"
       }
     },
     {
@@ -5509,6 +6882,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "gift"
+        ],
+        "focus": [
+          "i",
+          "ft"
+        ],
+        "cue": "中间 /ɪ/ 写 i，最后 f、t 都写。",
+        "sourceEvidence": "gift 的 i 读 /ɪ/，ft 连读 /ft/。打开礼物盒，收到期待的玩具；从拆礼物的动作回想 /ɡɪft/，写 g-i-f-t。"
       }
     },
     {
@@ -5566,6 +6950,18 @@
           ],
           "note": "fire 和 work 合成 firework；work 在这里不能机械译成做作业，整体指烟火装置或烟花。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "fire",
+          "work"
+        ],
+        "focus": [
+          "e",
+          "or"
+        ],
+        "cue": "fire 末尾 e 保留；work 的中间写 or，连写。",
+        "sourceEvidence": "fire /faɪə/，work /wɜːk/。fire（火）＋work 组成 firework（烟花）。烟花在夜空中绽放；记拼写 fire＋work，work 里的 or 读 /ɜː/；先写 fire，遮住英文，看中文先读，再再写 work，连写，fire 的 e 要保留。"
       }
     },
     {
@@ -5619,6 +7015,21 @@
           "parts": [],
           "note": "January 是月份专名，当前整体学习；不把历史命名来源当作现代透明词根。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Jan",
+          "u",
+          "ar",
+          "y"
+        ],
+        "focus": [
+          "J",
+          "u",
+          "ary"
+        ],
+        "cue": "月份 J 大写；Jan 后依次接 u、ar、y。",
+        "sourceEvidence": "January 可分 Jan—u—ar—y 记，读 /ˈdʒænjuəri/。一月是新年的第一个月；Jan 是最响的一拍，后面 u 读 /ju/，ary 轻读 /əri/；先读一遍，再遮住词，按 Jan＋u＋ar＋y 回写，月份首字母大写。"
       }
     },
     {
@@ -5671,6 +7082,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "g",
+          "oa",
+          "l"
+        ],
+        "focus": [
+          "oa",
+          "l"
+        ],
+        "cue": "中间长音写 oa；最后是 l，不写 gold 的 d。",
+        "sourceEvidence": "goal 的 oa 读 /əʊ/（美式 /oʊ/）。你定下多读三本书的目标，目标是想达到的结果。遮住英文，看“目标”读出 goal，再按 g—oa—l 写回；长音写 oa，核对不是 gold。"
       }
     },
     {
@@ -5712,6 +7136,18 @@
           ],
           "note": "five 在 fifty 中变为 fif，再接 -ty；不是 fivety。后缀 -ty 构成整十数，与表示十几的 -teen 区分。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "fif",
+          "ty"
+        ],
+        "focus": [
+          "f",
+          "ty"
+        ],
+        "cue": "前段用 fif，不用 five；结尾写 ty。",
+        "sourceEvidence": "读 /ˈfɪfti/，i /ɪ/，y /i/。fifty（五十）与 five（五）是一家；五十要单独记成 fif＋ty，不能直接写 fivety。想象五个十元硬币排成一列；回想五个十，写 fif-ty，末尾 y。"
       }
     },
     {
@@ -5753,6 +7189,18 @@
           ],
           "note": "six 接 -ty 得到 sixty。后缀 -ty 构成整十数，与表示十几的 -teen 区分。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "six",
+          "ty"
+        ],
+        "focus": [
+          "x",
+          "ty"
+        ],
+        "cue": "保留 six 的 x，再接 ty。",
+        "sourceEvidence": "six /sɪks/，ty /ti/。six（六）＋-ty 得 sixty（六十）。六捆小棒，每捆十根；从六捆十回想 six＋ty，x 保留，最后是 ty。"
       }
     },
     {
@@ -5790,6 +7238,19 @@
           ],
           "note": "两个词组成春节的节日名称，主要词首字母大写；Spring 提供春的季节线索，专名整体记。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Spring ",
+          "Festival"
+        ],
+        "focus": [
+          "Spr",
+          "F",
+          " "
+        ],
+        "cue": "Spring 开头写 spr；两词分开，S、F 大写。",
+        "sourceEvidence": "Spring /sprɪŋ/，Festival /ˈfestɪvəl/。Spring（春天）＋Festival（节日）组成春节。门口贴春字、挂节日灯，把两幅画面连起来；遮住英文，看中文先读，再回写 Spring＋Festival，中间留空，两个词首字母大写，Spring 开头是 spr。"
       }
     },
     {
@@ -5817,6 +7278,17 @@
           "parts": [],
           "note": "Mrs 是称谓的约定缩写，按整体认读；它不是前缀、词根或复数词尾组合。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Mrs"
+        ],
+        "focus": [
+          "M",
+          "s"
+        ],
+        "cue": "写大写 M，后面小写 r、s，三个字母连写。",
+        "sourceEvidence": "Mrs 是用于已婚女性姓氏前的称呼，读 /ˈmɪsɪz/，不能逐个字母读。把姓名牌上的 Mr 想成一边，再添一个 s 变成 Mrs；这是拼写对照。看女士的姓名牌，遮住英文，看中文先读，再回写大写 M、小写 rs。"
       }
     },
     {
@@ -5874,6 +7346,18 @@
           ],
           "note": "luck 加形容词后缀 -y 得到 lucky，表示有好运的；不是把末尾 y 都当作同一种后缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "luck",
+          "y"
+        ],
+        "focus": [
+          "ck",
+          "y"
+        ],
+        "cue": "luck 的 ck 都保留，再加 y；不加 e。",
+        "sourceEvidence": "luck /lʌk/，y /i/。luck（运气）＋-y 得 lucky（幸运的）。抽奖抽中大礼包，幸运落到你手里；遮住英文，看中文先读，再回写 luck＋y，ck 保留，不要加 e。"
       }
     },
     {
@@ -5921,6 +7405,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "mon",
+          "ey"
+        ],
+        "focus": [
+          "o",
+          "ey"
+        ],
+        "cue": "前段写 mon；末尾 /i/ 用 ey，不只写 y。",
+        "sourceEvidence": "money 按 mon—ey 记，o 在这里读 /ʌ/，ey 读 /i/。把钱放进储蓄罐，跟读 /ˈmʌni/；回想存钱动作，写 mon＋ey，结尾不是单个 y。"
       }
     },
     {
@@ -5948,6 +7444,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "w",
+          "i",
+          "sh"
+        ],
+        "focus": [
+          "sh"
+        ],
+        "cue": "最后 /ʃ/ 写 s、h 两字母，h 不能漏。",
+        "sourceEvidence": "wish /wɪʃ/：w–i–sh，/ʃ/ 写 s、h 两个字母，不能漏 h。遮住英文，看中文先读，再写回。"
       }
     },
     {
@@ -5995,6 +7503,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "m",
+          "ea",
+          "n"
+        ],
+        "focus": [
+          "ea",
+          "n"
+        ],
+        "cue": "长音用 ea，最后接 n，不是 meat 的 t。",
+        "sourceEvidence": "mean 的 ea 读 /iː/。指着字典里一条释义问 What does it mean?（它是什么意思？）；回想释义箭头，写 m-ea-n，和 meat 只差最后 n。"
       }
     },
     {
@@ -6031,6 +7552,19 @@
           ],
           "note": "两个词组成元宵节的英文名称，lantern 提供赏灯的活动线索；专名主要词首字母大写。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Lantern ",
+          "Festival"
+        ],
+        "focus": [
+          " ",
+          "L",
+          "F"
+        ],
+        "cue": "Lantern 与 Festival 分开写；名称中的 L、F 大写。",
+        "sourceEvidence": "Lantern /ˈlæntən/，Festival /ˈfestɪvəl/。Lantern（灯笼）＋Festival（节日）组成元宵节。把一只灯笼挂在节日横幅上；Lantern 分 lan—tern 记。先读一遍，再遮住词，从灯笼和横幅依次写 Lantern＋Festival，中间留空。"
       }
     },
     {
@@ -6084,6 +7618,20 @@
           "parts": [],
           "note": "February 是月份专名，整体学习并保留两个 r；不根据偶然字母片段硬拆词根。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Feb",
+          "ru",
+          "ar",
+          "y"
+        ],
+        "focus": [
+          "r",
+          "F"
+        ],
+        "cue": "Feb 后接 ru；全词两个 r，首字母 F 大写。",
+        "sourceEvidence": "读 /ˈfebruəri/，Feb /feb/，r 后 u /u/，末尾 ary /əri/。February 可分 Feb—ru—ar—y 记；二月日历页提醒你，b 后面有 r，即使口语中有时听不清。回想二月页，遮住英文，看中文先读，再回写 Feb＋ru＋ar＋y，检查两个 r，首字母大写。"
       }
     },
     {
@@ -6137,6 +7685,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "rid",
+          "dle"
+        ],
+        "focus": [
+          "dd",
+          "le"
+        ],
+        "cue": "两段交界双 d；末尾写 le。",
+        "sourceEvidence": "riddle 按 rid—dle 记，i 读 /ɪ/，双 d，末尾 le。谜语等着你猜，拼写结尾 ddle 要记双 d 和 le；猜出谜底后遮住英文，看中文先读，再回写 ri-dd-le，保留双 d。"
       }
     },
     {
@@ -6191,6 +7751,20 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "g",
+          "u",
+          "e",
+          "ss"
+        ],
+        "focus": [
+          "u",
+          "ss"
+        ],
+        "cue": "g 后保留不发音的 u；结尾写双 s。",
+        "sourceEvidence": "guess 的 u 在这里不发音，g 仍读 /g/，读 /ɡes/。猜谜时，一个安静的 u 躲在 g 后面，答案出来才看见它；遮住英文，看中文先读，再回写 g-u-e-ss，别漏 u 或双 s。"
       }
     },
     {
@@ -6238,6 +7812,16 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "of"
+        ],
+        "focus": [
+          "f"
+        ],
+        "cue": "最后虽然读 /v/，字母仍写 f。",
+        "sourceEvidence": "of 的 f 在这里读 /v/，常见弱读 /əv/。看一杯水 a cup of water，of 像连接杯子和水的小桥；回想连接关系，写 o-f，虽然听到 /v/，仍用 f。"
       }
     },
     {
@@ -6285,6 +7869,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "l",
+          "ou",
+          "d"
+        ],
+        "focus": [
+          "ou"
+        ],
+        "cue": "中间 /aʊ/ 用 ou 两字母写。",
+        "sourceEvidence": "loud 的 ou 读 /aʊ/。大喇叭突然放出很大的声音，大家张大嘴 /aʊ/；回想响亮的喇叭，写 l-ou-d，与 cloud 的尾部一样。"
       }
     },
     {
@@ -6339,6 +7935,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "s",
+          "ou",
+          "nd"
+        ],
+        "focus": [
+          "ou",
+          "nd"
+        ],
+        "cue": "中间写 ou，不写 ow；末尾 n、d 都写。",
+        "sourceEvidence": "sound 中 ou 读 /aʊ/，nd 连读 /nd/。声音从喇叭传播到耳朵；回想声音路线，写 s-ou-nd，别把 ou 写成 ow。"
       }
     },
     {
@@ -6386,6 +7995,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "run"
+        ],
+        "focus": [
+          "u",
+          "r"
+        ],
+        "cue": "中间 /ʌ/ 写 u；开头写 r，与 sun 区分。",
+        "sourceEvidence": "run 的 u 读 /ʌ/，按 /r/—/ʌ/—/n/ 连读。小狗跑向你；从奔跑动作回想声音，遮住英文，看中文先读，再再写 r-u-n，和 sun 只换首字母。"
       }
     },
     {
@@ -6434,6 +8054,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "hob",
+          "by"
+        ],
+        "focus": [
+          "bb",
+          "y"
+        ],
+        "cue": "中间双 b；词尾 /i/ 用 y 写。",
+        "sourceEvidence": "hobby /ˈhɒbi/：字形 hob–by，中间双 b；首拍 /ɒ/ 写 o，末尾 /i/ 写 y。遮住英文，看中文读出，再写一遍。"
       }
     },
     {
@@ -6481,6 +8113,19 @@
           "parts": [],
           "note": "kind 当前表示种类，是基础词；不同义项不是通过词根词缀变化形成。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "k",
+          "i",
+          "nd"
+        ],
+        "focus": [
+          "i",
+          "nd"
+        ],
+        "cue": "中间 /aɪ/ 写 i；结尾 n、d 都保留。",
+        "sourceEvidence": "kind 的 i 在这里读 /aɪ/，nd 连读。把同一种球放进一篮 a kind of ball；回想同类物品，写 k-i-nd，与 find 只换首字母。"
       }
     },
     {
@@ -6533,6 +8178,16 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "folk"
+        ],
+        "focus": [
+          "l"
+        ],
+        "cue": "o 和 k 之间保留不发音的 l。",
+        "sourceEvidence": "folk 的 l 不发音，读 /fəʊk/（美式 /foʊk/）。民间乐队演奏时，l 安静听，不出声；回想民间音乐，遮住英文，看中文先读，再回写 f-o-l-k，保留沉默的 l。"
       }
     },
     {
@@ -6580,6 +8235,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "cl",
+          "u",
+          "b"
+        ],
+        "focus": [
+          "cl",
+          "b"
+        ],
+        "cue": "开头 c、l 两字母都写；末尾是 b。",
+        "sourceEvidence": "club 中 cl 连读 /kl/，u 读 /ʌ/。同学们一起进兴趣俱乐部；从大家一起参加活动回想 /klʌb/，写 cl-u-b，结尾是 b。"
       }
     },
     {
@@ -6630,6 +8298,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "j",
+          "oi",
+          "n"
+        ],
+        "focus": [
+          "oi"
+        ],
+        "cue": "中间 /ɔɪ/ 固定用 oi 写。",
+        "sourceEvidence": "join 的 oi 读 /ɔɪ/。你加入正在游戏的队伍；中间 oi 两字母对应 /ɔɪ/。回想加入动作，写 j-oi-n，中间用 oi。"
       }
     },
     {
@@ -6678,6 +8358,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "be",
+          "cause"
+        ],
+        "focus": [
+          "au",
+          "se"
+        ],
+        "cue": "cause 中间写 au；结尾 se 两字母都保留。",
+        "sourceEvidence": "because（因为）读 /bɪˈkɒz/，也可读 /bɪˈkɔːz/：be 在这里读 /bɪ/，au 对应 /ɒ/ 或 /ɔː/，s 读 /z/，末尾 e 不单独发音。小路湿了，因为下雨。遮住英文，先读再写 be＋cause；中间用 au，结尾 se 不漏。"
       }
     },
     {
@@ -6727,6 +8419,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "sci",
+          "ence"
+        ],
+        "focus": [
+          "sc",
+          "ence"
+        ],
+        "cue": "开头 sc 两字母都写；轻读结尾仍写 e-n-c-e。",
+        "sourceEvidence": "science 中 sc 开头读 /s/，i 读 /aɪ/，读 /ˈsaɪəns/。做磁铁吸铁钉的科学实验；末尾 ence 轻读 /əns/，仍写 e-n-c-e；先读一遍，再遮住词，回想实验，写 sci＋ence，开头保留 sc。"
       }
     },
     {
@@ -6774,6 +8478,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ch",
+          "e",
+          "ss"
+        ],
+        "focus": [
+          "ch",
+          "ss"
+        ],
+        "cue": "开头 /tʃ/ 写 ch，末尾 /s/ 写双 s。",
+        "sourceEvidence": "chess /tʃes/：ch–e–ss，开头 /tʃ/ 写 ch，末尾 /s/ 写双 s。遮住英文，看中文先读，再回写 ch-e-ss，检查双 s。"
       }
     },
     {
@@ -6801,6 +8518,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "w",
+          "e",
+          "ll"
+        ],
+        "focus": [
+          "ll"
+        ],
+        "cue": "中间写 e；末尾 /l/ 写双 l。",
+        "sourceEvidence": "well /wel/：w–e–ll，中间 /e/ 写 e，末尾 /l/ 写双 l。遮住英文，看中文读出，再写一遍。"
       }
     },
     {
@@ -6850,6 +8579,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "wh",
+          "y"
+        ],
+        "focus": [
+          "h",
+          "y"
+        ],
+        "cue": "开头 wh 中的 h 保留；末尾 /aɪ/ 写 y。",
+        "sourceEvidence": "why 中 wh 在常见读音里读 /w/，y 读 /aɪ/。看到奇怪现象，头顶冒问号：“为什么？”回想问号，写 wh＋y；虽然 h 通常不出声，也要写。"
       }
     },
     {
@@ -6899,6 +8640,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "fan"
+        ],
+        "focus": [
+          "a",
+          "n"
+        ],
+        "cue": "中间 /æ/ 写 a，最后 /n/ 写 n。",
+        "sourceEvidence": "fan 读 /fæn/：f /f/、a /æ/、n /n/。拿着球星海报、总想看比赛的人，是球迷：a football fan。遮住英文，看“迷，狂热爱好者”先读，再写 f-a-n。"
       }
     },
     {
@@ -6953,6 +8705,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "trav",
+          "el"
+        ],
+        "focus": [
+          "el",
+          "l"
+        ],
+        "cue": "轻读词尾仍写 el；全词只有一个 l。",
+        "sourceEvidence": "读 /ˈtrævəl/，a /æ/、el /əl/。travel 按 trav—el 记，a 读 /æ/。拉着旅行箱出发；末尾 el 轻读 /əl/，仍用 e；回想旅行箱，写 trav＋el，只有一个 l。"
       }
     },
     {
@@ -7009,6 +8773,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "stud",
+          "y"
+        ],
+        "focus": [
+          "u",
+          "y"
+        ],
+        "cue": "中间写 u；末尾 /i/ 用 y，不写 i。",
+        "sourceEvidence": "读 /ˈstʌdi/，u /ʌ/、y /i/。study 按 stud—y 记，u 读 /ʌ/，y 读 /i/。专心看书、写笔记，就是学习；回想伏案学习，写 stud＋y，别把末尾写成 i。"
       }
     },
     {
@@ -7041,6 +8817,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "face"
+        ],
+        "focus": [
+          "c",
+          "e"
+        ],
+        "cue": "/s/ 在这里写 c；词尾 e 必须保留。",
+        "sourceEvidence": "face 的 a-e 读 /eɪ/，c 在 e 前读 /s/。把镜中的脸画成一圈，说 /feɪs/；回想自己的脸，写 f-a-c-e，长音 a 和软音 c 都需要末尾 e。"
       }
     },
     {
@@ -7098,6 +8885,19 @@
           ],
           "note": "feel 加 -ing 可构成名词 feeling，表示感受；此处的 -ing 用于名词，并非句子正在进行动作。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "feel",
+          "ing"
+        ],
+        "focus": [
+          "ee",
+          "l",
+          "ing"
+        ],
+        "cue": "feel 的双 e 保留，只有一个 l；直接接 ing。",
+        "sourceEvidence": "feel 的 ee /iː/，ing /ɪŋ/。feel（感觉）＋-ing 得 feeling（感受）。先摸毛绒玩具 feel，再说出自己的感受 feeling；遮住英文，看中文先读，再回写 feel＋ing，ee 不变，只有一个 l。"
       }
     },
     {
@@ -7148,6 +8948,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "thr",
+          "ow"
+        ],
+        "focus": [
+          "th",
+          "ow"
+        ],
+        "cue": "开头 th 后还有 r；结尾用 ow。",
+        "sourceEvidence": "throw 中 th 读 /θ/，r 随后连读，ow 读 /əʊ/（美式 /oʊ/）。球被抛出长长一道弧线；回想抛球，写 thr＋ow，别把 ow 读成 /aʊ/。"
       }
     },
     {
@@ -7195,6 +9007,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "th",
+          "i",
+          "ng"
+        ],
+        "focus": [
+          "th",
+          "ng"
+        ],
+        "cue": "开头写 th，末尾写 ng；两组都完整。",
+        "sourceEvidence": "thing 的 th 读 /θ/，i 读 /ɪ/，ng 读 /ŋ/。从神秘袋里摸出一个东西；说 /θɪŋ/ 后写 th-i-ng，开头和结尾各是双字母组。"
       }
     },
     {
@@ -7229,6 +9054,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ou",
+          "t"
+        ],
+        "focus": [
+          "ou"
+        ],
+        "cue": "开头 /aʊ/ 用 ou 两字母写，再接 t。",
+        "sourceEvidence": "out 的 ou 读 /aʊ/。从门里一步跨到外面；回想出去的动作，写 ou＋t，先写两个字母的发音组 ou。"
       }
     },
     {
@@ -7256,6 +9092,16 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "safe"
+        ],
+        "focus": [
+          "e"
+        ],
+        "cue": "a 后隔着 f 有 e；不发音的词尾 e 不能漏。",
+        "sourceEvidence": "safe 的 a-e 读 /eɪ/，末尾 e 不发音。戴好头盔后安全地滑行；回想保护头的头盔，写 s-a-f-e，别漏长音的 e。"
       }
     },
     {
@@ -7290,6 +9136,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "d",
+          "ow",
+          "n"
+        ],
+        "focus": [
+          "ow"
+        ],
+        "cue": "中间 /aʊ/ 在这里写 ow。",
+        "sourceEvidence": "down 的 ow 读 /aʊ/，和 throw 的 ow 不同。球往下掉，你指向地面；回想向下的箭头，写 d-ow-n，中间是 ow。"
       }
     },
     {
@@ -7321,6 +9179,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "st",
+          "air"
+        ],
+        "focus": [
+          "air"
+        ],
+        "cue": "开头 s、t 都写；后面 air 三字母完整。",
+        "sourceEvidence": "stair 中 st 连读，air 英式读 /eə/。站到一级楼梯上，指着那一级说 stair；遮住英文，看中文先读，再回写 st＋air，把 air 三字母作为一个组。"
       }
     },
     {
@@ -7368,6 +9237,20 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "sk",
+          "a",
+          "t",
+          "e"
+        ],
+        "focus": [
+          "sk",
+          "e"
+        ],
+        "cue": "开头 s、k 都写；末尾 e 不能漏。",
+        "sourceEvidence": "skate 中 sk 连读 /sk/，a-e 读 /eɪ/。滑冰鞋在冰上拖出长线；回想滑行动作，写 sk-a-t-e，末尾 e 帮助 a 发长音。"
       }
     },
     {
@@ -7418,6 +9301,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "f",
+          "all"
+        ],
+        "focus": [
+          "ll"
+        ],
+        "cue": "后段写 all，末尾有两个 l。",
+        "sourceEvidence": "fall /fɔːl/：f–all，后段 /ɔːl/ 写 all；与 call 只换首字母，末尾双 l。遮住英文，看中文读出，再写一遍。"
       }
     },
     {
@@ -7472,6 +9366,19 @@
           "parts": [],
           "note": "March 是月份专名，整体学习并首字母大写；不与表示行军的普通动词自动等同。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "M",
+          "ar",
+          "ch"
+        ],
+        "focus": [
+          "M",
+          "ar"
+        ],
+        "cue": "月份 M 大写；中间 ar、末尾 ch 两组都完整。",
+        "sourceEvidence": "March 的 ar 英式读 /ɑː/，ch 读 /tʃ/。三月日历旁的小队踏步 march（行进），用同一拼写记三月；遮住英文，看中文先读，再回写 M-ar-ch，月份开头 M 大写。"
       }
     },
     {
@@ -7515,6 +9422,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "th",
+          "i",
+          "n"
+        ],
+        "focus": [
+          "th",
+          "n"
+        ],
+        "cue": "开头写 th，末尾是 n；不添 thing 的 g。",
+        "sourceEvidence": "thin 的 th 读 /θ/，i 读 /ɪ/。把舌尖轻放齿间念 th，再看一张很薄的纸；回想薄纸，写 th-i-n，和 thing 比少了 g。"
       }
     },
     {
@@ -7572,6 +9492,17 @@
           ],
           "note": "danger 加形容词后缀 -ous 得到 dangerous，表示有危险的；基础词 danger 可帮助理解构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "danger",
+          "ous"
+        ],
+        "focus": [
+          "ous"
+        ],
+        "cue": "danger 后接完整 ous；后缀的 o 不能漏。",
+        "sourceEvidence": "读 /ˈdeɪndʒərəs/，a /eɪ/、g 在 e 前 /dʒ/、ous /əs/。danger（危险）＋-ous 成 dangerous（危险的）。红色危险牌提醒你别靠近；从 danger 的警告回想 danger＋ous，ous 表示“具有……的”，不能漏 o。"
       }
     },
     {
@@ -7624,6 +9555,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "b",
+          "oar",
+          "d"
+        ],
+        "focus": [
+          "oar"
+        ],
+        "cue": "中间用 oar 三字母，不只写 or。",
+        "sourceEvidence": "board 的 oar 英式读 /ɔː/。湖边的告示牌写着安全提醒，先看牌上的文字再行动。按 b—oar—d 认读；oar 三字母合读 /ɔː/。遮住英文，看“告示牌”先读再写，核对 oar，不只写 or。"
       }
     },
     {
@@ -7655,6 +9598,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "lake"
+        ],
+        "focus": [
+          "k",
+          "e"
+        ],
+        "cue": "中间用 k，与 late 的 t 区分；词尾 e 保留。",
+        "sourceEvidence": "lake 的 a-e 读 /eɪ/。一片湖平静得像镜子；回想湖面，写 l-a-k-e，长音 a 需要末尾 e，和 late 只差 k。"
       }
     },
     {
@@ -7712,6 +9666,19 @@
           ],
           "note": "care 加 -ful 得到 careful，表示做事留心的；后缀 -ful 只有一个 l，区别于独立词 full。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "care",
+          "ful"
+        ],
+        "focus": [
+          "e",
+          "ful",
+          "l"
+        ],
+        "cue": "care 的 e 保留；接 ful，后缀只有一个 l。",
+        "sourceEvidence": "读 /ˈkeəfəl/，care /keə/、ful /fəl/。care（留意、照顾）＋-ful 构成 careful（小心的）。端着满满一杯水，每一步都留意，免得洒出来。先读一遍，再遮住单词，先写 care，再加 ful；后缀 -ful 只有一个 l。"
       }
     },
     {
@@ -7747,6 +9714,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "p",
+          "u",
+          "sh"
+        ],
+        "focus": [
+          "u",
+          "sh"
+        ],
+        "cue": "中间 /ʊ/ 写 u；最后 /ʃ/ 写 sh。",
+        "sourceEvidence": "push 的 u 在这里读 /ʊ/，sh 读 /ʃ/。双手用力推门，嘴短促发 /ʊ/；回想推门，写 p-u-sh，别按通常 /ʌ/ 读。"
       }
     },
     {
@@ -7795,6 +9775,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "cr",
+          "ow",
+          "d"
+        ],
+        "focus": [
+          "ow",
+          "d"
+        ],
+        "cue": "开头写 cr；/aʊ/ 写 ow，末尾 d 保留。",
+        "sourceEvidence": "crowd /kraʊd/：开头 /kr/ 写 cr，/aʊ/ 写 ow；末尾 d 保留，不能写成 ou。遮住英文，看中文读出，再写一遍。"
       }
     },
     {
@@ -7851,6 +9844,18 @@
           ],
           "note": "slow 加副词后缀 -ly 得到 slowly，说明动作的方式或程度；不能据此把所有 ly 结尾词都当副词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "slow",
+          "ly"
+        ],
+        "focus": [
+          "ow",
+          "ly"
+        ],
+        "cue": "保留 slow 的 ow，再接 ly，两个部分连写。",
+        "sourceEvidence": "slow 的 ow /əʊ/、ly /li/。slow（慢的）＋-ly 成 slowly（慢慢地）。把快走的脚步放慢，一步一步挪；遮住英文，看中文先读，再回写 slow＋ly，slow 中 ow 读 /əʊ/，末尾 ly 连写。"
       }
     },
     {
@@ -7898,6 +9903,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "f",
+          "a",
+          "st"
+        ],
+        "focus": [
+          "a",
+          "st"
+        ],
+        "cue": "中间写 a，末尾 s、t 都保留。",
+        "sourceEvidence": "fast 中 a 英式常读 /ɑː/，美式 /æ/，st 连读。比赛一开始你飞快跑出去；回想快跑，写 f-a-st，和 last 只换首字母。"
       }
     },
     {
@@ -7952,6 +9970,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "str",
+          "ee",
+          "t"
+        ],
+        "focus": [
+          "ee",
+          "t"
+        ],
+        "cue": "开头 s、t、r 都写；中间双 e，末尾再写 t。",
+        "sourceEvidence": "street /striːt/：str–ee–t，开头 s、t、r 三个字母；长音 /iː/ 写双 e，末尾还要 t。遮住英文，看中文读出，再写一遍。"
       }
     },
     {
@@ -7999,6 +10030,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "l",
+          "igh",
+          "t"
+        ],
+        "focus": [
+          "igh"
+        ],
+        "cue": "中间 /aɪ/ 写 igh；不发音的 g、h 都保留。",
+        "sourceEvidence": "light 的 igh 读 /aɪ/，gh 不发音。灯亮起来，照着两个安静的字母 gh；回想亮灯，写 l-igh-t，和 right 只换首字母。"
       }
     },
     {
@@ -8046,6 +10089,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "a",
+          "gain"
+        ],
+        "focus": [
+          "ai"
+        ],
+        "cue": "前段写 a；gain 中的 a、i 都保留。",
+        "sourceEvidence": "again 按 a—gain 记，常读 /əˈɡen/，也有 /əˈɡeɪn/。失败后把任务卡翻回第一面，再做一次；回想“再一次”，写 a＋gain，保留中间 ai。"
       }
     },
     {
@@ -8073,6 +10127,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "f",
+          "u",
+          "n"
+        ],
+        "focus": [
+          "u",
+          "f"
+        ],
+        "cue": "中间 /ʌ/ 写 u；乐趣开头写 f，与 run 区分。",
+        "sourceEvidence": "fun /fʌn/：f–u–n，中间 /ʌ/ 写 u；与 run 只换首字母，乐趣写 f。遮住英文，看中文读出，再写一遍。"
       }
     },
     {
@@ -8120,6 +10187,16 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "game"
+        ],
+        "focus": [
+          "e"
+        ],
+        "cue": "a 后隔着 m 有 e；末尾不发音的 e 保留。",
+        "sourceEvidence": "game 的 a-e 读 /eɪ/。游戏开始，棋子向前跳；回想玩游戏，写 g-a-m-e，末尾 e 帮 a 发长音。"
       }
     },
     {
@@ -8182,6 +10259,19 @@
           ],
           "note": "be good at 是表示擅长的固定结构；be 随主语可变为 am、is、are，at 后可接项目名或动词加 -ing。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "be ",
+          "good ",
+          "at"
+        ],
+        "focus": [
+          "oo",
+          " "
+        ],
+        "cue": "三个词分开写；中间 good 保留双 o。",
+        "sourceEvidence": "be /biː/、good /ɡʊd/、at /æt/。be good at 表示“擅长”。踢球踢得好就说 be good at football（擅长足球），at 后接你拿手的项目；遮住英文，看中文先读，再回写 be＋good＋at，good 有双 o，三个词留空格。"
       }
     },
     {
@@ -8223,6 +10313,18 @@
           ],
           "note": "seven 接 -ty 得到 seventy。后缀 -ty 构成整十数，与表示十几的 -teen 区分。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "seven",
+          "ty"
+        ],
+        "focus": [
+          "n",
+          "ty"
+        ],
+        "cue": "seven 的 n 保留，后面接 ty。",
+        "sourceEvidence": "读 /ˈsevənti/，seven 末尾 en /ən/、ty /ti/。seven（七）＋-ty 得 seventy（七十）。七捆小棒，每捆十根；回想七个十，写 seven＋ty，seven 的 n 保留，末尾是 ty。"
       }
     },
     {
@@ -8264,6 +10366,18 @@
           ],
           "note": "eight 与 -ty 结合时只写一个 t，字面可记 eigh＋ty，不能写成 eightty。后缀 -ty 构成整十数，与表示十几的 -teen 区分。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "eight",
+          "y"
+        ],
+        "focus": [
+          "t",
+          "y"
+        ],
+        "cue": "eight 后只加 y；全词只有一个 t，不写 eightty。",
+        "sourceEvidence": "eight /eɪt/、y /i/。eight（八）变 eighty（八十）时在词尾添 y，拼写只出现一个 t。八捆十根小棒排好；回想八个十，写 eight＋y，别写 eightty。"
       }
     },
     {
@@ -8305,6 +10419,18 @@
           ],
           "note": "nine 接 -ty 得到 ninety，原词尾 e 保留；nineteen 是十九。后缀 -ty 构成整十数，与表示十几的 -teen 区分。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "nine",
+          "ty"
+        ],
+        "focus": [
+          "e",
+          "ty"
+        ],
+        "cue": "nine 的 e 保留，再接 ty；不是 nineteen。",
+        "sourceEvidence": "读 /ˈnaɪnti/，i /aɪ/、ty /ti/。nine（九）变 ninety（九十）时直接加 -ty，nine 的 e 保留。九捆十根小棒排好；回想九个十，写 nine＋ty，别写成 nineteen；中间的 e 不能漏。"
       }
     },
     {
@@ -8364,6 +10490,18 @@
           ],
           "note": "tire 已有末尾 e，只加 d 得到 tired；这里用过去分词描述疲倦状态，不表示句子必定是过去时。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "tire",
+          "d"
+        ],
+        "focus": [
+          "e",
+          "d"
+        ],
+        "cue": "tire 已有 e，只接 d，不再加一个 e。",
+        "sourceEvidence": "读 /taɪəd/，ire /aɪə/，末尾 d /d/。tire（使疲倦）词尾已有 e，加 d 成 tired（疲倦的）。跑完步肩膀耷拉、眼皮打架；回想疲倦的身体，写 tire＋d，别再加一个 e。"
       }
     },
     {
@@ -8411,6 +10549,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "win"
+        ],
+        "focus": [
+          "i",
+          "n"
+        ],
+        "cue": "中间写 i，最后 n；词尾没有 e。",
+        "sourceEvidence": "win 的 i 读 /ɪ/。比赛赢了，你举起奖杯；回想获胜动作，按 w-i-n 写，词里没有 e，别和 wine 混写。"
       }
     },
     {
@@ -8443,6 +10592,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "hun",
+          "dred"
+        ],
+        "focus": [
+          "u",
+          "d",
+          "e"
+        ],
+        "cue": "hun 用 u；dred 开头和结尾都是 d，中间写 e。",
+        "sourceEvidence": "读 /ˈhʌndrəd/，u /ʌ/、后 e /ə/。hundred 按 hun—dred 记，u 读 /ʌ/。十捆十根小棒合起来是一百；回想百根小棒，写 hun＋dred，后半段开头和结尾都是 d。"
       }
     },
     {
@@ -8479,6 +10641,19 @@
           ],
           "note": "分写的音译名称，整体对应功夫；这两部分来自中文音译，不是英语词根和后缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "kung ",
+          "fu"
+        ],
+        "focus": [
+          "ng",
+          " ",
+          "u"
+        ],
+        "cue": "kung 以 ng 结尾；空一格写 fu，fu 没有 o。",
+        "sourceEvidence": "kung fu 是汉语“功夫”的英文写法，读 /ˌkʌŋ ˈfuː/。回想抱拳起势，先写 kung，遮住英文，看中文先读，再再写 fu，中间留空格；kung 以 ng 结尾，fu 没有 o。"
       }
     },
     {
@@ -8511,6 +10686,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "leg"
+        ],
+        "focus": [
+          "e",
+          "g"
+        ],
+        "cue": "中间写 e，与 log 的 o 区分；末尾 g 保留。",
+        "sourceEvidence": "leg 的 e 读 /e/，末尾 g 读 /g/。摸摸腿说 /leɡ/；从腿的动作回想声音，写 l-e-g，与 log 的区别在中间 e。"
       }
     },
     {
@@ -8560,6 +10746,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "h",
+          "ur",
+          "t"
+        ],
+        "focus": [
+          "ur"
+        ],
+        "cue": "中间用 ur 两字母写。",
+        "sourceEvidence": "hurt 的 ur 英式读 /ɜː/，美式 /ɝː/，和 turn 的 ur 一样。磕到膝盖疼得皱眉；回想疼痛，写 h-ur-t，把 ur 当一组。"
       }
     },
     {
@@ -8617,6 +10815,18 @@
           ],
           "note": "bad 加副词后缀 -ly 得到 badly，说明动作的方式或程度；不能据此把所有 ly 结尾词都当副词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "bad",
+          "ly"
+        ],
+        "focus": [
+          "d",
+          "ly"
+        ],
+        "cue": "bad 的 d 保留；直接接 ly，两个部分连写。",
+        "sourceEvidence": "bad 的 a /æ/、ly /li/。bad（坏的）＋-ly 成 badly（严重地、很差地）。膝盖摔伤得很严重：hurt badly。回想伤得严重的膝盖，写 bad＋ly，bad 的 d 保留。"
       }
     },
     {
@@ -8665,6 +10875,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "k",
+          "i",
+          "ng"
+        ],
+        "focus": [
+          "ng"
+        ],
+        "cue": "最后 /ŋ/ 用 ng 两字母写。",
+        "sourceEvidence": "king 中 i 读 /ɪ/，ng 读 /ŋ/，不另加 /g/。国王戴着金色王冠；回想王冠，写 k-i-ng，末尾用 ng。"
       }
     },
     {
@@ -8721,6 +10943,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "visit"
+        ],
+        "focus": [
+          "i",
+          "s"
+        ],
+        "cue": "两个元音都写 i；听到 /z/ 仍写 s。",
+        "sourceEvidence": "visit（拜访、参观）读 /ˈvɪzɪt/：两个 i 都读 /ɪ/，s 读 /z/。去朋友家拜访。遮住英文，看“拜访”先读，再写 v-i-s-i-t；检查两个 i，听到 /z/ 仍写 s。"
       }
     },
     {
@@ -8761,6 +10994,20 @@
           ],
           "note": "冠词和两个主要词构成长城专名，Great 和 Wall 首字母大写；不能连写成一个词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "the ",
+          "Great ",
+          "Wall"
+        ],
+        "focus": [
+          "ea",
+          "ll",
+          " "
+        ],
+        "cue": "三个词分开写；Great 用 ea，Wall 结尾双 l。",
+        "sourceEvidence": "Great 的 ea /eɪ/，Wall /wɔːl/。Great（伟大的）＋Wall（墙）组成长城的名称，前面加 the。想象一堵伟大的墙翻过山顶；遮住英文，看中文先读，再回写 the＋Great＋Wall，Great 的 ea 读 /eɪ/，Wall 要双 l。"
       }
     },
     {
@@ -8807,6 +11054,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "he",
+          "ro"
+        ],
+        "focus": [
+          "o"
+        ],
+        "cue": "先写 he，再写 ro；最后是 o，后面没有 w。",
+        "sourceEvidence": "hero 按 he—ro 记，英式读 /ˈhɪərəʊ/。英雄站在高台救下小动物；he 读 /hɪə/，ro 读 /rəʊ/，后面没有 w。先读一遍，再遮住词，从英雄画面写 he＋ro，末尾是 o。"
       }
     },
     {
@@ -8853,6 +11111,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "him"
+        ],
+        "focus": [
+          "i",
+          "m"
+        ],
+        "cue": "中间写 i；“他”宾格结尾是 m，不是 his 的 s。",
+        "sourceEvidence": "him 的 i 读 /ɪ/。把礼物递给那个男孩：“给他” give it to him。回想接礼物的男孩，写 h-i-m；“他的”是 his，结尾换成 m 才是“他”的宾格。"
       }
     },
     {
@@ -8890,6 +11159,19 @@
           ],
           "note": "两个词组成劳动节名称，主要词首字母大写；Labour 是英式拼写，美式常写 Labor。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Labour ",
+          "Day"
+        ],
+        "focus": [
+          "ou",
+          "L",
+          "D"
+        ],
+        "cue": "Labour 保留英式 ou；两词分开，L、D 大写。",
+        "sourceEvidence": "Labour /ˈleɪbə/，Day /deɪ/。Labour（劳动）＋Day（日子）＝劳动节。扫帚和日历并排放，把劳动与节日连起来；遮住英文，看中文先读，再回写 Labour＋Day，课本用英式 Labour，要保留 ou；两个词首字母大写。"
       }
     },
     {
@@ -8938,6 +11220,19 @@
           "parts": [],
           "note": "holiday 历史上与 holy 和 day 有关，但现代假期义不等于神圣的日子；这里整体学习，不把历史词源当成完全透明的构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "hol",
+          "i",
+          "day"
+        ],
+        "focus": [
+          "i",
+          "ay"
+        ],
+        "cue": "hol 与 day 中间的 i 不能漏；day 结尾用 ay。",
+        "sourceEvidence": "读 /ˈhɒlədeɪ/，o /ɒ/、i /ə/、ay /eɪ/。holiday 按 hol—i—day 记，末尾 day 是熟悉的“日子”。想象日历里放假的几天被涂成彩色；从放假日历写 hol＋i＋day，中间 i 不要漏。"
       }
     },
     {
@@ -8992,6 +11287,17 @@
           "parts": [],
           "note": "May 是月份专名，整体学习并首字母大写；小写 may 是另一种语法用途，不是构词变化。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "M",
+          "ay"
+        ],
+        "focus": [
+          "M"
+        ],
+        "cue": "五月的 M 必须大写，后面接 ay。",
+        "sourceEvidence": "May（五月）与 may（可以）拼写和读音相同，ay 读 /eɪ/。日历翻到五月，把小写 m 抬高成大写 M；从五月日历遮住英文，看中文先读，再回写 M＋ay，月份必须大写。"
       }
     },
     {
@@ -9040,6 +11346,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ch",
+          "ore"
+        ],
+        "focus": [
+          "ch",
+          "r",
+          "e"
+        ],
+        "cue": "开头 /tʃ/ 写 ch；ore 的 r、e 都保留。",
+        "sourceEvidence": "chore /tʃɔː/：ch–ore，/tʃ/ 写 ch；结尾 ore 的 r、e 即使不单独听到也都保留。遮住英文，看中文读出，再写一遍。"
       }
     },
     {
@@ -9076,6 +11395,18 @@
           ],
           "note": "USA 是美国全称的首字母缩写，三个字母大写；作国家名称时本短语保留前面的 the。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "the ",
+          "USA"
+        ],
+        "focus": [
+          " ",
+          "USA"
+        ],
+        "cue": "the 与 USA 分开写；U、S、A 三个字母都大写。",
+        "sourceEvidence": "the USA（美国）读 /ðə ˌjuː es ˈeɪ/：USA 按三个字母名 U、S、A 读。它是 United States of America 的首字母缩写。遮住名称，先按字母名读，再写 the＋USA，留空格，USA 三个字母大写。"
       }
     },
     {
@@ -9130,6 +11461,19 @@
           "parts": [],
           "note": "September 是现代第九个月名称；历史上的数值来源与现代月序不同，不用词源数字替代当前九月含义。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Sep",
+          "tem",
+          "ber"
+        ],
+        "focus": [
+          "tem",
+          "ber"
+        ],
+        "cue": "中间写 tem；轻读词尾仍写 ber，两段都不省。",
+        "sourceEvidence": "读 /sepˈtembə/，Sep /sep/、tem /tem/、ber /bə/。September 按 Sep—tem—ber 记，重音在 tem。九月开学，跟读 /sep/—/ˈtem/—/bə/；最后轻音写 ber，回想九月课表，按三段遮住英文，看中文先读，再写回，tem 和 ber 都不能省。"
       }
     },
     {
@@ -9183,6 +11527,17 @@
           "parts": [],
           "note": "June 是月份专名，整体学习；不硬拆为小片段来推导月份含义。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "June"
+        ],
+        "focus": [
+          "J",
+          "e"
+        ],
+        "cue": "月份 J 大写；词尾不发音的 e 保留。",
+        "sourceEvidence": "June 的 u-e 读 /uː/，j 读 /dʒ/。六月到来；这里 u-e 对应 /uː/，不读 /juː/；遮住英文，看中文先读，再回写 J-u-n-e，月份 J 大写，末尾有 e。"
       }
     },
     {
@@ -9237,6 +11592,19 @@
           "parts": [],
           "note": "November 是现代第十一个月名称；历史词源与九有关，但当前月序应记十一月。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "No",
+          "vem",
+          "ber"
+        ],
+        "focus": [
+          "v",
+          "ber"
+        ],
+        "cue": "中段开头用 v；轻读词尾写 ber。",
+        "sourceEvidence": "读 /nəʊˈvembə/，No /nəʊ/、vem /vem/、ber /bə/。November 按 No—vem—ber 记，重音在 vem。十一月到来，跟读 /nəʊ/—/ˈvem/—/bə/；最后轻音写 ber；先读一遍，再遮住词，从这页日历依次写 No＋vem＋ber，中段开头是 v。"
       }
     },
     {
@@ -9293,6 +11661,19 @@
           "parts": [],
           "note": "Canada 是国家专名，整体认读；不根据 can 等偶然字母片段解释其国名。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Ca",
+          "na",
+          "da"
+        ],
+        "focus": [
+          "a",
+          "C"
+        ],
+        "cue": "三拍元音都写 a，首字母 C 大写。",
+        "sourceEvidence": "Canada（加拿大）读 /ˈkænədə/：第一拍 a 读 /æ/，后两拍 a 轻读 /ə/，三个音节的元音都写 a。遮住名称，看加拿大地图先读，再写 Ca＋na＋da；核对三个 a，首字母大写。"
       }
     },
     {
@@ -9334,6 +11715,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "of",
+          "ten"
+        ],
+        "focus": [
+          "t",
+          "en"
+        ],
+        "cue": "即使读音不含 /t/，仍写 ten 的 t。",
+        "sourceEvidence": "读 /ˈɒfən/ 或 /ˈɒftən/，t 可读可不读。often 按 of—ten 记，t 可以发音也可以不发音。每周日历好几格都画了去公园的小脚印，表示经常；从反复出现的脚印遮住英文，看中文先读，再回写 of＋ten，即使没听到 t 也要写。"
       }
     },
     {
@@ -9383,6 +11776,20 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ci",
+          "ne",
+          "ma"
+        ],
+        "focus": [
+          "c",
+          "e",
+          "a"
+        ],
+        "cue": "开头 /s/ 用 c；后两拍分别写 e、a。",
+        "sourceEvidence": "cinema 中 c 在 i 前读 /s/，按 ci—ne—ma 记，读 /ˈsɪnəmə/。到电影院看电影；后两拍都轻读，却分别写 e、a；回想看电影，按三段遮住英文，看中文先读，再回写。"
       }
     },
     {
@@ -9433,6 +11840,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "z",
+          "oo"
+        ],
+        "focus": [
+          "oo"
+        ],
+        "cue": "最后长音用双 o，不能漏一个 o。",
+        "sourceEvidence": "zoo 的 oo 读 /uː/。把两个 o 想成动物园里并排的两个圆形围栏；回想动物园，听 /zuː/，写 z＋oo，别漏一个 o。"
       }
     },
     {
@@ -9469,6 +11887,20 @@
           ],
           "note": "两个词组成国庆节名称；National 与 nation 国家有关，加形容词后缀 -al，但短语整体表示节日名。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Nation",
+          "al ",
+          "Day"
+        ],
+        "focus": [
+          "tion",
+          "al",
+          " "
+        ],
+        "cue": "先 Nation 加 al，再空一格写 Day；tion、al 都保留，N、D 大写。",
+        "sourceEvidence": "National Day 是国庆节，读 /ˈnæʃənəl deɪ/。National 中 a 读 /æ/，tion 读 /ʃən/，最后 al 轻读 /əl/；Day 的 ay 读 /eɪ/。升国旗庆祝国家的节日。先读一遍，再遮住名称，先写 Nation＋al，再空一格写 Day；核对 tion、al，首字母 N、D 大写。"
       }
     },
     {
@@ -9523,6 +11955,19 @@
           "parts": [],
           "note": "October 是现代第十个月名称；历史词源与八有关，但不能因此把现代十月误记成八月。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Oc",
+          "to",
+          "ber"
+        ],
+        "focus": [
+          "Oc",
+          "ber"
+        ],
+        "cue": "开头写 Oc，不用 Ok；最后轻音写 ber。",
+        "sourceEvidence": "October 按 Oc—to—ber 记，重音在 to。十月是国庆节所在的月份；听 /ɒkˈtəʊbə/ 后写 Oc＋to＋ber，开头 Oc 的 c 读 /k/。"
       }
     },
     {
@@ -9550,6 +11995,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "fl",
+          "a",
+          "g"
+        ],
+        "focus": [
+          "fl",
+          "g"
+        ],
+        "cue": "开头 f、l 两字母都写；最后 /g/ 用 g。",
+        "sourceEvidence": "flag /flæɡ/：fl–a–g，开头 /fl/ 写 f、l 两个字母，末尾 /ɡ/ 写 g。遮住英文，看中文读出，再写一遍。"
       }
     },
     {
@@ -9604,6 +12062,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "w",
+          "a",
+          "tch"
+        ],
+        "focus": [
+          "a",
+          "tch"
+        ],
+        "cue": "中间用 a；末尾 /tʃ/ 写 tch，不能漏 t。",
+        "sourceEvidence": "watch 中 a 英式读 /ɒ/，tch 合读 /tʃ/。眼睛盯着电视观看，像一直守着画面；听 /wɒtʃ/，遮住英文，看中文先读，再回写 w-a-tch，末尾三个字母不能只写 ch。"
       }
     },
     {
@@ -9651,6 +12122,17 @@
           "parts": [],
           "note": "early 虽以 ly 结尾，当前不拆作 ear 加 -ly；它本身可作形容词或副词，不能把耳朵当作词根。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ear",
+          "ly"
+        ],
+        "focus": [
+          "ear"
+        ],
+        "cue": "前段写完整 ear；词尾接 ly。",
+        "sourceEvidence": "early 中 ear 英式读 /ɜː/，词尾 ly 读 /li/。太阳刚升起，你早早到校；从清早画面写 ear＋ly，early 的 ear 与 hear 的 ear 读音不同。"
       }
     },
     {
@@ -9697,6 +12179,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "spe",
+          "cial"
+        ],
+        "focus": [
+          "cial",
+          "c"
+        ],
+        "cue": "后段写 cial；/ʃ/ 在这里用 c，不写 sh。",
+        "sourceEvidence": "special 按 spe—cial 记，cial 在这里读 /ʃəl/。生日礼物盒上贴特别的星星；回想“特别”，写 spe＋cial，中间用 c，不按声音写 sh。"
       }
     },
     {
@@ -9738,6 +12232,19 @@
           ],
           "note": "以泼水活动命名的节日；splash 加 -ing 形成 Splashing，Water-Splashing 用连字符连接，再与 Festival 分写。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Water-",
+          "Splashing ",
+          "Festival"
+        ],
+        "focus": [
+          "-",
+          " "
+        ],
+        "cue": "Water 与 Splashing 之间保留连字符；Splashing 后空一格接 Festival。",
+        "sourceEvidence": "Water /ˈwɔːtə/、Splashing /ˈsplæʃɪŋ/、Festival /ˈfestɪvəl/。water（水）＋splash（泼溅）加 -ing，再接 Festival，组成泼水节名称。端水、泼水、庆祝连成三个动作；遮住英文，看中文先读，再回写 Water-Splashing＋Festival，water 与 splashing 之间保留连字符。"
       }
     },
     {
@@ -9792,6 +12299,18 @@
           "parts": [],
           "note": "April 是月份专名，整体学习；不把末尾字母当作当前教学所需的后缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "A",
+          "pril"
+        ],
+        "focus": [
+          "A",
+          "l"
+        ],
+        "cue": "开头大写 A；pril 末尾只有一个 l。",
+        "sourceEvidence": "April 按 A—pril 记，A 读 /eɪ/，pr 连读 /pr/。四月日历上大大的 A 被春雨打湿；回想四月页，写 A＋pril，只有一个 l。"
       }
     },
     {
@@ -9828,6 +12347,18 @@
           ],
           "note": "由 Inner 与 Mongolia 构成地区专名，整体指内蒙古；不把 Mongolia 拆成臆造词根。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Inner ",
+          "Mongolia"
+        ],
+        "focus": [
+          "nn",
+          " "
+        ],
+        "cue": "Inner 中间双 n；与 Mongolia 分开写。",
+        "sourceEvidence": "Inner /ˈɪnə/，Mongolia /mɒŋˈɡəʊliə/。Inner（内部的）＋Mongolia（蒙古）是内蒙古的英文名称。先看地图内部的位置，再看蒙古地区；遮住英文，看中文先读，再回写 Inner＋Mongolia，Inner 要双 n，Mongolia 分 Mon—go—li—a 记。"
       }
     },
     {
@@ -9856,6 +12387,19 @@
           "parts": [],
           "note": "Naadam 是那达慕的音译专名，整体认读，不把字母片段当作英语词根。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Naa",
+          "dam"
+        ],
+        "focus": [
+          "aa",
+          "a",
+          "N"
+        ],
+        "cue": "N 大写；开头两个 a 相邻，dam 中再写一个 a。",
+        "sourceEvidence": "Naadam 是“那达慕”的英文专名，不能按普通英语拼读规则唯一推回。先看中文节日名，听课本录音并指着 Naadam 跟读，再遮住英文重说名称。拼写按 Naa＋dam 记：“那”这一段固定写 Naa，后面写 dam；两个 a 相邻，最后再写一个 a。遮住名称写回，核对 N 大写、开头双 a 和末尾 dam。"
       }
     },
     {
@@ -9910,6 +12454,18 @@
           "parts": [],
           "note": "July 是月份专名，整体学习；末尾 ly 并不是这里的副词后缀。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Ju",
+          "ly"
+        ],
+        "focus": [
+          "J",
+          "y"
+        ],
+        "cue": "月份 J 大写；末尾 /aɪ/ 用 y，不能按 June 添 e。",
+        "sourceEvidence": "读 /dʒuˈlaɪ/，Ju /dʒu/、ly /laɪ/。July 按 Ju—ly 记，重音在 ly，y 读 /aɪ/。七月开始暑假，前一拍轻读 /dʒu/，后一拍重读 /laɪ/；回想暑假的七月，写 Ju＋ly，别按 June 添 e。"
       }
     },
     {
@@ -9963,6 +12519,18 @@
           "parts": [],
           "note": "August 是月份专名，整体学习；不把名称拆成假词根解释八月。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "Au",
+          "gust"
+        ],
+        "focus": [
+          "Au",
+          "u"
+        ],
+        "cue": "开头写 Au；后半 gust 的轻音仍写 u。",
+        "sourceEvidence": "读 /ˈɔːɡəst/，Au /ɔː/、后 u /ə/。August 按 Au—gust 记，英式 Au 读 /ɔː/。八月还在暑假；后半 gust 轻读 /ɡəst/，轻音也要写 u；回想八月页，写 Au＋gust，开头是 Au，后半段 u 保留。"
       }
     },
     {
@@ -10003,6 +12571,18 @@
           ],
           "note": "grand- 在亲属称谓中表示高一代，ma 是妈妈的亲切称呼；grandma 是 grandmother 的日常说法，不把 grand 译成巨大。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "grand",
+          "ma"
+        ],
+        "focus": [
+          "d",
+          "ma"
+        ],
+        "cue": "grand 中的 d 听不见也写；女性长辈结尾是 ma。",
+        "sourceEvidence": "grandma（奶奶、外婆）常读 /ˈɡrænmɑː/：中间 d 通常不单独读，拼写仍保留。用 ma 记女性长辈，和 grandpa 的 pa 对照。遮住英文，先说“奶奶”，再写 grand＋ma，核对 d 和结尾 ma。"
       }
     },
     {
@@ -10050,6 +12630,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "d",
+          "ear"
+        ],
+        "focus": [
+          "ea"
+        ],
+        "cue": "中间用 ea，与同音的 deer 的 ee 区分。",
+        "sourceEvidence": "dear 的 ear 英式读 /ɪə/，与 hear 押韵。给亲爱的人写信，开头写 Dear；从信封回想 d＋ear。它与 deer（鹿）同音，这里写 ea。"
       }
     },
     {
@@ -10097,6 +12688,17 @@
           "parts": [],
           "note": "TV 是 television 的常见首字母缩写，两个字母都大写；缩写不是词根词缀拆分。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "TV"
+        ],
+        "focus": [
+          "T",
+          "V"
+        ],
+        "cue": "字母 T、V 都大写，直接连写。",
+        "sourceEvidence": "TV 来自 television（电视）的缩写，取字母 T 和 V，读 /ˌtiːˈviː/。在电视屏幕上画一个 T，支架像 V；回想电视，写两个大写字母 TV，连写。"
       }
     },
     {
@@ -10137,6 +12739,18 @@
           ],
           "note": "grand- 在亲属称谓中表示高一代，pa 是爸爸的亲切称呼；grandpa 是 grandfather 的日常说法，不把 grand 译成巨大。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "grand",
+          "pa"
+        ],
+        "focus": [
+          "d",
+          "pa"
+        ],
+        "cue": "grand 的 d 保留；男性长辈结尾是 pa。",
+        "sourceEvidence": "grandpa（爷爷、外公）常读 /ˈɡrænpɑː/：中间 d 通常不单独读，拼写仍保留。把 grandma 的 ma 换成 pa，就换成男性长辈。遮住英文，先说“爷爷”，再写 grand＋pa，核对 d 和结尾 pa。"
       }
     },
     {
@@ -10184,6 +12798,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "pl",
+          "a",
+          "nt"
+        ],
+        "focus": [
+          "pl",
+          "nt"
+        ],
+        "cue": "开头 p、l 都写；最后 n、t 都要有。",
+        "sourceEvidence": "plant 中 pl 连读，a 英式常读 /ɑː/，美式 /æ/，nt 结尾。把幼苗种进土里；回想种植物，写 pl-a-nt，最后 n 和 t 都要有。"
       }
     },
     {
@@ -10232,6 +12859,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "kit",
+          "chen"
+        ],
+        "focus": [
+          "tch",
+          "e"
+        ],
+        "cue": "中间 /tʃ/ 写 tch，t 不漏；末尾轻音写 e，不写 i。",
+        "sourceEvidence": "读 /ˈkɪtʃɪn/，i /ɪ/、tch /tʃ/、e 轻读 /ɪ/。kitchen 按 kit—chen 记，tch 在这里合读 /tʃ/。在厨房做饭；末尾 chen 中 e 轻读 /ɪ/，不能因为听到这个音就写 i；遮住英文，看中文先读，再回写 kit＋chen，别按声音只写 ch 而漏 t。"
       }
     },
     {
@@ -10289,6 +12928,17 @@
           ],
           "note": "week 加 end 合成 weekend，指一周末尾通常的周六周日；两部分连写。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "week",
+          "end"
+        ],
+        "focus": [
+          "ee"
+        ],
+        "cue": "保留 week 的双 e，再连写 end。",
+        "sourceEvidence": "week 的 ee /iː/、end 的 e /e/。week（一周）＋end（末尾）＝weekend（周末）。一周日历走到末尾两格，终于休息；遮住英文，看中文先读，再回写 week＋end，连写，week 的双 e 保留。"
       }
     },
     {
@@ -10337,6 +12987,20 @@
           "parts": [],
           "note": "当前按常用复数人群名词整体学习；对应单个人 person，但不能由给 person 加 s 推出 people。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "p",
+          "eo",
+          "p",
+          "le"
+        ],
+        "focus": [
+          "eo",
+          "le"
+        ],
+        "cue": "长音 /iː/ 在这里用 eo，不写 ee；末尾写 le。",
+        "sourceEvidence": "people 读 /ˈpiːpəl/，其中 eo 在这里读 /iː/，末尾 le。把两个 p 想成并排的人，拼成 p-eo-p-le；回想一群人，长音这里要写 eo，不是 ee。"
       }
     },
     {
@@ -10384,6 +13048,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "th",
+          "ey"
+        ],
+        "focus": [
+          "ey"
+        ],
+        "cue": "开头 th；末尾 /eɪ/ 写 ey，不写 ay。",
+        "sourceEvidence": "they 的 th 读 /ð/，ey 在这里读 /eɪ/。一群人一起举手：“他们” they；回想群体，写 th＋ey，和 them 对照，词尾换成 ey。"
       }
     },
     {
@@ -10416,6 +13091,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "sk",
+          "y"
+        ],
+        "focus": [
+          "y"
+        ],
+        "cue": "开头 s、k 都写；末尾 /aɪ/ 用 y。",
+        "sourceEvidence": "sky 的 sk 连读 /sk/，y 读 /aɪ/。抬头看天空，手臂向上伸；回想天空，按 sk＋y 写，最后的长音用 y，和 cry 的结尾一样。"
       }
     },
     {
@@ -10450,6 +13136,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "fl",
+          "y"
+        ],
+        "focus": [
+          "y"
+        ],
+        "cue": "开头 f、l 都写；末尾 /aɪ/ 用 y。",
+        "sourceEvidence": "fly 的 fl 连读 /fl/，y 读 /aɪ/。小鸟从地面飞向 sky；回想飞行动作，写 fl＋y，与 sky 对照都是 y 结尾。"
       }
     },
     {
@@ -10499,6 +13196,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "put"
+        ],
+        "focus": [
+          "u",
+          "t"
+        ],
+        "cue": "中间 /ʊ/ 用 u；最后接 t。",
+        "sourceEvidence": "put 的 u 在这里读 /ʊ/，和 push 一样。把积木轻轻放到桌上；听 /pʊt/，写 p-u-t，不能按 cut 的 /ʌ/ 读。"
       }
     },
     {
@@ -10546,6 +13254,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "role"
+        ],
+        "focus": [
+          "o",
+          "e"
+        ],
+        "cue": "中间写 o；词尾不发音的 e 不能漏。",
+        "sourceEvidence": "role 的 o-e 读 /əʊ/（美式 /oʊ/）。戴上国王帽子扮演角色，扮的是国王这个 role；回想角色，写 r-o-l-e，末尾 e 不能漏。"
       }
     },
     {
@@ -10600,6 +13319,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "p",
+          "ai",
+          "nt"
+        ],
+        "focus": [
+          "ai",
+          "nt"
+        ],
+        "cue": "长音 /eɪ/ 用 ai；最后 n、t 都保留。",
+        "sourceEvidence": "paint（描绘，绘画）读 /peɪnt/：ai 读 /eɪ/，nt 连读 /nt/。拿画笔描绘盾牌：paint a shield。遮住英文，看“描绘”先读，再写 p-ai-nt，核对 ai 和末尾 nt。"
       }
     },
     {
@@ -10661,6 +13393,19 @@
           ],
           "note": "fun 加 -y 时双写 n 得到 funny；它常表示滑稽、逗人笑，意义比 fun 有乐趣更具体。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "fun",
+          "n",
+          "y"
+        ],
+        "focus": [
+          "nn",
+          "y"
+        ],
+        "cue": "fun 的 n 再双写一个，然后接 y。",
+        "sourceEvidence": "读 /ˈfʌni/，u /ʌ/、y /i/。fun（乐趣）＋-y 成 funny（滑稽的），要先把 n 双写。小丑让你笑得停不下来；从 fun 回想 fun-n-y，多写一个 n 再加 y。"
       }
     },
     {
@@ -10709,6 +13454,20 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "br",
+          "a",
+          "v",
+          "e"
+        ],
+        "focus": [
+          "br",
+          "e"
+        ],
+        "cue": "开头 b、r 都写；末尾不发音的 e 保留。",
+        "sourceEvidence": "brave 的 br 连读 /br/，a-e 读 /eɪ/。勇敢的孩子跨过障碍去救小狗；回想勇敢动作，写 br-a-v-e，结尾有 e。"
       }
     },
     {
@@ -10736,6 +13495,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "en",
+          "joy"
+        ],
+        "focus": [
+          "oy"
+        ],
+        "cue": "先 en 再 joy；词尾 /ɔɪ/ 写 oy，不写 oi。",
+        "sourceEvidence": "读 /ɪnˈdʒɔɪ/，e 轻读 /ɪ/、j /dʒ/、oy /ɔɪ/。用 joy（喜悦）抓住 enjoy（享受、喜欢）的后半段。享受游戏时脸上充满 joy；遮住英文，看中文先读，再回写 en＋joy，oy 读 /ɔɪ/，末尾不是 oi。"
       }
     },
     {
@@ -10790,6 +13560,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "w",
+          "or",
+          "ld"
+        ],
+        "focus": [
+          "or",
+          "ld"
+        ],
+        "cue": "中间写 or；最后 l、d 都要有。",
+        "sourceEvidence": "world 的 or 在这里英式读 /ɜː/，美式 /ɝː/，末尾 ld。把地球拿在手里说 world；遮住英文，看中文先读，再回写 w-or-ld，结尾 l 和 d 都要有。"
       }
     },
     {
@@ -10837,6 +13620,17 @@
           "parts": [],
           "note": "woman 整体学习；不将 wo 臆造为现代可自由用的前缀。复数是 women，拼写和读音均变化。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "wo",
+          "man"
+        ],
+        "focus": [
+          "a"
+        ],
+        "cue": "单数后段写 man，用 a；不要写成 women。",
+        "sourceEvidence": "woman 按 wo—man 记，单数读 /ˈwʊmən/，不是照 man 的 /mæn/ 读。看一位女士的单人照片；从一位女士遮住英文，看中文先读，再回写 wo＋man，不要写成复数 women。"
       }
     },
     {
@@ -10884,6 +13678,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "t",
+          "ea"
+        ],
+        "focus": [
+          "ea"
+        ],
+        "cue": "茶的长音写 ea，不写成 tee 的 ee。",
+        "sourceEvidence": "tea 的 ea 读 /iː/。端起一杯茶，吹气后慢慢喝；听 /tiː/，遮住英文，看中文先读，再回写 t＋ea，长音写 ea，不能写 tee。"
       }
     },
     {
@@ -10931,6 +13736,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "rab",
+          "bit"
+        ],
+        "focus": [
+          "bb",
+          "a",
+          "i"
+        ],
+        "cue": "两段交界双 b；两拍元音依次写 a、i。",
+        "sourceEvidence": "rabbit /ˈræbɪt/：字形 rab–bit，中间双 b；第一拍 /æ/ 写 a，第二拍 /ɪ/ 写 i。遮住英文，看中文读出，再写一遍。"
       }
     },
     {
@@ -10978,6 +13796,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "gl",
+          "a",
+          "d"
+        ],
+        "focus": [
+          "gl"
+        ],
+        "cue": "开头 g、l 两字母都写，不省 l。",
+        "sourceEvidence": "glad 的 gl 连读 /ɡl/，a 读 /æ/。收到来信高兴地展开纸；回想高兴的脸，写 gl-a-d，别把开头两字母合成 g。"
       }
     },
     {
@@ -11026,6 +13856,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "n",
+          "ee",
+          "d"
+        ],
+        "focus": [
+          "ee",
+          "n"
+        ],
+        "cue": "中间长音写双 e；需要的开头是 n，不是 feed 的 f。",
+        "sourceEvidence": "need /niːd/：n–ee–d，长音 /iː/ 写双 e；与 feed 只换首字母，需要写 n。遮住英文，看中文读出，再写一遍。"
       }
     },
     {
@@ -11074,6 +13917,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "buy"
+        ],
+        "focus": [
+          "u",
+          "y"
+        ],
+        "cue": "b 后保留 u 再接 y，不写成同音的 by。",
+        "sourceEvidence": "buy 读 /baɪ/，uy 在这个词里表示 /aɪ/。买东西时把钱递给店员；从付款动作回想 b-u-y，不能因为与 by 同音就漏 u。"
       }
     },
     {
@@ -11131,6 +13985,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "t",
+          "e",
+          "ll"
+        ],
+        "focus": [
+          "ll"
+        ],
+        "cue": "中间写 e；末尾 /l/ 写双 l。",
+        "sourceEvidence": "tell /tel/：t–e–ll，中间 /e/ 写 e，末尾 /l/ 写双 l；与 well 只换首字母。遮住英文，看中文读出，再写一遍。"
       }
     },
     {
@@ -11159,6 +14025,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "w",
+          "ay"
+        ],
+        "focus": [
+          "ay"
+        ],
+        "cue": "结尾 /eɪ/ 写 ay 两字母。",
+        "sourceEvidence": "way 的 ay 读 /eɪ/。路口箭头指着要走的路；回想路线，写 w＋ay，与 may 只换首字母。"
       }
     },
     {
@@ -11207,6 +14084,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "sh",
+          "o",
+          "p"
+        ],
+        "focus": [
+          "sh",
+          "p"
+        ],
+        "cue": "开头 /ʃ/ 写 sh；最后写 p。",
+        "sourceEvidence": "shop 的 sh 读 /ʃ/，o 英式读 /ɒ/。推开商店门听见轻轻的沙沙声；回想商店，写 sh-o-p，最后是 p。"
       }
     },
     {
@@ -11241,6 +14131,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "n",
+          "ear"
+        ],
+        "focus": [
+          "ear"
+        ],
+        "cue": "后段写 ear，长音不用 eer。",
+        "sourceEvidence": "near 的 ear 英式读 /ɪə/，与 dear 押韵。两把椅子挪到很近；回想靠近的位置，写 n＋ear，不能把 ear 写成 eer。"
       }
     },
     {
@@ -11274,6 +14175,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "fr",
+          "o",
+          "nt"
+        ],
+        "focus": [
+          "o",
+          "nt"
+        ],
+        "cue": "中间虽读 /ʌ/，仍写 o；末尾 n、t 都保留。",
+        "sourceEvidence": "front 的 o 在这里读 /ʌ/，末尾 nt。一个孩子站在队伍前面；听 /frʌnt/，遮住英文，看中文先读，再回写 fr-o-nt，中间虽然读 /ʌ/，仍写 o。"
       }
     },
     {
@@ -11321,6 +14235,19 @@
           ],
           "note": "三个词组成位置短语，整体表示在某物前面；三个词都分写，of 后要给出参照对象。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "in ",
+          "front ",
+          "of"
+        ],
+        "focus": [
+          " ",
+          "o"
+        ],
+        "cue": "三个词分开写；front 中间 /ʌ/ 用 o。",
+        "sourceEvidence": "in front of 表示“在……前面”。让小熊站在箱子前面，front 是整组的中心；回想小熊与箱子的位置，按 in＋front＋of 写，三个词分开，front 的 o 读 /ʌ/。"
       }
     },
     {
@@ -11377,6 +14304,19 @@
           ],
           "note": "build 加 -ing 可构成 building，表示建筑物；在当前义项中是名词，不是正在建造的句子。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "build",
+          "ing"
+        ],
+        "focus": [
+          "ui",
+          "u",
+          "ing"
+        ],
+        "cue": "build 的 ui 两字母都保留，再连写 ing。",
+        "sourceEvidence": "build（建造）＋-ing 得 building（建筑物）。工人一层层 build，完成后是一座 building；遮住英文，看中文先读，再回写 build＋ing，build 的 ui 在这里读 /ɪ/，u 要保留。"
       }
     },
     {
@@ -11411,12 +14351,23 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "f",
+          "ar"
+        ],
+        "focus": [
+          "ar"
+        ],
+        "cue": "f 后写 ar 两字母，全词三个字母。",
+        "sourceEvidence": "far 的 ar 英式读 /ɑː/，美式带 r 音。远处的小屋小得像一点，伸手够不到；回想远方，写 f＋ar，只有三个字母。"
       }
     },
     {
       "section": "四下Unit 7",
       "method": "拼读",
-      "hint": "robot /ˈrəʊbɒt/：字形 ro–bot，两个不同元音 /əʊ/、/ɒ/ 都写 o；末尾是 t。收起英文，试着读写完整词，再核对上述字母。",
+      "hint": "robot /ˈrəʊbɒt/：字形 ro–bot，两个不同元音 /əʊ/、/ɒ/ 都写 o；末尾是 t。遮住英文，试着读写完整词，再核对上述字母。",
       "example": "The robot can talk. 机器人会说话。",
       "word": "robot",
       "sourceUrl": "https://www.etymonline.com/word/robot",
@@ -11467,6 +14418,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "ro",
+          "bot"
+        ],
+        "focus": [
+          "o",
+          "t"
+        ],
+        "cue": "两拍元音都用 o；末尾是 t。",
+        "sourceEvidence": "robot /ˈrəʊbɒt/：字形 ro–bot，两个不同元音 /əʊ/、/ɒ/ 都写 o；末尾是 t。"
       }
     },
     {
@@ -11522,6 +14485,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "k",
+          "n",
+          "ow"
+        ],
+        "focus": [
+          "k",
+          "ow"
+        ],
+        "cue": "保留不发音的 k；末尾用 ow，不写成同音的 no。",
+        "sourceEvidence": "know 的 k 不发音，ow 读 /əʊ/（美式 /oʊ/）。你知道答案，举手但 k 安静不出声；听 /nəʊ/，遮住英文，看中文先读，再回写 k-n-ow。它与 no 同音，这里必须保留 k 和 w。"
       }
     },
     {
@@ -11555,6 +14531,18 @@
           "parts": [],
           "note": "three 对应的序数词是 third，表示第三；不能简单写成 threeth，整体建立三与第三的对应。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "th",
+          "ir",
+          "d"
+        ],
+        "focus": [
+          "ir"
+        ],
+        "cue": "中间写 ir，最后 d；不把 three 直接接 th。",
+        "sourceEvidence": "three（三）的序数词是 third（第三），拼写要单独记。第三名举着 3 号牌；third 的 ir 英式读 /ɜː/。从第三名回想 th-ir-d，别直接写 threeth。"
       }
     },
     {
@@ -11609,6 +14597,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "sh",
+          "e",
+          "lf"
+        ],
+        "focus": [
+          "sh",
+          "lf"
+        ],
+        "cue": "开头写 sh；最后 l、f 都写。",
+        "sourceEvidence": "shelf 中 sh 读 /ʃ/，e 读 /e/，末尾 lf。书架板把书稳稳托住；回想一层架子，写 sh-e-lf，最后 l 和 f 都要写。"
       }
     },
     {
@@ -11656,6 +14657,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "let",
+          "ter"
+        ],
+        "focus": [
+          "tt",
+          "er"
+        ],
+        "cue": "两段交界双 t；弱读词尾仍写 er。",
+        "sourceEvidence": "letter /ˈletə/：字形 let–ter，中间双 t；首拍 /e/ 写 e，弱读末尾仍写 er。遮住英文，看中文读出，再写一遍。"
       }
     },
     {
@@ -11689,6 +14702,18 @@
           "parts": [],
           "note": "two 对应的序数词是 second，表示第二；整体学习这个不规则对应，不硬拆成英语前缀和词根。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "sec",
+          "ond"
+        ],
+        "focus": [
+          "c",
+          "o"
+        ],
+        "cue": "中间 /k/ 用 c；后段轻音仍写 o。",
+        "sourceEvidence": "读 /ˈsekənd/，e /e/、c /k/、o /ə/。second 按 sec—ond 记，重音在 sec。第二名戴着 2 号牌；后半 ond 轻读 /ənd/，仍写 o；回想第二名，写 sec＋ond，中间 c 在这里读 /k/。"
       }
     },
     {
@@ -11722,6 +14747,17 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "be",
+          "side"
+        ],
+        "focus": [
+          "e"
+        ],
+        "cue": "be 后接 side；side 的词尾 e 保留。",
+        "sourceEvidence": "读 /bɪˈsaɪd/，be /bɪ/、side 的 i-e /aɪ/。beside 按 be—side 记，side 的 i-e 读 /aɪ/。side（旁边、侧面）前面接 be：两把椅子摆在彼此旁边。回想相邻的位置，写 be＋side，保留 e。"
       }
     },
     {
@@ -11789,6 +14825,18 @@
           ],
           "note": "play 加 ground 合成 playground，表示供玩耍或活动的场地；两部分连写。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "play",
+          "ground"
+        ],
+        "focus": [
+          "ay",
+          "ou"
+        ],
+        "cue": "play 用 ay，ground 用 ou；两部分直接连写。",
+        "sourceEvidence": "play 的 ay /eɪ/、ground 的 ou /aʊ/。play（玩）＋ground（地面、场地）＝playground（操场）。在一片场地上玩球；回想玩和场地，写 play＋ground，连写，ground 的 ou 读 /aʊ/。"
       }
     },
     {
@@ -11822,6 +14870,17 @@
           "parts": [],
           "note": "centre 是基础位置词，此处为英式拼写；美式 center 是拼写变体，不是词缀变化。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "cen",
+          "tre"
+        ],
+        "focus": [
+          "tre"
+        ],
+        "cue": "课本英式结尾用 tre，r 在 e 前，不写 ter。",
+        "sourceEvidence": "centre 中 c 在 e 前读 /s/，按 cen—tre 记。站到圆形广场中心；末尾 tre 轻读 /tə/，两个字母 r、e 都保留；遮住英文，看中文先读，再回写 cen＋tre，课本英式拼写结尾是 tre，不是美式 ter。"
       }
     },
     {
@@ -11849,6 +14908,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "sm",
+          "ar",
+          "t"
+        ],
+        "focus": [
+          "m",
+          "ar"
+        ],
+        "cue": "第二个字母写 m，与 start 区分；中间写 ar。",
+        "sourceEvidence": "smart 中 sm 连读 /sm/，ar 英式读 /ɑː/。聪明的孩子一下解开谜题；回想解题的动作，写 sm-ar-t，和 start 的区别是第二个字母 m。"
       }
     },
     {
@@ -11905,6 +14977,21 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "com",
+          "mu",
+          "ni",
+          "ty"
+        ],
+        "focus": [
+          "mm",
+          "o",
+          "i"
+        ],
+        "cue": "前两段交界双 m；轻音开头写 o，后段 ni 用 i。",
+        "sourceEvidence": "读 /kəˈmjuːnəti/，mu /mjuː/、ni /nə/、ty /ti/。community 按 com—mu—ni—ty 记，重音在 mu。社区里大家是邻居；读 /kəˈmjuːnəti/，轻音 /ə/ 在开头用 o、在后面用 i；遮住英文，看中文先读，再回写 com＋mu＋ni＋ty，两个 m 在前两段接合处相邻。"
       }
     },
     {
@@ -11961,6 +15048,17 @@
           ],
           "note": "them 和复数反身成分 selves 组成 themselves；selves 对应 self 的复数形式，整体表达他们自己，不能写成 themself 来指多人。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "them",
+          "selves"
+        ],
+        "focus": [
+          "ves"
+        ],
+        "cue": "them 后连写 selves；结尾是 ves，不写 selfs。",
+        "sourceEvidence": "them /ðəm/、selves /selvz/。them（他们）＋selves（self 的复数形式）＝themselves（他们自己）。几个人各自指向自己的胸口；遮住英文，看中文先读，再回写 them＋selves，selves 结尾是 ves，不能写成 selfs。"
       }
     },
     {
@@ -12008,6 +15106,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "d",
+          "ar",
+          "k"
+        ],
+        "focus": [
+          "ar"
+        ],
+        "cue": "中间用 ar 两字母写。",
+        "sourceEvidence": "dark 的 ar 英式读 /ɑː/。关灯后屋里很黑；回想黑暗，写 d-ar-k，把 ar 当一组。"
       }
     },
     {
@@ -12035,6 +15145,18 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "toi",
+          "let"
+        ],
+        "focus": [
+          "oi",
+          "e"
+        ],
+        "cue": "中间 /ɔɪ/ 写 oi，不写 oy；后段轻音写 e。",
+        "sourceEvidence": "toilet（厕所）读 /ˈtɔɪlət/：oi 是双元音 /ɔɪ/ 的字母组合，末尾 e 轻读 /ə/。遮住英文，看“厕所”先读，再写 toi＋let；中间 oi 不写 oy，后面轻音写 e。"
       }
     },
     {
@@ -12069,6 +15191,19 @@
           "parts": [],
           "note": "当前作为基础词整体学习；没有适合本义项的透明词根词缀拆分，不用任意字母片段充当构词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "be",
+          "tween"
+        ],
+        "focus": [
+          "be",
+          "tw",
+          "ee"
+        ],
+        "cue": "前段写 be；后段开头 tw，长音用双 e。",
+        "sourceEvidence": "between /bɪˈtwiːn/：字形 be–tween，前段 /bɪ/ 写 be；后段开头 tw，长音 /iː/ 写双 e，最后 n。遮住英文，看中文读出，再写一遍。"
       }
     },
     {
@@ -12127,6 +15262,17 @@
           ],
           "note": "super- 加 market 构成 supermarket，指售卖多种商品的自选超市；由构词帮助认义，具体用途仍需结合场景。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "super",
+          "market"
+        ],
+        "focus": [
+          "ar"
+        ],
+        "cue": "super 与 market 连写；market 中间写 ar。",
+        "sourceEvidence": "super /ˈsuːpə/、market /ˈmɑːkɪt/。super＋market（市场）组成 supermarket（超市）。大大的市场把许多货架装在一间屋里；回想大卖场，写 super＋market，连写，market 的 ar 英式读 /ɑː/。"
       }
     },
     {
@@ -12183,6 +15329,18 @@
           ],
           "note": "quick 加副词后缀 -ly 得到 quickly，说明动作的方式或程度；不能据此把所有 ly 结尾词都当副词。"
         }
+      },
+      "spellingPractice": {
+        "chunks": [
+          "quick",
+          "ly"
+        ],
+        "focus": [
+          "qu",
+          "ck"
+        ],
+        "cue": "quick 的 qu、ck 两组都完整，再接 ly。",
+        "sourceEvidence": "quick 的 qu /kw/、i /ɪ/、ck /k/，ly /li/。quick（快的）＋-ly 得 quickly（迅速地）。看到球飞来，迅速接住；回想接球动作，写 quick＋ly，qu 读 /kw/，ck 读 /k/，两组字母都保留。"
       }
     }
   ],

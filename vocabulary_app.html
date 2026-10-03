@@ -231,7 +231,7 @@
 
     const buildCardStudyTip = (word, reviewedCard = null) => {
       if (reviewedCard?.hint) return reviewedCard.hint;
-      return '尚无专属线索。先听标准读音，指着字母跟读；收起答案，试着读和写，再核对漏写或写错的字母。';
+      return '尚无专属线索。先听标准读音，指着字母跟读；遮住答案，试着读和写，再核对漏写或写错的字母。';
     };
 
     const getMnemonicLetterParts = (word, focus = []) => {
@@ -653,33 +653,73 @@
     const getMnemonicSpellingGuide = (card) => card?.spellingGuide || (card?.dimensions?.visual?.diagram?.kind === 'spelling'
       ? { segments: card.dimensions.visual.diagram.segments, cue: card.dimensions.visual.caption } : null);
 
+    const getMnemonicSpellingFocus = (card) => card?.spellingPractice?.focus || getMnemonicSpellingGuide(card)?.segments.flatMap(segment => segment.focus || []) || [];
+
+    const getMnemonicChunkParts = (chunks, focus) => {
+      const letters = getMnemonicLetterParts(chunks.join(''), focus).flatMap(part => [...part.text].map(text => ({ text, focus: part.focus })));
+      let offset = 0;
+      return chunks.map(chunk => {
+        const parts = [];
+        for (const letter of letters.slice(offset, offset + chunk.length)) {
+          const last = parts[parts.length - 1];
+          if (last?.focus === letter.focus) last.text += letter.text;
+          else parts.push({ ...letter });
+        }
+        offset += chunk.length;
+        return parts;
+      });
+    };
+
+    const getMnemonicPracticeTarget = (word) => word === 'take ... lesson' ? 'take a swimming lesson' : word;
+
+    const buildMaskedSpelling = (word, focus) => {
+      const target = getMnemonicPracticeTarget(word).replace(/\s*\(pl\..*\)\s*$/i, '');
+      const hidden = new Set();
+      for (const cue of focus) {
+        if (!cue) continue;
+        let from = 0;
+        while (from < target.length) {
+          const index = target.indexOf(cue, from);
+          if (index < 0) break;
+          for (let offset = 0; offset < cue.length; offset++) hidden.add(index + offset);
+          from = index + cue.length;
+        }
+      }
+      return [...target].map((letter, index) => (hidden.size ? hidden.has(index) : /[a-z]/i.test(letter)) ? '_' : letter).join('');
+    };
+
     const MnemonicSpellingGuide = ({ card, compact = false }) => {
       const guide = getMnemonicSpellingGuide(card);
-      if (!guide) return null;
+      const practice = card?.spellingPractice;
+      if (!guide && !practice) return null;
       return <figure aria-label="拼写字形路径" className={`m-0 rounded-xl border border-amber-200 bg-amber-50 ${compact ? 'p-3' : 'p-4 sm:p-5'}`}>
-        <p className="mb-3 text-xs font-semibold text-amber-900">跟着读音，定位要写的字母</p>
-        <MnemonicGraphic card={card} compact={compact} diagram={{ kind: 'spelling', segments: guide.segments }} />
-        <figcaption className={`mt-3 text-stone-800 ${compact ? 'text-xs leading-5' : 'text-sm leading-6'}`}>{guide.cue}</figcaption>
+        <p className="mb-3 text-xs font-semibold text-amber-900">{guide ? '跟着读音，定位要写的字母' : '看清字母顺序，记住易错处'}</p>
+        {guide ? <MnemonicGraphic card={card} compact={compact} diagram={{ kind: 'spelling', segments: guide.segments }} /> : <div aria-label="字形分块" className="flex flex-wrap gap-2">
+          {practice.chunks.map((text, index) => <span key={index} className={`whitespace-pre-wrap break-all rounded-lg border border-amber-300 bg-white px-3 py-2 font-mono font-bold text-stone-900 ${compact ? 'text-lg' : 'text-2xl'}`}>
+            {getMnemonicChunkParts(practice.chunks, practice.focus)[index].map((part, partIndex) => part.focus ? <mark key={partIndex} className="rounded bg-amber-300 px-0.5 text-stone-900">{part.text}</mark> : <React.Fragment key={partIndex}>{part.text}</React.Fragment>)}
+          </span>)}
+        </div>}
+        <figcaption className={`mt-3 text-stone-800 ${compact ? 'text-xs leading-5' : 'text-sm leading-6'}`}>{practice?.cue || guide.cue}</figcaption>
       </figure>;
     };
 
-    const MnemonicDimensions = ({ card, compact = false, onHear, onSpellPractice }) => {
+    const MnemonicDimensions = ({ card, compact = false, onHear, onSpellPractice, onGapPractice }) => {
       const [selected, setSelected] = useState('phonics');
       if (!card?.dimensions) return null;
       const { semantic, context, morphology } = card.dimensions;
       const hasPicture = hasMnemonicPicture(card);
       const hasMorphology = hasMnemonicMorphology(card);
       const hasSemantic = hasMnemonicSemantic(card);
-      const spellingGuide = getMnemonicSpellingGuide(card);
+      const spellingGuide = getMnemonicSpellingGuide(card) || card.spellingPractice;
       const active = (selected === 'visual' && !hasPicture) || (selected === 'morphology' && !hasMorphology) || (selected === 'semantic' && !hasSemantic) ? 'phonics' : selected;
       if (compact) return <div aria-label="多维助记" className="mt-3 space-y-2 text-left text-xs leading-5 text-stone-700">
         {spellingGuide ? <MnemonicSpellingGuide card={card} compact /> : <MnemonicPicture card={card} compact />}
-        <p><strong>收起后回忆：</strong>{context.question}</p>
+        <p><strong>不看提示，试着回答：</strong>{context.question}</p>
       </div>;
       const options = [['phonics', '拼写线索', Volume2], ['visual', card.dimensions.visual.diagram?.kind === 'spelling' ? '看字形' : '词义图', Eye], ['morphology', '词形组成', MnemonicPartsIcon], ['semantic', '词义区别', Layers], ['context', '用法与例句', BookOpen]]
         .filter(([value]) => (value !== 'visual' || hasPicture) && (value !== 'morphology' || hasMorphology) && (value !== 'semantic' || hasSemantic));
       return <section aria-label="多维助记" className="mt-4">
-        <p className="mb-3 text-sm text-stone-600">先记字母线索，再收起写一遍。词义图和例句帮助理解、使用。</p>
+        <p className="mb-3 text-sm text-stone-600">先看提示，记住易错字母，再自己写一遍。词义图和例句帮助理解、使用。</p>
         <div role="group" aria-label="选择助记线索" className="mb-4 flex flex-wrap gap-2">
           {options.map(([value, label, Icon]) => <button key={value} type="button" aria-pressed={active === value} onClick={() => setSelected(value)} className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-2 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700 ${active === value ? 'border-stone-800 bg-stone-800 text-white' : 'border-stone-300 bg-white text-stone-700 hover:border-stone-600'}`}><Icon aria-hidden="true" size={16} />{label}</button>)}
         </div>
@@ -696,14 +736,15 @@
             <p className="leading-7">{morphology.note}</p>
           </>}
           {active === 'phonics' && <>
-            <h5 className="mb-3 font-semibold">读一读 · 记易错处 · 收起写</h5>
+            <h5 className="mb-3 font-semibold">先看提示，再自己写</h5>
             {spellingGuide ? <>
               <MnemonicSpellingGuide card={card} />
               <details className="mt-3 text-sm text-stone-600"><summary className="cursor-pointer">完整读写提示</summary><p className="mt-2 whitespace-pre-line leading-7">{card.hint}</p></details>
             </> : <p className="whitespace-pre-line leading-7">{card.hint}</p>}
-            {(onHear || onSpellPractice) && <div className="mt-4 flex flex-wrap gap-2">
+            {(onHear || onSpellPractice || onGapPractice) && <div className="mt-4 flex flex-wrap gap-2">
               {onHear && <button type="button" onClick={onHear} className="rounded-lg border border-stone-300 px-3 py-2 text-sm font-semibold">听读音，指着字母读一遍</button>}
-              {onSpellPractice && <button type="button" onClick={onSpellPractice} className="rounded-lg bg-emerald-700 px-3 py-2 text-sm font-semibold text-white">收起提示，写完整词</button>}
+              {onGapPractice && <button type="button" onClick={onGapPractice} className="rounded-lg border border-emerald-600 px-3 py-2 text-sm font-semibold text-emerald-800">{getMnemonicSpellingFocus(card).some(cue => /[a-z]/i.test(cue)) ? '先补关键字母' : '先补空格和标点'}</button>}
+              {onSpellPractice && <button type="button" onClick={onSpellPractice} className="rounded-lg bg-emerald-700 px-3 py-2 text-sm font-semibold text-white">隐藏提示，自己写一遍</button>}
             </div>}
           </>}
         </div>
@@ -721,6 +762,9 @@
       if (expected === 'take ... lesson') return /^take (?:[a-z]+ )+lessons?$/.test(answer);
       return false;
     };
+
+    const matchesMnemonicSpelling = (input, target) => matchesSpelling(input, target)
+      && (!/[A-Z]/.test(target) || input.trim().replace(/\s+/g, ' ') === target.trim().replace(/\s+/g, ' '));
 
     const levenshtein = (a, b) => {
       const m = a.length;
@@ -771,6 +815,15 @@
         }
       }
       return changes;
+    };
+
+    const mnemonicSpellingDifferences = (input, target) => {
+      if (matchesSpelling(input, target) && !matchesMnemonicSpelling(input, target)) {
+        const typed = input.trim().replace(/\s+/g, ' ');
+        return [...target].flatMap((letter, index) => letter !== typed[index]
+          ? [`第 ${index + 1} 个字母 ${typed[index]} 改为 ${letter}（${/[A-Z]/.test(letter) ? '大写' : '小写'}）`] : []);
+      }
+      return spellingDifferences(input, target);
     };
 
     const getSpellingSimilarity = (targetWord, candidateWord) => {
@@ -3083,6 +3136,13 @@
         word.pronunciation || bundledPhonetics[pronunciationKey(word.english_word)] ||
         (phoneticWord === pronunciationKey(word.english_word) ? currentPhonetic : '')
       );
+      const getMnemonicPracticeWord = (word) => {
+        if (word.english_word !== 'take ... lesson') return word;
+        const readings = ['take', 'a', 'swimming', 'lesson'].map(part => bundledPhonetics[part]?.replace(/^\/|\/$/g, ''));
+        return { ...word, english_word: getMnemonicPracticeTarget(word.english_word), audioUrl: '',
+          pronunciation: readings.every(Boolean) ? `/${readings.join(' ')}/` : '' };
+      };
+
       const renderWordIPA = (word) => (
         <p aria-label="国际音标" className="mt-3 mb-4 text-center text-xl text-gray-500 font-medium">
           {getWordIPA(word) || '音标暂缺，请听标准读音'}
@@ -3145,7 +3205,7 @@
       };
 
       const buildHintPrompt = (word) =>
-        `为三至五年级孩子写单词“${word.english_word}”（${word.chinese_meaning}，${word.pos || '词性未提供'}）的一条具体拼写线索。先明确本课词义。用【读音与字母】指出可靠的实际声形对应及最多两个易错点，例如双写、不发音字母、弱读处的实际字母或词尾变化；再用【收起再写】要求遮住后写完整词并核对这些位置。核心说明80至140字。只有已熟悉的透明组成或实际字形变化能减少记忆负担时才补充；不适用就省略，不输出“整体记”或否定式空提醒。不要凑满视觉、语义、情境、构词五种维度，不编字母标签故事，不把任意两件物品强配双字母，不把口形或动作当作特定字母的依据，不让孩子靠另一个陌生词记目标词。拼写分块不得说成音节数量或真实词根，音标不得用中文谐音代替，词源没有可靠来源不使用。词义图和用法只能作为理解的补充，不能冒充拼写线索。若附加情境问题，必须只用中文明确要求取回目标词或词组，不能只问是否、区别或让孩子随意造句。无法确认读音对应时不猜，明确没有专属线索，并给出准确的字母顺序核对点。`;
+        `为三至五年级孩子写单词“${word.english_word}”（${word.chinese_meaning}，${word.pos || '词性未提供'}）的一条具体拼写线索。先明确本课词义。用【读音与字母】指出可靠的实际声形对应及最多两个易错点，例如双写、不发音字母、弱读处的实际字母或词尾变化；再用【自己写一遍】要求遮住后写完整词并核对这些位置。核心说明80至140字。只有已熟悉的透明组成或实际字形变化能减少记忆负担时才补充；不适用就省略，不输出“整体记”或否定式空提醒。不要凑满视觉、语义、情境、构词五种维度，不编字母标签故事，不把任意两件物品强配双字母，不把口形或动作当作特定字母的依据，不让孩子靠另一个陌生词记目标词。拼写分块不得说成音节数量或真实词根，音标不得用中文谐音代替，词源没有可靠来源不使用。词义图和用法只能作为理解的补充，不能冒充拼写线索。若附加情境问题，必须只用中文明确要求取回目标词或词组，不能只问是否、区别或让孩子随意造句。无法确认读音对应时不猜，明确没有专属线索，并给出准确的字母顺序核对点。`;
 
       const fetchAIHintFromServer = async (prompt) => {
         const res = await fetch('/api/ai-hint', {
@@ -4665,7 +4725,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
               <p className="text-blue-600 text-sm">
                 {printMode === 'mistakes'
                   ? '今日错题讲义：每个词附带单词助记。打印时请在浏览器设置中开启 “背景图形/颜色”。'
-                  : '打印后沿虚线对折。先看正面认读，再看背面助记；收起卡片，根据中文回忆拼写。打印时请开启“背景图形/颜色”。'}
+                  : '打印后沿虚线对折。先看正面认读，再看背面助记；把英文那面盖住，根据中文写出单词。打印时请开启“背景图形/颜色”。'}
               </p>
             </div>
             <div className="flex gap-3 w-full sm:w-auto">
@@ -4863,23 +4923,24 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         const unitSpellingWords = words.filter(word => word.section === currentWord.section && mnemonicCards.has(mnemonicKey(word.section, word.english_word)));
 
         if (unitSpellingPractice && unitSpellingWords.length) {
-          const { index, phase, input } = unitSpellingPractice;
+          const { index, phase, input, scaffold } = unitSpellingPractice;
           const target = unitSpellingWords[index];
           const card = mnemonicCards.get(mnemonicKey(target.section, target.english_word));
           const spellingWord = card.spellingParts
             ? card.spellingParts.map((part, partIndex) => <span key={partIndex} className={part.focus ? 'border-b-4 border-amber-300 text-amber-900' : ''}>{part.text}</span>)
-            : target.english_word;
-          const correct = matchesSpelling(input, target.english_word);
+            : getMnemonicPracticeTarget(target.english_word);
+          const practiceWord = getMnemonicPracticeWord(target);
+          const correct = matchesMnemonicSpelling(input, getMnemonicPracticeTarget(target.english_word));
           const update = patch => setUnitSpellingPractice(previous => ({ ...previous, ...patch }));
-          const move = direction => update({ index: Math.min(unitSpellingWords.length - 1, Math.max(0, index + direction)), phase: 'learn', input: '' });
+          const move = direction => update({ index: Math.min(unitSpellingWords.length - 1, Math.max(0, index + direction)), phase: 'learn', input: '', scaffold: false });
           return (
             <section aria-label="单元拼写练习" className="max-w-xl mx-auto rounded-2xl border border-emerald-200 bg-white p-6 sm:p-8 shadow-sm">
               <div className="flex items-center justify-between text-sm text-gray-600">
                 <span>{currentWord.section} · 拼写助记</span><span>{index + 1} / {unitSpellingWords.length}</span>
               </div>
               <div className="mt-3 h-1.5 rounded-full bg-emerald-50"><div className="h-full rounded-full bg-emerald-600" style={{ width: `${((index + 1) / unitSpellingWords.length) * 100}%` }} /></div>
-              <h2 className="mt-8 text-center text-3xl font-bold text-gray-900">{target.chinese_meaning}</h2>
-              {renderWordIPA(target)}
+              <h2 className="mt-8 text-center text-3xl font-bold text-gray-900">{target.english_word === 'take ... lesson' ? '上一节游泳课' : target.chinese_meaning}</h2>
+              {renderWordIPA(practiceWord)}
               {phase === 'learn' && (
                 <div className="mt-6">
                   <p className="whitespace-pre-wrap text-center font-mono text-4xl font-bold tracking-wide text-emerald-900">{spellingWord}</p>
@@ -4889,14 +4950,15 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                     <p className="mt-2 whitespace-pre-line leading-7 text-gray-800">{card.spellingCue || card.hint}</p>
                     {card.spellingImage && <p className="mt-3 border-t border-emerald-200 pt-3 leading-7 text-gray-800">{card.spellingImage}</p>}
                   </div>}
-                  <MnemonicDimensions key={`${target.section}-${target.english_word}`} card={card} onSpellPractice={() => update({ phase: 'recall', input: '' })} />
-                  <button onClick={() => playWordAudio(target.english_word, target.audioUrl)} className="mt-4 w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-700">听读音，指着字母读一遍</button>
-                  <button onClick={() => update({ phase: 'recall', input: '' })} className="mt-4 w-full rounded-lg bg-emerald-700 px-4 py-3 font-semibold text-white">收起线索，写完整单词</button>
+                  <MnemonicDimensions key={`${target.section}-${target.english_word}`} card={card} onGapPractice={() => update({ phase: 'recall', input: '', scaffold: true })} onSpellPractice={() => update({ phase: 'recall', input: '', scaffold: false })} />
+                  <button onClick={() => playWordAudio(practiceWord.english_word, practiceWord.audioUrl)} className="mt-4 w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-700">听读音，指着字母读一遍</button>
+                  <button onClick={() => update({ phase: 'recall', input: '', scaffold: false })} className="mt-4 w-full rounded-lg bg-emerald-700 px-4 py-3 font-semibold text-white">隐藏提示，写出完整单词</button>
                 </div>
               )}
               {phase === 'recall' && (
                 <form className="mt-6 text-center" onSubmit={event => { event.preventDefault(); if (!input.trim()) return; playEncouragement(correct ? 'correct' : 'incorrect'); update({ phase: 'feedback' }); }}>
-                  <p className="text-gray-600">按记住的字母顺序写，写完再核对。</p>
+                  {scaffold && <p aria-label="关键字母缺口" className="mb-4 whitespace-pre-wrap break-all font-mono text-3xl tracking-wide">{buildMaskedSpelling(target.english_word, getMnemonicSpellingFocus(card))}</p>}
+                  <p className="text-gray-600">{scaffold ? '补上缺口，在下面写出完整词，再核对。' : '按记住的字母顺序写，写完再核对。'}</p>
                   <input autoFocus aria-label="回忆本词拼写" autoComplete="off" autoCorrect="off" spellCheck={false} value={input} onChange={event => update({ input: event.target.value })} className="mt-6 w-full rounded-lg border-2 border-gray-300 p-3 text-center font-mono text-2xl focus:border-emerald-600 focus:outline-none" />
                   <button type="submit" disabled={!input.trim()} className="mt-4 w-full rounded-lg bg-emerald-700 px-4 py-3 font-semibold text-white disabled:opacity-40">写好了，核对字母</button>
                   <button type="button" onClick={() => update({ phase: 'learn', input: '' })} className="mt-4 text-gray-600 underline">再看一次拼写线索</button>
@@ -4908,9 +4970,9 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                   <p className="mt-2 text-center text-xs text-gray-500">助记自查不计分。</p>
                   {!correct && <p className="mt-4 text-gray-600">你写的是：<span className="font-mono">{input}</span></p>}
                   <p className="mt-4 whitespace-pre-wrap text-center font-mono text-4xl font-bold text-emerald-900">{spellingWord}</p>
-                  {!correct && <ul className="mt-4 space-y-1 text-center text-amber-900">{spellingDifferences(input, target.english_word).map((change, changeIndex) => <li key={changeIndex}>{change}</li>)}</ul>}
+                  {!correct && <ul className="mt-4 space-y-1 text-center text-amber-900">{mnemonicSpellingDifferences(input, getMnemonicPracticeTarget(target.english_word)).map((change, changeIndex) => <li key={changeIndex}>{change}</li>)}</ul>}
                   <div className="mt-5"><MnemonicSpellingGuide card={card} /></div><p className="mt-4 rounded-xl bg-emerald-50 p-4 leading-7 text-gray-800">{card.spellingCue || card.hint}</p>
-                  <button onClick={() => update({ phase: 'recall', input: '' })} className="mt-5 w-full rounded-lg bg-emerald-700 px-4 py-3 font-semibold text-white">收起答案，再写一次</button>
+                  <button onClick={() => update({ phase: 'recall', input: '', scaffold: false })} className="mt-5 w-full rounded-lg bg-emerald-700 px-4 py-3 font-semibold text-white">隐藏答案，再写一次</button>
                   <p className="mt-3 text-center text-sm text-gray-600">稍后再不看线索写一次。</p>
                 </div>
               )}
@@ -4926,9 +4988,11 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         }
 
         if (mnemonicRecallMode) {
-          const spelling = mnemonicRecallMode === 'spell';
+          const scaffold = mnemonicRecallMode === 'gap';
+          const spelling = mnemonicRecallMode === 'spell' || scaffold;
           const contextual = mnemonicRecallMode === 'context';
-          const matches = matchesSpelling(mnemonicRecallInput, currentWord.english_word);
+          const practiceWord = getMnemonicPracticeWord(currentWord);
+          const matches = matchesMnemonicSpelling(mnemonicRecallInput, getMnemonicPracticeTarget(currentWord.english_word));
           const changeMode = (mode) => {
             setMnemonicRecallMode(mode);
             setMnemonicRecallInput('');
@@ -4936,15 +5000,16 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
           };
           return (
             <section aria-label="助记回忆练习" className="max-w-xl mx-auto rounded-2xl border-2 border-emerald-200 bg-white p-6 sm:p-10 text-center shadow-sm">
-              <h2 className="text-2xl font-bold text-emerald-900">收起线索，试着回忆</h2>
+              <h2 className="text-2xl font-bold text-emerald-900">不看提示，试着回忆</h2>
               <div className="mt-6 flex flex-wrap justify-center gap-3">
                 <button aria-pressed={spelling} onClick={() => changeMode('spell')} className={`rounded-lg px-4 py-2 border ${spelling ? 'bg-emerald-700 text-white border-emerald-700' : 'border-gray-300 text-gray-700'}`}>看中文，写英文</button>
                 <button aria-pressed={mnemonicRecallMode === 'read'} onClick={() => changeMode('read')} className={`rounded-lg px-4 py-2 border ${mnemonicRecallMode === 'read' ? 'bg-emerald-700 text-white border-emerald-700' : 'border-gray-300 text-gray-700'}`}>看英文，读一读</button>
                 {currentMnemonicCard?.dimensions && <button aria-pressed={contextual} onClick={() => changeMode('context')} className={`rounded-lg px-4 py-2 border ${contextual ? 'bg-emerald-700 text-white border-emerald-700' : 'border-gray-300 text-gray-700'}`}>换个情境用一用</button>}
               </div>
-              {contextual ? <p className="mt-8 rounded-xl bg-amber-50 p-5 text-left text-xl leading-8 text-stone-900">{currentMnemonicCard.dimensions.context.question}</p> : <p className="mt-8 text-4xl font-bold text-gray-900">{spelling ? currentWord.chinese_meaning : currentWord.english_word}</p>}
-              {spelling && renderWordIPA(currentWord)}
-              <p className="mt-4 text-gray-600">{contextual ? '先回答这个问题，可以说出来或写下来，再看参考。' : spelling ? '先自己写，写完再核对。' : '先读出这个词，再说出它的意思。'}</p>
+              {contextual ? <p className="mt-8 rounded-xl bg-amber-50 p-5 text-left text-xl leading-8 text-stone-900">{currentMnemonicCard.dimensions.context.question}</p> : <p className="mt-8 text-4xl font-bold text-gray-900">{spelling ? currentWord.english_word === 'take ... lesson' ? '上一节游泳课' : currentWord.chinese_meaning : currentWord.english_word}</p>}
+              {spelling && renderWordIPA(practiceWord)}
+              {scaffold && <p aria-label="关键字母缺口" className="mt-5 whitespace-pre-wrap break-all font-mono text-3xl tracking-wide">{buildMaskedSpelling(currentWord.english_word, getMnemonicSpellingFocus(currentMnemonicCard))}</p>}
+              <p className="mt-4 text-gray-600">{contextual ? '先回答这个问题，可以说出来或写下来，再看参考。' : spelling ? scaffold ? '补上缺口，写出完整词，再核对。' : '先自己写，写完再核对。' : '先读出这个词，再说出它的意思。'}</p>
               {spelling && (
                 <form className="mt-6" onSubmit={(event) => { event.preventDefault(); if (!mnemonicRecallInput.trim() || mnemonicRecallRevealed) return; playEncouragement(matches ? 'correct' : 'incorrect'); setMnemonicRecallRevealed(true); }}>
                   <input autoFocus aria-label="回忆英文拼写" autoComplete="off" autoCorrect="off" spellCheck={false} value={mnemonicRecallInput} onChange={(event) => { setMnemonicRecallInput(event.target.value); setMnemonicRecallRevealed(false); }} className="w-full rounded-lg border-2 border-gray-300 p-3 text-center text-2xl font-mono focus:border-emerald-600 focus:outline-none" />
@@ -4955,12 +5020,13 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
               {!spelling && !mnemonicRecallRevealed && <button onClick={() => setMnemonicRecallRevealed(true)} className="mt-6 rounded-lg bg-emerald-700 px-6 py-3 font-semibold text-white">{contextual ? '想好了，看参考用法' : '读好了，核对'}</button>}
               {mnemonicRecallRevealed && (
                 <div aria-live="polite" className="mt-6 rounded-lg bg-emerald-50 p-5">
-                  <p className="text-xl font-semibold text-emerald-900">{currentWord.english_word} · {currentWord.chinese_meaning}</p>
+                  <p className="text-xl font-semibold text-emerald-900">{getMnemonicPracticeTarget(currentWord.english_word)} · {currentWord.chinese_meaning}</p>
                   {spelling && <p className="mt-2 text-gray-700">{matches ? '拼写一致。过一会儿再试一次。' : '对照看看：哪些字母要补上或改一改？'}</p>}
-                  {spelling && !matches && <ul className="mt-3 space-y-1 text-amber-900">{spellingDifferences(mnemonicRecallInput, currentWord.english_word).map((change, index) => <li key={index}>{change}</li>)}</ul>}
+                  {spelling && !matches && <ul className="mt-3 space-y-1 text-amber-900">{mnemonicSpellingDifferences(mnemonicRecallInput, getMnemonicPracticeTarget(currentWord.english_word)).map((change, index) => <li key={index}>{change}</li>)}</ul>}
                   {spelling && <div className="mt-4 text-left"><MnemonicSpellingGuide card={currentMnemonicCard} /></div>}
                   {contextual && <><p className="mt-3 text-left leading-7 text-gray-800">{currentMnemonicCard.example}</p><p className="mt-3 text-left text-sm leading-6 text-gray-600">这是用法参考，表达可以不同。检查目标词的意思和句中用法，也请老师或家长帮你核对。</p></>}
-                  <button onClick={() => playWordAudio(currentWord.english_word, currentAudioUrl)} className="mt-3 rounded-lg border border-emerald-300 px-4 py-2 text-emerald-900">听读音，跟读核对</button>
+                  <button onClick={() => playWordAudio(practiceWord.english_word, practiceWord === currentWord ? currentAudioUrl : '')} className="mt-3 rounded-lg border border-emerald-300 px-4 py-2 text-emerald-900">听读音，跟读核对</button>
+                  {scaffold && <button onClick={() => changeMode('spell')} className="mt-3 rounded-lg bg-emerald-700 px-4 py-2 font-semibold text-white">不看提示，写完整词</button>}
                   <button onClick={() => changeMode(mnemonicRecallMode)} className="ml-3 mt-3 rounded-lg border border-emerald-300 px-4 py-2 text-emerald-900">再试一次</button>
                 </div>
               )}
@@ -5237,11 +5303,11 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                         <span className="text-xs font-normal px-1.5 py-0.5 rounded bg-gray-200 text-gray-600">本地备用</span>
                       )}
                     </h4>
-                    {!isAILoading && aiHintSource === 'library' && currentMnemonicCard?.dimensions ? <MnemonicDimensions key={`${currentWord.section}-${currentWord.english_word}`} card={currentMnemonicCard} onHear={() => playWordAudio(currentWord.english_word, currentAudioUrl)} onSpellPractice={() => { setMnemonicRecallMode('spell'); setMnemonicRecallInput(''); setMnemonicRecallRevealed(false); }} /> : <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+                    {!isAILoading && aiHintSource === 'library' && currentMnemonicCard?.dimensions ? <MnemonicDimensions key={`${currentWord.section}-${currentWord.english_word}`} card={currentMnemonicCard} onHear={() => { const practiceWord = getMnemonicPracticeWord(currentWord); playWordAudio(practiceWord.english_word, practiceWord === currentWord ? currentAudioUrl : ''); }} onGapPractice={() => { setMnemonicRecallMode('gap'); setMnemonicRecallInput(''); setMnemonicRecallRevealed(false); }} onSpellPractice={() => { setMnemonicRecallMode('spell'); setMnemonicRecallInput(''); setMnemonicRecallRevealed(false); }} /> : <p className="text-gray-700 leading-relaxed whitespace-pre-line">
                       {isAILoading ? '正在生成助记内容...' : aiHintText}
                     </p>}
                     {!isAILoading && (
-                      <button onClick={() => { setMnemonicRecallMode(currentMnemonicCard ? 'spell' : recognitionMode ? 'read' : 'spell'); setMnemonicRecallInput(''); setMnemonicRecallRevealed(false); }} className="mt-4 rounded-lg border border-purple-300 bg-white px-4 py-2 font-semibold text-purple-800">收起线索，试着回忆</button>
+                      <button onClick={() => { setMnemonicRecallMode(currentMnemonicCard ? 'spell' : recognitionMode ? 'read' : 'spell'); setMnemonicRecallInput(''); setMnemonicRecallRevealed(false); }} className="mt-4 rounded-lg border border-purple-300 bg-white px-4 py-2 font-semibold text-purple-800">不看提示，试着回忆</button>
                     )}
                     {!isAILoading && aiHintSource === 'library' && currentMnemonicCard?.sourceUrl && (
                       <a href={currentMnemonicCard.sourceUrl} target="_blank" rel="noreferrer" className="mt-3 inline-block text-xs text-purple-700 underline">核对词源 →</a>
@@ -5256,7 +5322,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                 {showAnswered && unitSpellingWords.length > 0 && (
                   <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-left">
                     <h4 className="font-semibold text-emerald-900">本单元拼写助记</h4>
-                    <p className="mt-2 text-sm text-gray-700">记字母组合和易错处，收起线索，写完整单词。</p>
+                    <p className="mt-2 text-sm text-gray-700">记字母组合和易错处，隐藏提示，写出完整单词。</p>
                     <button onClick={() => setUnitSpellingPractice({ index: Math.max(0, unitSpellingWords.findIndex(word => word.id === currentWord.id)), phase: 'learn', input: '' })} className="mt-3 w-full rounded-lg bg-emerald-700 px-4 py-3 font-semibold text-white">练本单元拼写（{unitSpellingWords.length} 词）</button>
                   </div>
                 )}

@@ -11,7 +11,7 @@ OUTPUT.mkdir(parents=True, exist_ok=True)
 all_cards = [card for grade in (3, 4, 5)
              for card in json.loads((ROOT / f'mnemonics/grade{grade}.json').read_text())['cards']]
 cards = [next(card for card in all_cards if card['word'] == word)
-         for word in ('remember', 'poem', 'raincoat')]
+         for word in ('remember', 'poem', 'raincoat', 'blue')]
 source = (ROOT / 'vocabulary_app.html').read_text()
 render = "createRoot(document.getElementById('root')).render(<App />);"
 fixture = """function UsefulCueTest() {
@@ -72,6 +72,14 @@ with sync_playwright() as playwright:
     page.evaluate('window.selectCueCard(0)')
     assert panel.get_by_role('button', name='拼写线索', exact=True).get_attribute('aria-pressed') == 'true'
     assert panel.get_by_text(cards[0]['hint'], exact=True).is_visible()
+
+    # Removing a redundant semantic mode must also clear a reused selection.
+    panel.get_by_role('button', name='词义区别', exact=True).click()
+    page.evaluate('window.selectCueCard(3)')
+    assert not panel.get_by_role('button', name='词义区别', exact=True).count()
+    assert panel.get_by_role('button', name='拼写线索', exact=True).get_attribute('aria-pressed') == 'true'
+    assert panel.get_by_text(cards[3]['hint'], exact=True).is_visible()
+    page.evaluate('window.selectCueCard(0)')
 
     page.evaluate('window.setCueCompact(true)')
     compact = page.locator('[aria-label="多维助记"]')

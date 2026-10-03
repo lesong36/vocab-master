@@ -104,13 +104,19 @@ with sync_playwright() as playwright:
     visual = cards[english]["dimensions"]["visual"]
     has_picture = "diagram" in visual or english in {"in", "on", "under", "behind", "next to", "sorry", "would", "dessert", "meatball"}
     if has_picture:
-        page.get_by_role("button", name="词义图", exact=True).click()
+        label = "看字形" if visual.get("diagram", {}).get("kind") == "spelling" else "词义图"
+        page.get_by_role("button", name=label, exact=True).click()
         assert page.get_by_text(visual["caption"], exact=True).is_visible()
     else:
         assert page.get_by_text(cards[english]["hint"], exact=True).is_visible()
         assert not page.get_by_role("button", name="词义图", exact=True).count()
-    page.get_by_role("button", name="词义区别", exact=True).click()
-    assert page.get_by_text(cards[english]["dimensions"]["semantic"], exact=False).is_visible()
+    if cards[english]["dimensions"]["semantic"]:
+        page.get_by_role("button", name="词义区别", exact=True).click()
+        assert page.get_by_text(cards[english]["dimensions"]["semantic"], exact=False).is_visible()
+    else:
+        assert not page.get_by_role("button", name="词义区别", exact=True).count()
+        page.get_by_role("button", name="拼写线索", exact=True).click()
+        assert page.get_by_text(cards[english]["hint"], exact=True).is_visible()
     assert not page.get_by_text(cards[english]["dimensions"]["visual"]["caption"], exact=True).count(), "Flashcard shows all cues at once"
     assert not page.locator('button button').count(), "Flashcard contains nested interactive controls"
     page.get_by_role("button", name="返回 Unit 选择", exact=True).click()

@@ -216,7 +216,7 @@ if parser.parse_args().report:
     lines += [f"| {type_names[kind]} | {count} |" for kind, count in sorted(graphics.items())]
     lines += ["", "## 取回目标", "", "图意判断和字形线索属于设计依据，不能作为儿童实际记忆效果证据。", ""]
     lines += [f"- {target_names[target]}：{count} 条" for target, count in sorted(retrieval_targets.items())]
-    lines += ["", "## 尚无具体图解的词", "", "这些词默认显示听音拼写，保留语义和情境提示；普通图标不再显示为看图记。以下是未采用具体图解的记录，后续可据此继续设计。", "",
+    lines += ["", "## 尚无具体图解的词", "", "所有词默认显示具体拼写线索；语义、图解和构词仅在适用时显示。普通图标不再显示为图解。以下是未采用具体图解的记录，后续可据此继续设计。", "",
               "| 年级 | 单元 | 单词 | 判断理由 |", "|---|---|---|---|"]
     for grade, section, word, rationale in pending:
         lines.append("| " + " | ".join(str(value).replace("|", "／").replace("\n", " ") for value in (grade, section, word, rationale)) + " |")

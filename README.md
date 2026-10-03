@@ -82,3 +82,5 @@ python3 vocab_server.py 8080
 在阅读生词本点击「管理删除」，验证阅读器账号密码后，可跨学习组勾选、全选并批量删除不需要的词；删除的词会在后续导入时被忽略。
 
 跨设备使用时，先在阅读器登录同一 Supabase 账号；本应用会读取该账号同步的生词，并同步全部 VocabMaster 学习档案（各年级/单元进度、错题本和阅读生词本状态）。
+
+2026-10-03 全量复核见 [890词同类问题检查](mnemonics/FULL_REVIEW.md)。所有词默认显示具体拼写线索；不适用的图解、构词、语义入口省略。运行 `node tests/test_mnemonic_quality.cjs` 检查已知内容反例，`python3 tests/test_mnemonic_quality_ui.py` 检查890词的真实初始展示。审核绑定完整词卡，改动后须复审。

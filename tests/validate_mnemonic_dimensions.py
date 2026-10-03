@@ -33,6 +33,15 @@ for grade in (3, 4, 5):
     for card in pack["cards"]:
         key = card["section"], card["word"]
         cards[key] = card
+        if "spellingGuide" in card:
+            guide = card["spellingGuide"]
+            assert isinstance(guide["cue"], str) and guide["cue"].strip(), key
+            assert 2 <= len(guide["segments"]) <= 4, key
+            assert "".join(segment["text"] for segment in guide["segments"]) == card["word"], key
+            for segment in guide["segments"]:
+                assert all(isinstance(segment[field], str) and segment[field].strip() for field in ("text", "sound", "note")), key
+                assert all(isinstance(cue, str) and cue and cue in segment["text"] for cue in segment.get("focus", [])), key
+                assert type(segment.get("stressed", False)) is bool, key
         dimensions = card.get("dimensions")
         assert isinstance(dimensions, dict), (key, "Missing dimensions")
         visual = dimensions["visual"]

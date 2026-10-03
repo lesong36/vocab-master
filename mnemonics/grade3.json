@@ -609,6 +609,35 @@
           "parts": [],
           "note": "固定的复数形式衣物总称；不能把 cloth（布）简单加复数当作相同意思。"
         }
+      },
+      "spellingGuide": {
+        "segments": [
+          {
+            "text": "cl",
+            "sound": "/kl/",
+            "note": "两个辅音都保留",
+            "focus": []
+          },
+          {
+            "text": "o",
+            "sound": "/əʊ/",
+            "note": "中间长音",
+            "focus": [
+              "o"
+            ]
+          },
+          {
+            "text": "thes",
+            "sound": "/ðz/",
+            "note": "th /ð/；e 不另读；s /z/",
+            "focus": [
+              "th",
+              "e",
+              "s"
+            ]
+          }
+        ],
+        "cue": "th 后面静音 e 仍须写，最后再加 s；别写成 cloth。"
       }
     },
     {
@@ -746,6 +775,28 @@
           "parts": [],
           "note": "这件两腿衣物通常采用复数形式，整体学习，不编造词根或单数衣物名。"
         }
+      },
+      "spellingGuide": {
+        "segments": [
+          {
+            "text": "trou",
+            "sound": "/traʊ/",
+            "note": "第一拍的 ou /aʊ/",
+            "focus": [
+              "ou"
+            ],
+            "stressed": true
+          },
+          {
+            "text": "sers",
+            "sound": "/zəz/",
+            "note": "两个 s 都读 /z/",
+            "focus": [
+              "s"
+            ]
+          }
+        ],
+        "cue": "中间 /aʊ/ 写 ou，两个 /z/ 都写 s；词尾 s 不漏。"
       }
     },
     {
@@ -3794,6 +3845,28 @@
           "parts": [],
           "note": "四十整体记词形，与 four 相关但不保留 u，避免照搬四的字母。"
         }
+      },
+      "spellingGuide": {
+        "segments": [
+          {
+            "text": "for",
+            "sound": "/fɔː/",
+            "note": "第一拍重读；没有 u",
+            "focus": [
+              "or"
+            ],
+            "stressed": true
+          },
+          {
+            "text": "ty",
+            "sound": "/ti/",
+            "note": "尾音写 ty",
+            "focus": [
+              "y"
+            ]
+          }
+        ],
+        "cue": "四十前段 for 没有 u；结尾 ty，不是十四 fourteen 的 teen。"
       }
     },
     {
@@ -4528,6 +4601,28 @@
           "parts": [],
           "note": "星期名称整体学习，保留首字母大写；不把历史来源编成当下可直接推义的词根。"
         }
+      },
+      "spellingGuide": {
+        "segments": [
+          {
+            "text": "Tues",
+            "sound": "/tjuːz/",
+            "note": "ue /juː/，s /z/",
+            "focus": [
+              "ue"
+            ],
+            "stressed": true
+          },
+          {
+            "text": "day",
+            "sound": "/deɪ/",
+            "note": "day 的 ay /eɪ/",
+            "focus": [
+              "ay"
+            ]
+          }
+        ],
+        "cue": "周二用 Tues，中间 ue；没有周四 Thursday 的 h、r。"
       }
     },
     {
@@ -4796,6 +4891,29 @@
           "parts": [],
           "note": "星期名称整体学习，保留首字母大写；不把历史来源编成当下可直接推义的词根。"
         }
+      },
+      "spellingGuide": {
+        "segments": [
+          {
+            "text": "Wednes",
+            "sound": "/wenz/",
+            "note": "d、第二个 e 不另读",
+            "focus": [
+              "d",
+              "e"
+            ],
+            "stressed": true
+          },
+          {
+            "text": "day",
+            "sound": "/deɪ/",
+            "note": "day 的 ay /eɪ/",
+            "focus": [
+              "ay"
+            ]
+          }
+        ],
+        "cue": "读 /wenz/ 仍写完整 Wednes，保留 d 和两个 e；W 大写。"
       }
     },
     {
@@ -4899,6 +5017,29 @@
           "parts": [],
           "note": "星期名称整体学习，保留首字母大写；不把历史来源编成当下可直接推义的词根。"
         }
+      },
+      "spellingGuide": {
+        "segments": [
+          {
+            "text": "Thurs",
+            "sound": "/θɜːz/",
+            "note": "Th /θ/，ur /ɜː/，s /z/",
+            "focus": [
+              "Th",
+              "ur"
+            ],
+            "stressed": true
+          },
+          {
+            "text": "day",
+            "sound": "/deɪ/",
+            "note": "day 的 ay /eɪ/",
+            "focus": [
+              "ay"
+            ]
+          }
+        ],
+        "cue": "周四前段是 Thurs：保留 h、ur；不是周二的 Tues。"
       }
     },
     {
@@ -5083,6 +5224,36 @@
           "parts": [],
           "note": "星期名称整体学习，保留首字母大写；不把历史来源编成当下可直接推义的词根。"
         }
+      },
+      "spellingGuide": {
+        "segments": [
+          {
+            "text": "Sat",
+            "sound": "/sæt/",
+            "note": "第一拍重读；S 大写",
+            "focus": [
+              "S"
+            ],
+            "stressed": true
+          },
+          {
+            "text": "ur",
+            "sound": "/ə/",
+            "note": "这一拍弱读；字形仍是 ur",
+            "focus": [
+              "ur"
+            ]
+          },
+          {
+            "text": "day",
+            "sound": "/deɪ/",
+            "note": "末尾 day 完整保留",
+            "focus": [
+              "ay"
+            ]
+          }
+        ],
+        "cue": "中间弱音写 ur，不写 er；末尾仍接 day。"
       }
     },
     {
@@ -8117,6 +8288,25 @@
           "parts": [],
           "note": "此处按完整词学习；用上述语义关系辨认，不把音节或巧合字母冒充词根词缀。"
         }
+      },
+      "spellingGuide": {
+        "segments": [
+          {
+            "text": "eigh",
+            "sound": "/eɪ/",
+            "note": "四字母一起对应 /eɪ/",
+            "focus": [
+              "gh"
+            ]
+          },
+          {
+            "text": "t",
+            "sound": "/t/",
+            "note": "最后再写 t",
+            "focus": []
+          }
+        ],
+        "cue": "长音组完整写 eigh，g、h 不另读也不能漏；最后接 t。"
       }
     },
     {
@@ -8458,6 +8648,36 @@
           "parts": [],
           "note": "此处按完整词学习；用上述语义关系辨认，不把音节或巧合字母冒充词根词缀。"
         }
+      },
+      "spellingGuide": {
+        "segments": [
+          {
+            "text": "e",
+            "sound": "/ɪ/",
+            "note": "开头短音仍写 e",
+            "focus": [
+              "e"
+            ]
+          },
+          {
+            "text": "le",
+            "sound": "/le/",
+            "note": "第二拍重读",
+            "focus": [
+              "e"
+            ],
+            "stressed": true
+          },
+          {
+            "text": "ven",
+            "sound": "/vən/",
+            "note": "末拍弱音仍写 e",
+            "focus": [
+              "e"
+            ]
+          }
+        ],
+        "cue": "三个元音位置都写 e；末尾弱音 /ə/ 不能改写成 a。"
       }
     },
     {
@@ -8489,6 +8709,32 @@
           "parts": [],
           "note": "此处按完整词学习；用上述语义关系辨认，不把音节或巧合字母冒充词根词缀。"
         }
+      },
+      "spellingGuide": {
+        "segments": [
+          {
+            "text": "tw",
+            "sound": "/tw/",
+            "note": "两个开头辅音",
+            "focus": []
+          },
+          {
+            "text": "e",
+            "sound": "/e/",
+            "note": "中间短音",
+            "focus": []
+          },
+          {
+            "text": "lve",
+            "sound": "/lv/",
+            "note": "l、v 都读；e 不另读",
+            "focus": [
+              "l",
+              "e"
+            ]
+          }
+        ],
+        "cue": "末尾保留 l 和静音 e；完整写 elve，不能只写 ev。"
       }
     },
     {
@@ -8565,6 +8811,30 @@
           "parts": [],
           "note": "十三整体记词形，与 three 相关但字母有变化，不直接写 three 加词尾。"
         }
+      },
+      "spellingGuide": {
+        "segments": [
+          {
+            "text": "thir",
+            "sound": "/θɜː/",
+            "note": "th /θ/；ir /ɜː/",
+            "focus": [
+              "th",
+              "ir"
+            ]
+          },
+          {
+            "text": "teen",
+            "sound": "/tiːn/",
+            "note": "第二拍重读；双 e 长音",
+            "focus": [
+              "ee",
+              "n"
+            ],
+            "stressed": true
+          }
+        ],
+        "cue": "十三结尾是 teen：双 e 再接 n；不是三十的 ty。"
       }
     },
     {
@@ -11393,6 +11663,33 @@
           "parts": [],
           "note": "此处按完整词学习；用上述语义关系辨认，不把音节或巧合字母冒充词根词缀。"
         }
+      },
+      "spellingGuide": {
+        "segments": [
+          {
+            "text": "ye",
+            "sound": "/je/",
+            "note": "开头 y 发 /j/，e 发 /e/",
+            "focus": []
+          },
+          {
+            "text": "ll",
+            "sound": "/l/",
+            "note": "双 l 只发一个 /l/",
+            "focus": [
+              "ll"
+            ]
+          },
+          {
+            "text": "ow",
+            "sound": "/əʊ/",
+            "note": "尾音写 ow",
+            "focus": [
+              "ow"
+            ]
+          }
+        ],
+        "cue": "一个 /l/ 要写双 l；末尾 /əʊ/ 写 ow，不能只写 o。"
       }
     },
     {
@@ -11777,6 +12074,29 @@
           "parts": [],
           "note": "此处按完整词学习；用上述语义关系辨认，不把音节或巧合字母冒充词根词缀。"
         }
+      },
+      "spellingGuide": {
+        "segments": [
+          {
+            "text": "or",
+            "sound": "/ɒr/",
+            "note": "第一拍重读",
+            "focus": [
+              "or"
+            ],
+            "stressed": true
+          },
+          {
+            "text": "ange",
+            "sound": "/ɪndʒ/",
+            "note": "a 在这里 /ɪ/；ge /dʒ/",
+            "focus": [
+              "a",
+              "ge"
+            ]
+          }
+        ],
+        "cue": "听到第二拍 /ɪ/ 仍写 a；末尾 ge 的 e 要保留。"
       }
     },
     {
@@ -12024,6 +12344,28 @@
           "parts": [],
           "note": "此处按完整词学习；用上述语义关系辨认，不把音节或巧合字母冒充词根词缀。"
         }
+      },
+      "spellingGuide": {
+        "segments": [
+          {
+            "text": "pur",
+            "sound": "/pɜː/",
+            "note": "第一拍重读；ur 对应长音",
+            "focus": [
+              "ur"
+            ],
+            "stressed": true
+          },
+          {
+            "text": "ple",
+            "sound": "/pəl/",
+            "note": "轻读；le 对应 /əl/",
+            "focus": [
+              "le"
+            ]
+          }
+        ],
+        "cue": "长音写 ur；弱音写 le，最后 e 不能漏。"
       }
     },
     {
@@ -13030,6 +13372,29 @@
           "parts": [],
           "note": "此处按完整词学习；用上述语义关系辨认，不把音节或巧合字母冒充词根词缀。"
         }
+      },
+      "spellingGuide": {
+        "segments": [
+          {
+            "text": "cou",
+            "sound": "/kʌ/",
+            "note": "ou 在本词读 /ʌ/",
+            "focus": [
+              "ou"
+            ],
+            "stressed": true
+          },
+          {
+            "text": "sin",
+            "sound": "/zən/",
+            "note": "s /z/；i 弱读 /ə/",
+            "focus": [
+              "s",
+              "i"
+            ]
+          }
+        ],
+        "cue": "前面的 /ʌ/ 写 ou；后面弱音写 i，听到 /z/ 仍写 s。"
       }
     },
     {

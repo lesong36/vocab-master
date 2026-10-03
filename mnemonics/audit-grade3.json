@@ -470,7 +470,7 @@
       "recognitionCue": "clothes /kləʊðz/，o 读 /əʊ/，th 读 /ð/，s 读 /z/，全词只有一拍。",
       "spellingCue": "拼写记 cl–o–th–e–s：尾部 e 不另发音，仍要写，不能把衣服写成 cloth（布）。",
       "recallTask": "遮住英文，看“衣服”说出读音，再写出单词；打开核对上面的字母难点。",
-      "rationale": "以“衣服”及例句连接词义；认读线索是clothes /kləʊðz/，o 读 /əʊ/，th 读 /ð/，s 读 /z/，全词只有一拍。拼写线索是拼写记 cl–o–th–e–s：尾部 e 不另发音，仍要写，不能把衣服写成 cloth（布）。遮住后读写能检查该声形联系是否被找回，而不是仅看过场景。",
+      "rationale": "以“衣服”及例句连接词义；认读线索是clothes /kləʊðz/，o 读 /əʊ/，th 读 /ð/，s 读 /z/，全词只有一拍。拼写线索是拼写记 cl–o–th–e–s：尾部 e 不另发音，仍要写，不能把衣服写成 cloth（布）。遮住后读写能检查该声形联系是否被找回，而不是仅看过场景。 本轮增加声形分段与拼写核对：th 后面静音 e 仍须写，最后再加 s；别写成 cloth。",
       "status": "pass",
       "hintSha256": "709a2a4a938d3cfa0082207b8231bf0e015212f705ec870cbd56d52d064e2c85",
       "exampleSha256": "0b65d846e9bd428b99e998d3d373edc2bb7d88629e495a02ad578cf0500193f6",
@@ -490,12 +490,14 @@
           "context",
           "morphology"
         ],
-        "decision": "retained",
-        "cardSha256": "719b818b726a0e75f58b72e42a60ec8af72b39e893309562838284cec606287d",
+        "decision": "revised",
+        "cardSha256": "e17f33a1db8fb9851408794eb2fb8e69b892975f4d4d447607db99823aaeadb8",
         "primaryEvidence": "clothes /kləʊðz/，o 读 /əʊ/，th 读 /ð/，s 读 /z/，全词只有一拍。拼写记 cl–o–th–e–s：尾部 e 不另发音，仍要写，不能把衣服写成 cloth（布）。遮住英文，看“衣服”说出读音，再写出单词；打开核对上面的字母难点。",
         "visualRole": "meaning",
         "contextEvidence": "统称上衣和裤子，要回忆哪个词？",
-        "changedFields": []
+        "changedFields": [
+          "spellingGuide"
+        ]
       }
     },
     {
@@ -575,7 +577,7 @@
       "recognitionCue": "trousers /ˈtraʊzəz/：ou 在这里 /aʊ/，中间 s /z/。",
       "spellingCue": "别漏词尾 s。",
       "recallTask": "遮住英文，看“裤子”说出读音，再写出单词；打开核对上面的字母难点。",
-      "rationale": "以“裤子”及例句连接词义；认读线索是trousers /ˈtraʊzəz/：ou 在这里 /aʊ/，中间 s /z/。拼写线索是别漏词尾 s。遮住后读写能检查该声形联系是否被找回，而不是仅看过场景。",
+      "rationale": "以“裤子”及例句连接词义；认读线索是trousers /ˈtraʊzəz/：ou 在这里 /aʊ/，中间 s /z/。拼写线索是别漏词尾 s。遮住后读写能检查该声形联系是否被找回，而不是仅看过场景。 本轮增加声形分段与拼写核对：中间 /aʊ/ 写 ou，两个 /z/ 都写 s；词尾 s 不漏。",
       "status": "pass",
       "hintSha256": "63eb2f6303cbe18e0c9d51afe51e0f469d93db2cddc1035e2548ce6ae31fc8c1",
       "exampleSha256": "011bb71f87297c2aa98431001cbee7643f4b4ee6dc9422be064de16acb6f9ab4",
@@ -595,12 +597,14 @@
           "context",
           "morphology"
         ],
-        "decision": "retained",
-        "cardSha256": "53512570d0e2669a130b9dc3b7d86e9aa73c3a3f4f4ed0a95938e40c4bfe22c6",
+        "decision": "revised",
+        "cardSha256": "aa8ea118734c69cabc85626b7e0dee5ad2e2d477531b915ff3d6dd46c63d24b5",
         "primaryEvidence": "trousers /ˈtraʊzəz/：ou 在这里 /aʊ/，中间 s /z/。别漏词尾 s。遮住英文，看“裤子”说出读音，再写出单词；打开核对上面的字母难点。",
         "visualRole": "meaning",
         "contextEvidence": "这件有两条长裤腿的衣物怎么称呼？",
-        "changedFields": []
+        "changedFields": [
+          "spellingGuide"
+        ]
       }
     },
     {
@@ -2833,7 +2837,7 @@
       "recognitionCue": "forty /ˈfɔːti/（四十），or 读 /ɔː/，ty 读 /ti/。",
       "spellingCue": "forty /ˈfɔːti/（四十），or 读 /ɔː/，ty 读 /ti/。从 four（四）记起：去 u，再加 ty，写 for–ty；四十没有 u，十四 fourteen 却保留 u。遮住英文，看“四十”说出读音，再写出单词；打开核对上面的字母难点。",
       "recallTask": "收起全部线索，试着读写完整词，再核对具体字母位置。",
-      "rationale": "本轮以实际词形复核：forty /ˈfɔːti/（四十），or 读 /ɔː/，ty 读 /ti/。从 four（四）记起：去 u，再加 ty，写 for–ty；四十没有 u，十四 fourteen 却保留 u。遮住英文，看“四十”说出读音，再写出单词；打开核对上面的字母难点。",
+      "rationale": "本轮以实际词形复核：forty /ˈfɔːti/（四十），or 读 /ɔː/，ty 读 /ti/。从 four（四）记起：去 u，再加 ty，写 for–ty；四十没有 u，十四 fourteen 却保留 u。遮住英文，看“四十”说出读音，再写出单词；打开核对上面的字母难点。 本轮增加声形分段与拼写核对：四十前段 for 没有 u；结尾 ty，不是十四 fourteen 的 teen。",
       "status": "pass",
       "hintSha256": "d412cd6703a5c4a2733664e9907e9068d3c938ba657598e3e94ad9a60b1ba1bf",
       "exampleSha256": "aadd080f663907db9d3850a84ffe9fc626d0e7e6d911caba7e0f52fd002fef01",
@@ -2854,12 +2858,13 @@
           "morphology"
         ],
         "decision": "revised",
-        "cardSha256": "a23737e0e37d24d114d200a8cef1d9ef4d43630503704bafb64b1407d219f4a7",
+        "cardSha256": "d3a451915ea5a5fd8a73e3ac6d79aa944ac200beeabc3e68a4e07ed3f9410227",
         "primaryEvidence": "forty /ˈfɔːti/（四十），or 读 /ɔː/，ty 读 /ti/。从 four（四）记起：去 u，再加 ty，写 for–ty；四十没有 u，十四 fourteen 却保留 u。遮住英文，看“四十”说出读音，再写出单词；打开核对上面的字母难点。",
         "visualRole": "meaning",
         "contextEvidence": "四组各十本书，共四十本。写出“四十”的英文数词。",
         "changedFields": [
-          "dimensions"
+          "dimensions",
+          "spellingGuide"
         ]
       }
     },
@@ -3401,7 +3406,7 @@
       "recognitionCue": "Tuesday /ˈtjuːzdeɪ/，Tues 读 /tjuːz/，day 读 /deɪ/。",
       "spellingCue": "Tuesday 和 Thursday 都以 T 开头；周二写 Tues–day，中间 ue 发 /juː/，s 发 /z/，不要多写 r。",
       "recallTask": "遮住英文，看“星期二”说出读音，再写出单词；打开核对上面的字母难点。",
-      "rationale": "以“星期二”及例句连接词义；认读线索是Tuesday /ˈtjuːzdeɪ/，Tues 读 /tjuːz/，day 读 /deɪ/。拼写线索是Tuesday 和 Thursday 都以 T 开头；周二写 Tues–day，中间 ue 发 /juː/，s 发 /z/，不要多写 r。遮住后读写能检查该声形联系是否被找回，而不是仅看过场景。",
+      "rationale": "以“星期二”及例句连接词义；认读线索是Tuesday /ˈtjuːzdeɪ/，Tues 读 /tjuːz/，day 读 /deɪ/。拼写线索是Tuesday 和 Thursday 都以 T 开头；周二写 Tues–day，中间 ue 发 /juː/，s 发 /z/，不要多写 r。遮住后读写能检查该声形联系是否被找回，而不是仅看过场景。 本轮增加声形分段与拼写核对：周二用 Tues，中间 ue；没有周四 Thursday 的 h、r。",
       "status": "pass",
       "hintSha256": "9100cc792f134bbbb3e0625445529ffc89a6d676a6d63d983a284f25ad04ef87",
       "exampleSha256": "c7a417f1dd0dcec7b82187d7e272cca0b8a6805f8dfcfd93157f93cbc89c6598",
@@ -3421,12 +3426,14 @@
           "context",
           "morphology"
         ],
-        "decision": "retained",
-        "cardSha256": "dd1d1e10078fdd3b706b85c2adfd51f70fd6c49cdf6fe6606998491c3a722eca",
+        "decision": "revised",
+        "cardSha256": "1364a6063c6eb793d42469ff2dddda732926ae8a0143f111ca4c68e366cda1f2",
         "primaryEvidence": "Tuesday /ˈtjuːzdeɪ/，Tues 读 /tjuːz/，day 读 /deɪ/。Tuesday 和 Thursday 都以 T 开头；周二写 Tues–day，中间 ue 发 /juː/，s 发 /z/，不要多写 r。遮住英文，看“星期二”说出读音，再写出单词；打开核对上面的字母难点。",
         "visualRole": "meaning",
         "contextEvidence": "星期一的下一天叫什么？",
-        "changedFields": []
+        "changedFields": [
+          "spellingGuide"
+        ]
       }
     },
     {
@@ -3611,7 +3618,7 @@
       "recognitionCue": "Wednesday /ˈwenzdeɪ/，读 /wenz/ 加 /deɪ/。",
       "spellingCue": "拼写分 Wed–nes–day：前段 d 不单独发音，两个 e 仍都要写；不要按声音写成 Wensday。W 大写。",
       "recallTask": "遮住英文，看“星期三”说出读音，再写出单词；打开核对上面的字母难点。",
-      "rationale": "以“星期三”及例句连接词义；认读线索是Wednesday /ˈwenzdeɪ/，读 /wenz/ 加 /deɪ/。拼写线索是拼写分 Wed–nes–day：前段 d 不单独发音，两个 e 仍都要写；不要按声音写成 Wensday。W 大写。遮住后读写能检查该声形联系是否被找回，而不是仅看过场景。",
+      "rationale": "以“星期三”及例句连接词义；认读线索是Wednesday /ˈwenzdeɪ/，读 /wenz/ 加 /deɪ/。拼写线索是拼写分 Wed–nes–day：前段 d 不单独发音，两个 e 仍都要写；不要按声音写成 Wensday。W 大写。遮住后读写能检查该声形联系是否被找回，而不是仅看过场景。 本轮增加声形分段与拼写核对：读 /wenz/ 仍写完整 Wednes，保留 d 和两个 e；W 大写。",
       "status": "pass",
       "hintSha256": "fdcd0274c396420501865b05a87c7ef6728d4039c7438457543dccded637a9a1",
       "exampleSha256": "95b1727d14dc0a07b17f0a5ab96bb9f1d3bec3d1a0cf89d9004623c815f5b763",
@@ -3631,12 +3638,14 @@
           "context",
           "morphology"
         ],
-        "decision": "retained",
-        "cardSha256": "9adbf7876647f4f6e2c54cf8d1745fbb06f8250cdc5bd3902c7468e9d4e5402b",
+        "decision": "revised",
+        "cardSha256": "f873211acbe87f250dd5d6aa64e0a32a7f87b743e468ade854e4217692c12d5f",
         "primaryEvidence": "Wednesday /ˈwenzdeɪ/，读 /wenz/ 加 /deɪ/。拼写分 Wed–nes–day：前段 d 不单独发音，两个 e 仍都要写；不要按声音写成 Wensday。W 大写。遮住英文，看“星期三”说出读音，再写出单词；打开核对上面的字母难点。",
         "visualRole": "meaning",
         "contextEvidence": "星期二后一天的名称是什么？",
-        "changedFields": []
+        "changedFields": [
+          "spellingGuide"
+        ]
       }
     },
     {
@@ -3681,7 +3690,7 @@
       "recognitionCue": "Thursday /ˈθɜːzdeɪ/，Thurs 读 /θɜːz/，day 读 /deɪ/。",
       "spellingCue": "周四开头 th 读 /θ/，ur 读 /ɜː/，s 读 /z/；写 Thurs–day，与周二的 Tues–day 对照：周四前段是 T–h–u–r–s，周二是 T–u–e–s，不能保留周二的 e。",
       "recallTask": "遮住英文，看“星期四”说出读音，再写出单词；打开核对上面的字母难点。",
-      "rationale": "周四 th /θ/ 与周二的开头音不同；把 Thurs 与 Tues 的完整字母排列对比，避免遗漏 h、r 或误保留 e，再遮住读写验证。",
+      "rationale": "周四 th /θ/ 与周二的开头音不同；把 Thurs 与 Tues 的完整字母排列对比，避免遗漏 h、r 或误保留 e，再遮住读写验证。 本轮增加声形分段与拼写核对：周四前段是 Thurs：保留 h、ur；不是周二的 Tues。",
       "status": "pass",
       "hintSha256": "1633acd1f93954672ae9e7bf1562ca680063a3e4edd19d1d9decc825930bd693",
       "exampleSha256": "43db7ef4ff1e8fc1f5e94efb2d1ee3c5cae840da584f10a343331c230a5ac578",
@@ -3701,12 +3710,14 @@
           "context",
           "morphology"
         ],
-        "decision": "retained",
-        "cardSha256": "4b8b666f2cd54195ff3ec0ed3a775c56afbf9f31d2f74bd059f05c367102b12c",
+        "decision": "revised",
+        "cardSha256": "c9a2f4ab5305471bfa781d8bd3adbb0b5b9cde0d8ec927c23d682cce6753d9a7",
         "primaryEvidence": "Thursday /ˈθɜːzdeɪ/，Thurs 读 /θɜːz/，day 读 /deɪ/。周四开头 th 读 /θ/，ur 读 /ɜː/，s 读 /z/；写 Thurs–day，与周二的 Tues–day 对照：周四前段是 T–h–u–r–s，周二是 T–u–e–s，不能保留周二的 e。遮住英文，看“星期四”说出读音，再写出单词；打开核对上面的字母难点。",
         "visualRole": "meaning",
         "contextEvidence": "星期五前一天叫什么？",
-        "changedFields": []
+        "changedFields": [
+          "spellingGuide"
+        ]
       }
     },
     {
@@ -3821,7 +3832,7 @@
       "recognitionCue": "Saturday /ˈsætədeɪ/，先 /sæt/，再 /ə/，最后 /deɪ/。",
       "spellingCue": "按 Sat–ur–day 记字形：中间弱音是 ur 两字母，不是 er；尾部 day 的 ay 读 /eɪ/。S 大写。",
       "recallTask": "遮住英文，看“星期六”说出读音，再写出单词；打开核对上面的字母难点。",
-      "rationale": "以“星期六”及例句连接词义；认读线索是Saturday /ˈsætədeɪ/，先 /sæt/，再 /ə/，最后 /deɪ/。拼写线索是按 Sat–ur–day 记字形：中间弱音是 ur 两字母，不是 er；尾部 day 的 ay 读 /eɪ/。S 大写。遮住后读写能检查该声形联系是否被找回，而不是仅看过场景。",
+      "rationale": "以“星期六”及例句连接词义；认读线索是Saturday /ˈsætədeɪ/，先 /sæt/，再 /ə/，最后 /deɪ/。拼写线索是按 Sat–ur–day 记字形：中间弱音是 ur 两字母，不是 er；尾部 day 的 ay 读 /eɪ/。S 大写。遮住后读写能检查该声形联系是否被找回，而不是仅看过场景。 本轮增加声形分段与拼写核对：中间弱音写 ur，不写 er；末尾仍接 day。",
       "status": "pass",
       "hintSha256": "3c8706a70602147959aa3e68cdcb6cb35c179466e6b3a44575d18c6f48ce3ef4",
       "exampleSha256": "5e0e518144765488008334f0e80d78d62ff6df1b49634376c37d56dcd303aec3",
@@ -3841,12 +3852,14 @@
           "context",
           "morphology"
         ],
-        "decision": "retained",
-        "cardSha256": "8873862222f67744865820193967245b5d52b5d6a2a74949791c535d19cf6702",
+        "decision": "revised",
+        "cardSha256": "75f268180432d7fdca4763c1a719d96f7df1be4a65aca73deb0ed28e9e682576",
         "primaryEvidence": "Saturday /ˈsætədeɪ/，先 /sæt/，再 /ə/，最后 /deɪ/。按 Sat–ur–day 记字形：中间弱音是 ur 两字母，不是 er；尾部 day 的 ay 读 /eɪ/。S 大写。遮住英文，看“星期六”说出读音，再写出单词；打开核对上面的字母难点。",
         "visualRole": "meaning",
         "contextEvidence": "星期五后的周末一天叫什么？",
-        "changedFields": []
+        "changedFields": [
+          "spellingGuide"
+        ]
       }
     },
     {
@@ -6145,7 +6158,7 @@
       "recognitionCue": "eight /eɪt/：eigh 合读 /eɪ/，末尾 t /t/。",
       "spellingCue": "回忆 e–i–g–h–t，g、h 不单读却不能漏。",
       "recallTask": "遮住英文，看“八”说出读音，再写出单词；打开核对上面的字母难点。",
-      "rationale": "以“八”及例句连接词义；认读线索是eight /eɪt/：eigh 合读 /eɪ/，末尾 t /t/。拼写线索是回忆 e–i–g–h–t，g、h 不单读却不能漏。遮住后读写能检查该声形联系是否被找回，而不是仅看过场景。",
+      "rationale": "以“八”及例句连接词义；认读线索是eight /eɪt/：eigh 合读 /eɪ/，末尾 t /t/。拼写线索是回忆 e–i–g–h–t，g、h 不单读却不能漏。遮住后读写能检查该声形联系是否被找回，而不是仅看过场景。 本轮增加声形分段与拼写核对：长音组完整写 eigh，g、h 不另读也不能漏；最后接 t。",
       "status": "pass",
       "hintSha256": "9ac4ba4146c67215023f81504343da3efba619bd4e27fb1b3e3ee92e105521f1",
       "exampleSha256": "a5381a3cb9185def303d03fb62592e828737f318cec6ddefb33602f1a81136da",
@@ -6165,12 +6178,14 @@
           "context",
           "morphology"
         ],
-        "decision": "retained",
-        "cardSha256": "d1717985cb008bbdbc0f1a1473bbb30f7d5b32d32b28e9cd38bb1824a40c3ba2",
+        "decision": "revised",
+        "cardSha256": "a09abf67be80293aa1a1326126b98bec3242d9a6a226f2a37e38cc294b25fe91",
         "primaryEvidence": "eight /eɪt/：eigh 合读 /eɪ/，末尾 t /t/。回忆 e–i–g–h–t，g、h 不单读却不能漏。遮住英文，看“八”说出读音，再写出单词；打开核对上面的字母难点。",
         "visualRole": "meaning",
         "contextEvidence": "两队各四人，合计数量怎么说？",
-        "changedFields": []
+        "changedFields": [
+          "spellingGuide"
+        ]
       }
     },
     {
@@ -6460,7 +6475,7 @@
       "recognitionCue": "eleven /ɪˈlevən/，开头 e /ɪ/，重读 le /le/，后半 ven /vən/。",
       "spellingCue": "按 e–le–ven 写：三处元音都写 e，最后一拍的弱音不要写 a。",
       "recallTask": "遮住英文，看“十一”说出读音，再写出单词；打开核对上面的字母难点。",
-      "rationale": "以“十一”及例句连接词义；认读线索是eleven /ɪˈlevən/，开头 e /ɪ/，重读 le /le/，后半 ven /vən/。拼写线索是按 e–le–ven 写：三处元音都写 e，最后一拍的弱音不要写 a。遮住后读写能检查该声形联系是否被找回，而不是仅看过场景。",
+      "rationale": "以“十一”及例句连接词义；认读线索是eleven /ɪˈlevən/，开头 e /ɪ/，重读 le /le/，后半 ven /vən/。拼写线索是按 e–le–ven 写：三处元音都写 e，最后一拍的弱音不要写 a。遮住后读写能检查该声形联系是否被找回，而不是仅看过场景。 本轮增加声形分段与拼写核对：三个元音位置都写 e；末尾弱音 /ə/ 不能改写成 a。",
       "status": "pass",
       "hintSha256": "174aa9cc5f27680ec9ec2b7667635c7ec0d47f34ce9bff6cf728e299c5ecdb7e",
       "exampleSha256": "e306ceaf4224771371c6e3f27d2771f52b5576b21dc962afef0f39ae650da702",
@@ -6480,12 +6495,14 @@
           "context",
           "morphology"
         ],
-        "decision": "retained",
-        "cardSha256": "7f9b55f5caef0aef2a4767e59fe6cf8629f560a2b17733a3cd592aeb856f3aa0",
+        "decision": "revised",
+        "cardSha256": "c30c32911cbcc178a2193c4ed7d03914b605a4e18dbb0821834c78fc08f69c00",
         "primaryEvidence": "eleven /ɪˈlevən/，开头 e /ɪ/，重读 le /le/，后半 ven /vən/。按 e–le–ven 写：三处元音都写 e，最后一拍的弱音不要写 a。遮住英文，看“十一”说出读音，再写出单词；打开核对上面的字母难点。",
         "visualRole": "meaning",
         "contextEvidence": "十个孩子加一个，总数怎么说？",
-        "changedFields": []
+        "changedFields": [
+          "spellingGuide"
+        ]
       }
     },
     {
@@ -6495,7 +6512,7 @@
       "recognitionCue": "twelve /twelv/：tw–e–l–v–e，末尾 e 不读。",
       "spellingCue": "回忆后面 elve，不能漏 l 或静音 e。",
       "recallTask": "遮住英文，看“十二”说出读音，再写出单词；打开核对上面的字母难点。",
-      "rationale": "以“十二”及例句连接词义；认读线索是twelve /twelv/：tw–e–l–v–e，末尾 e 不读。拼写线索是回忆后面 elve，不能漏 l 或静音 e。遮住后读写能检查该声形联系是否被找回，而不是仅看过场景。",
+      "rationale": "以“十二”及例句连接词义；认读线索是twelve /twelv/：tw–e–l–v–e，末尾 e 不读。拼写线索是回忆后面 elve，不能漏 l 或静音 e。遮住后读写能检查该声形联系是否被找回，而不是仅看过场景。 本轮增加声形分段与拼写核对：末尾保留 l 和静音 e；完整写 elve，不能只写 ev。",
       "status": "pass",
       "hintSha256": "49e8fc35617ed764167de863891d26250fd1921707cc1f8532560130d1bd588f",
       "exampleSha256": "dffc4406db8f932f09ebe71713c89f05733bfe7c16b0d01d2838c046b2e374d2",
@@ -6515,12 +6532,14 @@
           "context",
           "morphology"
         ],
-        "decision": "retained",
-        "cardSha256": "1e6346042911bf6b79076b0939063b846153c241563e34a23bda2d92e7c385bc",
+        "decision": "revised",
+        "cardSha256": "6eee8fd64eb192ba1a8c7728d7ced62d2c34e1c34a9b529c4d7734ce59431f48",
         "primaryEvidence": "twelve /twelv/：tw–e–l–v–e，末尾 e 不读。回忆后面 elve，不能漏 l 或静音 e。遮住英文，看“十二”说出读音，再写出单词；打开核对上面的字母难点。",
         "visualRole": "meaning",
         "contextEvidence": "十加二的数量要怎么说？",
-        "changedFields": []
+        "changedFields": [
+          "spellingGuide"
+        ]
       }
     },
     {
@@ -6565,7 +6584,7 @@
       "recognitionCue": "thirteen /ˌθɜːˈtiːn/，th /θ/、ir /ɜː/、teen /tiːn/，重读 teen。",
       "spellingCue": "thirteen /ˌθɜːˈtiːn/，th /θ/、ir /ɜː/、teen /tiːn/，重读 teen。十三用 thir–teen：末尾双 e 加 n；三十 thirty 却是 ty，读 /ti/，不能混。遮住英文，看“十三”说出读音，再写出单词；打开核对上面的字母难点。",
       "recallTask": "收起全部线索，试着读写完整词，再核对具体字母位置。",
-      "rationale": "本轮以实际词形复核：thirteen /ˌθɜːˈtiːn/，th /θ/、ir /ɜː/、teen /tiːn/，重读 teen。十三用 thir–teen：末尾双 e 加 n；三十 thirty 却是 ty，读 /ti/，不能混。遮住英文，看“十三”说出读音，再写出单词；打开核对上面的字母难点。",
+      "rationale": "本轮以实际词形复核：thirteen /ˌθɜːˈtiːn/，th /θ/、ir /ɜː/、teen /tiːn/，重读 teen。十三用 thir–teen：末尾双 e 加 n；三十 thirty 却是 ty，读 /ti/，不能混。遮住英文，看“十三”说出读音，再写出单词；打开核对上面的字母难点。 本轮增加声形分段与拼写核对：十三结尾是 teen：双 e 再接 n；不是三十的 ty。",
       "status": "pass",
       "hintSha256": "7c56be5b84498170da56271babfa175f3d01fcd999f8c28d7e068cd051cff32c",
       "exampleSha256": "d11da25dbb2ce4dcd269da2dc9b75d63091e88955fe741eed06fa1349521df94",
@@ -6586,12 +6605,13 @@
           "morphology"
         ],
         "decision": "revised",
-        "cardSha256": "c4ee587b35b211ec5fd7903ecc731eb65e160d373fbaf324dfb2d32c7dc96fdf",
+        "cardSha256": "bc5a1e44c22817f72e86a8a9397cd35f5b65330f4730bab1f509368101293fbc",
         "primaryEvidence": "thirteen /ˌθɜːˈtiːn/，th /θ/、ir /ɜː/、teen /tiːn/，重读 teen。十三用 thir–teen：末尾双 e 加 n；三十 thirty 却是 ty，读 /ti/，不能混。遮住英文，看“十三”说出读音，再写出单词；打开核对上面的字母难点。",
         "visualRole": "meaning",
         "contextEvidence": "十只鸟又来三只，一共有十三只。写出英文数词。",
         "changedFields": [
-          "dimensions"
+          "dimensions",
+          "spellingGuide"
         ]
       }
     },
@@ -8829,7 +8849,7 @@
       "recognitionCue": "yellow /ˈjeləʊ/：yel–low，双 l，ow /əʊ/。",
       "spellingCue": "yellow /ˈjeləʊ/：yel–low，双 l，ow /əʊ/。回忆 ye–ll–ow，别漏双 l。遮住英文，看“黄色的”说出读音，再写出单词；打开核对上面的字母难点。",
       "recallTask": "收起全部线索，试着读写完整词，再核对具体字母位置。",
-      "rationale": "本轮以实际词形复核：yellow /ˈjeləʊ/：yel–low，双 l，ow /əʊ/。回忆 ye–ll–ow，别漏双 l。遮住英文，看“黄色的”说出读音，再写出单词；打开核对上面的字母难点。",
+      "rationale": "本轮以实际词形复核：yellow /ˈjeləʊ/：yel–low，双 l，ow /əʊ/。回忆 ye–ll–ow，别漏双 l。遮住英文，看“黄色的”说出读音，再写出单词；打开核对上面的字母难点。 本轮增加声形分段与拼写核对：一个 /l/ 要写双 l；末尾 /əʊ/ 写 ow，不能只写 o。",
       "status": "pass",
       "hintSha256": "aa2693d49648ade9583f623ec46f59de42a14fff38835fc3397c3e08383b4590",
       "exampleSha256": "95d98ce01dbe3917a482d0be0f2fb8332ea0ae07b667d62a7a9bb269ba37d60c",
@@ -8850,12 +8870,13 @@
           "morphology"
         ],
         "decision": "revised",
-        "cardSha256": "1951e82f53d3bb275f5f1d7d29f9ff62898f37fa01247496e1332b045bf75140",
+        "cardSha256": "c5a724bad86e3974645f898671cbe8cfe30130fbd55d1ae2c37140678747d3f8",
         "primaryEvidence": "yellow /ˈjeləʊ/：yel–low，双 l，ow /əʊ/。回忆 ye–ll–ow，别漏双 l。遮住英文，看“黄色的”说出读音，再写出单词；打开核对上面的字母难点。",
         "visualRole": "meaning",
         "contextEvidence": "太阳画成这种亮颜色时，它叫什么？",
         "changedFields": [
-          "dimensions"
+          "dimensions",
+          "spellingGuide"
         ]
       }
     },
@@ -9152,7 +9173,7 @@
       "recognitionCue": "orange /ˈɒrɪndʒ/，第一拍重读，末尾 ge 读 /dʒ/。",
       "spellingCue": "字形按 or–ange 整理，第二段听起来 /ɪ/ 却写 a，结尾 g 后必须保留 e；不能按声音写成 orinj。",
       "recallTask": "遮住英文，看“橙色的”说出读音，再写出单词；打开核对上面的字母难点。",
-      "rationale": "以“橙色的”及例句连接词义；认读线索是orange /ˈɒrɪndʒ/，第一拍重读，末尾 ge 读 /dʒ/。拼写线索是字形按 or–ange 整理，第二段听起来 /ɪ/ 却写 a，结尾 g 后必须保留 e；不能按声音写成 orinj。遮住后读写能检查该声形联系是否被找回，而不是仅看过场景。",
+      "rationale": "以“橙色的”及例句连接词义；认读线索是orange /ˈɒrɪndʒ/，第一拍重读，末尾 ge 读 /dʒ/。拼写线索是字形按 or–ange 整理，第二段听起来 /ɪ/ 却写 a，结尾 g 后必须保留 e；不能按声音写成 orinj。遮住后读写能检查该声形联系是否被找回，而不是仅看过场景。 本轮增加声形分段与拼写核对：听到第二拍 /ɪ/ 仍写 a；末尾 ge 的 e 要保留。",
       "status": "pass",
       "hintSha256": "f36f1ff8d3d9f925d96b186d7b61b5e11f6e911488ebdb4126ddd5ee1c029f6e",
       "exampleSha256": "ef6af17354cf33e89304f6543ccd1b0b2eecf2037805353142e566de8243aa4a",
@@ -9172,12 +9193,14 @@
           "context",
           "morphology"
         ],
-        "decision": "retained",
-        "cardSha256": "79f6d038638bdf2236939a6bbfd16ed1012f4ef42bbec353813d3bf09f142b4a",
+        "decision": "revised",
+        "cardSha256": "40c2a70ef09b45e407320dd5175a2366bad07ece410be3d28c02b9dbfdf930a2",
         "primaryEvidence": "orange /ˈɒrɪndʒ/，第一拍重读，末尾 ge 读 /dʒ/。字形按 or–ange 整理，第二段听起来 /ɪ/ 却写 a，结尾 g 后必须保留 e；不能按声音写成 orinj。遮住英文，看“橙色的”说出读音，再写出单词；打开核对上面的字母难点。",
         "visualRole": "meaning",
         "contextEvidence": "同一个词能表示哪种水果和它的颜色？",
-        "changedFields": []
+        "changedFields": [
+          "spellingGuide"
+        ]
       }
     },
     {
@@ -9364,7 +9387,7 @@
       "recognitionCue": "purple /ˈpɜːpəl/，ur /ɜː/，ple /pəl/。",
       "spellingCue": "purple /ˈpɜːpəl/，ur /ɜː/，ple /pəl/。字形 pur–ple：前一个长音写 ur，后面的弱音由 le 对应 /əl/；最后 e 仍要写。遮住英文，看“紫色的”说出读音，再写出单词；打开核对上面的字母难点。",
       "recallTask": "收起全部线索，试着读写完整词，再核对具体字母位置。",
-      "rationale": "本轮以实际词形复核：purple /ˈpɜːpəl/，ur /ɜː/，ple /pəl/。字形 pur–ple：前一个长音写 ur，后面的弱音由 le 对应 /əl/；最后 e 仍要写。遮住英文，看“紫色的”说出读音，再写出单词；打开核对上面的字母难点。",
+      "rationale": "本轮以实际词形复核：purple /ˈpɜːpəl/，ur /ɜː/，ple /pəl/。字形 pur–ple：前一个长音写 ur，后面的弱音由 le 对应 /əl/；最后 e 仍要写。遮住英文，看“紫色的”说出读音，再写出单词；打开核对上面的字母难点。 本轮增加声形分段与拼写核对：长音写 ur；弱音写 le，最后 e 不能漏。",
       "status": "pass",
       "hintSha256": "461368f3918fa311fb96469d6df844ffbd5ac0ce492b1cb0fef74857f0359a8e",
       "exampleSha256": "afef45ac4a5dc3a96511ea73e709f639f544942f98ba41cf307e171239cc4d13",
@@ -9385,12 +9408,13 @@
           "morphology"
         ],
         "decision": "revised",
-        "cardSha256": "d2d86aceaf002dc5e702e6ef7e7dde58f52f9f43cae6477e70d3f98c5335cab9",
+        "cardSha256": "e9cdbc63ba16c18c3a8b6e6e34c1a5e6f15b3b0d96a382a21fef1e05cfc69fa6",
         "primaryEvidence": "purple /ˈpɜːpəl/，ur /ɜː/，ple /pəl/。字形 pur–ple：前一个长音写 ur，后面的弱音由 le 对应 /əl/；最后 e 仍要写。遮住英文，看“紫色的”说出读音，再写出单词；打开核对上面的字母难点。",
         "visualRole": "meaning",
         "contextEvidence": "葡萄常见的这个颜色叫什么？",
         "changedFields": [
-          "dimensions"
+          "dimensions",
+          "spellingGuide"
         ]
       }
     },
@@ -10216,7 +10240,7 @@
       "recognitionCue": "cousin /ˈkʌzən/，ou /ʌ/，s /z/，最后 in /ən/。",
       "spellingCue": "写 cou–sin：前半 /ʌ/ 要写 ou，后半弱音写 i；别把 s 改成 z。",
       "recallTask": "遮住英文，看“堂（表）兄弟，堂（表）姐妹”说出读音，再写出单词；打开核对上面的字母难点。",
-      "rationale": "以“堂（表）兄弟，堂（表）姐妹”及例句连接词义；认读线索是cousin /ˈkʌzən/，ou /ʌ/，s /z/，最后 in /ən/。拼写线索是写 cou–sin：前半 /ʌ/ 要写 ou，后半弱音写 i；别把 s 改成 z。遮住后读写能检查该声形联系是否被找回，而不是仅看过场景。",
+      "rationale": "以“堂（表）兄弟，堂（表）姐妹”及例句连接词义；认读线索是cousin /ˈkʌzən/，ou /ʌ/，s /z/，最后 in /ən/。拼写线索是写 cou–sin：前半 /ʌ/ 要写 ou，后半弱音写 i；别把 s 改成 z。遮住后读写能检查该声形联系是否被找回，而不是仅看过场景。 本轮增加声形分段与拼写核对：前面的 /ʌ/ 写 ou；后面弱音写 i，听到 /z/ 仍写 s。",
       "status": "pass",
       "hintSha256": "cf2bbed573beebc07e04818cdbc10dd94400dfa163e6dd85d0fd7061c58cd162",
       "exampleSha256": "39737025b6cf746bf1362b33f934ed85dc4220af1cc898eb2964487b1e3558df",
@@ -10236,12 +10260,14 @@
           "context",
           "morphology"
         ],
-        "decision": "retained",
-        "cardSha256": "8c7f887984ae2b5d4ddedd4fa668b122e918b1b614d43948986b18882aa0f3bd",
+        "decision": "revised",
+        "cardSha256": "8117a4c5d1efe27a339df0895e3ae02f0a4b93f560c4230b36d31d7e212a7bcf",
         "primaryEvidence": "cousin /ˈkʌzən/，ou /ʌ/，s /z/，最后 in /ən/。写 cou–sin：前半 /ʌ/ 要写 ou，后半弱音写 i；别把 s 改成 z。遮住英文，看“堂（表）兄弟，堂（表）姐妹”说出读音，再写出单词；打开核对上面的字母难点。",
         "visualRole": "meaning",
         "contextEvidence": "叔伯姑舅姨的孩子与你是什么亲属关系？",
-        "changedFields": []
+        "changedFields": [
+          "spellingGuide"
+        ]
       }
     },
     {

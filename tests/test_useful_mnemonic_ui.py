@@ -37,6 +37,7 @@ with sync_playwright() as playwright:
     panel = page.get_by_role('region', name='多维助记')
     panel.get_by_role('button', name='看字形', exact=True).wait_for(timeout=30000)
     assert panel.get_by_role('button', name='拼写线索', exact=True).get_attribute('aria-pressed') == 'true'
+    panel.get_by_text('完整读写提示', exact=True).click()
     assert panel.get_by_text(cards[0]['hint'], exact=True).is_visible()
     panel.get_by_role('button', name='看字形', exact=True).click()
     assert not panel.get_by_role('button', name='词形组成', exact=True).count()
@@ -48,8 +49,9 @@ with sync_playwright() as playwright:
     assert not panel.get_by_text('🧠', exact=True).count()
     panel.screenshot(path=str(OUTPUT / 'remember-useful-desktop.png'))
     panel.get_by_role('button', name='拼写线索', exact=True).click()
+    panel.get_by_text('完整读写提示', exact=True).click()
     assert panel.get_by_text(cards[0]['hint'], exact=True).is_visible()
-    assert not panel.locator('figure').count()
+    assert panel.get_by_role('figure', name='拼写字形路径').count() == 1
     panel.get_by_role('button', name='看字形', exact=True).click()
     page.set_viewport_size({'width': 375, 'height': 900})
     assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
@@ -71,6 +73,7 @@ with sync_playwright() as playwright:
     assert panel.get_by_text(cards[2]['dimensions']['morphology']['note'], exact=True).is_visible()
     page.evaluate('window.selectCueCard(0)')
     assert panel.get_by_role('button', name='拼写线索', exact=True).get_attribute('aria-pressed') == 'true'
+    panel.get_by_text('完整读写提示', exact=True).click()
     assert panel.get_by_text(cards[0]['hint'], exact=True).is_visible()
 
     # Removing a redundant semantic mode must also clear a reused selection.

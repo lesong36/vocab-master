@@ -50,10 +50,10 @@ with sync_playwright() as playwright:
     assert not panel.get_by_text(cards["use"]["hint"], exact=True).count(), "All cues appear at once"
     for name, expected in (("辨词义", cards["use"]["dimensions"]["semantic"]),
                            ("放进情境", cards["use"]["example"]),
-                           ("拆词理解", cards["use"]["dimensions"]["morphology"]["note"]),
                            ("听音拼写", cards["use"]["hint"])):
         panel.get_by_role("button", name=name, exact=True).click()
         assert panel.get_by_text(expected, exact=True).is_visible(), name
+    assert not panel.get_by_role("button", name="拆词理解", exact=True).count(), "No useful morphology exists for use"
     before = len(writes)
     page.get_by_role("button", name="收起线索，试着回忆", exact=True).click()
     recall = page.get_by_role("region", name="助记回忆练习")
@@ -97,7 +97,13 @@ with sync_playwright() as playwright:
     page.get_by_role("button", name="闪卡复习 (18 词)", exact=True).click()
     english = page.get_by_role("button", name="显示词义和助记", exact=True).locator('h3').inner_text()
     page.get_by_role("button", name="显示词义和助记", exact=True).click()
-    assert page.get_by_text(cards[english]["dimensions"]["visual"]["caption"], exact=True).is_visible()
+    visual = cards[english]["dimensions"]["visual"]
+    has_picture = "diagram" in visual or english in {"in", "on", "under", "behind", "next to", "sorry", "would", "dessert", "meatball"}
+    if has_picture:
+        assert page.get_by_text(visual["caption"], exact=True).is_visible()
+    else:
+        assert page.get_by_text(cards[english]["hint"], exact=True).is_visible()
+        assert not page.get_by_role("button", name="看图记", exact=True).count()
     page.get_by_role("button", name="辨词义", exact=True).click()
     assert page.get_by_text(cards[english]["dimensions"]["semantic"], exact=False).is_visible()
     assert not page.get_by_text(cards[english]["dimensions"]["visual"]["caption"], exact=True).count(), "Flashcard shows all cues at once"
@@ -118,4 +124,4 @@ with sync_playwright() as playwright:
     page.pdf(path=str(OUTPUT / "multidimensional-print.pdf"), format="A4", print_background=True)
     assert not errors, errors
     browser.close()
-    print("PASS: five cue modes, independent context retrieval, hidden visuals/letters, no self-check writes, shared flashcard/print data, desktop and 375px layouts")
+    print("PASS: content-specific cue modes, independent context retrieval, hidden visuals/letters, no self-check writes, shared flashcard/print data, desktop and 375px layouts")

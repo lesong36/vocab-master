@@ -27,6 +27,23 @@ assert.equal(letterParts('uncle', ['re']).filter(part => part.focus).length, 0, 
 assert.equal(letterParts('ice cream', ['ea']).map(part => part.text).join(''), 'ice cream', 'Phrase spacing must survive highlighting');
 console.log('PASS: visual cues highlight double and silent letters without changing spelling or phrase spacing');
 
+const availabilitySource = html.slice(html.indexOf('const hasMnemonicPicture ='), html.indexOf('const MnemonicPicture ='));
+const availability = vm.runInNewContext(availabilitySource + '\n({ hasMnemonicPicture, hasMnemonicMorphology })');
+assert.equal(availability.hasMnemonicPicture(null), false);
+assert.equal(availability.hasMnemonicMorphology(null), false);
+for (const grade of [3, 4, 5]) {
+  const cards = JSON.parse(fs.readFileSync(`mnemonics/grade${grade}.json`, 'utf8')).cards;
+  for (const card of cards) {
+    if (card.dimensions.morphology.kind === 'none') {
+      assert.equal(availability.hasMnemonicMorphology(card), false, `${card.word}: no empty morphology entry`);
+    }
+    if (!card.dimensions.visual.diagram && !['in', 'on', 'under', 'behind', 'next to', 'sorry', 'would', 'dessert', 'meatball'].includes(card.word.toLowerCase())) {
+      assert.equal(availability.hasMnemonicPicture(card), false, `${card.word}: emoji alone is not a visual cue`);
+    }
+  }
+}
+console.log('PASS: all textbook cards omit emoji-only pictures and empty morphology entries');
+
 const matchingSource = html.slice(html.indexOf('const matchesSpelling ='), html.indexOf('const levenshtein ='));
 const matchesSpelling = vm.runInNewContext(matchingSource + '\nmatchesSpelling');
 assert.ok(matchesSpelling('hi', 'hi'));

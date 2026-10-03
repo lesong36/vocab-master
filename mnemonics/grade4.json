@@ -1523,7 +1523,7 @@
     {
       "section": "四上Unit 2",
       "method": "拼读",
-      "hint": "读 /rɪˈmembə/，第一 e /ɪ/，第二 e /e/。remember 按 re—mem—ber 记，重音在 mem；中间不是一个 m，而是 mem 中两端各有 m。想起藏在书里的钥匙位置：remember！遮住英文，看中文先读，再回写 re＋mem＋ber，检查两个 m。",
+      "hint": "【读音】先听标准读音，跟读 re /rɪ/ · mem /mem/ · ber /bə/，中间 mem 读重一些。\n【怎么拼】按读音分成 re · mem · ber。中间 mem 是 m-e-m，两个 m 分站在 e 两边；开头 re，结尾 ber。\n【收起再写】看到“记住”，先读出单词，再写完整单词。核对两个 m 是否分别在中间 e 的两边，结尾是否写成 ber；收起答案重新写。",
       "example": "Remember my name. 记住我的名字。",
       "word": "remember",
       "dimensions": {
@@ -1532,8 +1532,34 @@
             "🧠",
             "📛"
           ],
-          "caption": "第一次见面时记下名字，第二次见面还能想起来。",
-          "focus": []
+          "caption": "先跟读三个分段，再看中间：m 和 m 夹着 e。收起字形，写出“记住”；检查两个 m、开头 re 和结尾 ber。",
+          "focus": [
+            "m"
+          ],
+          "diagram": {
+            "kind": "spelling",
+            "segments": [
+              {
+                "text": "re",
+                "sound": "/rɪ/",
+                "note": "轻读"
+              },
+              {
+                "text": "mem",
+                "sound": "/mem/",
+                "note": "重读",
+                "stressed": true,
+                "focus": [
+                  "m"
+                ]
+              },
+              {
+                "text": "ber",
+                "sound": "/bə/",
+                "note": "轻读"
+              }
+            ]
+          }
         },
         "semantic": "把信息留在记忆中并能找回；与 forget 忘记相对。",
         "context": {
@@ -1545,7 +1571,8 @@
           "parts": [],
           "note": "现代学习中整体记 remember；不能把外形相似的 re 和 member 当作能推出记住含义的真实词根组合。"
         }
-      }
+      },
+      "spellingCue": "按读音分成 re · mem · ber。中间 mem 是 m-e-m，两个 m 分站在 e 两边；开头 re，结尾 ber。"
     },
     {
       "section": "四上Unit 2",

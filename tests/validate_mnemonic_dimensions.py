@@ -11,7 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 KINDS = {"none", "affix", "compound", "inflection", "phrase"}
 PANEL_KINDS = {"combine", "compare", "change", "sequence", "parts"}
-GRAPHIC_KINDS = PANEL_KINDS | {"position", "count", "colour", "body", "clock", "family", "measure", "reference", "deixis", "motion", "frequency", "timeline", "selection", "shape", "category", "partition", "feature"}
+GRAPHIC_KINDS = PANEL_KINDS | {"spelling", "position", "count", "colour", "body", "clock", "family", "measure", "reference", "deixis", "motion", "frequency", "timeline", "selection", "shape", "category", "partition", "feature"}
 SPECIAL_GRAPHICS = {"in", "on", "under", "behind", "next to", "sorry", "would", "dessert", "meatball"}
 BODY_PARTS = {
     "person": {"arm", "leg", "ear", "eye", "nose", "mouth", "hand", "foot", "neck", "hair", "face"},
@@ -45,7 +45,15 @@ for grade in (3, 4, 5):
             diagram = visual["diagram"]
             kind = diagram["kind"]
             assert kind in GRAPHIC_KINDS, key
-            if kind in PANEL_KINDS:
+            if kind == "spelling":
+                segments = diagram["segments"]
+                assert len(segments) == 3, key
+                assert "".join(segment["text"] for segment in segments) == card["word"], key
+                for segment in segments:
+                    assert all(isinstance(segment[field], str) and segment[field].strip() for field in ("text", "sound", "note")), key
+                    assert all(cue and cue in segment["text"] for cue in segment.get("focus", [])), key
+                    assert type(segment.get("stressed", False)) is bool, key
+            elif kind in PANEL_KINDS:
                 assert 2 <= len(diagram["panels"]) <= 4, key
                 if kind in {"compare", "change", "combine"}:
                     assert len(diagram["panels"]) == (3 if kind == "combine" else 2), key
@@ -193,10 +201,10 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--report", action="store_true", help="Write the verified graphic coverage report")
 if parser.parse_args().report:
     type_names = {"special-svg": "专属位置或字形图", "compare": "对象或语义对照", "combine": "真实组成", "change": "形式或状态变化", "sequence": "过程与次序", "parts": "部分与组成", "position": "空间关系", "count": "数量与序数", "colour": "颜色与混色", "body": "身体与植物部位", "clock": "钟面", "family": "亲属关系", "measure": "长度、高度、大小与厚度"}
-    type_names.update({'reference': '人物、动作与所属', 'deixis': '指代距离与单复数', 'motion': '起点与移动方向', 'frequency': '发生次数与频率', 'timeline': '时间定位与范围', 'selection': '数量与选择范围', 'shape': '轮廓形状', 'category': '类别与成员', 'partition': '整体与部分', 'feature': '具体结构与作用'})
+    type_names.update({'spelling': '读音与字形分段', 'reference': '人物、动作与所属', 'deixis': '指代距离与单复数', 'motion': '起点与移动方向', 'frequency': '发生次数与频率', 'timeline': '时间定位与范围', 'selection': '数量与选择范围', 'shape': '轮廓形状', 'category': '类别与成员', 'partition': '整体与部分', 'feature': '具体结构与作用'})
     target_names = {"meaning": "认词义", "spelling": "记字形", "both": "词义与字形"}
-    lines = ["# 具体图解覆盖与剩余词卡", "", "统计日期：2026-10-02。按实际可渲染的图解统计，普通图标及文字描述不计入具体图解。", "",
-             f"全部 {len(cards)} 条已记录图解判断；具体图解 **{illustrated} 条（{illustrated / len(cards):.2%}）**，仍仅有图标提示 {len(pending)} 条。", "",
+    lines = ["# 具体图解覆盖与剩余词卡", "", "统计日期：2026-10-03。按实际可渲染的图解统计，普通图标及文字描述不计入具体图解。", "",
+             f"全部 {len(cards)} 条已记录图解判断；具体图解 **{illustrated} 条（{illustrated / len(cards):.2%}）**，尚无具体图解 {len(pending)} 条。", "",
              "| 年级 | 词卡 | 具体图解 | 覆盖率 |", "|---|---:|---:|---:|"]
     for grade, stats in grade_graphics.items():
         lines.append(f"| {grade} 年级 | {stats['total']} | {stats['illustrated']} | {stats['illustrated'] / stats['total']:.2%} |")
@@ -204,7 +212,7 @@ if parser.parse_args().report:
     lines += [f"| {type_names[kind]} | {count} |" for kind, count in sorted(graphics.items())]
     lines += ["", "## 取回目标", "", "图意判断和字形线索属于设计依据，不能作为儿童实际记忆效果证据。", ""]
     lines += [f"- {target_names[target]}：{count} 条" for target, count in sorted(retrieval_targets.items())]
-    lines += ["", "## 仍只有图标提示的词", "", "这些词保留声音、语义和情境提示；以下是本轮未采用具体图解的理由，后续可据此继续设计。", "",
+    lines += ["", "## 尚无具体图解的词", "", "这些词默认显示听音拼写，保留语义和情境提示；普通图标不再显示为看图记。以下是未采用具体图解的记录，后续可据此继续设计。", "",
               "| 年级 | 单元 | 单词 | 判断理由 |", "|---|---|---|---|"]
     for grade, section, word, rationale in pending:
         lines.append("| " + " | ".join(str(value).replace("|", "／").replace("\n", " ") for value in (grade, section, word, rationale)) + " |")

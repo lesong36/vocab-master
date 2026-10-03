@@ -636,18 +636,18 @@
       "section": "四上Unit 2",
       "word": "remember",
       "changed": true,
-      "recognitionCue": "读 /rɪˈmembə/，第一 e /ɪ/，第二 e /e/",
-      "spellingCue": "re-mem-ber；两个 m 由 e 隔开",
-      "recallTask": "遮住英文，看中文先读出 remember，再写一遍；核对 re-mem-ber；两个 m 由 e 隔开，稍后不看提示重试。",
-      "rationale": "听到或读出词后，用这条具体声形路径定位字母；re-mem-ber；两个 m 由 e 隔开 明确不能仅靠一般发音规则猜对的拼写，避免只记住场景却找不回词形。",
+      "recognitionCue": "re /rɪ/ · mem /mem/ · ber /bə/；重音在中间 mem。",
+      "spellingCue": "按读音分成 re · mem · ber。中间 mem 是 m-e-m，两个 m 分站在 e 两边；开头 re，结尾 ber。",
+      "recallTask": "收起所有英文与图形，看“记住”先读后写完整单词；核对两个 m 分居中间 e 两边及结尾 ber，收起答案重写。",
+      "rationale": "把原先无字形连接的见面场景换成声音与字母对齐的分段；mem 中的 m-e-m 是可核对的具体字母顺序，不作为词根或词义推导。",
       "status": "pass",
-      "hintSha256": "ec936522ebc842537040611eddb5a3557afa99a3fa676fede167579f6c68cc85",
-      "dimensionsSha256": "e60b8cd3a61b07db438c2bbb3436bc4fc62986fe969ef608268128ede15e4b4e",
-      "dimensionsRationale": "以“第一次见面时记下名字，第二次见面还能想起来。”关联含义，画面用于找回词义，不声称能单独推导全部拼写；语义线索建立“把信息留在记忆中并能找回；与 forget 忘记相对。”的关系；通过“隔了一周你仍能叫出新同学的名字，哪个词表示记得？”检验场景中的词义与用法回忆。构词判断：现代学习中整体记 remember；不能把外形相似的 re 和 member 当作能推出记住含义的真实词根组合。这里只审查内容准确性和回忆路径，未验证儿童记忆效果。",
+      "hintSha256": "1a5911ddc7c21ffebfd0ac3fd4b9e6fe37ce3dbbd320466eec409b1bbaecd0c3",
+      "dimensionsSha256": "abd12c9684a5c903eb7326a469600a8e4c1eb1cfd301e5a625681c8f0b4b32c3",
+      "dimensionsRationale": "视觉改为 re、mem、ber 的声形分段，突出重读 mem 中实际存在的两个 m；这些是拼读分段，构词仍为 none，学习页不再展示无可用拆解的入口。语义和情境只作理解与用法线索。未验证儿童记忆效果。",
       "graphicReview": {
-        "status": "cue-only",
-        "target": "meaning",
-        "rationale": "本词的语义是“把信息留在记忆中并能找回；与 forget 忘记相对。”。本轮尚未设计出能清楚表现该义项或字母变化的具体关系图；继续使用原声音、语义和情境线索。"
+        "status": "illustrated",
+        "target": "spelling",
+        "rationale": "三个分段对齐实际读音，两个 m 分居 e 两侧；去掉脑与姓名牌图标，直接给出可供遮住后回写、核对的字形线索。"
       }
     },
     {

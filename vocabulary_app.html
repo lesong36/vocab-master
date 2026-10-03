@@ -249,14 +249,21 @@
       return parts;
     };
 
+    const hasMnemonicPicture = (card) => Boolean(card?.dimensions?.visual?.diagram)
+      || ['in', 'on', 'under', 'behind', 'next to', 'sorry', 'would', 'dessert', 'meatball'].includes(card?.word?.toLowerCase());
+
+    const hasMnemonicMorphology = (card) => Boolean(card?.dimensions?.morphology
+      && card.dimensions.morphology.kind !== 'none' && card.dimensions.morphology.parts.length);
+
     const MnemonicPicture = ({ card, compact = false }) => {
+      if (!hasMnemonicPicture(card)) return null;
       const visual = card.dimensions.visual;
       const word = card.word.toLowerCase();
       const spatial = ['in', 'on', 'under', 'behind', 'next to'].includes(word);
       const specialPicture = spatial || ['sorry', 'would', 'dessert', 'meatball'].includes(word);
       return (
         <figure className={`m-0 rounded-xl border border-amber-200 bg-amber-50 ${compact ? 'p-3' : 'p-5'}`}>
-          <p className="mb-3 text-xs font-semibold text-amber-900">{visual.diagram ? ({ combine: '找组成', compare: '辨一辨', change: '看变化', sequence: '看先后', parts: '找组成', position: '找位置', count: '数一数、找顺序', colour: '看颜色', body: '认部位', clock: '读钟面', family: '认亲属关系', measure: '比一比', reference: '看对象与关系', deixis: '近远与单复数', motion: '看起点和去向', frequency: '看发生次数', timeline: '在时间线上找位置', selection: '看选中范围', shape: '只比较轮廓', category: '找同一类的例子', partition: '从整体看部分', feature: '看结构和作用' })[visual.diagram.kind] : specialPicture ? '看具体图解' : '看图标，想画面'}</p>
+          <p className="mb-3 text-xs font-semibold text-amber-900">{visual.diagram ? ({ spelling: '跟着读音，记字母顺序', combine: '找组成', compare: '辨一辨', change: '看变化', sequence: '看先后', parts: '找组成', position: '找位置', count: '数一数、找顺序', colour: '看颜色', body: '认部位', clock: '读钟面', family: '认亲属关系', measure: '比一比', reference: '看对象与关系', deixis: '近远与单复数', motion: '看起点和去向', frequency: '看发生次数', timeline: '在时间线上找位置', selection: '看选中范围', shape: '只比较轮廓', category: '找同一类的例子', partition: '从整体看部分', feature: '看结构和作用' })[visual.diagram.kind] : '看具体图解'}</p>
           {visual.diagram ? (
             <MnemonicGraphic diagram={visual.diagram} card={card} compact={compact} />
           ) : specialPicture ? (
@@ -312,13 +319,7 @@
                 <text x="249" y="121" textAnchor="middle" fill="#784621" fontSize="16">搓成球</text>
               </>}
             </svg>
-          ) : (
-            <div role="img" aria-label={visual.caption} className="flex flex-wrap items-center justify-center gap-3 py-2">
-              {visual.symbols.map((symbol, index) => <React.Fragment key={index}>
-                <span aria-hidden="true" className={`${compact ? 'text-3xl' : 'text-5xl'} leading-normal`}>{symbol}</span>
-              </React.Fragment>)}
-            </div>
-          )}
+          ) : null}
           {!visual.diagram && visual.focus.length > 0 && <p aria-label="字形线索" className={`mt-2 whitespace-pre-wrap text-center font-mono font-bold text-stone-800 ${compact ? 'text-xl' : 'text-3xl'}`}>
             {getMnemonicLetterParts(card.word, visual.focus).map((part, index) => part.focus
               ? <mark key={index} className="rounded bg-amber-200 px-0.5 text-amber-950 underline decoration-amber-600 decoration-2 underline-offset-4">{part.text}</mark>
@@ -333,7 +334,19 @@
       const { kind } = diagram;
       const svgClass = `mx-auto w-full ${compact ? 'max-w-[190px]' : 'max-w-xs'}`;
       let content;
-      if (diagram.panels) {
+      if (kind === 'spelling') {
+        content = <div aria-label="读音与字母分段" className="grid grid-cols-3 gap-2">
+          {diagram.segments.map((segment, index) => <div key={index} className={`min-w-0 rounded-lg border px-1 py-2 text-center ${segment.stressed ? 'border-amber-500 bg-amber-100' : 'border-amber-200 bg-white'}`}>
+            <p className={`font-mono font-bold text-stone-800 ${compact ? 'text-base' : 'text-xl sm:text-2xl'}`}>
+              {getMnemonicLetterParts(segment.text, segment.focus || []).map((part, item) => part.focus
+                ? <mark key={item} className="rounded bg-amber-300 text-amber-950 underline decoration-amber-700 underline-offset-4">{part.text}</mark>
+                : <span key={item}>{part.text}</span>)}
+            </p>
+            <p className="mt-2 font-mono text-xs text-stone-700">{segment.sound}</p>
+            <p className="mt-1 text-xs leading-5 text-stone-600">{segment.note}</p>
+          </div>)}
+        </div>;
+      } else if (diagram.panels) {
         const linear = ['sequence', 'parts'].includes(kind);
         const longLabel = diagram.panels.some(panel => panel.label.length > 6);
         const stacked = linear || diagram.panels.some(panel => panel.label.split(/\s+/).some(token => token.length > 12)) || (compact && (kind !== 'combine' || longLabel));
@@ -628,32 +641,36 @@
       const [selected, setSelected] = useState('visual');
       if (!card?.dimensions) return null;
       const { semantic, context, morphology } = card.dimensions;
+      const hasPicture = hasMnemonicPicture(card);
+      const hasMorphology = hasMnemonicMorphology(card);
+      const active = (selected === 'visual' && !hasPicture) || (selected === 'morphology' && !hasMorphology) ? 'phonics' : selected;
       if (compact) return <div aria-label="多维助记" className="mt-3 space-y-2 text-left text-xs leading-5 text-stone-700">
         <MnemonicPicture card={card} compact />
         <p><strong>辨词义：</strong>{semantic}</p>
         <p><strong>放进情境：</strong>{context.scene}</p>
         <p><strong>换个情境想一想：</strong>{context.question}</p>
-        <p><strong>拆词理解：</strong>{morphology.note}</p>
+        {hasMorphology && <p><strong>拆词理解：</strong>{morphology.note}</p>}
       </div>;
-      const options = [['visual', '看图记', Eye], ['semantic', '辨词义', Layers], ['context', '放进情境', BookOpen], ['morphology', '拆词理解', MnemonicPartsIcon], ['phonics', '听音拼写', Volume2]];
+      const options = [['visual', card.dimensions.visual.diagram?.kind === 'spelling' ? '看字形' : '看图记', Eye], ['semantic', '辨词义', Layers], ['context', '放进情境', BookOpen], ['morphology', '拆词理解', MnemonicPartsIcon], ['phonics', '听音拼写', Volume2]]
+        .filter(([value]) => (value !== 'visual' || hasPicture) && (value !== 'morphology' || hasMorphology));
       return <section aria-label="多维助记" className="mt-4">
         <p className="mb-3 text-sm text-stone-600">选一条能帮你记住的线索，再收起试一试。</p>
         <div role="group" aria-label="选择助记线索" className="mb-4 flex flex-wrap gap-2">
-          {options.map(([value, label, Icon]) => <button key={value} type="button" aria-pressed={selected === value} onClick={() => setSelected(value)} className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-2 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700 ${selected === value ? 'border-stone-800 bg-stone-800 text-white' : 'border-stone-300 bg-white text-stone-700 hover:border-stone-600'}`}><Icon aria-hidden="true" size={16} />{label}</button>)}
+          {options.map(([value, label, Icon]) => <button key={value} type="button" aria-pressed={active === value} onClick={() => setSelected(value)} className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-2 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700 ${active === value ? 'border-stone-800 bg-stone-800 text-white' : 'border-stone-300 bg-white text-stone-700 hover:border-stone-600'}`}><Icon aria-hidden="true" size={16} />{label}</button>)}
         </div>
         <div className="rounded-xl bg-white p-4 text-stone-800 sm:p-5" aria-live="polite">
-          {selected === 'visual' && <MnemonicPicture card={card} />}
-          {selected === 'semantic' && <><h5 className="mb-2 font-semibold">和熟悉的意思连起来</h5><p className="leading-7">{semantic}</p></>}
-          {selected === 'context' && <><h5 className="mb-2 font-semibold">什么时候会用到？</h5><p className="leading-7">{context.scene}</p><p className="mt-4 whitespace-pre-line border-t border-stone-200 pt-4 leading-7">{card.example}</p><p className="mt-4 rounded-lg bg-amber-50 p-3 text-sm leading-6"><strong>换个情境想一想：</strong>{context.question}</p></>}
-          {selected === 'morphology' && <>
-            <h5 className="mb-3 font-semibold">{morphology.kind === 'none' ? '这个词整体记' : '看看组成和变化'}</h5>
+          {active === 'visual' && <MnemonicPicture card={card} />}
+          {active === 'semantic' && <><h5 className="mb-2 font-semibold">和熟悉的意思连起来</h5><p className="leading-7">{semantic}</p></>}
+          {active === 'context' && <><h5 className="mb-2 font-semibold">什么时候会用到？</h5><p className="leading-7">{context.scene}</p><p className="mt-4 whitespace-pre-line border-t border-stone-200 pt-4 leading-7">{card.example}</p><p className="mt-4 rounded-lg bg-amber-50 p-3 text-sm leading-6"><strong>换个情境想一想：</strong>{context.question}</p></>}
+          {active === 'morphology' && <>
+            <h5 className="mb-3 font-semibold">看看组成和变化</h5>
             {morphology.parts.length > 0 && <div className="mb-4 flex flex-wrap items-center gap-2">{morphology.parts.map((part, index) => <React.Fragment key={index}>
               {index > 0 && <span aria-hidden="true" className="text-stone-500">＋</span>}
               <div className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2"><p className="font-mono text-xl font-bold text-emerald-950">{part.text}</p><p className="mt-1 text-xs text-emerald-900">{part.meaning}</p></div>
             </React.Fragment>)}</div>}
             <p className="leading-7">{morphology.note}</p>
           </>}
-          {selected === 'phonics' && <><h5 className="mb-2 font-semibold">读准声音，记准字母</h5><p className="whitespace-pre-line leading-7">{card.hint}</p></>}
+          {active === 'phonics' && <><h5 className="mb-2 font-semibold">读准声音，记准字母</h5><p className="whitespace-pre-line leading-7">{card.hint}</p></>}
         </div>
       </section>;
     };

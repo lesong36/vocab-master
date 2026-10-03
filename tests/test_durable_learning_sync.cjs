@@ -84,9 +84,11 @@ const response = (events, count, ack = events.map(event => event.id)) => ({ data
 
   api.enqueueLearningEvent('account', event('a'));
   const incompleteAck = await api.syncLearningOutbox({ accountId: 'account', master: master(), rpc: async () => response([], 0, ['a']) });
+  assert.equal(incompleteAck.healthErrorCode, 'receipt_invalid', 'Missing returned answer is an immediate alert');
   assert.equal(incompleteAck.pendingCount, 1, 'Receipt missing returned event does not clear queue');
   assert.equal(incompleteAck.appState.users.reader_account.words[0].incorrectCount, 1);
   const noReceipt = await api.syncLearningOutbox({ accountId: 'account', master: master(), rpc: async () => response([event('a')], 1, []) });
+  assert.equal(noReceipt.healthErrorCode, 'receipt_invalid', 'Missing individual receipt is an immediate alert');
   assert.equal(noReceipt.pendingCount, 1);
   assert.equal(noReceipt.appState.users.reader_account.words[0].incorrectCount, 1, 'Returned event is never replayed twice');
 
@@ -131,7 +133,7 @@ const response = (events, count, ack = events.map(event => event.id)) => ({ data
   start.users = { [start.currentUserId]: { ...start.users.reader_account, id: start.currentUserId, updatedAt: start.savedAt, selectedSections: [], selectedGrade: null, readingFilters: { group: '', article: '', date: '', level: '' } } };
   const ctx = {
     ...api, STORAGE_VERSION: 1, localStorage, Date, JSON, console, crypto: { randomUUID },
-    setErrorMsg() {},
+    setErrorMsg() {}, reportLearningSyncHealth() {},
     readerCloudUser: { id: accountId }, currentUserId: start.currentUserId, users: start.users,
     words: start.users[start.currentUserId].words, studyEvents: [], selectedGrade: null, selectedSections: [], readingFilters: { group: '', article: '', date: '', level: '' },
     cloudMasterStateLoaded: true, isHydrated: true, appState: 'select', syncRetryTick: 0,

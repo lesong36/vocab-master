@@ -1525,10 +1525,10 @@
     const sanitizeLearningPayload = (value) => {
       const clean = (item, key = '') => {
         if (key === 'readingQueueCursor') item = normalizeReadingQueueCursor(item);
-        if (typeof item === 'string' && item.includes('\u0000')) throw new Error('学习记录包含无法同步的空字符，请导出备份后修复。');
+        if (typeof item === 'string' && item.includes('\u0000')) throw Object.assign(new Error('学习记录包含无法同步的空字符，请导出备份后修复。'), { syncHealthCode: 'invalid_payload' });
         if (Array.isArray(item)) return item.map(entry => clean(entry));
         if (item && typeof item === 'object') return Object.fromEntries(Object.entries(item).map(([name, entry]) => {
-          if (name.includes('\u0000')) throw new Error('学习记录字段包含空字符。');
+          if (name.includes('\u0000')) throw Object.assign(new Error('学习记录字段包含空字符。'), { syncHealthCode: 'invalid_payload' });
           return [name, clean(entry, name)];
         }));
         return item;
@@ -1578,6 +1578,64 @@
       writeLearningOutbox(accountId, { ...readLearningOutbox(accountId), ...metadata });
       for (const id of ids) localStorage.removeItem(learningEventPrefix(accountId) + id);
       return readLearningOutbox(accountId);
+    };
+    // Health metadata uses a separate request so failed learning writes can still raise an alert.
+    const learningSyncHealthStates = new Map();
+    const learningSyncDeviceIds = new Map();
+    const learningSyncErrorCode = (error) => {
+      const safe = ['invalid_payload', 'receipt_invalid', 'database_rejected', 'storage_failed', 'sync_failed'];
+      if (safe.includes(error?.syncHealthCode)) return error.syncHealthCode;
+      if (error?.name === 'QuotaExceededError' || /quota|storage|本机|备份损坏/i.test(error?.message || '')) return 'storage_failed';
+      if (/^(22|23|P000)/.test(String(error?.code || ''))) return 'database_rejected';
+      return 'sync_failed';
+    };
+    const reportLearningSyncHealth = async ({ accountId, rpc, healthy, error }) => {
+      if (!accountId) return;
+      let state = learningSyncHealthStates.get(accountId);
+      if (!state) {
+        state = { healthy: false, errorCode: null, lastReportedAt: 0, reportedSignature: null, inFlight: false };
+        learningSyncHealthStates.set(accountId, state);
+      }
+      if (typeof healthy === 'boolean') {
+        state.healthy = healthy;
+        state.errorCode = healthy ? null : learningSyncErrorCode(error);
+      }
+      // A heartbeat never upgrades an unresolved failure to healthy.
+      if (!state.healthy && !state.errorCode) return;
+      let pending = [];
+      try { pending = readLearningOutbox(accountId).events; }
+      catch (error) { state.healthy = false; state.errorCode = 'storage_failed'; }
+      const signature = `${state.healthy}:${state.errorCode}`;
+      const now = Date.now();
+      if (state.inFlight || (state.reportedSignature === signature && now - state.lastReportedAt < 60000)) return;
+      try {
+        let learningSyncDeviceId = learningSyncDeviceIds.get(accountId);
+        if (!learningSyncDeviceId) {
+          const key = `vocabmaster_sync_device_v1:${accountId}`;
+          const readDevice = (storage) => {
+            const stored = storage.getItem(key);
+            const id = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(stored || '') ? stored : learningMutationId();
+            storage.setItem(key, id);
+            return id;
+          };
+          // All tabs share the same durable outbox; reopening must resolve the same server incident.
+          try { learningSyncDeviceId = readDevice(localStorage); }
+          catch {
+            try { learningSyncDeviceId = readDevice(sessionStorage); }
+            catch { learningSyncDeviceId = learningMutationId(); }
+          }
+          learningSyncDeviceIds.set(accountId, learningSyncDeviceId);
+        }
+        const dates = pending.map(event => Date.parse(event.at)).filter(Number.isFinite);
+        state.inFlight = true;
+        const { error: reportError } = await rpc('report_vocab_sync_health_v1', {
+          p_device_id: learningSyncDeviceId, p_pending_count: pending.length,
+          p_oldest_pending_at: dates.length ? new Date(dates.reduce((oldest, date) => Math.min(oldest, date), Infinity)).toISOString() : null,
+          p_error_code: state.errorCode, p_healthy: state.healthy,
+        });
+        if (!reportError) { state.lastReportedAt = now; state.reportedSignature = signature; }
+      } catch { /* Keep the last failure for the existing retry loop; telemetry must never block an answer. */ }
+      finally { state.inFlight = false; }
     };
     const reconcileLearningState = (remote, local, accountId) => {
       const id = `reader_${accountId}`;
@@ -1646,7 +1704,7 @@
         });
         if (bootstrap.error) throw bootstrap.error;
         const fresh = Array.isArray(bootstrap.data) ? bootstrap.data[0] : bootstrap.data;
-        if (!fresh?.master?.appState || !fresh.epoch) throw new Error('云端档案版本读取失败。');
+        if (!fresh?.master?.appState || !fresh.epoch) throw Object.assign(new Error('云端档案版本读取失败。'), { syncHealthCode: 'receipt_invalid' });
         if (!isCurrentAccount()) return null;
         const pending = readLearningOutbox(accountId);
         const rebased = replayPendingLearningEvents(reconcileLearningState(fresh.master.appState, submitted.appState, accountId), accountId, pending.events);
@@ -1657,7 +1715,7 @@
       }
       if (error) throw error;
       const response = Array.isArray(data) ? data[0] : data;
-      if (!response?.master?.appState || !Array.isArray(response.acknowledgedEventIds) || !response.epoch || !Number.isInteger(response.revision)) throw new Error('云端未确认答题记录，稍后将继续重试。');
+      if (!response?.master?.appState || !Array.isArray(response.acknowledgedEventIds) || !response.epoch || !Number.isInteger(response.revision)) throw Object.assign(new Error('云端未确认答题记录，稍后将继续重试。'), { syncHealthCode: 'receipt_invalid' });
       if (!isCurrentAccount()) return null;
       const latest = readLearningOutbox(accountId);
       const ack = new Set(response.acknowledgedEventIds);
@@ -1665,7 +1723,7 @@
       // Never clear an event merely because the request succeeded: require both its receipt and its returned history.
       const events = latest.events.filter(event => !(ack.has(event.id) && returnedIds.has(event.id)));
       const remaining = acknowledgeLearningEvents(accountId, latest.events.filter(event => ack.has(event.id) && returnedIds.has(event.id)).map(event => event.id), { epoch: response.epoch, revision: response.revision });
-      return { ...response, pendingCount: remaining.events.length, appState: replayPendingLearningEvents(reconcileLearningState(response.master.appState, submitted.appState, accountId), accountId, remaining.events) };
+      return { ...response, healthErrorCode: box.events.some(event => !ack.has(event.id) || !returnedIds.has(event.id)) ? 'receipt_invalid' : null, pendingCount: remaining.events.length, appState: replayPendingLearningEvents(reconcileLearningState(response.master.appState, submitted.appState, accountId), accountId, remaining.events) };
     };
 
     const loadFromBrowser = () => {
@@ -2017,17 +2075,22 @@
                 if (profile) localStorage.setItem(`vocabmaster_account_archive_v3:${previousId.slice(7)}`, JSON.stringify(profile));
               }
             } catch (error) {
+              void reportLearningSyncHealth({ accountId: session.user.id, rpc: readerSupabase.rpc.bind(readerSupabase), healthy: false, error: { syncHealthCode: 'storage_failed' } });
               setCloudReadingStatus(`账号切换暂停：本机档案备份失败，${error.message}。请导出备份。`);
               return;
             }
           }
-          const { data, error } = await readerSupabase
-            .from('reader_sync_state')
-            .select('vocabulary, vocab_master_progress, preferences, encrypted_ai_key')
-            .eq('user_id', session.user.id)
-            .maybeSingle();
+          let data, error;
+          try {
+            ({ data, error } = await readerSupabase
+              .from('reader_sync_state')
+              .select('vocabulary, vocab_master_progress, preferences, encrypted_ai_key')
+              .eq('user_id', session.user.id)
+              .maybeSingle());
+          } catch (loadError) { error = loadError; }
           if (cancelled || syncAccountRef.current !== session.user.id) return;
           if (error) {
+            void reportLearningSyncHealth({ accountId: session.user.id, rpc: readerSupabase.rpc.bind(readerSupabase), healthy: false, error });
             setCloudReadingStatus(`读取阅读器云端生词失败：${error.message}`);
             return;
           }
@@ -2049,7 +2112,8 @@
           setCloudReadingProgress(progress);
           setCloudMasterAppState(masterState.appState && isValidAppData(masterState.appState) ? masterState.appState : null);
           setCloudMasterStateLoaded(true);
-          lastCloudProgressSnapshotRef.current = learningSnapshotKey(masterState);
+          // Require an actual sync receipt before the first healthy session report.
+          lastCloudProgressSnapshotRef.current = '';
           setCloudReadingStatus(`已连接阅读器云端：${Array.isArray(data?.vocabulary) ? data.vocabulary.length : 0} 个生词。`);
         };
         readerSupabase.auth.getSession().then(({ data }) => loadCloudVocabulary(data.session));
@@ -2088,6 +2152,7 @@
             ? replayPendingLearningEvents(base, accountId, readLearningOutbox(accountId).events)
             : base;
         } catch (error) {
+          void reportLearningSyncHealth({ accountId: readerCloudUser?.id, rpc: readerSupabase.rpc.bind(readerSupabase), healthy: false, error });
           setCloudReadingStatus(`学习档案加载失败：${error.message}；本机原始记录已保留。`);
           return;
         }
@@ -2437,7 +2502,13 @@
           appState
         };
         const snapshot = learningSnapshotKey(masterState);
-        if (snapshot === lastCloudProgressSnapshotRef.current && readLearningOutbox(readerCloudUser.id).events.length === 0) return;
+        try {
+          if (snapshot === lastCloudProgressSnapshotRef.current && readLearningOutbox(readerCloudUser.id).events.length === 0) return;
+        } catch (error) {
+          void reportLearningSyncHealth({ accountId: readerCloudUser.id, rpc: readerSupabase.rpc.bind(readerSupabase), healthy: false, error: { syncHealthCode: 'storage_failed' } });
+          setCloudReadingStatus('待同步答题备份无法读取，请保留现有备份。');
+          return;
+        }
         if (cloudProgressWriteTimerRef.current) clearTimeout(cloudProgressWriteTimerRef.current);
         cloudProgressWriteTimerRef.current = setTimeout(async () => {
           if (syncInFlightRef.current) return;
@@ -2471,7 +2542,8 @@
               const nextSections = [...new Set(active.words.map(word => word.section))];
               setSections(previous => learningSnapshotKey(previous) === learningSnapshotKey(nextSections) ? previous : nextSections);
             }
-            if (!saveToBrowser(authoritative)) throw new Error('云端已保存，本机档案保存失败，请导出备份。');
+            if (!saveToBrowser(authoritative)) throw Object.assign(new Error('云端已保存，本机档案保存失败，请导出备份。'), { syncHealthCode: 'storage_failed' });
+            void reportLearningSyncHealth({ accountId, rpc: readerSupabase.rpc.bind(readerSupabase), healthy: !result.healthErrorCode, error: { syncHealthCode: result.healthErrorCode } });
             lastCloudProgressSnapshotRef.current = learningSnapshotKey({ version: 3, words: result.master.words || {}, appState: result.master.appState });
             const newerLocalMetadata = (usersRef.current[`reader_${accountId}`]?.updatedAt || '') > (masterState.appState.users[`reader_${accountId}`]?.updatedAt || '');
             setCloudReadingStatus(result.pendingCount
@@ -2479,7 +2551,9 @@
               : newerLocalMetadata ? '已确认本次同步；本机最新变更正在等待云端确认。' : '学习档案已由云端确认保存。');
           } catch (error) {
             if (syncAccountRef.current === accountId) {
-              const pending = readLearningOutbox(accountId).events.length;
+              void reportLearningSyncHealth({ accountId, rpc: readerSupabase.rpc.bind(readerSupabase), healthy: false, error });
+              let pending = 0;
+              try { pending = readLearningOutbox(accountId).events.length; } catch {}
               setCloudReadingStatus(`同步失败：${error.message || error.code || '网络不可用'}；本机保留 ${pending} 条待同步答题，将自动重试。`);
             }
           } finally {
@@ -2488,6 +2562,11 @@
         }, 600);
         return () => { if (cloudProgressWriteTimerRef.current) clearTimeout(cloudProgressWriteTimerRef.current); };
       }, [words, users, currentUserId, readerCloudUser, cloudMasterStateLoaded, syncRetryTick]);
+
+      useEffect(() => {
+        if (!readerCloudUser || syncAccountRef.current !== readerCloudUser.id) return;
+        void reportLearningSyncHealth({ accountId: readerCloudUser.id, rpc: readerSupabase.rpc.bind(readerSupabase) });
+      }, [readerCloudUser, syncRetryTick]);
 
       useEffect(() => {
         const retry = () => setSyncRetryTick(tick => tick + 1);
@@ -3727,6 +3806,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         try {
           enqueueLearningEvent(readerCloudUser?.id || currentUserId, event);
         } catch (error) {
+          if (readerCloudUser) void reportLearningSyncHealth({ accountId: readerCloudUser.id, rpc: readerSupabase.rpc.bind(readerSupabase), healthy: false, error: { syncHealthCode: error.syncHealthCode || 'storage_failed' } });
           setErrorMsg(`这次答题尚未保存：${error.message} 请释放浏览器存储空间后再试。`);
           return false;
         }
@@ -3748,7 +3828,10 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
           };
           usersRef.current = nextUsers;
           setUsers(nextUsers);
-          if (!saveToBrowser(buildPayload(currentUserId, nextUsers))) setErrorMsg('答题已保存在待同步备份中；本机档案保存失败，请导出备份。');
+          if (!saveToBrowser(buildPayload(currentUserId, nextUsers))) {
+            if (readerCloudUser) void reportLearningSyncHealth({ accountId: readerCloudUser.id, rpc: readerSupabase.rpc.bind(readerSupabase), healthy: false, error: { syncHealthCode: 'storage_failed' } });
+            setErrorMsg('答题已保存在待同步备份中；本机档案保存失败，请导出备份。');
+          }
         }
         return true;
       };

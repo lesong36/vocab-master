@@ -50,7 +50,7 @@ for (const [remote, local] of [[a, b], [b, a]]) {
 }
 const manyEvents = Array.from({ length: 5001 }, (_, index) => ({ id: `event-${index}`, wordId: 'word', at: '2026-10-02T00:00:00Z', result: 'correct' }));
 const migrated = api.migrateUserRecord(makeUser({ 'event-0': 10 }, manyEvents));
-assert.equal(migrated.studyEvents.length, 5000);
+assert.equal(migrated.studyEvents.length, 5001, 'Complete answer history must survive migration');
 assert.equal(api.getRewardTotal(migrated.rewardLedger), 10, 'Event retention cannot erase earned rewards');
 const accounts = { version: 1, users: { one: { ...makeUser(a), id: 'one' }, two: { ...makeUser(b), id: 'two' } } };
 assert.equal(api.getRewardTotal(api.collapseToReaderAccount(accounts, { id: 'reader' }).users.reader_reader.rewardLedger), 30);

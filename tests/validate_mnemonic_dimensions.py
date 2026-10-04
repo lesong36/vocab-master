@@ -25,7 +25,7 @@ grade_graphics = {}
 pending = []
 retrieval_targets = Counter()
 cards = {}
-for grade in (3, 4, 5):
+for grade in (3, 4, 5, 6):
     pack = json.loads((ROOT / f"mnemonics/grade{grade}.json").read_text())
     audit = json.loads((ROOT / f"mnemonics/audit-grade{grade}.json").read_text())
     reviews = {(row["section"], row["word"]): row for row in audit["cards"]}
@@ -224,7 +224,7 @@ if parser.parse_args().report:
     type_names = {"special-svg": "专属位置或字形图", "compare": "对象或语义对照", "combine": "真实组成", "change": "形式或状态变化", "sequence": "过程与次序", "parts": "部分与组成", "position": "空间关系", "count": "数量与序数", "colour": "颜色与混色", "body": "身体与植物部位", "clock": "钟面", "family": "亲属关系", "measure": "长度、高度、大小与厚度"}
     type_names.update({'spelling': '读音与字形分段', 'reference': '人物、动作与所属', 'deixis': '指代距离与单复数', 'motion': '起点与移动方向', 'frequency': '发生次数与频率', 'timeline': '时间定位与范围', 'selection': '数量与选择范围', 'shape': '轮廓形状', 'category': '类别与成员', 'partition': '整体与部分', 'feature': '具体结构与作用'})
     target_names = {"meaning": "认词义", "spelling": "记字形", "both": "词义与字形"}
-    lines = ["# 具体图解覆盖与剩余词卡", "", "统计日期：2026-10-03。按实际可渲染的图解统计，普通图标及单独文字描述不计入具体图解。字音字形分段、语法位置对照和带连接的层级链按实际关系图计入。", "",
+    lines = ["# 具体图解覆盖与剩余词卡", "", "统计日期：2026-10-04。按实际可渲染的图解统计，普通图标及单独文字描述不计入具体图解。字音字形分段、语法位置对照和带连接的层级链按实际关系图计入。", "",
              f"全部 {len(cards)} 条已记录图解判断；具体图解 **{illustrated} 条（{illustrated / len(cards):.2%}）**，尚无具体图解 {len(pending)} 条。", "",
              "| 年级 | 词卡 | 具体图解 | 覆盖率 |", "|---|---:|---:|---:|"]
     for grade, stats in grade_graphics.items():

@@ -12,7 +12,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 total = 0
-for grade in (3, 4, 5):
+story_total = 0
+for grade in (3, 4, 5, 6):
     pack = json.loads((ROOT / f"mnemonics/grade{grade}.json").read_text())
     audit = json.loads((ROOT / f"mnemonics/audit-grade{grade}.json").read_text())
     key = lambda item: (item["section"], item["word"])
@@ -54,4 +55,5 @@ for grade in (3, 4, 5):
         actual_hash = hashlib.sha256(json.dumps(stories[row["section"]], ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest()
         assert row["storySha256"] == actual_hash, f"Stale story review: {row['section']}"
     total += len(cards)
-print(f"Traceability verified for {total} card reviews and 36 story reviews; effectiveness is not measured by this check.")
+    story_total += len(stories)
+print(f"Traceability verified for {total} card reviews and {story_total} story reviews; effectiveness is not measured by this check.")

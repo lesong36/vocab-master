@@ -8,7 +8,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PACKS = [ROOT / "mnemonics" / f"grade{grade}.json" for grade in (3, 4, 5)]
+PACKS = [ROOT / "mnemonics" / f"grade{grade}.json" for grade in (3, 4, 5, 6)]
 METHODS = {"拼读", "构词", "词源", "故事联想", "词组"}
 
 
@@ -22,13 +22,18 @@ def story_token(word):
         "life (pl. lives)": r"(?:life|lives)",
         "be interested in": r"(?:be|am|is|are|was|were) interested in",
         "take ... lesson": r"(?:take|takes|took) (?:[A-Za-z]+ )+lessons?",
+        "save ... from": r"(?:save|saves|saved) people from",
+        "keep ... away": r"(?:keep|keeps|kept) children away",
+        "vr (= virtual reality)": r"(?:VR \(= Virtual Reality\)|Virtual Reality|VR)",
+        "beidou navigation satellite system (abbr. bds)": r"(?:BeiDou Navigation Satellite System(?: \(abbr\. BDS\))?|BDS)",
+        "who (world health organization)": r"(?:(?-i:WHO)(?: \(World Health Organization\))?|World Health Organization)",
     }
     return rf"(?<![A-Za-z]){aliases.get(word.casefold(), re.escape(word))}(?![A-Za-z])"
 
 
 with (ROOT / "词库.md").open(encoding="utf-8-sig", newline="") as source:
     rows = [row for row in csv.DictReader(source)
-            if row["section"][:1] in "三四五" and row["section"][1:2] in "上下"]
+            if row["section"][:1] in "三四五六" and row["section"][1:2] in "上下"]
 
 expected = {key(row["section"], row["english_word"]) for row in rows}
 assert len(rows) == len(expected), "The textbook source has duplicate section/word pairs"
@@ -78,4 +83,5 @@ for story in stories:
     assert Counter(seen) == Counter(expected_by_section[section]), \
         f"Story coverage differs for {section}"
 
-print(f"Validated {len(cards)} cards and {len(stories)} unit stories across six books.")
+books = {section.split("Unit", 1)[0] for section in expected_by_section}
+print(f"Validated {len(cards)} cards and {len(stories)} unit stories across {len(books)} books.")

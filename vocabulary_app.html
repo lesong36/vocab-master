@@ -57,11 +57,11 @@
       return textDecoder.decode(plaintext);
     };
     const IS_FILE_PROTOCOL = window.location.protocol === 'file:';
-    const GRADE_ORDER = ['三上', '三下', '四上', '四下', '五上', '五下', 'KET', '音乐', 'RFD1', 'RFD2', 'RFD3', 'RFD4', 'RFD5', 'RFD6'];
+    const GRADE_ORDER = ['三上', '三下', '四上', '四下', '五上', '五下', '六上', 'KET', '音乐', 'RFD1', 'RFD2', 'RFD3', 'RFD4', 'RFD5', 'RFD6'];
     const HIDDEN_GRADES = new Set(['KET', '音乐', 'RFD1', 'RFD2', 'RFD3', 'RFD4', 'RFD5', 'RFD6']);
     const isHiddenGrade = (grade) => HIDDEN_GRADES.has(grade);
     const LESSON_TEXT_FILES = ['./四上英语课文.md', './四上英语课文_英文.md'];
-    const MNEMONIC_FILES = ['./mnemonics/grade3.json', './mnemonics/grade4.json', './mnemonics/grade5.json'];
+    const MNEMONIC_FILES = ['./mnemonics/grade3.json', './mnemonics/grade4.json', './mnemonics/grade5.json', './mnemonics/grade6.json'];
     const MAX_LESSON_EXAMPLES = 3;
     const mnemonicKey = (section, word) => `${section}\u0000${word.trim().toLowerCase()}`;
 
@@ -670,7 +670,14 @@
       });
     };
 
-    const getMnemonicPracticeTarget = (word) => word === 'take ... lesson' ? 'take a swimming lesson' : word;
+    const getMnemonicPracticeTarget = (word) => ({
+      'take ... lesson': 'take a swimming lesson',
+      'save ... from': 'save people from',
+      'keep ... away': 'keep children away',
+      'VR (= Virtual Reality)': 'VR',
+      'BeiDou Navigation Satellite System (abbr. BDS)': 'BeiDou Navigation Satellite System',
+      'WHO (World Health Organization)': 'WHO',
+    }[word] || word);
 
     const buildMaskedSpelling = (word, focus) => {
       const target = getMnemonicPracticeTarget(word).replace(/\s*\(pl\..*\)\s*$/i, '');
@@ -757,9 +764,14 @@
       if (answer === expected) return true;
       const groupedForms = {
         'life (pl. lives)': ['life', 'lives'],
+        'vr (= virtual reality)': ['vr', 'virtual reality'],
+        'beidou navigation satellite system (abbr. bds)': ['beidou navigation satellite system', 'bds'],
+        'who (world health organization)': ['who', 'world health organization'],
       };
       if (groupedForms[expected]) return groupedForms[expected].includes(answer);
       if (expected === 'take ... lesson') return /^take (?:[a-z]+ )+lessons?$/.test(answer);
+      if (expected === 'save ... from') return /^save (?:[a-z]+ )+from(?: [a-z]+)*$/.test(answer);
+      if (expected === 'keep ... away') return /^keep (?:[a-z]+ )+away(?: [a-z]+)*$/.test(answer);
       return false;
     };
 
@@ -1425,7 +1437,10 @@
       });
     };
 
-    const pronunciationKey = (wordText) => String(wordText || '').trim().toLowerCase().replace(/\s*\(pl\..*\)\s*$/, '');
+    const pronunciationKey = (wordText) => {
+      const word = String(wordText || '').trim();
+      return (word === 'WHO' ? 'WHO (World Health Organization)' : word).toLowerCase().replace(/\s*\(pl\..*\)\s*$/, '');
+    };
     const formatIPA = (value) => {
       const text = String(value || '').trim().replace(/^[\/\[]+|[\/\]]+$/g, '');
       return text ? `/${text}/` : '';
@@ -3137,10 +3152,11 @@
         (phoneticWord === pronunciationKey(word.english_word) ? currentPhonetic : '')
       );
       const getMnemonicPracticeWord = (word) => {
-        if (word.english_word !== 'take ... lesson') return word;
-        const readings = ['take', 'a', 'swimming', 'lesson'].map(part => bundledPhonetics[part]?.replace(/^\/|\/$/g, ''));
-        return { ...word, english_word: getMnemonicPracticeTarget(word.english_word), audioUrl: '',
-          pronunciation: readings.every(Boolean) ? `/${readings.join(' ')}/` : '' };
+        const target = getMnemonicPracticeTarget(word.english_word);
+        if (target === word.english_word) return word;
+        const readings = target.split(' ').map(part => bundledPhonetics[pronunciationKey(part)]?.replace(/^\/|\/$/g, ''));
+        return { ...word, english_word: target, audioUrl: '',
+          pronunciation: bundledPhonetics[pronunciationKey(target)] || (readings.every(Boolean) ? `/${readings.join(' ')}/` : '') };
       };
 
       const renderWordIPA = (word) => (
@@ -5576,6 +5592,10 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
               .print-study-hint {
                 font-size: .75rem;
                 line-height: 1.5;
+              }
+              .print-card figure[aria-label="拼写字形路径"] > div > span {
+                padding-top: .25rem;
+                padding-bottom: .25rem;
               }
               /* 防止阴影和圆角在旧打印机上变黑 */
               .shadow-xl, .shadow-md, .shadow-sm, .shadow {

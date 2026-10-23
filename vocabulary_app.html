@@ -5141,8 +5141,11 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
               {recognitionMode ? (
                 <>
                   <div className="my-8 flex flex-col items-center">
-                    <p className="text-sm text-gray-500 mb-3">请选择正确的中文含义</p>
-                    <h3 className="text-4xl font-bold text-gray-800 mb-2 font-mono tracking-wide">{currentWord.english_word}</h3>
+                    <p className="text-sm text-gray-500 mb-3">{hasReadingContext(currentWord) ? '请根据原句，选择高亮单词的中文含义' : '请选择正确的中文含义'}</p>
+                    {hasReadingContext(currentWord) ? <ReadingContext word={currentWord} /> : <>
+                      <h3 className="text-4xl font-bold text-gray-800 mb-2 font-mono tracking-wide">{currentWord.english_word}</h3>
+                      <ReadingContext word={currentWord} />
+                    </>}
                     {renderWordIPA(currentWord)}
                     {showHint && (
                       <p className="text-sm text-green-600 font-medium mt-2 animate-fade-in">正确答案已高亮</p>
@@ -5224,7 +5227,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                 <p className="text-sm text-green-600 font-medium mt-3">已连续答对 {MISTAKE_EXIT_STREAK} 次，已从错题本移出</p>
               )}
 
-              {showAnswered && <ReadingContext word={currentWord} />}
+              {showAnswered && !recognitionMode && <ReadingContext word={currentWord} />}
 
               {/* 课文例句：答对 / 答错 / 看提示后显示 */}
               {showAnswered && lessonExamples.length > 0 && (

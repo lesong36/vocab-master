@@ -58,8 +58,22 @@ const state = { version: 1, currentUserId: 'context-test', users: { 'context-tes
     assert(!(await page.locator('body').innerText()).includes('Another AI example.'));
     await page.getByRole('button', { name: '返回 Unit 选择', exact: true }).click();
     await page.getByRole('button', { name: /开始学习 \(2 词\)/ }).click();
-    assert.equal(await block.count(), 0, 'Original context appears after answering');
-    console.log('Study buttons:', (await page.getByRole('button').allTextContents()).join(' | '));
+    await block.waitFor();
+    await verifyOriginal();
+    assert.equal(await page.getByRole('heading', { name: 'cat', exact: true }).count(), 0);
+    await page.getByText('请根据原句，选择高亮单词的中文含义', { exact: true }).waitFor();
+    const beforeOptions = await page.evaluate(() => {
+      const original = document.querySelector('[data-reading-context]');
+      const choice = [...document.querySelectorAll('button')].find(button => button.textContent.trim() === '猫');
+      return Boolean(original && choice && (original.compareDocumentPosition(choice) & Node.DOCUMENT_POSITION_FOLLOWING));
+    });
+    assert(beforeOptions, 'Collected sentence must appear above answer choices');
+    await page.screenshot({ path: path.join(output, 'study-before-answer-mobile.png'), fullPage: true, animations: 'disabled' });
+    await page.setViewportSize({ width: 1280, height: 1000 });
+    await verifyOriginal();
+    await page.screenshot({ path: path.join(output, 'study-before-answer-desktop.png'), fullPage: true, animations: 'disabled' });
+    await page.setViewportSize({ width: 390, height: 1000 });
+    console.log('Original sentence replaces isolated word before answering, above choices on mobile and desktop: PASS');
     await page.getByRole('button', { name: /猫/ }).click();
     await block.waitFor();
     await verifyOriginal();
@@ -67,7 +81,8 @@ const state = { version: 1, currentUserId: 'context-test', users: { 'context-tes
     await verifyOriginal();
     await page.screenshot({ path: path.join(output, 'study-correct.png'), fullPage: true, animations: 'disabled' });
     await page.getByRole('button', { name: /下一个 \(Enter\)/ }).click();
-    assert.equal(await block.count(), 0);
+    await block.getByText('这个词尚未保存收录时的原句。', { exact: true }).waitFor();
+    assert(!(await block.innerText()).includes(words[0].sourceContext), 'Previous word context must not leak');
     await page.getByRole('button', { name: '不会 / 提示', exact: true }).click();
     await block.getByText('这个词尚未保存收录时的原句。', { exact: true }).waitFor();
     console.log('Missing context, correct answer retention, hint feedback: PASS');

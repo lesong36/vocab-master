@@ -181,6 +181,29 @@
       return String(sentence).replace(re, '<mark class="bg-amber-200 text-amber-900 px-0.5 rounded">$1</mark>');
     };
 
+    const hasReadingContext = (word) => (
+      (word?.source === 'reading' || word?.section === READING_VOCAB_SECTION)
+      && typeof word.sourceContext === 'string' && Boolean(word.sourceContext.trim())
+    );
+
+    const ReadingContext = ({ word, dark = false }) => {
+      if (word?.source !== 'reading' && word?.section !== READING_VOCAB_SECTION) return null;
+      const context = hasReadingContext(word) ? word.sourceContext : '';
+      const target = String(word.english_word || '').trim();
+      const escaped = target.split(/\s+/).map(part => part.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('\\s+');
+      const pattern = target ? new RegExp(`(?<![a-z0-9])(${escaped}(?:['’]s|s|es|ed|ing|er|est)?)(?![a-z0-9])`, 'ig') : null;
+      const parts = context && pattern ? context.split(pattern) : [context];
+      return (
+        <div data-reading-context className={`mt-4 w-full rounded-xl border p-4 text-left ${dark ? 'border-slate-600 bg-slate-800 text-slate-100' : 'border-sky-200 bg-sky-50 text-gray-800'}`}>
+          <p className={`mb-2 text-xs font-bold ${dark ? 'text-amber-200' : 'text-sky-800'}`}>收录时的原句</p>
+          {context ? <p className="whitespace-pre-wrap break-words leading-relaxed">{parts.map((part, index) => index % 2
+            ? <mark key={index} className="rounded bg-amber-200 px-0.5 font-bold text-amber-950">{part}</mark>
+            : part)}</p> : <p className="text-sm">这个词尚未保存收录时的原句。</p>}
+          {word.sourceArticleTitle && <p className={`mt-2 text-xs ${dark ? 'text-slate-300' : 'text-gray-500'}`}>来自阅读：{word.sourceArticleTitle}</p>}
+        </div>
+      );
+    };
+
     const parseSectionMeta = (section) => {
       const match = section.match(/^(.+?)(Unit .+)$/);
       if (match) {
@@ -4023,9 +4046,9 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
 
           const willGraduate = isInMistakeBook(currentWord)
             && (currentWord.consecutiveCorrect || 0) + 1 >= MISTAKE_EXIT_STREAK;
-          const hasExamples = findLessonExamples(currentWord, lessonSentences).length > 0;
+          const hasExamples = hasReadingContext(currentWord) || findLessonExamples(currentWord, lessonSentences).length > 0;
 
-          // 有课文例句时留给孩子阅读，不再自动跳题
+          // 有收录原句或课文例句时留给孩子阅读，不再自动跳题
           if (!hasExamples) {
             advanceTimerRef.current = setTimeout(() => {
               handleNext(willGraduate);
@@ -4059,7 +4082,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
 
           const willGraduate = isInMistakeBook(currentWord)
             && (currentWord.consecutiveCorrect || 0) + 1 >= MISTAKE_EXIT_STREAK;
-          const hasExamples = findLessonExamples(currentWord, lessonSentences).length > 0;
+          const hasExamples = hasReadingContext(currentWord) || findLessonExamples(currentWord, lessonSentences).length > 0;
 
           if (!hasExamples) {
             advanceTimerRef.current = setTimeout(() => {
@@ -4855,8 +4878,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                   <span className="mb-7 rounded-full bg-white/10 px-3 py-1 text-xs font-bold tracking-wider text-amber-300">正 面 · 读一读</span>
                   <h3 className="text-4xl sm:text-6xl font-bold tracking-wide break-words">{card.english_word}</h3>
                   {getWordIPA(card) && <p className="mt-5 text-lg text-slate-300">{getWordIPA(card)}</p>}
-                  {card.source === 'reading' && card.sourceArticleTitle && <p className="mt-5 text-xs text-amber-200">来自阅读：{card.sourceArticleTitle}</p>}
-                  {card.source === 'reading' && card.sourceContext && <p className="mt-3 max-w-xl text-sm leading-6 italic text-slate-300">“{card.sourceContext}”</p>}
+                  <ReadingContext word={card} dark />
                   <p className="mt-10 flex items-center gap-2 text-sm text-slate-300"><Eye size={17} /> 点击翻面看答案与助记</p>
                 </button>
               ) : (
@@ -4873,12 +4895,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                     <p className="text-xs font-bold text-amber-700 mb-2">💡 助记线索</p>
                     <p className="whitespace-pre-line leading-relaxed text-gray-700">{studyTip}</p>
                   </div>}
-                  {card.source === 'reading' && card.exampleSentence && (
-                    <div className="mt-4 rounded-2xl bg-indigo-50 border border-indigo-200 p-5">
-                      <p className="text-xs font-bold text-indigo-700 mb-2">✨ AI 拓展例句</p>
-                      <p className="leading-relaxed text-gray-800">{card.exampleSentence}</p>
-                    </div>
-                  )}
+                  <ReadingContext word={card} />
                   {card.source === 'reading' && card.etymology && (
                     <div className="mt-4 rounded-2xl bg-emerald-50 border border-emerald-200 p-5">
                       <p className="text-xs font-bold text-emerald-700 mb-2">🌱 AI 词源记忆</p>
@@ -5206,6 +5223,8 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
               {justGraduated && (
                 <p className="text-sm text-green-600 font-medium mt-3">已连续答对 {MISTAKE_EXIT_STREAK} 次，已从错题本移出</p>
               )}
+
+              {showAnswered && <ReadingContext word={currentWord} />}
 
               {/* 课文例句：答对 / 答错 / 看提示后显示 */}
               {showAnswered && lessonExamples.length > 0 && (

@@ -57,7 +57,7 @@
       return textDecoder.decode(plaintext);
     };
     const IS_FILE_PROTOCOL = window.location.protocol === 'file:';
-    const GRADE_ORDER = ['三上', '三下', '四上', '四下', '五上', '五下', '六上', 'KET', '音乐', 'RFD1', 'RFD2', 'RFD3', 'RFD4', 'RFD5', 'RFD6'];
+    const GRADE_ORDER = ['三上', '三下', '四上', '四上固定搭配', '四下', '五上', '五下', '六上', 'KET', '音乐', 'RFD1', 'RFD2', 'RFD3', 'RFD4', 'RFD5', 'RFD6'];
     const HIDDEN_GRADES = new Set(['KET', '音乐', 'RFD1', 'RFD2', 'RFD3', 'RFD4', 'RFD5', 'RFD6']);
     const isHiddenGrade = (grade) => HIDDEN_GRADES.has(grade);
     const LESSON_TEXT_FILES = ['./四上英语课文.md', './四上英语课文_英文.md'];
@@ -146,6 +146,7 @@
     };
 
     const findLessonExamples = (word, lessonSentences, limit = MAX_LESSON_EXAMPLES) => {
+      if (isCollocationWord(word) && word.exampleSentence) return [{ en: word.exampleSentence, zh: word.exampleTranslation || '', source: `${word.provenance === 'reference' ? '参考梳理' : '课文'} · ${word.lesson || parseSectionMeta(word.section).unitLabel}` }].slice(0, limit);
       // 阅读生词独立于课文词库，同形词不应附带课文例句并阻断自动跳题。
       if (!word || word.source === 'reading' || word.section === READING_VOCAB_SECTION || !lessonSentences?.length) return [];
       const preferredUnit = getPreferredLessonUnit(word.section);
@@ -186,6 +187,102 @@
       && typeof word.sourceContext === 'string' && Boolean(word.sourceContext.trim())
     );
 
+    const sentenceTokens = (text) => String(text || '').trim().split(/\s+/).filter(Boolean).map((text, id) => ({ id: String(id), text }));
+    const sentenceOrderMatches = (tokens, order) => order.length === tokens.length && new Set(order).size === tokens.length && order.map(id => tokens.find(token => token.id === id)?.text).join(' ') === tokens.map(token => token.text).join(' ');
+    const moveSentenceToken = (order, id, before = '') => {
+      if (id === before) return order;
+      const next = order.filter(item => item !== id);
+      const index = next.indexOf(before);
+      next.splice(index < 0 ? next.length : index, 0, id);
+      return next;
+    };
+    const shuffleSentenceTokens = (tokens) => {
+      const shuffled = [...tokens];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      if (shuffled.length > 1 && sentenceOrderMatches(tokens, shuffled.map(token => token.id))) shuffled.push(shuffled.shift());
+      return shuffled;
+    };
+
+    const SentenceBuilder = ({ word, feedback, showHint, onCheck, onEdit }) => {
+      const tokens = useMemo(() => sentenceTokens(word.english_word), [word.english_word]);
+      const bank = useMemo(() => shuffleSentenceTokens(tokens), [tokens]);
+      const [order, setOrder] = useState([]);
+      const [drag, setDrag] = useState(null);
+      const pointer = useRef(null);
+      const suppressClick = useRef(false);
+      const root = useRef(null);
+      const locked = showHint || feedback === 'correct';
+      const change = next => { if (locked) return; setOrder(next); onEdit(); };
+      const finishDrag = event => {
+        const active = pointer.current;
+        pointer.current = null;
+        setDrag(null);
+        if (!active?.moved || locked) return;
+        suppressClick.current = true;
+        const hit = document.elementFromPoint(event.clientX, event.clientY)?.closest('[data-sentence-drop]');
+        if (!hit || !root.current?.contains(hit)) return;
+        change(hit.dataset.sentenceDrop === 'bank' ? order.filter(id => id !== active.id) : moveSentenceToken(order, active.id, hit.dataset.sentenceBefore));
+      };
+      const chip = (token, selected) => <button key={token.id} type="button" data-sentence-token={token.id} data-sentence-drop={selected ? 'answer' : 'bank'} data-sentence-before={selected ? token.id : undefined}
+        aria-label={`${selected ? '放回' : '选入'} ${token.text}`} disabled={locked}
+        onPointerDown={event => {
+          if (locked || event.button !== 0) return;
+          suppressClick.current = false;
+          pointer.current = { id: token.id, x: event.clientX, y: event.clientY, moved: false };
+          event.currentTarget.setPointerCapture(event.pointerId);
+        }}
+        onPointerMove={event => {
+          const active = pointer.current;
+          if (!active || locked) return;
+          if (Math.hypot(event.clientX - active.x, event.clientY - active.y) > 6) active.moved = true;
+          if (active.moved) setDrag({ text: token.text, x: event.clientX, y: event.clientY });
+        }}
+        onPointerUp={finishDrag} onPointerCancel={() => { pointer.current = null; setDrag(null); }}
+        onClick={event => {
+          if (event.detail && suppressClick.current) { suppressClick.current = false; return; }
+          change(selected ? order.filter(id => id !== token.id) : [...order, token.id]);
+        }}
+        style={{ touchAction: 'none' }}
+        className={`max-w-full break-words select-none rounded-xl border-2 px-3 py-2.5 text-lg font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700 ${locked ? 'cursor-default' : 'cursor-grab active:cursor-grabbing'} ${selected ? 'border-amber-400 bg-white text-amber-950' : 'border-slate-200 bg-white text-slate-800 hover:border-amber-400'}`}>{token.text}</button>;
+      return <section ref={root} aria-label="中文组句练习" className="mt-12 text-left">
+        <p className="text-xs font-bold tracking-wide text-amber-800">看中文，组句子</p>
+        <h3 className="mt-3 text-2xl font-bold leading-relaxed text-gray-900">{word.chinese_meaning}</h3>
+        <p className="mt-3 text-sm leading-6 text-gray-500">把备选词拖到答题区，按顺序组成英文句子。也可以点击选词，再点击放回。</p>
+        <div className="mt-6 flex items-center justify-between gap-2 text-sm"><span className="font-semibold text-gray-700">我的句子</span><span className="text-gray-500">{order.length} / {tokens.length} 词</span></div>
+        <div data-sentence-drop="answer" aria-label="句子答题区" className={`mt-2 flex min-h-[112px] flex-wrap content-start gap-2 rounded-2xl border-2 border-dashed p-3 ${feedback === 'correct' ? 'border-emerald-500 bg-emerald-50' : 'border-amber-300 bg-amber-50'}`}>
+          {order.length ? order.map(id => chip(tokens.find(token => token.id === id), true)) : <p className="pointer-events-none my-auto w-full py-5 text-center text-sm text-amber-800">拖到这里，开始组句</p>}
+          {order.length > 0 && !locked && <span data-sentence-drop="answer" aria-label="放到句末" className="min-h-12 min-w-12 flex-1 rounded-lg border border-dashed border-amber-300" />}
+        </div>
+        <div className="mt-5 flex items-center justify-between gap-2"><p className="text-sm font-semibold text-gray-700">备选词</p><button type="button" onClick={() => change([])} disabled={locked || !order.length} className="text-sm font-semibold text-amber-800 underline disabled:text-gray-400">重新排列</button></div>
+        <div data-sentence-drop="bank" aria-label="备选词区" className="mt-2 flex min-h-20 flex-wrap content-start gap-2 rounded-2xl bg-slate-50 p-3">
+          {bank.filter(token => !order.includes(token.id)).map(token => chip(token, false))}
+          {order.length === tokens.length && <p className="pointer-events-none py-2 text-sm text-gray-500">词已选完；还可以拖动上方词块调整顺序。</p>}
+        </div>
+        {feedback === 'incorrect' && <p role="status" className="mt-4 text-sm font-semibold text-amber-900">顺序还不对，拖动词块调整后再试一次。</p>}
+        {showHint && <div className="mt-4 rounded-xl bg-sky-50 p-4"><p className="text-sm text-sky-800">参考答案</p><p className="mt-2 text-lg font-semibold text-sky-950">{word.english_word}</p></div>}
+        {!locked && <button type="button" onClick={() => onCheck(sentenceOrderMatches(tokens, order))} disabled={order.length !== tokens.length} className="mt-5 w-full rounded-xl bg-amber-700 py-3 font-bold text-white transition hover:bg-amber-800 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-500">检查句子</button>}
+        {drag && <div aria-hidden="true" className="pointer-events-none fixed z-50 rounded-xl border-2 border-amber-600 bg-amber-100 px-3 py-2 text-lg font-bold text-amber-950 shadow-xl" style={{ left: drag.x, top: drag.y, transform: 'translate(-50%, -120%)' }}>{drag.text}</div>}
+      </section>;
+    };
+
+    const CollocationUsage = ({ word, onHear }) => {
+      if (!isCollocationWord(word)) return null;
+      return <section aria-label="搭配与句式用法" className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-4 text-left text-sm leading-7 text-amber-950">
+        {word.pattern && <p><span className="font-bold">句式结构：</span>{word.pattern}</p>}
+        {word.usage && <p className="mt-1">{word.usage}</p>}
+        {word.response && <div className="mt-3 border-t border-amber-200 pt-3">
+          <p className="font-bold">可以这样回答</p>
+          <p className="whitespace-pre-line">{word.response}</p>
+          {word.responseTranslation && <p>{word.responseTranslation}</p>}
+          {onHear && <button type="button" onClick={() => onHear(word.response)} className="mt-1 font-semibold text-sky-800">听答句</button>}
+        </div>}
+        <p className="mt-3 text-xs text-amber-800">{word.provenance === 'reference' ? '来源：Unit 3 知识梳理；当前课文文本未收录此表达。' : `来源：四上课文 ${word.lesson || ''}`}</p>
+      </section>;
+    };
+
     const ReadingContext = ({ word, dark = false }) => {
       if (word?.source !== 'reading' && word?.section !== READING_VOCAB_SECTION) return null;
       const context = hasReadingContext(word) ? word.sourceContext : '';
@@ -212,7 +309,18 @@
       return { grade: section, unitLabel: '全部', full: section };
     };
 
+    const isCollocationWord = (word) => word?.source === 'collocation';
+    // Keep the original section keys and IDs so existing selections, events and progress remain valid.
+    const displaySectionName = (section) => String(section || '').replace(/^四上固定搭配(?=Unit|$)/, '四上固定搭配与重点句式');
+    const getCollocationKind = (word) => word?.learning_kind === 'sentence' ? 'sentence' : 'phrase';
+    const isSentenceExercise = (word) => isCollocationWord(word) && getCollocationKind(word) === 'sentence';
+    const getCollocationKindLabel = (word) => getCollocationKind(word) === 'sentence' ? '重点句式' : '固定搭配';
+    const matchesCollocationKind = (word, kind) => !isCollocationWord(word) || kind === 'all' || getCollocationKind(word) === kind;
+    const collocationCountsLabel = (list) => `${list.filter(word => getCollocationKind(word) === 'phrase').length} 条搭配 · ${list.filter(word => getCollocationKind(word) === 'sentence').length} 个句式`;
+
+
     const isRecognitionWord = (word) => (
+      isCollocationWord(word) ||
       (word?.learning_requirement || '').includes('见到英文') ||
       (word?.learning_requirement || '').includes('见英文')
     );
@@ -253,6 +361,7 @@
     };
 
     const buildCardStudyTip = (word, reviewedCard = null) => {
+      if (isCollocationWord(word)) return '先读出英文，再说出中文意思。听标准朗读核对读音，不需要默写。';
       if (reviewedCard?.hint) return reviewedCard.hint;
       return '尚无专属线索。先听标准读音，指着字母跟读；遮住答案，试着读和写，再核对漏写或写错的字母。';
     };
@@ -962,8 +1071,8 @@
     // 见英选义：错误选项必须与正确释义明确不同。优先同词性、简洁释义，
     // 词性缺失时从全库取义项清楚的词，最后才使用解释型释义兜底。
     const buildRecognitionChoices = (currentWord, allWords, choiceCount = 4) => {
-      // KET 的识义题只能使用逐题审核后的固定选项；审核未通过的词不拼题。
-      if (currentWord.source === 'ket') {
+      // KET 与固定搭配使用预编的固定选项，不临时随机拼题。
+      if (currentWord.source === 'ket' || isCollocationWord(currentWord)) {
         return hasAuditedRecognitionChoices(currentWord)
           ? currentWord.recognition_choices
           : [];
@@ -2023,6 +2132,7 @@
       const [sections, setSections] = useState([]);
       const [selectedGrade, setSelectedGrade] = useState(null);
       const [selectedSections, setSelectedSections] = useState([]);
+      const [collocationKind, setCollocationKind] = useState('all');
       const [readingFilters, setReadingFilters] = useState({ group: '', article: '', date: '', level: '' });
       const [readingInboxEntries, setReadingInboxEntries] = useState([]);
       const [cloudReadingEntries, setCloudReadingEntries] = useState([]);
@@ -2899,11 +3009,13 @@
           fetch('./词库.md', { cache: 'no-store' }).then(res => (res.ok ? res.text() : null)),
           // KET 题目数据会带逐题审核结果；不使用旧缓存，确保审核题库及时生效。
           fetch('./ket_vocab.json', { cache: 'no-store' }).then(res => (res.ok ? res.json() : null)),
+          fetch('./collocations.json', { cache: 'no-store' }).then(res => res.ok ? res.json() : null).catch(() => null),
         ])
-          .then(([text, ketData]) => {
+          .then(([text, ketData, collocationData]) => {
             const parsed = [
               ...(text ? parseData(text) : []),
               ...((ketData?.words || []).map(normalizeWordStats)),
+              ...((collocationData?.words || []).map(normalizeWordStats)),
             ];
             if (parsed.length === 0) return;
             const existing = currentUserId ? usersRef.current[currentUserId]?.words || [] : words;
@@ -2917,6 +3029,8 @@
                 prev.chinese_meaning !== w.chinese_meaning ||
                 prev.section !== w.section ||
                 (prev.pos || '') !== (w.pos || '') ||
+                (prev.exampleSentence || '') !== (w.exampleSentence || '') ||
+                (isCollocationWord(w) && ['learning_kind', 'exampleTranslation', 'lesson', 'provenance', 'pattern', 'usage', 'response', 'responseTranslation'].some(field => (prev[field] || '') !== (w[field] || ''))) ||
                 (prev.recognition_audit || '') !== (w.recognition_audit || '') ||
                 JSON.stringify(prev.recognition_choices || null) !== JSON.stringify(w.recognition_choices || null)
               );
@@ -2927,7 +3041,7 @@
               const merged = mergeWordStats([...parsed, ...preservedWords], existing);
               const savedSections = currentUserId ? usersRef.current[currentUserId]?.selectedSections || [] : [];
               const savedGrade = currentUserId ? usersRef.current[currentUserId]?.selectedGrade || null : null;
-              applyWordsToState(merged, '词库.md + KET词库', savedSections, savedGrade, existing.length > 0);
+              applyWordsToState(merged, '词库.md + KET词库 + 固定搭配', savedSections, savedGrade, existing.length > 0);
             }
           })
           .catch(() => {});
@@ -3006,7 +3120,7 @@
           const recognitionMode = isRecognitionWord(currentWord);
           const canGoNext = showHint
             || feedback === 'correct'
-            || (recognitionMode && feedback === 'incorrect');
+            || (recognitionMode && !isSentenceExercise(currentWord) && feedback === 'incorrect');
           if (!canGoNext) return;
 
           e.preventDefault();
@@ -3059,7 +3173,7 @@
       useEffect(() => {
         if (appState !== 'study') return;
         const currentWord = studyList[currentIndex];
-        if (!currentWord || !isRecognitionWord(currentWord)) {
+        if (!currentWord || !isRecognitionWord(currentWord) || isSentenceExercise(currentWord)) {
           setRecognitionChoices([]);
           setRecognitionChoiceStatus('');
           setSelectedChoiceKey(null);
@@ -3067,7 +3181,7 @@
         }
         let cancelled = false;
         const cached = normalizeAuditedChoices(currentWord, currentWord.recognitionChoiceAudit?.choices);
-        if (cached || currentWord.source === 'ket') {
+        if (cached || currentWord.source === 'ket' || isCollocationWord(currentWord)) {
           setRecognitionChoices(shuffleRecognitionChoices(cached || buildRecognitionChoices(currentWord, wordsRef.current)));
           setRecognitionChoiceStatus('audited');
           setSelectedChoiceKey(null);
@@ -3394,7 +3508,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
       };
 
       const generatePhonicsForWords = async (targets, label = '所选词库') => {
-        targets = targets.filter(word => !mnemonicCards.has(mnemonicKey(word.section, word.english_word)));
+        targets = targets.filter(word => !isCollocationWord(word) && !mnemonicCards.has(mnemonicKey(word.section, word.english_word)));
         if (!targets.length || isBulkPhonicsLoading) return;
         const hasReaderAiSettings = Boolean(readerAiPreferences?.cloudBaseUrl && readerAiPreferences?.cloudModel);
         if (hasReaderAiSettings && !readerAiKey.trim()) {
@@ -3688,6 +3802,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         });
         return filteredWords
           .filter(word => !isHiddenGrade(parseSectionMeta(word.section).grade))
+          .filter(word => matchesCollocationKind(word, collocationKind))
           .filter((word, index, list) => list.findIndex(item => item.id === word.id) === index)
           // KET 审核未通过的识义题宁可暂不出题，也不能退回随机干扰项。
           .filter(word => word.source !== 'ket' || !isRecognitionWord(word) || hasAuditedRecognitionChoices(word));
@@ -3772,7 +3887,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         
         // Fetch and Auto-play first word pronunciation
         if (shuffled.length > 0) {
-          fetchWordDataAndPlay(shuffled[0].english_word, true);
+          fetchWordDataAndPlay(shuffled[0].english_word, !isSentenceExercise(shuffled[0]));
         }
       };
 
@@ -3794,7 +3909,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         setCurrentPhonetic('');
         setCurrentAudioUrl('');
         setAppState('study');
-        fetchWordDataAndPlay(shuffled[0].english_word, true);
+        fetchWordDataAndPlay(shuffled[0].english_word, !isSentenceExercise(shuffled[0]));
       };
 
       const startReadingRollingStudy = () => {
@@ -3817,7 +3932,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         setCurrentPhonetic('');
         setCurrentAudioUrl('');
         setAppState('study');
-        fetchWordDataAndPlay(plan.words[0].english_word, true);
+        fetchWordDataAndPlay(plan.words[0].english_word, !isSentenceExercise(plan.words[0]));
       };
 
       const startPrintPreview = () => {
@@ -4066,6 +4181,27 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         }
       };
 
+      const handleSentenceCheck = (correct) => {
+        if (showHint || questionProgressRef.current.solved) return;
+        const word = studyList[currentIndex];
+        if (correct) {
+          const points = getAnswerReward(sessionRewardRef.current.streak, true, questionProgressRef.current.attempted).points;
+          if (!updateGlobalWordStats(word.id, true, points)) return;
+          encourageAnswer(true);
+          questionProgressRef.current.solved = true;
+          setFeedback('correct');
+          setSessionStats(previous => ({ ...previous, correct: previous.correct + 1 }));
+        } else {
+          if (!questionProgressRef.current.attempted) {
+            if (!updateGlobalWordStats(word.id, false)) return;
+            encourageAnswer(false);
+            questionProgressRef.current.attempted = true;
+            recordSessionMistake(word.id);
+          }
+          setFeedback('incorrect');
+        }
+      };
+
       const handleChoiceSelect = (choice) => {
         if (showHint || questionProgressRef.current.solved || questionProgressRef.current.attempted) return;
 
@@ -4118,7 +4254,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         }
         if (currentIndex < studyList.length - 1) {
           setCurrentIndex(currentIndex + 1);
-          fetchWordDataAndPlay(studyList[currentIndex + 1].english_word, true);
+          fetchWordDataAndPlay(studyList[currentIndex + 1].english_word, !isSentenceExercise(studyList[currentIndex + 1]));
         } else {
           setAppState('summary');
         }
@@ -4331,7 +4467,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
 
           const key = getMistakeBookKey(grade);
           const isSelected = selectedSections.includes(key);
-          const title = grade ? `${grade} 错题本` : '全部错题本';
+          const title = grade ? `${displaySectionName(grade)} 错题本` : '全部错题本';
 
           return (
             <button
@@ -4485,7 +4621,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
           {readingFilterError && <p className="mb-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">{readingFilterError}</p>}
           {(() => {
             const bookSections = selectedSections.filter(section => !isMistakeBookKey(section) && section !== READING_VOCAB_SECTION);
-            const bookWordCount = words.filter(word => bookSections.includes(word.section) && word.source !== 'reading' && !mnemonicCards.has(mnemonicKey(word.section, word.english_word))).length;
+            const bookWordCount = words.filter(word => bookSections.includes(word.section) && word.source !== 'reading' && !isCollocationWord(word) && !mnemonicCards.has(mnemonicKey(word.section, word.english_word))).length;
             if (!bookWordCount) return null;
             return <section className="mb-5 rounded-2xl border-2 border-emerald-200 bg-emerald-50 p-5 text-left"><div className="flex flex-wrap items-center justify-between gap-3"><div><h3 className="font-bold text-emerald-950">整本词库的 AI 自然拼读助记</h3><p className="mt-1 text-sm text-emerald-800">当前选择：{bookSections.join('、')} · {bookWordCount} 词。每 8 词一批，完成即保存。</p></div><button onClick={generateSelectedBookPhonics} disabled={isBulkPhonicsLoading} className="rounded-lg bg-emerald-600 px-4 py-2.5 font-bold text-white hover:bg-emerald-700 disabled:bg-emerald-300">{isBulkPhonicsLoading ? `AI 生成中 ${bulkPhonicsProgress?.completed || 0}/${bulkPhonicsProgress?.total || bookWordCount}` : `🪄 一键生成整本 ${bookWordCount} 词`}</button></div>{bulkPhonicsProgress && <p className="mt-3 text-sm font-medium text-emerald-700">{bulkPhonicsProgress.label}：{bulkPhonicsProgress.completed}/{bulkPhonicsProgress.total} 词已生成。</p>}{bulkPhonicsError && <p className="mt-3 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">{bulkPhonicsError}</p>}</section>;
           })()}
@@ -4503,21 +4639,21 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
               className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-colors flex justify-center items-center gap-2"
             >
               <Play size={20} />
-              开始学习 ({selectedWordCount} 词)
+              开始学习 ({selectedWordCount} {selectedGrade === '四上固定搭配' ? '条' : '词'})
             </button>
             <button
               onClick={startFlashcards}
               className="flex-1 bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-colors flex justify-center items-center gap-2"
             >
               <Layers size={20} />
-              闪卡复习 ({selectedWordCount} 词)
+              闪卡复习 ({selectedWordCount} {selectedGrade === '四上固定搭配' ? '条' : '词'})
             </button>
             <button 
               onClick={startPrintPreview}
               className="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-colors flex justify-center items-center gap-2"
             >
               <Printer size={20} />
-              打印卡片 ({selectedWordCount} 词)
+              打印卡片 ({selectedWordCount} {selectedGrade === '四上固定搭配' ? '条' : '词'})
             </button>
             <button 
               onClick={() => setAppState('import')}
@@ -4653,11 +4789,11 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                       className="p-4 rounded-xl border-2 text-left transition-all border-gray-200 bg-white text-gray-700 hover:border-blue-400 hover:bg-blue-50"
                     >
                       <div className="flex justify-between items-center">
-                        <span className="font-bold text-lg">{grade}</span>
+                        <span className="font-bold text-lg">{displaySectionName(grade)}</span>
                         <ArrowRight size={18} className="text-blue-500" />
                       </div>
                       <div className="text-xs mt-2 text-gray-500 font-normal">
-                        {gradeSectionList.length} 个 Unit · {gradeWordCount} 词
+                        {gradeSectionList.length} 个 Unit · {grade === '四上固定搭配' ? collocationCountsLabel(words.filter(word => parseSectionMeta(word.section).grade === grade)) : `${gradeWordCount} 词`}
                       </div>
                       {gradeMistakes.total > 0 && (
                         <div className="text-xs mt-1 text-red-500 font-medium">
@@ -4693,7 +4829,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
               <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
                 <BookOpen className="text-blue-600" />
-                {selectedGrade} · 选择 Unit
+                {displaySectionName(selectedGrade)}{selectedGrade === '四上固定搭配' ? '' : ' · 选择 Unit'}
               </h2>
               <div className="text-sm text-gray-500 flex items-center gap-2">
                 <User size={16} />
@@ -4706,6 +4842,13 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                 )}
               </div>
             </div>
+
+            {selectedGrade === '四上固定搭配' && <section aria-label="搭配与句式学习选择" className="mb-5 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-7 text-amber-950">
+              <p>固定搭配：听读、选中文意思。重点句式：看中文，拖动备选词组成英文句子，不用打字。答后看用法、听原句和对话答句；也可以用闪卡复习。</p>
+              <div className="mt-3 flex flex-wrap gap-2" aria-label="选择内容类型">
+                {[['all', '全部'], ['phrase', '固定搭配'], ['sentence', '重点句式']].map(([kind, label]) => <button key={kind} type="button" aria-pressed={collocationKind === kind} onClick={() => setCollocationKind(kind)} className={`rounded-lg border px-3 py-2 font-semibold ${collocationKind === kind ? 'border-amber-700 bg-amber-700 text-white' : 'border-amber-300 bg-white text-amber-950'}`}>{label}</button>)}
+              </div>
+            </section>}
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
               {renderMistakeBookCard(selectedGrade)}
@@ -4733,9 +4876,9 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                       {selectedSections.includes(section) && <Check size={18} className="text-blue-600" />}
                     </div>
                     <div className="text-xs mt-1 text-gray-500 font-normal">
-                      {unitWords.length} 词
+                      {selectedGrade === '四上固定搭配' ? collocationCountsLabel(unitWords) : `${unitWords.length} 词`}
                     </div>
-                    {!unitWords.every(word => mnemonicCards.has(mnemonicKey(word.section, word.english_word))) && <button
+                    {!unitWords.every(word => isCollocationWord(word)) && !unitWords.every(word => mnemonicCards.has(mnemonicKey(word.section, word.english_word))) && <button
                       type="button"
                       onClick={(event) => { event.stopPropagation(); generatePhonicsForWords(unitWords, `${selectedGrade} ${unitLabel}`); }}
                       disabled={isBulkPhonicsLoading || !unitWords.length}
@@ -4792,7 +4935,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
               <div key={`${w.id}-${index}`} className="print-card border-2 border-gray-800 rounded-xl flex flex-col bg-white overflow-hidden" style={{ minHeight: printMode === 'mistakes' ? '13rem' : '16rem' }}>
                 {/* Front of card (English) */}
                 <div className="flex-1 flex flex-col items-center justify-center p-4">
-                  <span className="text-3xl font-bold text-gray-900">{w.english_word}</span>
+                  <span className={`font-bold text-gray-900 break-words ${getCollocationKind(w) === 'sentence' ? 'text-xl leading-relaxed' : 'text-3xl'}`}>{w.english_word}</span>
                   {posLabel && (
                     <span className="mt-2 text-xs font-medium text-gray-500">{posLabel}</span>
                   )}
@@ -4821,8 +4964,9 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                     </div>
                   )}
                   <MnemonicDimensions card={mnemonicCards.get(mnemonicKey(w.section, w.english_word))} compact />
+                  <CollocationUsage word={w} />
                   <div className="flex items-center gap-2 flex-wrap justify-center">
-                    <span className="text-xs font-mono bg-gray-200 text-gray-600 px-2 py-1 rounded">{w.section}</span>
+                    <span className="text-xs font-mono bg-gray-200 text-gray-600 px-2 py-1 rounded">{displaySectionName(w.section)}</span>
                     <span className="text-xs font-bold bg-blue-100 text-blue-700 px-2 py-1 rounded">{w.learning_requirement}</span>
                   </div>
                 </div>
@@ -4858,7 +5002,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
               </div>
               <div className="text-sm text-gray-500 text-right">
                 <div>{flashcardIndex + 1} / {flashcardList.length}</div>
-                <div className="text-xs text-emerald-600">已会 {flashcardKnownIds.length} 词</div>
+                <div className="text-xs text-emerald-600">已会 {flashcardKnownIds.length} {flashcardList.every(isCollocationWord) ? '条' : '词'}</div>
               </div>
             </div>
 
@@ -4875,8 +5019,9 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
             >
               {!flashcardFlipped ? (
                 <button type="button" aria-label="显示词义和助记" onClick={() => setFlashcardFlipped(true)} className="h-full min-h-[280px] w-full flex flex-col items-center justify-center rounded-xl text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-300">
+                  {isCollocationWord(card) && <p className="mb-3 text-xs font-bold text-amber-200">{getCollocationKindLabel(card)} · 只认读</p>}
                   <span className="mb-7 rounded-full bg-white/10 px-3 py-1 text-xs font-bold tracking-wider text-amber-300">正 面 · 读一读</span>
-                  <h3 className="text-4xl sm:text-6xl font-bold tracking-wide break-words">{card.english_word}</h3>
+                  <h3 className={`font-bold break-words ${getCollocationKind(card) === 'sentence' ? 'text-2xl sm:text-3xl leading-relaxed' : 'text-4xl sm:text-6xl tracking-wide'}`}>{card.english_word}</h3>
                   {getWordIPA(card) && <p className="mt-5 text-lg text-slate-300">{getWordIPA(card)}</p>}
                   <ReadingContext word={card} dark />
                   <p className="mt-10 flex items-center gap-2 text-sm text-slate-300"><Eye size={17} /> 点击翻面看答案与助记</p>
@@ -4904,11 +5049,13 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                   )}
                   {examples.length > 0 && (
                     <div className="mt-4 rounded-2xl bg-sky-50 border border-sky-200 p-5">
-                      <p className="text-xs font-bold text-sky-700 mb-2">课文里这样说</p>
+                      <p className="text-xs font-bold text-sky-700 mb-2">{isCollocationWord(card) && card.provenance === 'reference' ? '参考梳理中的表达' : '课文里这样说'}</p>
                       <p className="font-medium text-gray-800" dangerouslySetInnerHTML={{ __html: highlightLessonWord(examples[0].en, card.english_word) }} />
+                      {isCollocationWord(card) && <button type="button" onClick={() => playWordAudio(examples[0].en, '')} className="mt-2 text-sm font-semibold text-sky-800">听例句</button>}
                       {examples[0].zh && <p className="mt-1 text-sm text-gray-500">{examples[0].zh}</p>}
                     </div>
                   )}
+                  <CollocationUsage word={card} onHear={text => playWordAudio(text, '')} />
                   <button type="button" aria-label="显示英文单词" onClick={() => setFlashcardFlipped(false)} className="mt-6 w-full rounded-lg border border-amber-300 bg-white px-4 py-2 text-center text-sm font-semibold text-amber-800">翻回英文</button>
                 </div>
               )}
@@ -4938,6 +5085,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         if (!currentWord) return null;
 
         const recognitionMode = isRecognitionWord(currentWord);
+        const sentenceMode = isSentenceExercise(currentWord);
         const progress = ((currentIndex) / studyList.length) * 100;
         const liveWord = words.find(w => w.id === currentWord.id) || currentWord;
         const mistakeMeta = isInMistakeBook(liveWord) ? getMistakeLevel(liveWord) : null;
@@ -4947,7 +5095,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         const justGraduated = feedback === 'correct' && liveWord.mistakeCleared && (liveWord.incorrectCount || 0) > 0;
         const choicesLocked = showHint || feedback === 'correct' || (feedback === 'incorrect' && selectedChoiceKey);
         const activeChoices = recognitionChoices;
-        const showAnswered = feedback === 'correct' || feedback === 'incorrect' || showHint;
+        const showAnswered = feedback === 'correct' || showHint || (!sentenceMode && feedback === 'incorrect');
         const lessonExamples = showAnswered
           ? findLessonExamples(currentWord, lessonSentences)
           : [];
@@ -5101,7 +5249,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
             <div className="mb-6">
               <div className="flex justify-between text-sm text-gray-500 mb-2 font-medium">
                 <span>进度 {currentIndex + 1} / {studyList.length}</span>
-                <span>{currentWord.section}</span>
+                <span>{displaySectionName(currentWord.section)}</span>
               </div>
               {mistakeMeta && (
                 <div className="flex flex-wrap items-center gap-2 mb-2 text-xs">
@@ -5125,10 +5273,10 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
               <div className={`absolute top-4 left-4 text-xs font-bold px-2 py-1 rounded ${
                 recognitionMode ? 'bg-amber-100 text-amber-800' : 'bg-blue-100 text-blue-800'
               }`}>
-                {recognitionMode ? '见英选义 · 四选一' : currentWord.learning_requirement}
+                {sentenceMode ? '重点句式 · 中文组句' : isCollocationWord(currentWord) ? `${getCollocationKindLabel(currentWord)} · 只认读` : recognitionMode ? '见英选义 · 四选一' : currentWord.learning_requirement}
               </div>
               
-              <button 
+              {(!sentenceMode || showAnswered) && <button
                 onClick={() => {
                   playWordAudio(currentWord.english_word, currentAudioUrl);
                 }}
@@ -5136,17 +5284,17 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                 title="播放发音"
               >
                 <Volume2 size={24} />
-              </button>
+              </button>}
 
-              {recognitionMode ? (
+              {sentenceMode ? <SentenceBuilder key={currentWord.id} word={currentWord} feedback={feedback} showHint={showHint} onCheck={handleSentenceCheck} onEdit={() => { if (feedback === 'incorrect') { setFeedback(null); setRewardFeedback(null); } }} /> : recognitionMode ? (
                 <>
                   <div className="my-8 flex flex-col items-center">
-                    <p className="text-sm text-gray-500 mb-3">{hasReadingContext(currentWord) ? '请根据原句，选择高亮单词的中文含义' : '请选择正确的中文含义'}</p>
+                    <p className="text-sm text-gray-500 mb-3">{isCollocationWord(currentWord) ? `先读出${getCollocationKind(currentWord) === 'sentence' ? '句子' : '搭配'}，再选中文意思；可点右上角听读音。` : hasReadingContext(currentWord) ? '请根据原句，选择高亮单词的中文含义' : '请选择正确的中文含义'}</p>
                     {hasReadingContext(currentWord) ? <ReadingContext word={currentWord} /> : <>
-                      <h3 className="text-4xl font-bold text-gray-800 mb-2 font-mono tracking-wide">{currentWord.english_word}</h3>
+                      <h3 className={`font-bold text-gray-800 mb-2 break-words ${getCollocationKind(currentWord) === 'sentence' ? 'text-2xl sm:text-3xl leading-relaxed' : 'text-4xl font-mono tracking-wide'}`}>{currentWord.english_word}</h3>
                       <ReadingContext word={currentWord} />
                     </>}
-                    {renderWordIPA(currentWord)}
+                    {isCollocationWord(currentWord) && getCollocationKind(currentWord) === 'sentence' ? <p className="mt-3 mb-4 text-sm text-gray-500">跟读整句，注意语气和停顿。</p> : renderWordIPA(currentWord)}
                     {showHint && (
                       <p className="text-sm text-green-600 font-medium mt-2 animate-fade-in">正确答案已高亮</p>
                     )}
@@ -5235,7 +5383,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                   <div className="rounded-xl border border-sky-200 bg-sky-50 p-4 shadow-sm">
                     <h4 className="text-sky-800 font-bold mb-3 flex items-center gap-2">
                       <BookOpen size={18} />
-                      课文例句
+                      {isCollocationWord(currentWord) && currentWord.provenance === 'reference' ? '参考梳理中的表达' : '课文例句'}
                       {lessonExamples[0]?.source && (
                         <span className="text-xs font-medium px-1.5 py-0.5 rounded bg-sky-200 text-sky-900">
                           {lessonExamples[0].source}
@@ -5251,6 +5399,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                               __html: highlightLessonWord(ex.en, currentWord.english_word),
                             }}
                           />
+                          {isCollocationWord(currentWord) && <button type="button" onClick={() => playWordAudio(ex.en, '')} className="mt-2 text-sm font-semibold text-sky-800">听例句</button>}
                           {ex.zh && (
                             <p className="text-sm text-gray-500 mt-1">{ex.zh}</p>
                           )}
@@ -5261,9 +5410,11 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                 </div>
               )}
 
+              {showAnswered && <CollocationUsage word={currentWord} onHear={text => playWordAudio(text, '')} />}
+
               {/* Action Buttons */}
               <div className="mt-6 flex gap-3 justify-center w-full">
-                {!recognitionMode && !showHint && feedback !== 'correct' ? (
+                {sentenceMode && !showAnswered ? <button type="button" onClick={handleShowHint} className="rounded-lg border border-gray-300 px-5 py-3 text-sm font-semibold text-gray-600">不会 / 看答案</button> : !recognitionMode && !showHint && feedback !== 'correct' ? (
                   <>
                     <button 
                       onClick={handleCheck}
@@ -5314,7 +5465,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
               </div>
               
               {/* AI Hint Section */}
-              <div className="mt-6">
+              {!isCollocationWord(currentWord) && <div className="mt-6">
                 {!aiHintText && !isAILoading ? (
                   <button
                     onClick={handleAIHint}
@@ -5377,7 +5528,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                     </div>
                   </details>
                 )}
-              </div>
+              </div>}
 
 
             </div>
@@ -5438,7 +5589,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
           {showReaderLogin && renderReaderLoginPanel()}
 
           <header className="bg-white border-b border-gray-200 shadow-sm px-6 py-4 mb-8 no-print">
-            <div className="max-w-4xl mx-auto flex items-center justify-between gap-4">
+            <div className="max-w-4xl mx-auto flex flex-wrap items-center justify-between gap-4">
               <h1 className="text-xl font-bold text-blue-700 flex items-center gap-2">
                 <BookOpen size={24} />
                 VocabMaster 单词达人

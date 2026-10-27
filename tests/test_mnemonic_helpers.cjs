@@ -5,7 +5,8 @@ const assert = require('node:assert/strict');
 const html = fs.readFileSync('vocabulary_app.html', 'utf8');
 const tipStart = html.indexOf('const buildCardStudyTip =');
 const source = html.slice(tipStart, html.indexOf('\n    };', tipStart) + 7);
-const buildCardStudyTip = vm.runInNewContext(source + '\nbuildCardStudyTip', {
+const collocationSource = html.slice(html.indexOf('const isCollocationWord ='), html.indexOf('const isRecognitionWord ='));
+const buildCardStudyTip = vm.runInNewContext(collocationSource + source + '\nbuildCardStudyTip', {
   getWordPos: () => 'v', POS_LABEL_ZH: {},
   SPECIAL_STUDY_TIPS: { remember: 're-(再) + member → 再想起来；反义 forget' },
 });
@@ -14,6 +15,7 @@ assert.equal(buildCardStudyTip({ english_word: 'remember', chinese_meaning: '记
 const unreviewed = buildCardStudyTip({ english_word: 'uncle', chinese_meaning: '叔叔', pos: 'n.' });
 assert.ok(!unreviewed.includes('前缀 un-'), 'Do not invent a negative prefix for uncle');
 assert.ok(unreviewed.includes('尚无专属线索'), 'Fallback must identify the missing dedicated cue');
+assert.ok(buildCardStudyTip({ source: 'collocation' }).includes('不需要默写'), 'Phrase flashcards and printouts must not ask for spelling');
 console.log('PASS: reviewed flashcard/print hints take priority; unknown words get no fabricated morphology');
 
 const letterSource = html.slice(html.indexOf('const getMnemonicLetterParts ='), html.indexOf('const MnemonicPicture ='));

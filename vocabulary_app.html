@@ -206,7 +206,7 @@
       return shuffled;
     };
 
-    const SentenceBuilder = ({ word, feedback, showHint, onCheck, onEdit }) => {
+    const SentenceBuilder = ({ word, feedback, showHint, saveError, onCheck, onEdit }) => {
       const tokens = useMemo(() => sentenceTokens(word.english_word), [word.english_word]);
       const bank = useMemo(() => shuffleSentenceTokens(tokens), [tokens]);
       const [order, setOrder] = useState([]);
@@ -264,6 +264,7 @@
         {feedback === 'incorrect' && <p role="status" className="mt-4 text-sm font-semibold text-amber-900">顺序还不对，拖动词块调整后再试一次。</p>}
         {showHint && <div className="mt-4 rounded-xl bg-sky-50 p-4"><p className="text-sm text-sky-800">参考答案</p><p className="mt-2 text-lg font-semibold text-sky-950">{word.english_word}</p></div>}
         {!locked && <button type="button" onClick={() => onCheck(sentenceOrderMatches(tokens, order))} disabled={order.length !== tokens.length} className="mt-5 w-full rounded-xl bg-amber-700 py-3 font-bold text-white transition hover:bg-amber-800 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-500">检查句子</button>}
+        {saveError && <p role="alert" className="mt-4 rounded-xl border border-red-200 bg-red-50 p-4 text-sm leading-6 text-red-800">{saveError}</p>}
         {drag && <div aria-hidden="true" className="pointer-events-none fixed z-50 rounded-xl border-2 border-amber-600 bg-amber-100 px-3 py-2 text-lg font-bold text-amber-950 shadow-xl" style={{ left: drag.x, top: drag.y, transform: 'translate(-50%, -120%)' }}>{drag.text}</div>}
       </section>;
     };
@@ -1733,6 +1734,38 @@
 
     // Durable answers are independent of the replaceable UI snapshot, scoped to the signed-in account.
     const LEARNING_OUTBOX_PREFIX = 'vocabmaster_learning_outbox_v3:';
+    // Exact copies of checked-in choices are disposable cache; progress and history are not.
+    const bundledRecognitionChoices = new Map();
+    const compactBrowserLearningPayload = (payload) => ({
+      ...payload,
+      users: Object.fromEntries(Object.entries(payload.users || {}).map(([id, user]) => [id, {
+        ...user,
+        words: (user.words || []).map(word => {
+          const canonical = bundledRecognitionChoices.get(`${word.source}:${word.id}`);
+          if (!canonical || JSON.stringify(word.recognition_choices) !== canonical) return word;
+          const { recognition_choices, ...storedWord } = word;
+          return storedWord;
+        }),
+      }])),
+    });
+    const setLearningStorageItem = (key, raw) => {
+      try { localStorage.setItem(key, raw); }
+      catch (error) {
+        if (error?.name !== 'QuotaExceededError' && !/quota/i.test(error?.message || '')) throw error;
+        // Atomically replace only a smaller cache representation. The original snapshot,
+        // unknown/custom choices, immutable answers and all counters remain intact on failure.
+        try {
+          const saved = localStorage.getItem(STORAGE_KEY);
+          if (!saved) throw error;
+          const payload = JSON.parse(saved);
+          if (!isValidAppData(payload)) throw error;
+          const compact = JSON.stringify(compactBrowserLearningPayload(payload));
+          if (compact.length >= saved.length) throw error;
+          localStorage.setItem(STORAGE_KEY, compact);
+        } catch { throw error; }
+        localStorage.setItem(key, raw);
+      }
+    };
     const normalizeReadingQueueCursor = (cursor) => {
       if (!cursor) return null;
       if (typeof cursor === 'string') {
@@ -1786,7 +1819,7 @@
       // One immutable key per answer: another tab cannot replace this answer by saving an older queue.
       if (!localStorage.getItem(key)) {
         const raw = JSON.stringify(sanitizeLearningPayload(event));
-        localStorage.setItem(key, raw);
+        setLearningStorageItem(key, raw);
         if (localStorage.getItem(key) !== raw) throw new Error('答题记录未能保存到本机。');
       }
       return event;
@@ -1795,7 +1828,7 @@
       const existing = readLearningOutbox(accountId);
       for (const event of [...existing.events, ...box.events]) enqueueLearningEvent(accountId, event);
       const raw = JSON.stringify(sanitizeLearningPayload({ ...box, events: [] }));
-      localStorage.setItem(LEARNING_OUTBOX_PREFIX + learningAccountKey(accountId), raw);
+      setLearningStorageItem(LEARNING_OUTBOX_PREFIX + learningAccountKey(accountId), raw);
     };
     const seedLearningOutbox = (accountId, localEvents, remoteState) => {
       // History is already durable in the primary snapshot. Only migrate local-only answers;
@@ -1818,7 +1851,7 @@
       // Confirmed immutable keys can be removed first to make room for the smaller metadata.
       // Other tabs' unconfirmed event keys are never rewritten or removed here.
       for (const id of confirmed) localStorage.removeItem(learningEventPrefix(accountId) + id);
-      localStorage.setItem(key, next);
+      setLearningStorageItem(key, next);
       return readLearningOutbox(accountId);
     };
     // Health metadata uses a separate request so failed learning writes can still raise an alert.
@@ -1981,7 +2014,7 @@
 
     const saveToBrowser = (payload) => {
       try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(sanitizeLearningPayload(payload)));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(sanitizeLearningPayload(compactBrowserLearningPayload(payload))));
         return true;
       } catch (error) {
         console.warn('无法写入浏览器学习记录', error);
@@ -3035,6 +3068,11 @@
               ...((collocationData?.words || []).map(normalizeWordStats)),
             ];
             if (parsed.length === 0) return;
+            for (const word of parsed) {
+              if ((word.source === 'ket' || isCollocationWord(word)) && hasAuditedRecognitionChoices(word)) {
+                bundledRecognitionChoices.set(`${word.source}:${word.id}`, JSON.stringify(word.recognition_choices));
+              }
+            }
             const existing = currentUserId ? usersRef.current[currentUserId]?.words || [] : words;
             const existingById = new Map((existing || []).map(w => [w.id, w]));
             const hasNewWords = parsed.some(w => !existingById.has(w.id));
@@ -4200,6 +4238,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
 
       const handleSentenceCheck = (correct) => {
         if (showHint || questionProgressRef.current.solved) return;
+        setErrorMsg('');
         const word = studyList[currentIndex];
         if (correct) {
           const points = getAnswerReward(sessionRewardRef.current.streak, true, questionProgressRef.current.attempted).points;
@@ -5303,7 +5342,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                 <Volume2 size={24} />
               </button>}
 
-              {sentenceMode ? <SentenceBuilder key={currentWord.id} word={currentWord} feedback={feedback} showHint={showHint} onCheck={handleSentenceCheck} onEdit={() => { if (feedback === 'incorrect') { setFeedback(null); setRewardFeedback(null); } }} /> : recognitionMode ? (
+              {sentenceMode ? <SentenceBuilder key={currentWord.id} word={currentWord} feedback={feedback} showHint={showHint} saveError={errorMsg} onCheck={handleSentenceCheck} onEdit={() => { if (feedback === 'incorrect') { setFeedback(null); setRewardFeedback(null); } }} /> : recognitionMode ? (
                 <>
                   <div className="my-8 flex flex-col items-center">
                     <p className="text-sm text-gray-500 mb-3">{isCollocationWord(currentWord) ? `先读出${getCollocationKind(currentWord) === 'sentence' ? '句子' : '搭配'}，再选中文意思；可点右上角听读音。` : hasReadingContext(currentWord) ? '请根据原句，选择高亮单词的中文含义' : '请选择正确的中文含义'}</p>
@@ -5429,6 +5468,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
 
               {showAnswered && <CollocationUsage word={currentWord} onHear={text => playWordAudio(text, '')} />}
 
+              {!sentenceMode && errorMsg && <p role="alert" className="mt-4 rounded-xl border border-red-200 bg-red-50 p-4 text-left text-sm leading-6 text-red-800">{errorMsg}</p>}
               {/* Action Buttons */}
               <div className="mt-6 flex gap-3 justify-center w-full">
                 {sentenceMode && !showAnswered ? <button type="button" onClick={handleShowHint} className="rounded-lg border border-gray-300 px-5 py-3 text-sm font-semibold text-gray-600">不会 / 看答案</button> : !recognitionMode && !showHint && feedback !== 'correct' ? (

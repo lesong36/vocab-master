@@ -1,0 +1,44 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const html=fs.readFileSync('vocabulary_app.html','utf8');
+const disk=new Map();let quota=Infinity,deny=false;
+const size=()=>[...disk].reduce((n,[k,v])=>n+k.length+v.length,0);
+const localStorage={get length(){return disk.size;},key:i=>[...disk.keys()][i]??null,getItem:k=>disk.get(k)??null,removeItem:k=>disk.delete(k),setItem(k,v){
+ const old=disk.has(k)?k.length+disk.get(k).length:0;
+ if(deny||size()-old+k.length+v.length>quota)throw Object.assign(new Error('quota'),{name:'QuotaExceededError'});
+ disk.set(k,v);
+}};
+const code=html.slice(html.indexOf('const normalizeWordStats ='),html.indexOf('const pickNewerData ='));
+const api=vm.runInNewContext(code+'\n({bundledRecognitionChoices,compactBrowserLearningPayload,enqueueLearningEvent,loadFromBrowser,saveToBrowser})',{
+ STORAGE_KEY:'vocabmaster_app_data',STORAGE_VERSION:1,READING_VOCAB_SECTION:'阅读生词本',MISTAKE_EXIT_STREAK:3,localStorage,console:{warn(){}},isHiddenGrade:()=>false,parseSectionMeta:s=>({grade:s})
+});
+const choices=[0,1,2,3].map(i=>({key:String(i),text:'Curated meaning '+String(i)+'x'.repeat(600),isCorrect:i===0}));
+const word={id:'bundled',source:'ket',section:'KETUnit 1',recognition_choices:choices,correctCount:99,incorrectCount:4,flashcardKnown:true,readingNextDueAt:'2026-10-30'};
+const custom={...word,id:'custom',recognition_choices:[...choices,{text:'custom'}]};
+const unknown={...word,id:'unknown'};
+api.bundledRecognitionChoices.set('ket:bundled',JSON.stringify(choices));
+api.bundledRecognitionChoices.set('ket:custom',JSON.stringify(choices));
+const history=Array.from({length:1000},(_,i)=>({id:String(i),wordId:'bundled',result:'correct',wordDefinition:word}));
+const state={version:1,currentUserId:'account',users:{account:{id:'account',words:[word,custom,unknown],studyEvents:history,rewardLedger:{a:10},selectedSections:['KETUnit 1']}}};
+const original=JSON.stringify(state);
+const compact=api.compactBrowserLearningPayload(state);
+assert.equal(JSON.stringify(state),original,'Never mutate the in-memory authoritative profile');
+assert.equal(compact.users.account.words[0].recognition_choices,undefined);
+for(const key of Object.keys(word).filter(k=>k!=='recognition_choices'))assert.equal(JSON.stringify(compact.users.account.words[0][key]),JSON.stringify(word[key]));
+assert.equal(JSON.stringify(compact.users.account.words[1]),JSON.stringify(custom),'Custom choices must remain intact');
+assert.equal(JSON.stringify(compact.users.account.words[2]),JSON.stringify(unknown),'Unknown bundled IDs must not be pruned');
+assert.equal(JSON.stringify(compact.users.account.studyEvents),JSON.stringify(history),'All original events and original word definitions remain unchanged');
+assert.equal(JSON.stringify(compact.users.account.rewardLedger),JSON.stringify(state.users.account.rewardLedger));
+localStorage.setItem('vocabmaster_app_data',original);quota=size();
+api.enqueueLearningEvent('account',{id:'new-answer',wordId:'bundled',result:'correct'});
+assert.ok(localStorage.getItem('vocabmaster_learning_outbox_v3:account:event:new-answer'),'Retry is durably stored after reclaiming verified cache');
+assert.equal(api.loadFromBrowser().users.account.studyEvents.length,1000);
+const saved=localStorage.getItem('vocabmaster_app_data');
+deny=true;
+assert.throws(()=>api.enqueueLearningEvent('account',{id:'unsaved'}),/quota/);
+assert.equal(localStorage.getItem('vocabmaster_app_data'),saved,'Failed replacement preserves the existing snapshot byte-for-byte');
+assert.equal(localStorage.getItem('vocabmaster_learning_outbox_v3:account:event:unsaved'),null);
+assert.ok(localStorage.getItem('vocabmaster_learning_outbox_v3:account:event:new-answer'),'Other pending answers survive a failed write');
+deny=false;quota=Infinity;
+assert.equal(api.saveToBrowser(state),true);
+assert.equal(JSON.stringify(api.loadFromBrowser().users.account.studyEvents),JSON.stringify(history));
+console.log('PASS: only verified bundled choices compacted; 1000 full events/definitions, counters, custom choices and rewards preserved; quota retry durable; failed write atomic');

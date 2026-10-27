@@ -1797,10 +1797,28 @@
       const raw = JSON.stringify(sanitizeLearningPayload({ ...box, events: [] }));
       localStorage.setItem(LEARNING_OUTBOX_PREFIX + learningAccountKey(accountId), raw);
     };
+    const seedLearningOutbox = (accountId, localEvents, remoteState) => {
+      // History is already durable in the primary snapshot. Only migrate local-only answers;
+      // copying every cloud-confirmed event can exhaust quota before the first sync starts.
+      const cloudIds = new Set(normalizeStudyEvents(remoteState?.users?.[`reader_${learningAccountKey(accountId)}`]?.studyEvents).map(event => event.id));
+      const queuedIds = new Set(readLearningOutbox(accountId).events.map(event => event.id));
+      for (const event of normalizeStudyEvents(localEvents)) {
+        if (!cloudIds.has(event.id) && !queuedIds.has(event.id)) enqueueLearningEvent(accountId, event);
+      }
+    };
     const acknowledgeLearningEvents = (accountId, ids, metadata) => {
-      // Migrate legacy arrays before clearing them, then remove only individually confirmed events.
-      writeLearningOutbox(accountId, { ...readLearningOutbox(accountId), ...metadata });
-      for (const id of ids) localStorage.removeItem(learningEventPrefix(accountId) + id);
+      // The caller verified each ID against both the RPC receipt and returned history.
+      // Shrink legacy arrays in place: migrating them to event keys first needs extra quota.
+      const key = LEARNING_OUTBOX_PREFIX + learningAccountKey(accountId);
+      readLearningOutbox(accountId); // Validate all pending records before changing any storage.
+      const raw = localStorage.getItem(key);
+      const legacy = raw ? JSON.parse(raw) : { version: 3, epoch: null, revision: 0, events: [] };
+      const confirmed = new Set(ids);
+      const next = JSON.stringify(sanitizeLearningPayload({ ...legacy, ...metadata, events: legacy.events.filter(event => !confirmed.has(event.id)) }));
+      // Confirmed immutable keys can be removed first to make room for the smaller metadata.
+      // Other tabs' unconfirmed event keys are never rewritten or removed here.
+      for (const id of confirmed) localStorage.removeItem(learningEventPrefix(accountId) + id);
+      localStorage.setItem(key, next);
       return readLearningOutbox(accountId);
     };
     // Health metadata uses a separate request so failed learning writes can still raise an alert.
@@ -2366,11 +2384,10 @@
           if (archived && !localState.users[`reader_${accountId}`]) localState.users[`reader_${accountId}`] = JSON.parse(archived);
           const localAccount = collapseToReaderAccount(localState, readerCloudUser);
           const accountUser = localAccount?.users?.[`reader_${accountId}`];
-          // Upgrade existing answer history into the durable queue; the server deduplicates known IDs.
+          // Migrate only local-only history; confirmed cloud history must not be duplicated on login.
           const foreignAccount = Object.keys(localState.users || {}).some(id => id.startsWith('reader_') && id !== `reader_${accountId}`);
           if (accountId && !foreignAccount) {
-            const box = readLearningOutbox(accountId);
-            writeLearningOutbox(accountId, { ...box, events: mergeStudyEvents(box.events, accountUser?.studyEvents || []) });
+            seedLearningOutbox(accountId, accountUser?.studyEvents || [], remote);
           }
           const base = isValidAppData(remote) ? reconcileLearningState(remote, localAccount, accountId) : localAccount;
           mergedState = accountId && isValidAppData(remote)

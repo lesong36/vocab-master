@@ -4832,7 +4832,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
               )}
 
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
-                {grades.map(grade => {
+                {grades.filter(grade => grade !== '四上固定搭配').map(grade => {
                   const gradeSectionList = getSectionsForGrade(sections, grade);
                   const gradeWordCount = words.filter(w => parseSectionMeta(w.section).grade === grade).length;
                   const pickedInGrade = gradeSectionList.filter(s => selectedSections.includes(s)).length;
@@ -4875,11 +4875,11 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         return (
           <div className="animate-fade-in">
             <button
-              onClick={backToGradeList}
+              onClick={selectedGrade === '四上固定搭配' ? () => selectGrade('四上') : backToGradeList}
               className="mb-4 text-sm text-blue-600 hover:text-blue-800 flex items-center gap-1 font-medium"
             >
               <ChevronLeft size={18} />
-              返回年级选择
+              {selectedGrade === '四上固定搭配' ? '返回四上' : '返回年级选择'}
             </button>
 
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
@@ -4898,6 +4898,11 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
                 )}
               </div>
             </div>
+
+            {selectedGrade === '四上' && grades.includes('四上固定搭配') && <button type="button" onClick={() => selectGrade('四上固定搭配')} className="mb-5 w-full rounded-xl border-2 border-amber-200 bg-amber-50 p-4 text-left text-amber-950 hover:border-amber-400">
+              <span className="font-bold">固定搭配与重点句式 →</span>
+              <span className="mt-1 block text-sm">{collocationCountsLabel(words.filter(isCollocationWord))} · 按单元选择</span>
+            </button>}
 
             {selectedGrade === '四上固定搭配' && <section aria-label="搭配与句式学习选择" className="mb-5 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-7 text-amber-950">
               <p>固定搭配：听读、选中文意思。重点句式：看中文，拖动备选词组成英文句子，不用打字。答后看用法、听原句和对话答句；也可以用闪卡复习。</p>

@@ -42,7 +42,7 @@ with sync_playwright() as p:
     # Capture the exact phrase/sentence sent to the existing speech fallback.
     page.add_init_script("window.spoken=[]; speechSynthesis.speak = u => window.spoken.push(u.text); HTMLMediaElement.prototype.play = () => Promise.reject(new Error('Test speech fallback'));")
     page.goto('http://127.0.0.1:8766/vocabulary_app.html',wait_until='networkidle')
-    page.get_by_role('button',name=re.compile('四上固定搭配')).wait_for(timeout=60000)
+    page.get_by_role('button',name=re.compile('^四上')).wait_for(timeout=60000)
     initial=saved(page)
     assert len(initial['words'])==TOTAL+1
     assert next(w for w in initial['words'] if w['id']=='original')['correctCount']==7
@@ -51,7 +51,8 @@ with sync_playwright() as p:
     assert migrated['exampleSentence']==PACK[0]['exampleSentence']
     assert migrated['learning_kind']==PACK[0]['learning_kind']
     assert migrated['exampleTranslation']==PACK[0]['exampleTranslation']
-    page.get_by_role('button',name=re.compile('四上固定搭配')).click()
+    page.get_by_role('button',name=re.compile('^四上')).click()
+    page.get_by_role('button',name=re.compile('固定搭配与重点句式')).click()
     for n in (1,2,3,5,6,7):
         page.get_by_role('button',name=re.compile(rf'^Unit {n}\b')).click()
     expect(page.get_by_text('固定搭配：听读、选中文意思。',exact=False)).to_be_visible()

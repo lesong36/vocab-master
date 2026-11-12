@@ -42,3 +42,11 @@ deny=false;quota=Infinity;
 assert.equal(api.saveToBrowser(state),true);
 assert.equal(JSON.stringify(api.loadFromBrowser().users.account.studyEvents),JSON.stringify(history));
 console.log('PASS: only verified bundled choices compacted; 1000 full events/definitions, counters, custom choices and rewards preserved; quota retry durable; failed write atomic');
+
+// Repeated original definitions alone must recover space even without bundled choices.
+disk.clear();quota=Infinity;api.bundledRecognitionChoices.clear();
+localStorage.setItem('vocabmaster_app_data',original);quota=size();
+api.enqueueLearningEvent('account',{id:'definition-quota-answer',result:'correct'});
+assert.ok(localStorage.getItem('vocabmaster_learning_outbox_v3:account:event:definition-quota-answer'));
+assert.deepEqual(JSON.parse(JSON.stringify(api.loadFromBrowser())),state);
+console.log('PASS: full quota recovered using lossless definition deduplication without bundled cache');

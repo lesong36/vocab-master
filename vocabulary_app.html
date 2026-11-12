@@ -1748,6 +1748,42 @@
         }),
       }])),
     });
+    // Local snapshots share repeated full definitions without discarding any history fields.
+    const encodeLearningSnapshot = (payload) => {
+      const definitions = [];
+      const indexes = new Map();
+      const users = Object.fromEntries(Object.entries(payload.users || {}).map(([id, user]) => [id, {
+        ...user,
+        ...(Array.isArray(user.studyEvents) ? { studyEvents: user.studyEvents.map(event => {
+          if (!event.wordDefinition || typeof event.wordDefinition !== 'object') return event;
+          const raw = JSON.stringify(event.wordDefinition);
+          if (!indexes.has(raw)) {
+            indexes.set(raw, definitions.length);
+            definitions.push(event.wordDefinition);
+          }
+          const { wordDefinition, ...rest } = event;
+          return [rest, indexes.get(raw)];
+        }) } : {}),
+      }]));
+      const plain = JSON.stringify(payload);
+      const packed = JSON.stringify({ learningSnapshotFormat: 1, definitions, payload: { ...payload, users } });
+      return packed.length < plain.length ? packed : plain;
+    };
+    const decodeLearningSnapshot = (raw) => {
+      const saved = JSON.parse(raw);
+      if (saved?.learningSnapshotFormat !== 1) return saved;
+      if (!Array.isArray(saved.definitions) || !saved.payload?.users) throw new Error('本机学习档案损坏');
+      const users = Object.fromEntries(Object.entries(saved.payload.users).map(([id, user]) => [id, {
+        ...user,
+        ...(Array.isArray(user.studyEvents) ? { studyEvents: user.studyEvents.map(event => {
+          if (!Array.isArray(event)) return event;
+          const [rest, index] = event;
+          if (event.length !== 2 || !rest || typeof rest !== 'object' || !Number.isInteger(index) || !saved.definitions[index]) throw new Error('本机答题档案损坏');
+          return { ...rest, wordDefinition: saved.definitions[index] };
+        }) } : {}),
+      }]));
+      return { ...saved.payload, users };
+    };
     const setLearningStorageItem = (key, raw) => {
       try { localStorage.setItem(key, raw); }
       catch (error) {
@@ -1757,9 +1793,9 @@
         try {
           const saved = localStorage.getItem(STORAGE_KEY);
           if (!saved) throw error;
-          const payload = JSON.parse(saved);
+          const payload = decodeLearningSnapshot(saved);
           if (!isValidAppData(payload)) throw error;
-          const compact = JSON.stringify(compactBrowserLearningPayload(payload));
+          const compact = encodeLearningSnapshot(compactBrowserLearningPayload(payload));
           if (compact.length >= saved.length) throw error;
           localStorage.setItem(STORAGE_KEY, compact);
         } catch { throw error; }
@@ -2005,7 +2041,7 @@
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
         if (!raw) return null;
-        const data = JSON.parse(raw);
+        const data = decodeLearningSnapshot(raw);
         return isValidAppData(data) ? data : null;
       } catch {
         return null;
@@ -2014,7 +2050,7 @@
 
     const saveToBrowser = (payload) => {
       try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(sanitizeLearningPayload(compactBrowserLearningPayload(payload))));
+        localStorage.setItem(STORAGE_KEY, encodeLearningSnapshot(sanitizeLearningPayload(compactBrowserLearningPayload(payload))));
         return true;
       } catch (error) {
         console.warn('无法写入浏览器学习记录', error);

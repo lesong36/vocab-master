@@ -1,0 +1,15 @@
+const fs = require('node:fs'), vm = require('node:vm'), assert = require('node:assert/strict');
+const html = fs.readFileSync('vocabulary_app.html', 'utf8');
+const code = html.slice(html.indexOf('const encodeLearningSnapshot ='), html.indexOf('const setLearningStorageItem ='));
+const api = vm.runInNewContext(code + '\n({encodeLearningSnapshot, decodeLearningSnapshot})');
+const definition = {id:'word', sentence:'Original context '.repeat(100), custom:{choices:['甲','乙']}};
+const payload = {version:1, users:{a:{studyEvents:Array.from({length:1000},(_,i)=>({id:String(i),wordDefinition:definition,rewardPoints:i%3})),rewardLedger:{a:99}},b:{name:'No history'}}};
+const original = JSON.stringify(payload);
+const packed = api.encodeLearningSnapshot(payload);
+assert.ok(packed.length < original.length / 5);
+assert.deepEqual(JSON.parse(JSON.stringify(api.decodeLearningSnapshot(packed))), payload);
+assert.equal(JSON.stringify(payload),original);
+assert.deepEqual(JSON.parse(JSON.stringify(api.decodeLearningSnapshot(original))),payload);
+assert.equal(api.encodeLearningSnapshot({users:{}}),JSON.stringify({users:{}}));
+assert.throws(()=>api.decodeLearningSnapshot(JSON.stringify({learningSnapshotFormat:1,definitions:[],payload:{users:{a:{studyEvents:[[{id:'x'},9]]}}}})));
+console.log('PASS: 1000 histories losslessly restored, smaller snapshot, old format readable, input unchanged, absent history preserved, broken reference rejected');

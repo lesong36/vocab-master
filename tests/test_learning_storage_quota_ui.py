@@ -61,9 +61,12 @@ with sync_playwright() as p:
  page.goto('http://127.0.0.1:8766/vocabulary_app.html?quota-regression',wait_until='networkidle')
  expect(page.get_by_text('学习档案已由云端确认保存。',exact=True)).to_be_visible(timeout=60000)
  result=page.evaluate('''() => {
-  const profile=JSON.parse(localStorage.getItem('vocabmaster_app_data')).users['reader_quota-account'];
+  const stored=JSON.parse(localStorage.getItem('vocabmaster_app_data'));
+  const profile=(stored.learningSnapshotFormat===1 ? stored.payload : stored).users['reader_quota-account'];
+  const events=profile.studyEvents.map(e=>Array.isArray(e)?{...e[0],wordDefinition:stored.definitions[e[1]]}:e);
+  if(events.some(e=>e.wordDefinition.exampleSentence!=='Original context. '.repeat(250))) throw new Error('Original definitions lost');
   const box=JSON.parse(localStorage.getItem('vocabmaster_learning_outbox_v3:quota-account'));
-  return {ids:profile.studyEvents.map(e=>e.id),count:profile.words[0].correctCount,original:window.quotaInitialIds,events:box.events,writes:window.quotaWrites,receipts:window.quotaReceipts};
+  return {ids:events.map(e=>e.id),count:profile.words[0].correctCount,original:window.quotaInitialIds,events:box.events,writes:window.quotaWrites,receipts:window.quotaReceipts};
  }''')
  assert set(result['ids'])==set(result['original']) and len(result['ids'])==601
  assert result['count']==601

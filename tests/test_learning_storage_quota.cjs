@@ -64,5 +64,5 @@ assert.deepEqual(JSON.parse(JSON.stringify(api.readLearningOutbox('account').eve
 quota=Infinity;disk.clear();
 api.seedLearningOutbox('account',[event('shared-id')],{users:{reader_foreign:{studyEvents:[event('shared-id')]}}});
 assert.equal(api.readLearningOutbox('account').events.length,1,'Only the signed-in account cloud history can confirm an event');
-assert.ok(html.includes('seedLearningOutbox(accountId, accountUser?.studyEvents || [], remote)'), 'Real account bootstrap uses delta seeding');
+assert.ok(html.includes('if (!cloudIds.has(event.id) && !queuedIds.has(event.id)) await enqueueLearningEventDurable(accountId, event)'), 'Real account bootstrap uses delta seeding');
 console.log('PASS: full-quota cloud bootstrap, local-only delta migration, repeat-safe loads, legacy acknowledgement without duplication, concurrent/foreign pending preservation and failure retention');

@@ -92,7 +92,7 @@ const settle = async () => { for (let index = 0; index < 6; index++) await Promi
     useEffect(fn) { fn(); }, setTimeout(fn) { timers.push(fn); return timers.length; }, clearTimeout() {},
     collapseToReaderAccount: state => state, learningSnapshotKey: JSON.stringify,
     reconcileLearningState: state => state, replayPendingLearningEvents: state => state,
-    normalizeStudyEvents: events => events, saveToBrowser: () => true,
+    normalizeStudyEvents: events => events, saveToBrowser: () => true, saveToBrowserDurable: async () => true,
     setCloudReadingStatus() {}, setUsers(value) { ctx.users = value; }, setWords() {}, setStudyEvents() {},
     setSelectedSections() {}, setSelectedGrade() {}, setReadingFilters() {}, setSections() {},
     syncLearningOutbox: async () => {

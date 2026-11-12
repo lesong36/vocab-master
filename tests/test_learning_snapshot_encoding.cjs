@@ -13,3 +13,8 @@ assert.deepEqual(JSON.parse(JSON.stringify(api.decodeLearningSnapshot(original))
 assert.equal(api.encodeLearningSnapshot({users:{}}),JSON.stringify({users:{}}));
 assert.throws(()=>api.decodeLearningSnapshot(JSON.stringify({learningSnapshotFormat:1,definitions:[],payload:{users:{a:{studyEvents:[[{id:'x'},9]]}}}})));
 console.log('PASS: 1000 histories losslessly restored, smaller snapshot, old format readable, input unchanged, absent history preserved, broken reference rejected');
+// Real answers carry changing revision/reading metadata, so identical-object dedup is insufficient.
+const changing = {version:1, users:{a:{studyEvents:Array.from({length:1000},(_,i)=>({id:String(i),wordDefinition:{...definition,vocabMasterProgressUpdatedAt:new Date(1700000000000+i*1000).toISOString(),readingNextDueAt:String(i)}}))}}};
+const changingRaw=JSON.stringify(changing), changingEncoded=api.encodeLearningSnapshot(changing);
+assert.ok(changingEncoded.length > changingRaw.length * 0.9,'Changing real-world word snapshots cannot rely on exact-definition deduplication');
+console.log(`EVIDENCE: changing per-answer metadata retains ${(100*changingEncoded.length/changingRaw.length).toFixed(1)}% of snapshot size; previous compression cannot guarantee free space`);

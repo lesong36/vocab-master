@@ -150,7 +150,7 @@ const response = (events, count, ack = events.map(event => event.id)) => ({ data
     setSelectedGrade(value) { ctx.selectedGrade = typeof value === 'function' ? value(ctx.selectedGrade) : value; },
     setReadingFilters(value) { ctx.readingFilters = typeof value === 'function' ? value(ctx.readingFilters) : value; },
     setSections(value) { ctx.sections = typeof value === 'function' ? value(ctx.sections || []) : value; },
-    setCloudReadingStatus() {}, setSaveStatus() {}, saveToBrowser() { return true; },
+    setCloudReadingStatus() {}, setSaveStatus() {}, saveToBrowser() { return true; }, saveToBrowserDurable: async () => true,
     persistAppData: async () => 'browser', buildPayload: (currentUserId, users) => ({ version: 1, currentUserId, users }),
     serverAvailable: false,
   };
@@ -212,10 +212,11 @@ const response = (events, count, ack = events.map(event => event.id)) => ({ data
   vm.runInContext(recordCode + '\nthis.recordActual = recordStudyEvent;', runtime);
   ctx.readerCloudUser = { id: 'different-account' };
   const before = api.readLearningOutbox('different-account').events.length;
-  assert.equal(ctx.recordActual('word', false, ctx.words, null), false, 'Answer rejected while cloud identity differs from loaded profile');
+  assert.equal(await ctx.recordActual('word', false, ctx.words, null), false, 'Answer rejected while cloud identity differs from loaded profile');
   assert.equal(api.readLearningOutbox('different-account').events.length, before);
   ctx.readerCloudUser = { id: accountId };
-  assert.equal(ctx.recordActual('word', false, ctx.words, null), true);
+  ctx.enqueueLearningEventDurable = async (...args) => api.enqueueLearningEvent(...args);
+  assert.equal(await ctx.recordActual('word', false, ctx.words, null), true);
   const genuine = api.readLearningOutbox(accountId).events.at(-1);
   assert.equal(genuine.durableVersion, 3, 'Only newly accepted answer gets durable accounting marker');
   assert.equal(genuine.wordDefinition.id, 'word', 'Durable answer carries recoverable word definition');

@@ -1802,6 +1802,80 @@
         localStorage.setItem(key, raw);
       }
     };
+    // Separate durable storage: localStorage's fixed quota must not block answer commits.
+    const learningOverflowItems = new Map();
+    let learningDatabasePromise;
+    const openLearningDatabase = () => {
+      if (!learningDatabasePromise) learningDatabasePromise = new Promise((resolve, reject) => {
+        if (typeof indexedDB === 'undefined') { reject(new Error('备用本机数据库不可用')); return; }
+        const request = indexedDB.open('vocabmaster_learning_v1', 1);
+        request.onupgradeneeded = () => request.result.createObjectStore('items', { keyPath: 'key' });
+        request.onsuccess = () => {
+          const db = request.result;
+          db.onversionchange = () => { db.close(); learningDatabasePromise = null; };
+          resolve(db);
+        };
+        request.onerror = () => { learningDatabasePromise = null; reject(request.error); };
+      });
+      learningDatabasePromise.catch(() => { learningDatabasePromise = null; });
+      return learningDatabasePromise;
+    };
+    const learningDatabaseTransaction = async (writes = [], removals = []) => {
+      const db = await openLearningDatabase();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction('items', writes.length || removals.length ? 'readwrite' : 'readonly');
+        const store = tx.objectStore('items');
+        for (const [key, raw] of writes) store.put({ key, raw });
+        for (const key of removals) store.delete(key);
+        const request = store.getAll();
+        // Request success is insufficient: wait for the transaction's commit.
+        tx.oncomplete = () => {
+          learningOverflowItems.clear();
+          for (const item of request.result) learningOverflowItems.set(item.key, item.raw);
+          resolve();
+        };
+        tx.onabort = tx.onerror = () => reject(tx.error || new Error('备用本机数据库写入失败'));
+      });
+    };
+    const refreshLearningOverflow = async () => {
+      if (typeof indexedDB !== 'undefined') await learningDatabaseTransaction();
+    };
+    const setLearningStorageItemDurable = async (key, raw) => {
+      // Once a key lives in the database, keep one authoritative location for it.
+      if (!learningOverflowItems.has(key)) {
+        try {
+          setLearningStorageItem(key, raw);
+          if (localStorage.getItem(key) !== raw) throw new Error('答题记录未能保存到本机');
+          return;
+        }
+        catch (error) {
+          if (error?.name !== 'QuotaExceededError' && !/quota/i.test(error?.message || '')) throw error;
+        }
+      }
+      await learningDatabaseTransaction([[key, raw]]);
+    };
+    const enqueueLearningEventDurable = async (accountId, event) => {
+      const key = learningEventPrefix(accountId) + event.id;
+      await setLearningStorageItemDurable(key, JSON.stringify(sanitizeLearningPayload(event)));
+      return event;
+    };
+    const acknowledgeLearningEventsDurable = async (accountId, ids, metadata) => {
+      if (!learningOverflowItems.size) {
+        try { return acknowledgeLearningEvents(accountId, ids, metadata); }
+        catch (error) { if (error?.name !== 'QuotaExceededError' && !/quota/i.test(error?.message || '')) throw error; }
+      }
+      const key = LEARNING_OUTBOX_PREFIX + learningAccountKey(accountId);
+      const existing = readLearningOutbox(accountId);
+      const confirmed = new Set(ids);
+      // Persist every remaining event and metadata atomically before retiring old copies.
+      const remaining = existing.events.filter(event => !confirmed.has(event.id));
+      const writes = [[key, JSON.stringify({ ...existing, ...metadata, events: [] })],
+        ...remaining.map(event => [learningEventPrefix(accountId) + event.id, JSON.stringify(event)])];
+      await learningDatabaseTransaction(writes, ids.map(id => learningEventPrefix(accountId) + id));
+      localStorage.removeItem(key);
+      for (const id of ids) localStorage.removeItem(learningEventPrefix(accountId) + id);
+      return readLearningOutbox(accountId);
+    };
     const normalizeReadingQueueCursor = (cursor) => {
       if (!cursor) return null;
       if (typeof cursor === 'string') {
@@ -1835,7 +1909,8 @@
     const learningAccountKey = (id) => String(id || '').replace(/^reader_/, '');
     const learningEventPrefix = (accountId) => `${LEARNING_OUTBOX_PREFIX}${learningAccountKey(accountId)}:event:`;
     const readLearningOutbox = (accountId) => {
-      const raw = localStorage.getItem(LEARNING_OUTBOX_PREFIX + learningAccountKey(accountId));
+      const outboxKey = LEARNING_OUTBOX_PREFIX + learningAccountKey(accountId);
+      const raw = learningOverflowItems.get(outboxKey) || localStorage.getItem(outboxKey);
       const box = raw ? JSON.parse(raw) : { version: 3, epoch: null, revision: 0, events: [] };
       if (!Array.isArray(box.events)) throw new Error('待同步答题备份损坏；请保留备份，不要继续答题。');
       const events = new Map(box.events.map(event => [event.id, event]));
@@ -1845,6 +1920,13 @@
         if (key?.startsWith(prefix)) {
           const event = JSON.parse(localStorage.getItem(key));
           if (!event?.id) throw new Error('待同步答题备份损坏。');
+          events.set(event.id, event);
+        }
+      }
+      for (const [key, raw] of learningOverflowItems) {
+        if (key.startsWith(prefix)) {
+          const event = JSON.parse(raw);
+          if (!event?.id) throw new Error('备用本机答题备份损坏');
           events.set(event.id, event);
         }
       }
@@ -1971,7 +2053,7 @@
     };
     const replayPendingLearningEvents = (state, accountId, pending) => {
       if (!isValidAppData(state)) throw new Error('云端未返回完整学习档案。');
-      const userId = `reader_${accountId}`;
+      const userId = state.users[`reader_${accountId}`] ? `reader_${accountId}` : accountId;
       const user = state.users[userId];
       if (!user) throw new Error('云端返回的学习账号不匹配。');
       const seen = new Set((user.studyEvents || []).map(event => event.id));
@@ -2002,6 +2084,7 @@
       } } };
     };
     const syncLearningOutbox = async ({ accountId, master, rpc, isCurrentAccount = () => true }) => {
+      if (typeof indexedDB !== 'undefined') await refreshLearningOverflow();
       const box = readLearningOutbox(accountId);
       const submitted = sanitizeLearningPayload(master);
       if (submitted.appState?.users?.[`reader_${accountId}`]) submitted.appState = replayPendingLearningEvents(submitted.appState, accountId, box.events);
@@ -2028,18 +2111,24 @@
       const response = Array.isArray(data) ? data[0] : data;
       if (!response?.master?.appState || !Array.isArray(response.acknowledgedEventIds) || !response.epoch || !Number.isInteger(response.revision)) throw Object.assign(new Error('云端未确认答题记录，稍后将继续重试。'), { syncHealthCode: 'receipt_invalid' });
       if (!isCurrentAccount()) return null;
+      if (!response.master.appState.users?.[`reader_${accountId}`]) throw Object.assign(new Error('云端确认的学习账号不匹配'), { syncHealthCode: 'receipt_invalid' });
+      if (typeof indexedDB !== 'undefined') await refreshLearningOverflow();
+      if (typeof saveToBrowserDurable === 'function') {
+        const durableSnapshot = replayPendingLearningEvents(reconcileLearningState(response.master.appState, submitted.appState, accountId), accountId, readLearningOutbox(accountId).events);
+        await saveToBrowserDurable(durableSnapshot);
+      }
       const latest = readLearningOutbox(accountId);
       const ack = new Set(response.acknowledgedEventIds);
       const returnedIds = new Set(Object.values(response.master.appState.users || {}).flatMap(user => (user.studyEvents || []).map(event => event.id)));
       // Never clear an event merely because the request succeeded: require both its receipt and its returned history.
       const events = latest.events.filter(event => !(ack.has(event.id) && returnedIds.has(event.id)));
-      const remaining = acknowledgeLearningEvents(accountId, latest.events.filter(event => ack.has(event.id) && returnedIds.has(event.id)).map(event => event.id), { epoch: response.epoch, revision: response.revision });
+      const remaining = await acknowledgeLearningEventsDurable(accountId, latest.events.filter(event => ack.has(event.id) && returnedIds.has(event.id)).map(event => event.id), { epoch: response.epoch, revision: response.revision });
       return { ...response, healthErrorCode: box.events.some(event => !ack.has(event.id) || !returnedIds.has(event.id)) ? 'receipt_invalid' : null, pendingCount: remaining.events.length, appState: replayPendingLearningEvents(reconcileLearningState(response.master.appState, submitted.appState, accountId), accountId, remaining.events) };
     };
 
     const loadFromBrowser = () => {
       try {
-        const raw = localStorage.getItem(STORAGE_KEY);
+        const raw = learningOverflowItems.get(STORAGE_KEY) || localStorage.getItem(STORAGE_KEY);
         if (!raw) return null;
         const data = decodeLearningSnapshot(raw);
         return isValidAppData(data) ? data : null;
@@ -2056,6 +2145,11 @@
         console.warn('无法写入浏览器学习记录', error);
         return false;
       }
+    };
+
+    const saveToBrowserDurable = async (payload) => {
+      await setLearningStorageItemDurable(STORAGE_KEY, encodeLearningSnapshot(sanitizeLearningPayload(compactBrowserLearningPayload(payload))));
+      return true;
     };
 
     const pickNewerData = (a, b) => {
@@ -2096,6 +2190,8 @@
     };
 
     const loadAppData = async () => {
+      try { await refreshLearningOverflow(); }
+      catch (error) { console.warn('备用本机档案读取失败', error); }
       const serverAvailable = await checkServerAvailable();
       const browserData = loadFromBrowser();
       const fileData = serverAvailable ? await loadFromLocalFile() : null;
@@ -2106,7 +2202,7 @@
           Object.entries(data.users).map(([id, user]) => [id, migrateUserRecord(user)])
         );
         data.users = migratedUsers;
-        saveToBrowser(data);
+        try { await saveToBrowserDurable(data); } catch (error) { console.warn('本机档案保存失败', error); }
       }
 
       return {
@@ -2118,7 +2214,8 @@
 
     const persistAppData = async (currentUserId, users, serverAvailable) => {
       const payload = buildPayload(currentUserId, users);
-      const browserSaved = saveToBrowser(payload);
+      let browserSaved = false;
+      try { browserSaved = await saveToBrowserDurable(payload); } catch {}
 
       if (!serverAvailable) {
         return browserSaved ? 'browser' : 'browser-unavailable';
@@ -2278,6 +2375,7 @@
       const [sessionReward, setSessionReward] = useState({ points: 0, streak: 0, bestStreak: 0 });
       const sessionRewardRef = useRef({ points: 0, streak: 0, bestStreak: 0 });
       const questionProgressRef = useRef({ attempted: false, solved: false });
+      const studySaveInFlightRef = useRef(false);
       const advanceTimerRef = useRef(null);
       const encouragementPlayerRef = useRef(null);
       const [rewardFeedback, setRewardFeedback] = useState(null);
@@ -2438,53 +2536,62 @@
 
       useEffect(() => {
         if (!isHydrated || !cloudMasterStateLoaded || cloudMasterStateAppliedRef.current) return;
-        const remote = cloudMasterAppState;
-        const localState = {
-          version: STORAGE_VERSION,
-          currentUserId,
-          users,
-          savedAt: new Date(Math.max(0, ...Object.values(users).map(user => new Date(user.updatedAt || 0).getTime() || 0))).toISOString()
-        };
-        // 强制同步只触发重新读取；仍须保留本机独有的答题事件和累计进度。
-        let mergedState;
-        try {
-          const accountId = readerCloudUser?.id;
-          const archived = localStorage.getItem(`vocabmaster_account_archive_v3:${accountId}`);
-          if (archived && !localState.users[`reader_${accountId}`]) localState.users[`reader_${accountId}`] = JSON.parse(archived);
-          const localAccount = collapseToReaderAccount(localState, readerCloudUser);
-          const accountUser = localAccount?.users?.[`reader_${accountId}`];
-          // Migrate only local-only history; confirmed cloud history must not be duplicated on login.
-          const foreignAccount = Object.keys(localState.users || {}).some(id => id.startsWith('reader_') && id !== `reader_${accountId}`);
-          if (accountId && !foreignAccount) {
-            seedLearningOutbox(accountId, accountUser?.studyEvents || [], remote);
+        let cancelled = false;
+        (async () => {
+          const remote = cloudMasterAppState;
+          const localState = {
+            version: STORAGE_VERSION,
+            currentUserId,
+            users,
+            savedAt: new Date(Math.max(0, ...Object.values(users).map(user => new Date(user.updatedAt || 0).getTime() || 0))).toISOString()
+          };
+          // 强制同步只触发重新读取；仍须保留本机独有的答题事件和累计进度。
+          let mergedState;
+          try {
+            const accountId = readerCloudUser?.id;
+            const archived = localStorage.getItem(`vocabmaster_account_archive_v3:${accountId}`);
+            if (archived && !localState.users[`reader_${accountId}`]) localState.users[`reader_${accountId}`] = JSON.parse(archived);
+            const localAccount = collapseToReaderAccount(localState, readerCloudUser);
+            const accountUser = localAccount?.users?.[`reader_${accountId}`];
+            // Migrate only local-only history; confirmed cloud history must not be duplicated on login.
+            const foreignAccount = Object.keys(localState.users || {}).some(id => id.startsWith('reader_') && id !== `reader_${accountId}`);
+            if (accountId && !foreignAccount) {
+              const cloudIds = new Set(normalizeStudyEvents(remote?.users?.[`reader_${accountId}`]?.studyEvents).map(event => event.id));
+              const queuedIds = new Set(readLearningOutbox(accountId).events.map(event => event.id));
+              for (const event of normalizeStudyEvents(accountUser?.studyEvents)) {
+                if (!cloudIds.has(event.id) && !queuedIds.has(event.id)) await enqueueLearningEventDurable(accountId, event);
+              }
+            }
+            const base = isValidAppData(remote) ? reconcileLearningState(remote, localAccount, accountId) : localAccount;
+            mergedState = accountId && isValidAppData(remote)
+              ? replayPendingLearningEvents(base, accountId, readLearningOutbox(accountId).events)
+              : base;
+          } catch (error) {
+            void reportLearningSyncHealth({ accountId: readerCloudUser?.id, rpc: readerSupabase.rpc.bind(readerSupabase), healthy: false, error });
+            setCloudReadingStatus(`学习档案加载失败：${error.message}；本机原始记录已保留。`);
+            return;
           }
-          const base = isValidAppData(remote) ? reconcileLearningState(remote, localAccount, accountId) : localAccount;
-          mergedState = accountId && isValidAppData(remote)
-            ? replayPendingLearningEvents(base, accountId, readLearningOutbox(accountId).events)
-            : base;
-        } catch (error) {
-          void reportLearningSyncHealth({ accountId: readerCloudUser?.id, rpc: readerSupabase.rpc.bind(readerSupabase), healthy: false, error });
-          setCloudReadingStatus(`学习档案加载失败：${error.message}；本机原始记录已保留。`);
-          return;
-        }
-        const mergedUsers = Object.fromEntries(Object.entries(mergedState.users).map(([id, user]) => [id, migrateUserRecord(user)]));
-        const nextUserId = mergedState.currentUserId && mergedUsers[mergedState.currentUserId]
-          ? mergedState.currentUserId
-          : Object.keys(mergedUsers)[0] || null;
-        const active = nextUserId ? mergedUsers[nextUserId] : null;
-        usersRef.current = mergedUsers;
-        setUsers(mergedUsers);
-        setCurrentUserId(nextUserId);
-        if (active?.words?.length) {
-          const nextSections = [...new Set(active.words.map(word => word.section))];
-          setWords(active.words);
-          setStudyEvents(normalizeStudyEvents(active.studyEvents));
-          setSections(nextSections);
-          setSelectedGrade(active.selectedGrade || null);
-          setSelectedSections(active.selectedSections || []);
-          setAppState('select');
-        }
-        cloudMasterStateAppliedRef.current = true;
+          if (cancelled || syncAccountRef.current !== readerCloudUser?.id) return;
+          const mergedUsers = Object.fromEntries(Object.entries(mergedState.users).map(([id, user]) => [id, migrateUserRecord(user)]));
+          const nextUserId = mergedState.currentUserId && mergedUsers[mergedState.currentUserId]
+            ? mergedState.currentUserId
+            : Object.keys(mergedUsers)[0] || null;
+          const active = nextUserId ? mergedUsers[nextUserId] : null;
+          usersRef.current = mergedUsers;
+          setUsers(mergedUsers);
+          setCurrentUserId(nextUserId);
+          if (active?.words?.length) {
+            const nextSections = [...new Set(active.words.map(word => word.section))];
+            setWords(active.words);
+            setStudyEvents(normalizeStudyEvents(active.studyEvents));
+            setSections(nextSections);
+            setSelectedGrade(active.selectedGrade || null);
+            setSelectedSections(active.selectedSections || []);
+            setAppState('select');
+          }
+          cloudMasterStateAppliedRef.current = true;
+        })();
+        return () => { cancelled = true; };
       }, [isHydrated, cloudMasterStateLoaded, cloudMasterAppState, readerCloudUser]);
       const pendingReadingEntries = useMemo(() => {
         const byWord = new Map();
@@ -2853,7 +2960,7 @@
               const nextSections = [...new Set(active.words.map(word => word.section))];
               setSections(previous => learningSnapshotKey(previous) === learningSnapshotKey(nextSections) ? previous : nextSections);
             }
-            if (!saveToBrowser(authoritative)) throw Object.assign(new Error('云端已保存，本机档案保存失败，请导出备份。'), { syncHealthCode: 'storage_failed' });
+            if (!await saveToBrowserDurable(authoritative)) throw Object.assign(new Error('云端已保存，本机档案保存失败，请导出备份。'), { syncHealthCode: 'storage_failed' });
             void reportLearningSyncHealth({ accountId, rpc: readerSupabase.rpc.bind(readerSupabase), healthy: !result.healthErrorCode, error: { syncHealthCode: result.healthErrorCode } });
             lastCloudProgressSnapshotRef.current = learningSnapshotKey({ version: 3, words: result.master.words || {}, appState: result.master.appState });
             const newerLocalMetadata = (usersRef.current[`reader_${accountId}`]?.updatedAt || '') > (masterState.appState.users[`reader_${accountId}`]?.updatedAt || '');
@@ -3012,8 +3119,7 @@
 
           if (stored && Object.keys(stored.users).length > 0) {
             for (const [id, user] of Object.entries(stored.users)) {
-              if (!id.startsWith('reader_')) continue;
-              try { stored.users[id] = replayPendingLearningEvents(stored, id.slice(7), readLearningOutbox(id.slice(7)).events).users[id]; }
+              try { stored.users[id] = replayPendingLearningEvents(stored, id.startsWith('reader_') ? id.slice(7) : id, readLearningOutbox(id.startsWith('reader_') ? id.slice(7) : id).events).users[id]; }
               catch (error) { setErrorMsg(`待同步答题恢复失败：${error.message}`); }
             }
             usersRef.current = stored.users;
@@ -3685,21 +3791,21 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         if (!file) return;
 
         const reader = new FileReader();
-        reader.onload = (event) => {
+        reader.onload = async (event) => {
           try {
             const parsed = JSON.parse(event.target.result);
             if (parsed.format === 'vocabmaster-backup-v3' && isValidAppData(parsed.appState)) {
               const recoveryAccount = learningAccountKey(readerCloudUser?.id || currentUserId);
               if (parsed.accountId !== recoveryAccount) throw new Error('备份账号与当前账号不同。');
               const before = { appState: loadFromBrowser(), outbox: readLearningOutbox(recoveryAccount) };
-              localStorage.setItem(`vocabmaster_before_import_${Date.now()}`, JSON.stringify(before));
+              await setLearningStorageItemDurable(`vocabmaster_before_import_${Date.now()}`, JSON.stringify(before));
               const box = readLearningOutbox(recoveryAccount);
-              writeLearningOutbox(recoveryAccount, { ...box, events: mergeStudyEvents(mergeStudyEvents(box.events, parsed.outbox?.events || []), parsed.appState.users[currentUserId]?.studyEvents || []) });
+              for (const event of mergeStudyEvents(mergeStudyEvents(box.events, parsed.outbox?.events || []), parsed.appState.users[currentUserId]?.studyEvents || [])) await enqueueLearningEventDurable(recoveryAccount, event);
               const restored = mergeCloudAppState(parsed.appState, buildPayload(currentUserId, usersRef.current));
               usersRef.current = restored.users; setUsers(restored.users);
               const active = restored.users[currentUserId];
               if (active) { setWords(active.words); setStudyEvents(active.studyEvents); }
-              if (!saveToBrowser(restored)) throw new Error('导入档案无法保存到本机，请保留原备份。');
+              if (!await saveToBrowserDurable(restored)) throw new Error('导入档案无法保存到本机，请保留原备份。');
               setSyncRetryTick(tick => tick + 1);
               return;
             }
@@ -4114,7 +4220,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
       };
 
       // 3. Study Logic
-      const recordStudyEvent = (wordId, isCorrect, nextWords, readingQueueCursor, rewardPoints = 0) => {
+      const recordStudyEvent = async (wordId, isCorrect, nextWords, readingQueueCursor, rewardPoints = 0) => {
         const word = wordsRef.current.find(item => item.id === wordId);
         if (!word) return;
         const at = new Date().toISOString();
@@ -4133,12 +4239,13 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
           wordState: Object.fromEntries(Object.entries(nextWords.find(item => item.id === wordId) || {}).filter(([key]) => key.startsWith('reading'))),
         };
         try {
-          enqueueLearningEvent(readerCloudUser?.id || currentUserId, event);
+          await enqueueLearningEventDurable(readerCloudUser?.id || currentUserId, event);
         } catch (error) {
           if (readerCloudUser) void reportLearningSyncHealth({ accountId: readerCloudUser.id, rpc: readerSupabase.rpc.bind(readerSupabase), healthy: false, error: { syncHealthCode: error.syncHealthCode || 'storage_failed' } });
           setErrorMsg(`这次答题尚未保存：${error.message} 请释放浏览器存储空间后再试。`);
           return false;
         }
+        if (readerCloudUser && syncAccountRef.current !== readerCloudUser.id) return false;
         const nextEvents = mergeStudyEvents(activeUser?.studyEvents || studyEvents, [event]);
         setStudyEvents(nextEvents);
 
@@ -4157,7 +4264,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
           };
           usersRef.current = nextUsers;
           setUsers(nextUsers);
-          if (!saveToBrowser(buildPayload(currentUserId, nextUsers))) {
+          try { await saveToBrowserDurable(buildPayload(currentUserId, nextUsers)); } catch {
             if (readerCloudUser) void reportLearningSyncHealth({ accountId: readerCloudUser.id, rpc: readerSupabase.rpc.bind(readerSupabase), healthy: false, error: { syncHealthCode: 'storage_failed' } });
             setErrorMsg('答题已保存在待同步备份中；本机档案保存失败，请导出备份。');
           }
@@ -4165,63 +4272,67 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         return true;
       };
 
-      const updateGlobalWordStats = (wordId, isCorrect, rewardPoints = 0) => {
-        const now = new Date().toISOString();
-        const liveWord = wordsRef.current.find(word => word.id === wordId);
-        // 游标只在真正完成首次作答后前移；中途退出不会跳过已经选中但尚未作答的词。
-        const readingQueueCursor = liveWord?.source === 'reading' && !liveWord.readingIntroducedAt
-          ? { importedAt: liveWord.importedAt || liveWord.sourceArticleDate || '', wordId: String(liveWord.id) }
-          : '';
-        const nextWords = wordsRef.current.map(w => {
-            if (w.id !== wordId) return w;
+      const updateGlobalWordStats = async (wordId, isCorrect, rewardPoints = 0) => {
+        if (studySaveInFlightRef.current) return false;
+        studySaveInFlightRef.current = true;
+        try {
+          const now = new Date().toISOString();
+          const liveWord = wordsRef.current.find(word => word.id === wordId);
+          // 游标只在真正完成首次作答后前移；中途退出不会跳过已经选中但尚未作答的词。
+          const readingQueueCursor = liveWord?.source === 'reading' && !liveWord.readingIntroducedAt
+            ? { importedAt: liveWord.importedAt || liveWord.sourceArticleDate || '', wordId: String(liveWord.id) }
+            : '';
+          const nextWords = wordsRef.current.map(w => {
+              if (w.id !== wordId) return w;
 
-            const isReadingWord = w.source === 'reading';
-            const introducedAt = w.readingIntroducedAt || now;
+              const isReadingWord = w.source === 'reading';
+              const introducedAt = w.readingIntroducedAt || now;
 
-            if (isCorrect) {
-              const consecutiveCorrect = (w.consecutiveCorrect || 0) + 1;
-              const hadMistakes = (w.incorrectCount || 0) > 0;
-              const wasMastered = isReadingWord && Boolean(w.readingMasteredAt);
-              const becomesMastered = isReadingWord && !wasMastered && consecutiveCorrect >= MISTAKE_EXIT_STREAK;
-              const nextReviewStage = wasMastered ? Math.min((w.readingReviewStage || 0) + 1, 3) : (becomesMastered ? 0 : (w.readingReviewStage || 0));
-              const reviewIntervals = [7, 14, 30, 60];
-              const mistakeCleared = hadMistakes && !w.mistakeCleared && consecutiveCorrect >= MISTAKE_EXIT_STREAK
-                ? true
-                : (w.mistakeCleared || false);
+              if (isCorrect) {
+                const consecutiveCorrect = (w.consecutiveCorrect || 0) + 1;
+                const hadMistakes = (w.incorrectCount || 0) > 0;
+                const wasMastered = isReadingWord && Boolean(w.readingMasteredAt);
+                const becomesMastered = isReadingWord && !wasMastered && consecutiveCorrect >= MISTAKE_EXIT_STREAK;
+                const nextReviewStage = wasMastered ? Math.min((w.readingReviewStage || 0) + 1, 3) : (becomesMastered ? 0 : (w.readingReviewStage || 0));
+                const reviewIntervals = [7, 14, 30, 60];
+                const mistakeCleared = hadMistakes && !w.mistakeCleared && consecutiveCorrect >= MISTAKE_EXIT_STREAK
+                  ? true
+                  : (w.mistakeCleared || false);
+
+                return {
+                  ...w,
+                  correctCount: (w.correctCount || 0) + 1,
+                  consecutiveCorrect,
+                  mistakeCleared,
+                  ...(isReadingWord ? {
+                    readingIntroducedAt: introducedAt,
+                    readingMasteredAt: becomesMastered || wasMastered ? (w.readingMasteredAt || now) : '',
+                    readingReviewStage: nextReviewStage,
+                    readingNextDueAt: addLocalDays(now, becomesMastered || wasMastered ? reviewIntervals[nextReviewStage] : 1),
+                  } : {}),
+                  vocabMasterProgressUpdatedAt: now,
+                };
+              }
 
               return {
                 ...w,
-                correctCount: (w.correctCount || 0) + 1,
-                consecutiveCorrect,
-                mistakeCleared,
+                incorrectCount: (w.incorrectCount || 0) + 1,
+                consecutiveCorrect: 0,
+                mistakeCleared: false,
                 ...(isReadingWord ? {
                   readingIntroducedAt: introducedAt,
-                  readingMasteredAt: becomesMastered || wasMastered ? (w.readingMasteredAt || now) : '',
-                  readingReviewStage: nextReviewStage,
-                  readingNextDueAt: addLocalDays(now, becomesMastered || wasMastered ? reviewIntervals[nextReviewStage] : 1),
+                  readingMasteredAt: '',
+                  readingReviewStage: 0,
+                  readingNextDueAt: addLocalDays(now, 1),
                 } : {}),
                 vocabMasterProgressUpdatedAt: now,
               };
-            }
-
-            return {
-              ...w,
-              incorrectCount: (w.incorrectCount || 0) + 1,
-              consecutiveCorrect: 0,
-              mistakeCleared: false,
-              ...(isReadingWord ? {
-                readingIntroducedAt: introducedAt,
-                readingMasteredAt: '',
-                readingReviewStage: 0,
-                readingNextDueAt: addLocalDays(now, 1),
-              } : {}),
-              vocabMasterProgressUpdatedAt: now,
-            };
-          });
-        if (!recordStudyEvent(wordId, isCorrect, nextWords, readingQueueCursor, rewardPoints)) return false;
-        wordsRef.current = nextWords;
-        setWords(nextWords);
-        return true;
+            });
+          if (!await recordStudyEvent(wordId, isCorrect, nextWords, readingQueueCursor, rewardPoints)) return false;
+          wordsRef.current = nextWords;
+          setWords(nextWords);
+          return true;
+        } finally { studySaveInFlightRef.current = false; }
       };
 
       const recordSessionMistake = (wordId) => {
@@ -4235,7 +4346,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         });
       };
 
-      const handleCheck = (e) => {
+      const handleCheck = async (e) => {
         e.preventDefault();
         if (!userInput.trim() || showHint || questionProgressRef.current.solved) return;
 
@@ -4244,7 +4355,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
 
         if (isCorrect) {
           const rewardPoints = getAnswerReward(sessionRewardRef.current.streak, true, questionProgressRef.current.attempted).points;
-          if (!updateGlobalWordStats(currentWord.id, true, rewardPoints)) return;
+          if (!await updateGlobalWordStats(currentWord.id, true, rewardPoints)) return;
           encourageAnswer(true);
           questionProgressRef.current.solved = true;
           setFeedback('correct');
@@ -4262,7 +4373,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
           }
         } else {
           if (!questionProgressRef.current.attempted) {
-            if (!updateGlobalWordStats(currentWord.id, false)) return;
+            if (!await updateGlobalWordStats(currentWord.id, false)) return;
             encourageAnswer(false);
             setFeedback('incorrect');
             questionProgressRef.current.attempted = true;
@@ -4272,20 +4383,20 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         }
       };
 
-      const handleSentenceCheck = (correct) => {
+      const handleSentenceCheck = async (correct) => {
         if (showHint || questionProgressRef.current.solved) return;
         setErrorMsg('');
         const word = studyList[currentIndex];
         if (correct) {
           const points = getAnswerReward(sessionRewardRef.current.streak, true, questionProgressRef.current.attempted).points;
-          if (!updateGlobalWordStats(word.id, true, points)) return;
+          if (!await updateGlobalWordStats(word.id, true, points)) return;
           encourageAnswer(true);
           questionProgressRef.current.solved = true;
           setFeedback('correct');
           setSessionStats(previous => ({ ...previous, correct: previous.correct + 1 }));
         } else {
           if (!questionProgressRef.current.attempted) {
-            if (!updateGlobalWordStats(word.id, false)) return;
+            if (!await updateGlobalWordStats(word.id, false)) return;
             encourageAnswer(false);
             questionProgressRef.current.attempted = true;
             recordSessionMistake(word.id);
@@ -4294,7 +4405,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         }
       };
 
-      const handleChoiceSelect = (choice) => {
+      const handleChoiceSelect = async (choice) => {
         if (showHint || questionProgressRef.current.solved || questionProgressRef.current.attempted) return;
 
         const currentWord = studyList[currentIndex];
@@ -4302,7 +4413,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
 
         if (choice.isCorrect) {
           const rewardPoints = getAnswerReward(sessionRewardRef.current.streak, true, questionProgressRef.current.attempted).points;
-          if (!updateGlobalWordStats(currentWord.id, true, rewardPoints)) return;
+          if (!await updateGlobalWordStats(currentWord.id, true, rewardPoints)) return;
           encourageAnswer(true);
           questionProgressRef.current.solved = true;
           setFeedback('correct');
@@ -4318,7 +4429,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
             }, sessionRewardRef.current.streak % 3 === 0 || willGraduate ? 1200 : 900);
           }
         } else {
-          if (!updateGlobalWordStats(currentWord.id, false)) return;
+          if (!await updateGlobalWordStats(currentWord.id, false)) return;
           encourageAnswer(false);
           questionProgressRef.current.attempted = true;
           setFeedback('incorrect');
@@ -4327,6 +4438,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
       };
 
       const handleNext = (graduatedFromMistakeBook = false) => {
+        if (studySaveInFlightRef.current) return;
         clearTimeout(advanceTimerRef.current);
         encouragementPlayerRef.current?.stop();
         if (!questionProgressRef.current.solved) {
@@ -4352,12 +4464,12 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
         }
       };
 
-      const handleShowHint = () => {
+      const handleShowHint = async () => {
         if (questionProgressRef.current.solved) return;
         const currentWord = studyList[currentIndex];
         // 连续输错后再看提示，仍只记作这张卡的 1 次错词。
         if (!questionProgressRef.current.attempted) {
-          if (!updateGlobalWordStats(currentWord.id, false)) return;
+          if (!await updateGlobalWordStats(currentWord.id, false)) return;
           encourageAnswer(false);
           questionProgressRef.current.attempted = true;
           recordSessionMistake(currentWord.id);

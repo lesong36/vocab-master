@@ -20,6 +20,8 @@ setup='''(() => {
  const quota=bytes()+32;
  window.blockWrites=BLOCK;
  window.quotaFailures=0;
+ const open=indexedDB.open.bind(indexedDB);
+ indexedDB.open=(...args)=>{if(window.blockWrites)throw new DOMException('Database blocked','SecurityError');return open(...args)};
  Storage.prototype.setItem=function(k,v){
   const old=this.getItem(k);
   if(this===localStorage && (window.blockWrites || bytes()-(old===null?0:(k.length+old.length)*2)+(k.length+v.length)*2>quota)){
@@ -37,7 +39,7 @@ def run(browser,blocked):
  page.route('**/ket_vocab.json',lambda r:r.fulfill(json={'words':cache}))
  page.route('**/%E8%AF%8D%E5%BA%93.md',lambda r:r.fulfill(body='id,section,english_word,chinese_meaning,learning_requirement,pos\n'))
  page.add_init_script(setup.replace('STATE',json.dumps(state,ensure_ascii=False)).replace('BLOCK',str(blocked).lower()))
- page.goto('http://127.0.0.1:8766/vocabulary_app.html',wait_until='networkidle')
+ page.goto('http://127.0.0.1:8767/vocabulary_app.html',wait_until='networkidle')
  page.get_by_role('button',name='重点句式',exact=True).click()
  page.get_by_role('button',name='开始学习 (1 条)',exact=True).click()
  bank=page.get_by_label('备选词区',exact=True)
@@ -56,8 +58,14 @@ def run(browser,blocked):
  expect(page.get_by_role('button',name='下一个 (Enter)',exact=True)).to_be_visible()
  expect(page.get_by_test_id('reward-session')).to_have_text('+10')
  assert page.get_by_role('alert').count()==0,'Successful retry clears the previous failure'
- page.wait_for_function("JSON.parse(localStorage.getItem('vocabmaster_app_data')).users['submit-test'].studyEvents.length===2")
- result=page.evaluate("JSON.parse(localStorage.getItem('vocabmaster_app_data')).users['submit-test']")
+ result=page.evaluate("""async () => {
+  const db=await new Promise((resolve,reject)=>{const r=indexedDB.open('vocabmaster_learning_v1',1);r.onupgradeneeded=()=>r.result.createObjectStore('items',{keyPath:'key'});r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)});
+  const stored=await new Promise((resolve,reject)=>{const r=db.transaction('items').objectStore('items').get('vocabmaster_app_data');r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)});
+  const data=JSON.parse(stored?.raw || localStorage.getItem('vocabmaster_app_data'));
+  const profile=(data.learningSnapshotFormat===1?data.payload:data).users['submit-test'];
+  profile.studyEvents=profile.studyEvents.map(e=>Array.isArray(e)?{...e[0],wordDefinition:data.definitions[e[1]]}:e);
+  return profile;
+ }""")
  assert len(result['studyEvents'])==2 and result['studyEvents'][0]==original
  assert result['words'][0]['correctCount']==1
  for word in [w for w in result['words'] if w.get('source')=='ket']:

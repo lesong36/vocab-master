@@ -87,7 +87,7 @@ const settle = async () => { for (let index = 0; index < 6; index++) await Promi
     STORAGE_VERSION: 1, readerCloudUser: { id: 'effect' }, currentUserId: 'reader_effect',
     cloudMasterStateLoaded: true, cloudMasterStateAppliedRef: { current: true }, syncAccountRef: { current: 'effect' },
     words: [], users: state.users, usersRef: { current: state.users }, wordsRef: { current: [] },
-    syncInFlightRef: { current: false }, cloudProgressWriteTimerRef: { current: null },
+    syncInFlightRef: { current: false }, cloudOnlyModeRef: { current: false }, unconfirmedCloudEventsRef: { current: new Map() }, cloudProgressWriteTimerRef: { current: null },
     lastCloudProgressSnapshotRef: { current: '' }, syncRetryTick: 0,
     useEffect(fn) { fn(); }, setTimeout(fn) { timers.push(fn); return timers.length; }, clearTimeout() {},
     collapseToReaderAccount: state => state, learningSnapshotKey: JSON.stringify,

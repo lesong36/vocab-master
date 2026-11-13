@@ -1,0 +1,11 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const html=fs.readFileSync('vocabulary_app.html','utf8');
+const code=html.slice(html.indexOf('const readerAuthMemory ='),html.indexOf('const readerSupabase ='));
+const disk=new Map([['session','old']]);let blocked=false;
+const localStorage={getItem:k=>disk.get(k)??null,setItem(k,v){if(blocked)throw new Error('quota');disk.set(k,v)},removeItem:k=>disk.delete(k)};
+const storage=vm.runInNewContext(code+'\nreaderAuthStorage',{localStorage});
+assert.equal(storage.getItem('session'),'old');blocked=true;
+storage.setItem('session','refreshed');assert.equal(storage.getItem('session'),'refreshed');assert.equal(disk.get('session'),'old');
+storage.setItem('new-login','signed-in');assert.equal(storage.getItem('new-login'),'signed-in');
+storage.removeItem('session');assert.equal(storage.getItem('session'),null);assert.equal(disk.has('session'),false);
+console.log('PASS: quota-blocked login and token refresh remain usable in memory; logout clears credentials');

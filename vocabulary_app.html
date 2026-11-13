@@ -33,8 +33,24 @@
     const READING_VOCAB_SECTION = '阅读生词本';
     const READER_SUPABASE_URL = 'https://faeixgpjhnwpfzfkgjsu.supabase.co';
     const READER_SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_vg-bfePJ4OSgoOOiMEJeCg_7YxdAdkx';
+    // A full browser store must not prevent signing in or refreshing a cloud session.
+    const readerAuthMemory = new Map();
+    const readerAuthStorage = {
+      getItem(key) {
+        if (readerAuthMemory.has(key)) return readerAuthMemory.get(key);
+        try { return localStorage.getItem(key); } catch { return null; }
+      },
+      setItem(key, value) {
+        try { localStorage.setItem(key, value); readerAuthMemory.delete(key); }
+        catch { readerAuthMemory.set(key, value); }
+      },
+      removeItem(key) {
+        readerAuthMemory.set(key, null);
+        try { localStorage.removeItem(key); readerAuthMemory.delete(key); } catch {}
+      },
+    };
     const readerSupabase = createClient(READER_SUPABASE_URL, READER_SUPABASE_PUBLISHABLE_KEY, {
-      auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+      auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, storage: readerAuthStorage }
     });
     const SYNC_VAULT_VERSION = 1;
     const textEncoder = new TextEncoder();
@@ -2126,6 +2142,46 @@
       return { ...response, healthErrorCode: box.events.some(event => !ack.has(event.id) || !returnedIds.has(event.id)) ? 'receipt_invalid' : null, pendingCount: remaining.events.length, appState: replayPendingLearningEvents(reconcileLearningState(response.master.appState, submitted.appState, accountId), accountId, remaining.events) };
     };
 
+    // This recovery path deliberately has no dependency on browser storage.
+    const commitLearningEventToCloud = async ({ accountId, appState, event, pending = [], rpc, isCurrentAccount = () => true }) => {
+      const userId = `reader_${accountId}`;
+      const mutationId = event.id; // Reuse the same immutable event after an ambiguous network failure.
+      const call = async (args) => {
+        let timer;
+        try {
+          return await Promise.race([rpc('sync_vocab_master_v3', args), new Promise((_, reject) => {
+            timer = setTimeout(() => reject(new Error('云端保存超时，请重试')), 20000);
+          })]);
+        } finally { clearTimeout(timer); }
+      };
+      const bootstrap = await call({
+        p_master: { version: 3, appState: { version: STORAGE_VERSION, currentUserId: userId, users: {} } },
+        p_mutation_id: learningMutationId(), p_expected_epoch: null,
+      });
+      if (bootstrap.error) throw bootstrap.error;
+      const fresh = Array.isArray(bootstrap.data) ? bootstrap.data[0] : bootstrap.data;
+      if (!fresh?.epoch || !fresh.master?.appState) throw new Error('云端灾备读取未获确认');
+      if (!isCurrentAccount()) throw new Error('学习账号已切换');
+      const remote = fresh.master.appState;
+      const base = remote.users?.[userId] ? reconcileLearningState(remote, appState, accountId) : appState;
+      if (!base?.users?.[userId]) throw new Error('云端灾备账号不匹配');
+      const submitted = replayPendingLearningEvents(base, accountId, mergeStudyEvents(pending, [event]));
+      const { data, error } = await call({
+        p_master: sanitizeLearningPayload({ version: 3, appState: submitted }),
+        p_mutation_id: mutationId, p_expected_epoch: fresh.epoch,
+      });
+      if (error) throw error;
+      const receipt = Array.isArray(data) ? data[0] : data;
+      const profile = receipt?.master?.appState?.users?.[userId];
+      if (!receipt?.epoch || !Number.isInteger(receipt.revision)
+          || !Array.isArray(receipt.acknowledgedEventIds) || !receipt.acknowledgedEventIds.includes(event.id)
+          || !Array.isArray(profile?.words) || !Array.isArray(profile?.studyEvents) || !profile.studyEvents.some(item => item.id === event.id)) {
+        throw new Error('云端尚未确认这次答题，请重试');
+      }
+      if (!isCurrentAccount()) throw new Error('学习账号已切换');
+      return profile;
+    };
+
     const loadFromBrowser = () => {
       try {
         const raw = learningOverflowItems.get(STORAGE_KEY) || localStorage.getItem(STORAGE_KEY);
@@ -2376,6 +2432,8 @@
       const sessionRewardRef = useRef({ points: 0, streak: 0, bestStreak: 0 });
       const questionProgressRef = useRef({ attempted: false, solved: false });
       const studySaveInFlightRef = useRef(false);
+      const unconfirmedCloudEventsRef = useRef(new Map());
+      const cloudOnlyModeRef = useRef(false);
       const advanceTimerRef = useRef(null);
       const encouragementPlayerRef = useRef(null);
       const [rewardFeedback, setRewardFeedback] = useState(null);
@@ -2929,7 +2987,7 @@
         }
         if (cloudProgressWriteTimerRef.current) clearTimeout(cloudProgressWriteTimerRef.current);
         cloudProgressWriteTimerRef.current = setTimeout(async () => {
-          if (syncInFlightRef.current) return;
+          if (syncInFlightRef.current || cloudOnlyModeRef.current) return;
           const accountId = readerCloudUser.id;
           if (syncAccountRef.current !== accountId) return;
           syncInFlightRef.current = true;
@@ -3181,7 +3239,7 @@
           else { usersRef.current = updatedUsers; setUsers(updatedUsers); }
 
           const mode = await persistAppData(currentUserId, updatedUsers, serverAvailableRef.current);
-          setSaveStatus(mode === 'file' ? 'saved-file' : mode === 'browser' ? 'saved-browser' : 'save-failed');
+          setSaveStatus(mode === 'file' ? 'saved-file' : mode === 'browser' ? 'saved-browser' : cloudOnlyModeRef.current ? '' : 'save-failed');
           if (mode !== 'browser-unavailable') {
             setTimeout(() => setSaveStatus(''), 2500);
           }
@@ -4232,21 +4290,47 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
           return false;
         }
         const activeUser = usersRef.current[currentUserId];
-        const event = {
+        const attemptKey = `${currentUserId}:${wordId}:${isCorrect}`;
+        const event = unconfirmedCloudEventsRef.current.get(attemptKey) || {
           id, at, wordId, durableVersion: 3, englishWord: word.english_word, chineseMeaning: word.chinese_meaning,
           section: word.section, result: isCorrect ? 'correct' : 'incorrect', rewardPoints,
           wordDefinition: { ...word, correctCount: 0, incorrectCount: 0, consecutiveCorrect: 0, mistakeCleared: false },
           wordState: Object.fromEntries(Object.entries(nextWords.find(item => item.id === wordId) || {}).filter(([key]) => key.startsWith('reading'))),
         };
+        let cloudProfile = null;
         try {
           await enqueueLearningEventDurable(readerCloudUser?.id || currentUserId, event);
-        } catch (error) {
-          if (readerCloudUser) void reportLearningSyncHealth({ accountId: readerCloudUser.id, rpc: readerSupabase.rpc.bind(readerSupabase), healthy: false, error: { syncHealthCode: error.syncHealthCode || 'storage_failed' } });
-          setErrorMsg(`这次答题尚未保存：${error.message} 请释放浏览器存储空间后再试。`);
-          return false;
+          cloudOnlyModeRef.current = false;
+        } catch (storageError) {
+          unconfirmedCloudEventsRef.current.set(attemptKey, event);
+          if (!readerCloudUser) {
+            setErrorMsg('本机存储不可用，请连接阅读器账号后使用云端灾备保存；这次答题尚未保存。');
+            return false;
+          }
+          try {
+            setCloudReadingStatus('本机存储不可用，正在直接保存到云端…');
+            let pending = [];
+            try { pending = readLearningOutbox(readerCloudUser.id).events; } catch {}
+            cloudProfile = await commitLearningEventToCloud({
+              accountId: readerCloudUser.id, event, pending,
+              appState: collapseToReaderAccount(buildPayload(currentUserId, usersRef.current), readerCloudUser),
+              rpc: readerSupabase.rpc.bind(readerSupabase),
+              isCurrentAccount: () => syncAccountRef.current === readerCloudUser.id,
+            });
+            cloudOnlyModeRef.current = true;
+            // Replace precomputed local counters with the server's reconciled counters.
+            nextWords.splice(0, nextWords.length, ...cloudProfile.words);
+            setCloudReadingStatus('本机存储不可用，本次答题已由云端确认保存，可继续学习。');
+            setErrorMsg('');
+          } catch (cloudError) {
+            setErrorMsg(`本机存储不可用，云端也未能确认保存：${cloudError.message || '网络不可用'}。本页保留本次答案，请恢复网络后重试。`);
+            return false;
+          }
         }
         if (readerCloudUser && syncAccountRef.current !== readerCloudUser.id) return false;
-        const nextEvents = mergeStudyEvents(activeUser?.studyEvents || studyEvents, [event]);
+        unconfirmedCloudEventsRef.current.delete(attemptKey);
+        const savedUser = cloudProfile || activeUser;
+        const nextEvents = mergeStudyEvents(savedUser?.studyEvents || studyEvents, [event]);
         setStudyEvents(nextEvents);
 
         // 答题事件和词状态必须一起立即落盘，不能让词状态只依赖 400ms 防抖。
@@ -4254,10 +4338,10 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
           const nextUsers = {
             ...usersRef.current,
             [currentUserId]: {
-              ...activeUser,
+              ...savedUser,
               words: nextWords,
               studyEvents: nextEvents,
-              rewardLedger: rewardPoints > 0 ? { ...normalizeRewardLedger(activeUser.rewardLedger), [id]: rewardPoints } : normalizeRewardLedger(activeUser.rewardLedger),
+              rewardLedger: event.rewardPoints > 0 ? { ...normalizeRewardLedger(savedUser.rewardLedger), [event.id]: event.rewardPoints } : normalizeRewardLedger(savedUser.rewardLedger),
               ...(readingQueueCursor ? { readingQueueCursor } : {}),
               updatedAt: at,
             },
@@ -4265,6 +4349,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
           usersRef.current = nextUsers;
           setUsers(nextUsers);
           try { await saveToBrowserDurable(buildPayload(currentUserId, nextUsers)); } catch {
+            if (cloudProfile) return true;
             if (readerCloudUser) void reportLearningSyncHealth({ accountId: readerCloudUser.id, rpc: readerSupabase.rpc.bind(readerSupabase), healthy: false, error: { syncHealthCode: 'storage_failed' } });
             setErrorMsg('答题已保存在待同步备份中；本机档案保存失败，请导出备份。');
           }
@@ -5759,7 +5844,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
               <Check size={40} className="text-green-600" />
             </div>
             <h2 className="text-3xl font-bold text-gray-800 mb-2">学习完成！</h2>
-            <p className="text-gray-600 mb-8">你已经完成了本次选择的所有单词。学习记录已自动保存{serverAvailable ? `到 ${DATA_FILE_NAME}` : '到浏览器缓存'}。</p>
+            <p className="text-gray-600 mb-8">你已经完成了本次选择的所有单词。学习记录已自动保存{cloudOnlyModeRef.current ? '到云端' : serverAvailable ? `到 ${DATA_FILE_NAME}` : '到浏览器缓存'}。</p>
             {renderRewardPanel(true)}
             <p className="mb-6 text-sm text-amber-900">本次最高连续答对 {sessionReward.bestStreak} 题。每一次认真尝试都在帮你记牢单词。</p>
             

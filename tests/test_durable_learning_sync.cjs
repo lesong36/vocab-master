@@ -138,7 +138,7 @@ const response = (events, count, ack = events.map(event => event.id)) => ({ data
     words: start.users[start.currentUserId].words, studyEvents: [], selectedGrade: null, selectedSections: [], readingFilters: { group: '', article: '', date: '', level: '' },
     cloudMasterStateLoaded: true, isHydrated: true, appState: 'select', syncRetryTick: 0,
     cloudMasterStateAppliedRef: { current: true }, cloudProgressWriteTimerRef: { current: null },
-    lastCloudProgressSnapshotRef: { current: '' }, syncInFlightRef: { current: false }, syncAccountRef: { current: accountId },
+    lastCloudProgressSnapshotRef: { current: '' }, syncInFlightRef: { current: false }, cloudOnlyModeRef: { current: false }, unconfirmedCloudEventsRef: { current: new Map() }, syncAccountRef: { current: accountId },
     usersRef: { current: start.users }, wordsRef: { current: start.users[start.currentUserId].words },
     saveTimerRef: { current: null }, serverAvailableRef: { current: false },
     clearTimeout() {}, useEffect(fn) { fn(); }, timers: [],

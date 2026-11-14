@@ -1818,7 +1818,7 @@
         localStorage.setItem(key, raw);
       }
     };
-    // Separate durable storage: localStorage's fixed quota must not block answer commits.
+    // Primary durable storage. localStorage is read only for legacy migration and the reader bridge.
     const learningOverflowItems = new Map();
     let learningDatabasePromise;
     const openLearningDatabase = () => {
@@ -1853,22 +1853,51 @@
         tx.onabort = tx.onerror = () => reject(tx.error || new Error('备用本机数据库写入失败'));
       });
     };
+    // Migrate only this app's data; retain conflicting legacy copies under a separate key.
     const refreshLearningOverflow = async () => {
-      if (typeof indexedDB !== 'undefined') await learningDatabaseTransaction();
+      await learningDatabaseTransaction();
+      const legacy = [];
+      try {
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (key?.startsWith('vocabmaster_') && key !== 'vocabmaster_reader_inbox_v1'
+              && key !== 'vocabmaster_feedback_sound' && !key.startsWith('vocabmaster_sync_device_v1:')) {
+            const raw = localStorage.getItem(key);
+            if (raw !== null) legacy.push([key, raw]);
+          }
+        }
+      } catch { return; } // IndexedDB remains usable when browser policy blocks localStorage.
+      if (!legacy.length) return;
+      const db = await openLearningDatabase();
+      const writes = [];
+      await new Promise((resolve, reject) => {
+        const tx = db.transaction('items', 'readwrite');
+        const store = tx.objectStore('items');
+        for (const [key, raw] of legacy) {
+          const request = store.get(key);
+          request.onsuccess = () => {
+            // Check inside the write transaction: another tab may have saved since our refresh.
+            const target = request.result && request.result.raw !== raw
+              ? `legacy-copy:${key}:${crypto.randomUUID()}` : key;
+            writes.push([target, raw]);
+            try { store.put({ key: target, raw }); }
+            catch { try { tx.abort(); } catch {} }
+          };
+        }
+        tx.oncomplete = resolve;
+        tx.onabort = tx.onerror = () => reject(tx.error || new Error('本机档案迁移失败'));
+      });
+      await learningDatabaseTransaction();
+      for (const [key, raw] of writes) {
+        if (learningOverflowItems.get(key) !== raw) throw new Error('本机档案迁移验证失败');
+      }
+      for (const [key, raw] of legacy) {
+        try { if (localStorage.getItem(key) === raw) localStorage.removeItem(key); } catch {}
+      }
     };
     const setLearningStorageItemDurable = async (key, raw) => {
-      // Once a key lives in the database, keep one authoritative location for it.
-      if (!learningOverflowItems.has(key)) {
-        try {
-          setLearningStorageItem(key, raw);
-          if (localStorage.getItem(key) !== raw) throw new Error('答题记录未能保存到本机');
-          return;
-        }
-        catch (error) {
-          if (error?.name !== 'QuotaExceededError' && !/quota/i.test(error?.message || '')) throw error;
-        }
-      }
       await learningDatabaseTransaction([[key, raw]]);
+      if (learningOverflowItems.get(key) !== raw) throw new Error('本机档案保存验证失败');
     };
     const enqueueLearningEventDurable = async (accountId, event) => {
       const key = learningEventPrefix(accountId) + event.id;
@@ -1876,10 +1905,6 @@
       return event;
     };
     const acknowledgeLearningEventsDurable = async (accountId, ids, metadata) => {
-      if (!learningOverflowItems.size) {
-        try { return acknowledgeLearningEvents(accountId, ids, metadata); }
-        catch (error) { if (error?.name !== 'QuotaExceededError' && !/quota/i.test(error?.message || '')) throw error; }
-      }
       const key = LEARNING_OUTBOX_PREFIX + learningAccountKey(accountId);
       const existing = readLearningOutbox(accountId);
       const confirmed = new Set(ids);
@@ -2540,7 +2565,7 @@
               // Same-account reload already has its durable primary snapshot; duplicating it can exceed quota.
               if (previousId?.startsWith('reader_') && previousId !== `reader_${session.user.id}`) {
                 const profile = previous.users[previousId];
-                if (profile) localStorage.setItem(`vocabmaster_account_archive_v3:${previousId.slice(7)}`, JSON.stringify(profile));
+                if (profile) await setLearningStorageItemDurable(`vocabmaster_account_archive_v3:${previousId.slice(7)}`, JSON.stringify(profile));
               }
             } catch (error) {
               void reportLearningSyncHealth({ accountId: session.user.id, rpc: readerSupabase.rpc.bind(readerSupabase), healthy: false, error: { syncHealthCode: 'storage_failed' } });
@@ -2607,7 +2632,7 @@
           let mergedState;
           try {
             const accountId = readerCloudUser?.id;
-            const archived = localStorage.getItem(`vocabmaster_account_archive_v3:${accountId}`);
+            const archived = learningOverflowItems.get(`vocabmaster_account_archive_v3:${accountId}`) || localStorage.getItem(`vocabmaster_account_archive_v3:${accountId}`);
             if (archived && !localState.users[`reader_${accountId}`]) localState.users[`reader_${accountId}`] = JSON.parse(archived);
             const localAccount = collapseToReaderAccount(localState, readerCloudUser);
             const accountUser = localAccount?.users?.[`reader_${accountId}`];
@@ -2719,7 +2744,7 @@
         if (imported > 0) {
           const mistakeKey = getMistakeBookKey('四上');
           applyWordsToState(updatedWords, '', [...new Set([...selectedSections, mistakeKey])], selectedGrade, true);
-          localStorage.setItem(`vocabmaster_pdf_mistakes_${Date.now()}`, JSON.stringify([...targets]));
+          void setLearningStorageItemDurable(`vocabmaster_pdf_mistakes_${Date.now()}`, JSON.stringify([...targets])).catch(error => setErrorMsg(`PDF 留档失败：${error.message}`));
           setErrorMsg(`PDF 的 ${imported} 个匹配词已单独留档；没有逐次答题记录，不能作为新错题同步，请实际练习或核实恢复。`);
         } else {
           setErrorMsg('PDF 中的单词未在当前词库中找到。');
@@ -3874,7 +3899,7 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
               return;
             }
             if (Array.isArray(parsed) && parsed.length > 0 && parsed[0].hasOwnProperty('english_word') && parsed[0].hasOwnProperty('correctCount')) {
-              localStorage.setItem(`vocabmaster_legacy_import_${Date.now()}`, JSON.stringify(parsed));
+              await setLearningStorageItemDurable(`vocabmaster_legacy_import_${Date.now()}`, JSON.stringify(parsed));
               applyWordsToState(parsed.map(word => ({ ...word, correctCount: 0, incorrectCount: 0, consecutiveCorrect: 0, mistakeCleared: false })), file.name, selectedSections);
               setErrorMsg('已导入词条，原历史计数已单独留档；缺少逐次答题凭据的计数需要核实恢复，未作为新答题上传。');
             } else {

@@ -1,0 +1,18 @@
+name: Storage regression
+on: [push, pull_request]
+jobs:
+  storage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install playwright
+      - run: python -m playwright install --with-deps chromium
+      - run: python -m http.server 8767 --bind 127.0.0.1 &
+      - run: python tests/test_storage_migration_p0.py
+      - run: python tests/test_learning_indexeddb_sync.py
+      - run: python tests/test_learning_indexeddb_quota_ui.py --reading --real-quota
+      - run: python tests/test_cloud_rescue_ui.py
+      - run: node tests/test_cloud_rescue_auth.cjs

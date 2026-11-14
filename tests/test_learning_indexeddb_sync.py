@@ -16,6 +16,14 @@ with sync_playwright() as p:
    ${source}
    return {enqueueLearningEventDurable,readLearningOutbox,refreshLearningOverflow,syncLearningOutbox,loadFromBrowser};`);
   const a=factory(storage), b=factory(storage);
+  disk.set('vocabmaster_old_recovery_backup','legacy-backup');
+  disk.set('readingmaster_settings','keep-reader');
+  await a.refreshLearningOverflow();
+  if(disk.has('vocabmaster_old_recovery_backup') || disk.get('readingmaster_settings')!=='keep-reader')throw new Error('Migration scope or cleanup failed');
+  const db=await new Promise((resolve,reject)=>{const r=indexedDB.open('vocabmaster_learning_v1',1);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)});
+  const migrated=await new Promise((resolve,reject)=>{const r=db.transaction('items').objectStore('items').get('vocabmaster_old_recovery_backup');r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)});
+  db.close();
+  if(migrated?.raw!=='legacy-backup')throw new Error('Backup not preserved');
   const event=id=>({id,at:'2026-11-12T00:00:00Z',wordId:'plastic',result:'correct',rewardPoints:10,wordDefinition:{id:'plastic',english_word:'plastic',chinese_meaning:'塑料',section:'四上Unit 3',sourceContext:'People use a lot of plastic.'}});
   await a.enqueueLearningEventDurable('account',event('answer-a'));
   await b.enqueueLearningEventDurable('account',event('answer-b'));

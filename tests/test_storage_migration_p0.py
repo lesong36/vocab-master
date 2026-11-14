@@ -1,4 +1,4 @@
-"""Actual IndexedDB transactions with fully unwritable localStorage, cross-tab and receipt checks."""
+"""Real 4.7-million-character legacy storage migration, conflicts and abort safety."""
 import json
 from pathlib import Path
 from playwright.sync_api import sync_playwright
@@ -13,26 +13,27 @@ with sync_playwright() as p:
  browser=p.chromium.launch(headless=True)
  page=browser.new_page();page.goto('http://127.0.0.1:8767/')
  result=page.evaluate('''async source => {
-  const disk=new Map();
+  window.localStorage.clear();
+  const disk={set:(k,v)=>window.localStorage.setItem(k,v),get:k=>window.localStorage.getItem(k)??undefined,has:k=>window.localStorage.getItem(k)!==null,delete:k=>window.localStorage.removeItem(k),keys:()=>Array.from({length:window.localStorage.length},(_,i)=>window.localStorage.key(i)),get size(){return window.localStorage.length}};
   const storage={get length(){return disk.size},key:i=>[...disk.keys()][i]??null,getItem:k=>disk.get(k)??null,removeItem:k=>disk.delete(k),setItem(){throw new Error('Unexpected localStorage write')}};
   const factory=new Function('localStorage', `const STORAGE_KEY='vocabmaster_app_data',STORAGE_VERSION=1,READING_VOCAB_SECTION='阅读生词本',MISTAKE_EXIT_STREAK=3;
    const isHiddenGrade=()=>false,parseSectionMeta=s=>({grade:s});
    ${source}
    return {enqueueLearningEventDurable,readLearningOutbox,refreshLearningOverflow,syncLearningOutbox,loadFromBrowser};`);
   const a=factory(storage);
-  disk.set('vocabmaster_app_data','old-snapshot');
-  disk.set('vocabmaster_old_recovery_backup','backup');
+  disk.set('vocabmaster_app_data',('s'.repeat(3100000)));
+  disk.set('vocabmaster_old_recovery_backup',('b'.repeat(1600000)));
   disk.set('readingmaster_settings','keep');
   await a.refreshLearningOverflow();
   if(disk.size!==1||disk.get('readingmaster_settings')!=='keep')throw new Error('Migration cleanup/scope');
   const inspect=async()=>{const db=await new Promise((ok,no)=>{const r=indexedDB.open('vocabmaster_learning_v1',1);r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error)});const rows=await new Promise((ok,no)=>{const r=db.transaction('items').objectStore('items').getAll();r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error)});db.close();return rows};
   let rows=await inspect();
-  if(!rows.some(r=>r.key==='vocabmaster_app_data'&&r.raw==='old-snapshot')||!rows.some(r=>r.raw==='backup'))throw new Error('Missing originals');
+  if(!rows.some(r=>r.key==='vocabmaster_app_data'&&r.raw===('s'.repeat(3100000)))||!rows.some(r=>r.raw===('b'.repeat(1600000))))throw new Error('Missing originals');
   await a.refreshLearningOverflow();
   if((await inspect()).length!==rows.length)throw new Error('Not idempotent');
   disk.set('vocabmaster_app_data','conflicting-old-snapshot');
   await a.refreshLearningOverflow();rows=await inspect();
-  if(!rows.some(r=>r.key==='vocabmaster_app_data'&&r.raw==='old-snapshot')||!rows.some(r=>r.key.startsWith('legacy-copy:')&&r.raw==='conflicting-old-snapshot'))throw new Error('Conflict lost');
+  if(!rows.some(r=>r.key==='vocabmaster_app_data'&&r.raw===('s'.repeat(3100000)))||!rows.some(r=>r.key.startsWith('legacy-copy:')&&r.raw==='conflicting-old-snapshot'))throw new Error('Conflict lost');
   disk.set('vocabmaster_abort_backup','must-survive');
   const original=IDBObjectStore.prototype.put;
   IDBObjectStore.prototype.put=function(value){if(value.key==='vocabmaster_abort_backup'){this.transaction.abort();throw new Error('Injected migration abort')}return original.call(this,value)};

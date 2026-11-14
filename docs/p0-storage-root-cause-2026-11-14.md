@@ -38,3 +38,17 @@ ReadingMaster 已迁移数据库，截图中两道答案已保存、待保存为
 仅提交本故障相关文件，不包含工作区既有词库及数据库告警修改。入口版本更新为 20261114-p0-indexeddb-primary。GitHub Pages 从 main 发布；发布后比对线上 HTML 与本地内容并用线上整页重复真实配额测试。证据见 tests/test_storage_migration_p0.py、tests/test_learning_indexeddb_sync.py 和 outputs/recovery 下浏览器测试结果。
 
 回滚不能直接回到不读 IndexedDB 的旧版本，否则已迁移档案可能不可见；应保留 IndexedDB 读取和云端救援能力，以前向修复为主。迁移不删除 IndexedDB 中的历史与备份。
+
+## 已完成验证与上线证据
+
+修复提交：32a7ba0aca13662e81e28cba0eec5d0b785b3a33。
+
+- GitHub Pages 发布成功：https://github.com/lesong36/vocab-master/actions/runs/43547192406
+- 自动存储回归全部通过：https://github.com/lesong36/vocab-master/actions/runs/43547194443
+- 线上 HTML 与本地逐字节一致，SHA256：0704b45a53fcbcd314fe49a014afd63c61c5cb756971561a4ff769f61103374f。
+- 线上整页真实满额测试通过：初始约 5,242,183 字符、165 键；答题保存、继续、刷新恢复唯一事件及准确次数和 10 积分，页面异常为零。
+- 线上故意阻断快照写入：独立事件仍持久保存，刷新可恢复；页面异常为零。
+- 线上同时阻断两种本地库、无有效云端：明确失败、积分零、不可继续，未假报成功。
+- 单独真实 localStorage 迁移测试：主项 3,100,000 字符、备份 1,600,000 字符；精确原值迁入、旧键释放、冲突保留、重复执行不增加副本、事务中止保留原件、其他项目不受影响。此场景已纳入常规自动测试。
+
+以上浏览器测试均为隔离合成账号，不写真实学习者云端记录。用户原 Edge 的实际迁移后占用仍未直接测量；不能将线上隔离验证写成已操作用户设备。

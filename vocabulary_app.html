@@ -19,6 +19,7 @@
 <body>
   <div id="root"></div>
 
+  <script src="release.js?v=2026.11.16.1"></script>
   <script src="learning_delta_sync.js?v=20261115-delta-v4"></script>
   <script type="text/babel" data-type="module">
     import React, { useState, useEffect, useMemo, useRef } from 'https://esm.sh/react@18.2.0';
@@ -2356,6 +2357,49 @@
       });
       return splitAlternativeWords(parsedWords);
     };
+
+    const APP_RELEASE = window.VOCAB_RELEASE || { version: '版本信息未加载', date: '', title: '', notes: [], history: [] };
+    function ReleaseInfo() {
+      const [checking, setChecking] = useState(false);
+      const [message, setMessage] = useState('');
+      const [latest, setLatest] = useState(null);
+      const check = async () => {
+        setChecking(true);
+        try {
+          const response = await fetch('release.json', { cache: 'no-store' });
+          if (!response.ok) throw new Error('release unavailable');
+          const release = await response.json();
+          if (!/^\d{4}\.\d{2}\.\d{2}\.\d+$/.test(release.version || '')) throw new Error('invalid release');
+          const newer = release.version.split('.').map(Number).findIndex((value, index) => value !== Number(APP_RELEASE.version.split('.')[index]));
+          const available = newer >= 0 && Number(release.version.split('.')[newer]) > Number(APP_RELEASE.version.split('.')[newer]);
+          setLatest(available ? release : null);
+          setMessage(available ? `新版本 ${release.version} 已发布` : '当前已是最新版');
+        } catch { setMessage('暂时无法检查更新，请稍后重试'); }
+        finally { setChecking(false); }
+      };
+      return (
+        <details className="relative text-sm" data-testid="release-info">
+          <summary className="cursor-pointer list-none rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700 hover:bg-blue-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-600" aria-label="查看版本和更新记录">
+            版本 {APP_RELEASE.version} <span aria-hidden="true">⌄</span>
+          </summary>
+          <div className="absolute left-0 top-full z-50 mt-3 w-72 max-w-[calc(100vw-3rem)] rounded-xl border border-gray-200 bg-white p-4 shadow-lg">
+            <p className="font-semibold text-gray-900">{APP_RELEASE.title}</p>
+            <p className="mt-1 text-xs text-gray-500">构建日期 {APP_RELEASE.date}</p>
+            <ul className="mt-3 space-y-2 text-xs leading-relaxed text-gray-600">{APP_RELEASE.notes.map(note => <li key={note}>· {note}</li>)}</ul>
+            <div className="mt-4 border-t border-gray-100 pt-3">
+              <button type="button" onClick={check} disabled={checking} className="rounded-lg bg-blue-700 px-3 py-2 text-xs font-semibold text-white hover:bg-blue-800 disabled:opacity-50">{checking ? '正在检查…' : '检查更新'}</button>
+              {latest && <button type="button" onClick={() => { const url = new URL(location.href); url.searchParams.set('v', latest.version); location.replace(url.href); }} className="ml-2 rounded-lg border border-blue-200 px-3 py-2 text-xs text-blue-700">刷新到新版</button>}
+              <p className="mt-2 text-xs text-gray-600" role="status" aria-live="polite">{message}</p>
+            </div>
+            <details className="mt-3 border-t border-gray-100 pt-3 text-xs text-gray-600">
+              <summary className="cursor-pointer">历史更新</summary>
+              {APP_RELEASE.history.map(item => <div key={item.version} className="mt-3"><p className="font-semibold">{item.date} · {item.title}</p><p className="mt-1 leading-relaxed">{item.summary}</p></div>)}
+              <a href="https://github.com/lesong36/vocab-master/tags" target="_blank" rel="noreferrer" className="mt-3 inline-block text-blue-700 underline">查看发布版本</a>
+            </details>
+          </div>
+        </details>
+      );
+    }
 
     function App() {
       const [appState, setAppState] = useState('import'); // 'import', 'select', 'study', 'flashcards', 'summary', 'print', 'users'
@@ -5903,10 +5947,13 @@ ${retry ? '上一次输出未通过格式或唯一正确性校验。现在必须
 
           <header className="bg-white border-b border-gray-200 shadow-sm px-6 py-4 mb-8 no-print">
             <div className="max-w-4xl mx-auto flex flex-wrap items-center justify-between gap-4">
+              <div className="flex flex-wrap items-center gap-3">
               <h1 className="text-xl font-bold text-blue-700 flex items-center gap-2">
                 <BookOpen size={24} />
                 VocabMaster 单词达人
               </h1>
+              <ReleaseInfo />
+              </div>
 
               <div className="flex items-center gap-3 flex-wrap justify-end">
                 {serverAvailable && (

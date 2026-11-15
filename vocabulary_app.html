@@ -2505,6 +2505,7 @@
       const cloudMasterStateAppliedRef = useRef(false);
       const encryptedReaderAiKeyRef = useRef(null);
       const syncInFlightRef = useRef(false);
+      const syncRetryStateRef = useRef({ accountId: null, failures: 0, after: 0 });
       const syncAccountRef = useRef(null);
       const [syncRetryTick, setSyncRetryTick] = useState(0);
 
@@ -3013,6 +3014,7 @@
         if (cloudProgressWriteTimerRef.current) clearTimeout(cloudProgressWriteTimerRef.current);
         cloudProgressWriteTimerRef.current = setTimeout(async () => {
           if (syncInFlightRef.current || cloudOnlyModeRef.current) return;
+          if (syncRetryStateRef.current.accountId === readerCloudUser.id && Date.now() < syncRetryStateRef.current.after) return;
           const accountId = readerCloudUser.id;
           if (syncAccountRef.current !== accountId) return;
           syncInFlightRef.current = true;
@@ -3024,6 +3026,7 @@
               isCurrentAccount: () => syncAccountRef.current === accountId,
             });
             if (!result) return;
+            syncRetryStateRef.current = { accountId, failures: 0, after: 0 };
             const authoritative = replayPendingLearningEvents(reconcileLearningState(result.appState, { users: usersRef.current }, accountId), accountId, readLearningOutbox(accountId).events);
             if (learningSnapshotKey(usersRef.current) !== learningSnapshotKey(authoritative.users)) {
               usersRef.current = authoritative.users;
@@ -3052,6 +3055,8 @@
               : newerLocalMetadata ? '已确认本次同步；本机最新变更正在等待云端确认。' : '学习档案已由云端确认保存。');
           } catch (error) {
             if (syncAccountRef.current === accountId) {
+              const failures = syncRetryStateRef.current.accountId === accountId ? syncRetryStateRef.current.failures + 1 : 1;
+              syncRetryStateRef.current = { accountId, failures, after: Date.now() + Math.min(120000, 15000 * 2 ** Math.min(failures - 1, 3)) };
               void reportLearningSyncHealth({ accountId, rpc: readerSupabase.rpc.bind(readerSupabase), healthy: false, error });
               let pending = 0;
               try { pending = readLearningOutbox(accountId).events.length; } catch {}

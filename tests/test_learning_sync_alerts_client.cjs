@@ -87,7 +87,7 @@ const settle = async () => { for (let index = 0; index < 6; index++) await Promi
     STORAGE_VERSION: 1, readerCloudUser: { id: 'effect' }, currentUserId: 'reader_effect',
     cloudMasterStateLoaded: true, cloudMasterStateAppliedRef: { current: true }, syncAccountRef: { current: 'effect' },
     words: [], users: state.users, usersRef: { current: state.users }, wordsRef: { current: [] },
-    syncInFlightRef: { current: false }, cloudOnlyModeRef: { current: false }, unconfirmedCloudEventsRef: { current: new Map() }, cloudProgressWriteTimerRef: { current: null },
+    syncInFlightRef: { current: false }, syncRetryStateRef: { current: { accountId: null, failures: 0, after: 0 } }, cloudOnlyModeRef: { current: false }, unconfirmedCloudEventsRef: { current: new Map() }, cloudProgressWriteTimerRef: { current: null },
     lastCloudProgressSnapshotRef: { current: '' }, syncRetryTick: 0,
     useEffect(fn) { fn(); }, setTimeout(fn) { timers.push(fn); return timers.length; }, clearTimeout() {},
     collapseToReaderAccount: state => state, learningSnapshotKey: JSON.stringify,
@@ -109,6 +109,9 @@ const settle = async () => { for (let index = 0; index < 6; index++) await Promi
   vm.runInContext(syncEffect, ctx);
   await timers.shift()(); await settle();
   assert.equal(effectCalls.at(-1).args.p_error_code, 'database_rejected');
+  assert.equal(ctx.syncRetryStateRef.current.failures, 1);
+  vm.runInContext(syncEffect, ctx); await timers.shift()(); await settle();
+  assert.equal(effectCalls.length, 1, 'Backoff suppresses repeated sync while preserving failure telemetry');
   healthFails = false; now += 15000;
   vm.runInContext(heartbeat, ctx); await settle();
   assert.equal(effectCalls.length, 2);
@@ -117,6 +120,7 @@ const settle = async () => { for (let index = 0; index < 6; index++) await Promi
   vm.runInContext(syncEffect, ctx);
   await timers.shift()(); await settle();
   assert.equal(effectCalls.at(-1).args.p_healthy, true);
+  assert.equal(ctx.syncRetryStateRef.current.failures, 0, 'Success resets retry backoff');
   assert.equal(effectCalls.at(-1).args.p_error_code, null);
   vm.runInContext(syncEffect, ctx);
   assert.equal(timers.length, 0, 'Health acknowledgement causes no snapshot sync loop');

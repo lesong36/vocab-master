@@ -7,7 +7,7 @@ html=(ROOT/'vocabulary_app.html').read_text()
 source=html[html.index('const normalizeWordStats ='):html.index('const pickNewerData =')]
 with sync_playwright() as p:
  browser=p.chromium.launch(headless=True)
- page=browser.new_page();page.goto('http://127.0.0.1:8767/')
+ page=browser.new_page();page.goto('http://127.0.0.1:8767/');page.add_script_tag(path=str(ROOT/'learning_delta_sync.js'))
  result=page.evaluate('''async source => {
   const disk=new Map();
   const storage={get length(){return disk.size},key:i=>[...disk.keys()][i]??null,getItem:k=>disk.get(k)??null,removeItem:k=>disk.delete(k),setItem(){throw new DOMException('Quota exceeded','QuotaExceededError')}};
@@ -30,18 +30,27 @@ with sync_playwright() as p:
   await b.enqueueLearningEventDurable('foreign',event('foreign-answer'));
   const user={id:'reader_account',words:[{id:'plastic',correctCount:0,incorrectCount:0}],studyEvents:[],rewardLedger:{}};
   const master={version:3,appState:{version:1,currentUserId:user.id,users:{[user.id]:user}}};
-  let submitted;
-  const receipt=await a.syncLearningOutbox({accountId:'account',master,rpc:async(_name,args)=>{
-   submitted=args.p_master;
+  let submitted, partialRejected=false;
+  const envelope=(extra={})=>({full:false,epoch:'test-epoch',revision:1,words:[],events:[],profile:{},tombstones:[],acknowledgedEventIds:[],hasMore:false,...extra});
+  const rpc=async(name,args)=>{
+   if(name==='read_vocab_delta_v4')return {data:envelope({full:true,words:user.words,profile:{id:user.id}})};
+   submitted=args.p_changes;
    await b.enqueueLearningEventDurable('account',event('during-request'));
-   return {data:{master:args.p_master,epoch:'test-epoch',revision:1,acknowledgedEventIds:['answer-a']}};
-  }});
+   return {data:envelope({words:[{...user.words[0],correctCount:2}],events:args.p_changes.events,acknowledgedEventIds:['answer-a']})};
+  };
+  try{await a.syncLearningOutbox({accountId:'account',master,rpc})}catch(error){partialRejected=error.syncHealthCode==='receipt_invalid'}
+  if(!partialRejected)throw new Error('Partial receipt reported success');
+  await a.refreshLearningOverflow();
   const pending=a.readLearningOutbox('account').events.map(e=>e.id).sort();
-  if(JSON.stringify(pending)!==JSON.stringify(['answer-b','during-request']))throw new Error('Wrong remaining IDs: '+pending);
-  if(submitted.appState.users.reader_account.words[0].correctCount!==2)throw new Error('Cross-tab answers not submitted');
+  if(JSON.stringify(pending)!==JSON.stringify(['answer-a','answer-b','during-request']))throw new Error('Partial receipt lost IDs: '+pending);
+  if(submitted.events.length!==2||submitted.events.some(e=>e.id==='during-request'))throw new Error('Cross-tab request boundary lost');
+  const receipt=await a.syncLearningOutbox({accountId:'account',master,rpc:async(name,args)=>{
+   if(name!=='sync_vocab_delta_v4')throw Error('Unexpected bootstrap');
+   return {data:envelope({revision:2,words:[{...user.words[0],correctCount:3}],events:args.p_changes.events,acknowledgedEventIds:args.p_changes.events.map(e=>e.id)})};
+  }});
   const c=factory(storage);await c.refreshLearningOverflow();
   if(c.readLearningOutbox('foreign').events.length!==1)throw new Error('Foreign answer lost');
-  if(c.readLearningOutbox('account').events.length!==2)throw new Error('Reload lost pending records');
+  if(c.readLearningOutbox('account').events.length!==0)throw new Error('Confirmed records not retired');
   if(c.loadFromBrowser().users.reader_account.studyEvents.length!==3)throw new Error('Acknowledged snapshot not durably saved');
   const put=IDBObjectStore.prototype.put;
   IDBObjectStore.prototype.put=function(value){ if(value.key.endsWith(':aborted')){this.transaction.abort();throw new DOMException('Abort test','AbortError')}return put.call(this,value)};
@@ -49,7 +58,7 @@ with sync_playwright() as p:
   IDBObjectStore.prototype.put=put;
   await c.refreshLearningOverflow();
   if(!rejected||c.readLearningOutbox('account').events.some(e=>e.id==='aborted'))throw new Error('Aborted transaction reported success');
-  return {localStorageWrites:'all rejected',submittedAnswers:2,pendingAfterPartialReceipt:pending,foreignPreserved:true,reloadSnapshotEvents:c.loadFromBrowser().users.reader_account.studyEvents.length,abortedWriteRejected:rejected,health:receipt.healthErrorCode};
+  return {localStorageWrites:'all rejected',submittedAnswers:2,pendingAfterPartialReceipt:pending,partialReceiptRejected:partialRejected,foreignPreserved:true,reloadSnapshotEvents:c.loadFromBrowser().users.reader_account.studyEvents.length,abortedWriteRejected:rejected,health:receipt.healthErrorCode};
  }''',source)
  print('PASS:',json.dumps(result,ensure_ascii=False))
  out=ROOT/'outputs/recovery/indexeddb-quota';out.mkdir(parents=True,exist_ok=True)

@@ -16,3 +16,6 @@ jobs:
       - run: python tests/test_learning_indexeddb_quota_ui.py --reading --real-quota
       - run: python tests/test_cloud_rescue_ui.py
       - run: node tests/test_cloud_rescue_auth.cjs
+      - run: node tests/test_learning_delta_sync.cjs
+      - run: node tests/test_learning_sync_alerts_client.cjs
+      - run: python tests/test_learning_delta_ui.py

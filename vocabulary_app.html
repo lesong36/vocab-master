@@ -19,6 +19,7 @@
 <body>
   <div id="root"></div>
 
+  <script src="learning_delta_sync.js?v=20261115-delta-v4"></script>
   <script type="text/babel" data-type="module">
     import React, { useState, useEffect, useMemo, useRef } from 'https://esm.sh/react@18.2.0';
     import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client?deps=react@18.2.0';
@@ -2124,31 +2125,27 @@
         updatedAt: events.at(-1)?.at || user.updatedAt,
       } } };
     };
+    let learningDeltaClient;
+    const getLearningDeltaClient = () => learningDeltaClient ||= globalThis.VocabDeltaSync.create();
+    const learningDeltaCacheKey = accountId => `vocabmaster_delta_cache_v4:${accountId}`;
+    const seedLearningDeltaCache = accountId => {
+      const client = getLearningDeltaClient();
+      if (!client.snapshot(accountId)) {
+        const raw = learningOverflowItems.get(learningDeltaCacheKey(accountId));
+        if (raw) { try { client.seed(accountId, JSON.parse(raw)); } catch {} }
+      }
+      return client;
+    };
     const syncLearningOutbox = async ({ accountId, master, rpc, isCurrentAccount = () => true }) => {
       if (typeof indexedDB !== 'undefined') await refreshLearningOverflow();
       const box = readLearningOutbox(accountId);
       const submitted = sanitizeLearningPayload(master);
       if (submitted.appState?.users?.[`reader_${accountId}`]) submitted.appState = replayPendingLearningEvents(submitted.appState, accountId, box.events);
-      let { data, error } = await rpc('sync_vocab_master_v3', {
-        p_master: submitted, p_mutation_id: learningMutationId(), p_expected_epoch: box.epoch,
-      });
-      if (error && (error.details === 'VMEPOCH' || error.detail === 'VMEPOCH' || String(error.code).includes('409') || /epoch/i.test(error.message || ''))) {
-        const bootstrap = await rpc('sync_vocab_master_v3', {
-          p_master: { version: 3, appState: { version: STORAGE_VERSION, currentUserId: `reader_${accountId}`, users: {} } },
-          p_mutation_id: learningMutationId(), p_expected_epoch: null,
-        });
-        if (bootstrap.error) throw bootstrap.error;
-        const fresh = Array.isArray(bootstrap.data) ? bootstrap.data[0] : bootstrap.data;
-        if (!fresh?.master?.appState || !fresh.epoch) throw Object.assign(new Error('云端档案版本读取失败。'), { syncHealthCode: 'receipt_invalid' });
-        if (!isCurrentAccount()) return null;
-        const pending = readLearningOutbox(accountId);
-        const rebased = replayPendingLearningEvents(reconcileLearningState(fresh.master.appState, submitted.appState, accountId), accountId, pending.events);
-        ({ data, error } = await rpc('sync_vocab_master_v3', {
-          p_master: sanitizeLearningPayload({ ...fresh.master, appState: rebased }),
-          p_mutation_id: learningMutationId(), p_expected_epoch: fresh.epoch,
-        }));
-      }
-      if (error) throw error;
+      const client = seedLearningDeltaCache(accountId);
+      const data = await client.sync({ accountId, appState: submitted.appState, events: box.events, rpc, isCurrentAccount,
+        onCache: saved => setLearningStorageItemDurable(learningDeltaCacheKey(accountId), JSON.stringify(saved)),
+        rebase: (remote, local) => replayPendingLearningEvents(reconcileLearningState(remote, local, accountId), accountId, box.events) });
+      if (!data) return null;
       const response = Array.isArray(data) ? data[0] : data;
       if (!response?.master?.appState || !Array.isArray(response.acknowledgedEventIds) || !response.epoch || !Number.isInteger(response.revision)) throw Object.assign(new Error('云端未确认答题记录，稍后将继续重试。'), { syncHealthCode: 'receipt_invalid' });
       if (!isCurrentAccount()) return null;
@@ -2169,41 +2166,20 @@
 
     // This recovery path deliberately has no dependency on browser storage.
     const commitLearningEventToCloud = async ({ accountId, appState, event, pending = [], rpc, isCurrentAccount = () => true }) => {
-      const userId = `reader_${accountId}`;
-      const mutationId = event.id; // Reuse the same immutable event after an ambiguous network failure.
-      const call = async (args) => {
+      const client = getLearningDeltaClient();
+      const call = async (name, args) => {
         let timer;
         try {
-          return await Promise.race([rpc('sync_vocab_master_v3', args), new Promise((_, reject) => {
+          return await Promise.race([rpc(name, args), new Promise((_, reject) => {
             timer = setTimeout(() => reject(new Error('云端保存超时，请重试')), 20000);
           })]);
         } finally { clearTimeout(timer); }
       };
-      const bootstrap = await call({
-        p_master: { version: 3, appState: { version: STORAGE_VERSION, currentUserId: userId, users: {} } },
-        p_mutation_id: learningMutationId(), p_expected_epoch: null,
-      });
-      if (bootstrap.error) throw bootstrap.error;
-      const fresh = Array.isArray(bootstrap.data) ? bootstrap.data[0] : bootstrap.data;
-      if (!fresh?.epoch || !fresh.master?.appState) throw new Error('云端灾备读取未获确认');
-      if (!isCurrentAccount()) throw new Error('学习账号已切换');
-      const remote = fresh.master.appState;
-      const base = remote.users?.[userId] ? reconcileLearningState(remote, appState, accountId) : appState;
-      if (!base?.users?.[userId]) throw new Error('云端灾备账号不匹配');
-      const submitted = replayPendingLearningEvents(base, accountId, mergeStudyEvents(pending, [event]));
-      const { data, error } = await call({
-        p_master: sanitizeLearningPayload({ version: 3, appState: submitted }),
-        p_mutation_id: mutationId, p_expected_epoch: fresh.epoch,
-      });
-      if (error) throw error;
-      const receipt = Array.isArray(data) ? data[0] : data;
-      const profile = receipt?.master?.appState?.users?.[userId];
-      if (!receipt?.epoch || !Number.isInteger(receipt.revision)
-          || !Array.isArray(receipt.acknowledgedEventIds) || !receipt.acknowledgedEventIds.includes(event.id)
-          || !Array.isArray(profile?.words) || !Array.isArray(profile?.studyEvents) || !profile.studyEvents.some(item => item.id === event.id)) {
-        throw new Error('云端尚未确认这次答题，请重试');
-      }
-      if (!isCurrentAccount()) throw new Error('学习账号已切换');
+      const result = await client.sync({ accountId, appState: sanitizeLearningPayload(appState), events: sanitizeLearningPayload(mergeStudyEvents(pending, [event])), rpc: call, isCurrentAccount,
+        rebase: (remote, local) => replayPendingLearningEvents(reconcileLearningState(remote, local, accountId), accountId, mergeStudyEvents(pending, [event])) });
+      if (!result) throw new Error('学习账号已切换');
+      const profile = result.master.appState.users[`reader_${accountId}`];
+      if (!result.acknowledgedEventIds.includes(event.id) || !profile.studyEvents.some(item => item.id === event.id)) throw new Error('云端尚未确认这次答题，请重试');
       return profile;
     };
 
@@ -2578,7 +2554,7 @@
           try {
             ({ data, error } = await readerSupabase
               .from('reader_sync_state')
-              .select('vocabulary, vocab_master_progress, preferences, encrypted_ai_key')
+              .select('vocabulary, preferences, encrypted_ai_key')
               .eq('user_id', session.user.id)
               .maybeSingle());
           } catch (loadError) { error = loadError; }
@@ -2597,9 +2573,21 @@
               ? '已读取阅读器的模型设置；输入同步加密口令后即可在本机调用 AI 助记。'
               : '阅读器尚未同步 AI Key；请先在阅读器的“云同步账号”中设置同步加密口令。'
           );
-          const masterState = data?.vocab_master_progress && typeof data.vocab_master_progress === 'object'
-            ? data.vocab_master_progress
-            : {};
+          let deltaSnapshot;
+          try {
+            try { await refreshLearningOverflow(); } catch {} // Cloud recovery remains available if local persistence is unavailable.
+            const client = seedLearningDeltaCache(session.user.id);
+            deltaSnapshot = await client.read({ accountId: session.user.id, rpc: readerSupabase.rpc.bind(readerSupabase),
+              onCache: async saved => { try { await setLearningStorageItemDurable(learningDeltaCacheKey(session.user.id), JSON.stringify(saved)); } catch {} },
+              isCurrentAccount: () => !cancelled && syncAccountRef.current === session.user.id });
+            if (!deltaSnapshot) return;
+            try { await setLearningStorageItemDurable(learningDeltaCacheKey(session.user.id), JSON.stringify(client.snapshot(session.user.id))); } catch {}
+          } catch (deltaError) {
+            void reportLearningSyncHealth({ accountId: session.user.id, rpc: readerSupabase.rpc.bind(readerSupabase), healthy: false, error: deltaError });
+            setCloudReadingStatus(`读取增量学习档案失败：${deltaError.message}；本机记录已保留。`);
+            return;
+          }
+          const masterState = deltaSnapshot.master;
           const progress = masterState.words && typeof masterState.words === 'object'
             ? masterState.words
             : {};

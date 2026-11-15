@@ -31,12 +31,24 @@ with sync_playwright() as p:
    global backend
    name=route.request.url.rsplit('/',1)[-1];args=route.request.post_data_json
    if name=='report_vocab_sync_health_v1':data={'data':True,'error':None}
-   elif name=='read' or not args.get('p_master',{}).get('appState',{}).get('users'):
-    data={'data':{'master':backend,'epoch':'test-epoch','revision':1,'acknowledgedEventIds':[]},'error':None}
-   else:
-    backend=copy.deepcopy(args['p_master']);events=backend['appState']['users'][uid]['studyEvents'];submitted_ids.append(events[-1]['id'])
-    if mode=='lost-response' and not lost[0]:lost[0]=True;route.abort();return
-    data={'data':{'master':backend,'epoch':'test-epoch','revision':2,'acknowledgedEventIds':[] if mode=='bad-receipt' else [e['id'] for e in events]},'error':None}
+   elif name=='read':data={'data':{'master':backend,'epoch':'test-epoch','revision':1,'acknowledgedEventIds':[]},'error':None}
+   elif name=='read_vocab_delta_v4':
+    u=backend['appState']['users'][uid]
+    data={'data':{'full':True,'epoch':'test-epoch','revision':1,'words':u['words'],'events':u['studyEvents'],'profile':{k:v for k,v in u.items() if k not in ['words','studyEvents']},'tombstones':[],'acknowledgedEventIds':[],'hasMore':False},'error':None}
+   elif name=='sync_vocab_delta_v4':
+    changes=args['p_changes'];u=backend['appState']['users'][uid]
+    known={e['id']:e for e in u['studyEvents']}
+    for e in changes['events']:
+     submitted_ids.append(e['id'])
+     if e['id'] not in known:
+      known[e['id']]=copy.deepcopy(e)
+      u['words'][0]['correctCount']=u['words'][0].get('correctCount',0)+(e['result']=='correct')
+      u['words'][0]['incorrectCount']=u['words'][0].get('incorrectCount',0)+(e['result']=='incorrect')
+      u.setdefault('rewardLedger',{})[e['id']]=e.get('rewardPoints',0)
+    u['studyEvents']=list(known.values())
+    if mode=='lost-response' and changes['events'] and not lost[0]:lost[0]=True;route.abort();return
+    data={'data':{'full':False,'epoch':'test-epoch','revision':2,'words':u['words'],'events':[known[e['id']] for e in changes['events']],'profile':{},'tombstones':[],'acknowledgedEventIds':[] if mode=='bad-receipt' else [e['id'] for e in changes['events']],'hasMore':False},'error':None}
+   else:raise AssertionError('Unexpected RPC '+name)
    route.fulfill(json=data,headers={'Access-Control-Allow-Origin':'*'})
   context.route('https://fixture.invalid/**',rpc)
   context.route('**/vocabulary_app.html?cloud-rescue',lambda r:r.fulfill(body=source,content_type='text/html'))

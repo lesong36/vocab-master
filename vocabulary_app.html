@@ -19,8 +19,9 @@
 <body>
   <div id="root"></div>
 
-  <script src="release.js?v=2026.11.16.1"></script>
+  <script src="release.js?v=2026.11.16.2"></script>
   <script src="learning_delta_sync.js?v=20261115-delta-v4"></script>
+  <script src="reading_inbox.js?v=20261116-review-v1"></script>
   <script type="text/babel" data-type="module">
     import React, { useState, useEffect, useMemo, useRef } from 'https://esm.sh/react@18.2.0';
     import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client?deps=react@18.2.0';
@@ -2598,7 +2599,7 @@
           try {
             ({ data, error } = await readerSupabase
               .from('reader_sync_state')
-              .select('vocabulary, preferences, encrypted_ai_key')
+              .select('preferences, encrypted_ai_key')
               .eq('user_id', session.user.id)
               .maybeSingle());
           } catch (loadError) { error = loadError; }
@@ -2608,7 +2609,7 @@
             setCloudReadingStatus(`读取阅读器云端生词失败：${error.message}`);
             return;
           }
-          setCloudReadingEntries(Array.isArray(data?.vocabulary) ? data.vocabulary : []);
+
           const aiPreferences = data?.preferences && typeof data.preferences === 'object' ? data.preferences : {};
           setReaderAiPreferences(aiPreferences);
           encryptedReaderAiKeyRef.current = data?.encrypted_ai_key || null;
@@ -2640,12 +2641,44 @@
           setCloudMasterStateLoaded(true);
           // Require an actual sync receipt before the first healthy session report.
           lastCloudProgressSnapshotRef.current = '';
-          setCloudReadingStatus(`已连接阅读器云端：${Array.isArray(data?.vocabulary) ? data.vocabulary.length : 0} 个生词。`);
+          setCloudReadingStatus('已连接阅读器云端，阅读生词将单独刷新并等待教师确认。');
         };
         readerSupabase.auth.getSession().then(({ data }) => loadCloudVocabulary(data.session));
         const { data: { subscription } } = readerSupabase.auth.onAuthStateChange((_event, session) => loadCloudVocabulary(session));
         return () => { cancelled = true; subscription.unsubscribe(); };
       }, []);
+
+      // Refresh only the review inbox; never reapply the learning profile on a timer.
+      useEffect(() => {
+        const accountId = readerCloudUser?.id;
+        setCloudReadingEntries([]);
+        setReadingImportReview(null);
+        setReadingImportSelectedKeys([]);
+        if (!accountId) return;
+        let cancelled = false;
+        let inFlight = false;
+        const isCurrent = () => !cancelled && syncAccountRef.current === accountId;
+        const refresh = async () => {
+          if (inFlight || document.visibilityState === 'hidden' || !isCurrent()) return;
+          inFlight = true;
+          try {
+            const entries = await ReadingInbox.read(readerSupabase.rpc.bind(readerSupabase), isCurrent);
+            if (entries && isCurrent()) setCloudReadingEntries(entries);
+          } catch (error) {
+            if (isCurrent()) setCloudReadingStatus(`读取待审核阅读生词失败：${error.message || '请稍后重试'}；已有审核和学习记录已保留。`);
+          } finally { inFlight = false; }
+        };
+        void refresh();
+        const timer = setInterval(refresh, 30000);
+        window.addEventListener('focus', refresh);
+        document.addEventListener('visibilitychange', refresh);
+        return () => {
+          cancelled = true;
+          clearInterval(timer);
+          window.removeEventListener('focus', refresh);
+          document.removeEventListener('visibilitychange', refresh);
+        };
+      }, [readerCloudUser?.id]);
 
       const currentUser = currentUserId ? users[currentUserId] : null;
       const ignoredReadingWordIds = useMemo(() => new Set(currentUser?.ignoredReadingWordIds || []), [currentUser]);

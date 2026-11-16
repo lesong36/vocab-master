@@ -20,3 +20,5 @@ jobs:
       - run: node tests/test_learning_delta_sync.cjs
       - run: node tests/test_learning_sync_alerts_client.cjs
       - run: python tests/test_learning_delta_ui.py
+      - run: node tests/test_reading_inbox.cjs
+      - run: python tests/test_reading_inbox_ui.py

@@ -30,7 +30,8 @@ with sync_playwright() as p:
   def rpc(route):
    global backend
    name=route.request.url.rsplit('/',1)[-1];args=route.request.post_data_json
-   if name=='report_vocab_sync_health_v1':data={'data':True,'error':None}
+   if name=='read_reader_vocabulary_for_review_v1':data={'data':{'entries':[],'hasMore':False},'error':None}
+   elif name=='report_vocab_sync_health_v1':data={'data':True,'error':None}
    elif name=='read':data={'data':{'master':backend,'epoch':'test-epoch','revision':1,'acknowledgedEventIds':[]},'error':None}
    elif name=='read_vocab_delta_v4':
     u=backend['appState']['users'][uid]
